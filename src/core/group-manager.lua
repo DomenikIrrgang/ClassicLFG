@@ -92,7 +92,9 @@ function ClassicLFGGroupManager:RemoveApplicant(applicant)
     local index = self.Applicants:ContainsWithEqualsFunction(applicant, function(item1, item2)
         return item1.Name == item2.Name
     end)
-    self.Applicants:RemoveItem(index)
+    if (index ~= nil) then
+        self.Applicants:RemoveItem(index)
+    end
 end
 
 function ClassicLFGGroupManager:ApplyForGroup(dungeonGroup)
