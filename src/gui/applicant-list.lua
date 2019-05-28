@@ -12,26 +12,33 @@ function ClassicLFGApplicantList.new(parent)
     self.Frame = CreateFrame("Frame", nil, parent, nil);
     self.Applicants = ClassicLFGDoubleLinkedList()
     self.ListObjects = {}
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantReceived, self, function(self, ...)
+        local applicant = ...
+        self:AddApplicant(applicant)
+    end)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantDeclined, self, function(self, ...)
+        local applicant = ...
+        self:RemoveApplicant(applicant)
+    end)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInviteAccepted, self, function(self, ...)
+        local applicant = ...
+        self:RemoveApplicant(applicant)
+    end)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInviteDeclined, self, function(self, ...)
+        local applicant = ...
+        self:RemoveApplicant(applicant)
+    end)
     return self
 end
 
 function ClassicLFGApplicantList:AddApplicant(player)
     local applicant = player
-    applicant.ListItem = ClassicLFGApplicantListItem(player, self.Frame)
+    applicant.ListItem = ClassicLFGApplicantListItem(self, player, self.Frame)
     if (self.Applicants.Size == 0) then
         applicant.ListItem:AttachToFrame(self.Frame, "TOP", 0)
     else
         applicant.ListItem:AttachToFrame(self.Applicants.Items.Tail.Previous.ListItem.Frame, "BOTTOM", -5)
     end
-
-    applicant.ListItem.InviteButton.OnClick = function()
-        self:RemoveApplicant(applicant)
-    end
-
-    applicant.ListItem.DeclineButton.OnClick = function()
-        self:RemoveApplicant(applicant)
-    end
-    --table.insert(self.ListObjects, applicant.ListItem)
     self.Applicants:AddItem(player)
 end
 
@@ -59,8 +66,10 @@ setmetatable(ClassicLFGApplicantListItem, {
     end,
 })
 
-function ClassicLFGApplicantListItem.new(player, parent)
+function ClassicLFGApplicantListItem.new(list, player, parent)
     local self = setmetatable({}, ClassicLFGApplicantListItem)
+    self.List = list
+    self.Invited = nil
     self.Frame = CreateFrame("Frame", nil, parent, nil);
     self.BackgroundColor =  { Red = 0.3, Green = 0.3, Blue = 0.6, Alpha = 1 }
     self.Frame:SetBackdrop({
@@ -76,10 +85,22 @@ function ClassicLFGApplicantListItem.new(player, parent)
     self.DeclineButton = ClassicLFGButton("Decline", self.Frame)
     self.DeclineButton:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -5, -5);
     self.DeclineButton:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMRIGHT", -65, 5)
+    self.DeclineButton.OnClick = function()
+        if (self.Invited == nil) then
+            ClassicLFG.GroupManager:ApplicantDeclined(self.Player)
+        end
+    end
     self.InviteButton = ClassicLFGButton("Invite", self.Frame)
     self.InviteButton:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -70, -5);
     self.InviteButton:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMRIGHT", -130, 5)
+    self.InviteButton.OnClick = function()
+        if (self.Invited == nil) then
+            ClassicLFG.GroupManager:ApplicantInvited(self.Player)
+            self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
+        end
+    end
     self:SetPlayer(player)
+
     return self
 end
 
@@ -96,7 +117,6 @@ function ClassicLFGApplicantListItem:SetPlayer(player)
     else
         self.ClassText:SetPoint("TOPLEFT", self.PlayerText, "BOTTOMLEFT", 0, -3)
     end
-    
 end
 
 function ClassicLFGApplicantListItem:AttachToFrame(parent, direction, yOffset)

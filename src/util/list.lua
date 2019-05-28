@@ -46,7 +46,6 @@ function ClassicLFGLinkedList:GetItem(index)
         end
         for i=0, index do
             if (i == index) then
-                print(index)
                 return currentItem.Value
             else
                 currentItem = currentItem.Next
@@ -111,6 +110,21 @@ function ClassicLFGLinkedList:Contains(item)
     local index = 0
     while (currentItem ~= nil) do
         if (item == currentItem.Value or (item.Equals and item:Equals(currentItem.Value) == true)) then
+            return index
+        else
+            currentItem = currentItem.Next
+            index = index + 1
+        end
+    end
+    return nil
+end
+
+-- Note: Item needs to implements the Function "Equals" on itself and needs to return a boolean value.
+function ClassicLFGLinkedList:ContainsWithEqualsFunction(item, equals)
+    local currentItem = self.Items.Head.Next
+    local index = 0
+    while (currentItem ~= nil) do
+        if (equals(currentItem.Value, item) == true) then
             return index
         else
             currentItem = currentItem.Next

@@ -18,7 +18,6 @@ function ClassicLFGPlayer.new(name, guild, level, class, talents)
 end
 
 function ClassicLFGPlayer:Equals(otherPlayer)
-    print("names", self.Name, otherPlayer.Name)
     return otherPlayer.Name == self.Name
 end
 

@@ -19,6 +19,7 @@ src\util\factions.lua
 src\util\chat.lua
 src\util\slash-commands.lua
 src\util\dungeons.lua
+src\core\event-bus.lua
 src\networking\network.lua
 src\core\player.lua
 src\core\dungeon-group.lua

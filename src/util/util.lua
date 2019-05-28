@@ -2,7 +2,6 @@ function ClassicLFG:IteratorToArray(iterator)
     local array = {}
     for v in iterator do
       array[#array + 1] = v
-      print("Value: ", v)
     end
     return array
   end

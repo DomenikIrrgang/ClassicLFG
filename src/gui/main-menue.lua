@@ -199,8 +199,3 @@ ClassicLFG.QueueWindow.CreateGroup.ScrollFrame:SetScrollChild(ClassicLFG.QueueWi
 ClassicLFG.QueueWindow.CreateGroup.ApplicantList = ClassicLFGApplicantList(ClassicLFG.QueueWindow.CreateGroup.ScrollFrame.Child)
 ClassicLFG.QueueWindow.CreateGroup.ApplicantList.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.ScrollFrame.Child, "BOTTOMLEFT", 0, 18);
 ClassicLFG.QueueWindow.CreateGroup.ApplicantList.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup, "BOTTOMRIGHT", -35, 10)
-
-for i=1,10 do
-	ClassicLFG.QueueWindow.CreateGroup.ApplicantList:AddApplicant({ Name = "RandomDude" .. i, Level = 60, Class = "Warrior", Guild = "Some Random Guild" })
-	ClassicLFG.QueueWindow.CreateGroup.ApplicantList:AddApplicant({ Name = "RandomMage" .. i, Level = 60, Class = "Mage", Guild = "Some Random Guild" })
-end

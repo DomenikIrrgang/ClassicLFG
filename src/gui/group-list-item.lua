@@ -35,6 +35,9 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
 
     self.QueueButton = ClassicLFGButton("Queue", self.Frame)
     self.QueueButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -5, 5)
+    self.QueueButton.OnClick = function() 
+        ClassicLFG.GroupManager:ApplyForGroup(self.entry)
+    end
     self.QueueButton:Hide()
 
     self.Description = CreateFrame("EditBox", nil, self.Frame, nil);
@@ -79,7 +82,12 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
         else
             self.Frame:SetHeight(95)
             self.IsOpen = true
-            self.QueueButton:Show()
+            if (self.entry.Leader.Name == UnitName("player")) then
+                -- Todo: Once Buttons can be disabled disabled instead of hide
+                self.QueueButton.Frame:Hide()
+            else
+                self.QueueButton.Frame:Show()
+            end
             self.Description:Show()
         end
     end)
@@ -89,6 +97,7 @@ end
 
 function CLassicLFGGroupListItem:SetGroup(entry)
     if (entry) then
+        self.entry = entry
         self.Title:SetText(entry.Title)
         self.DungeonName:SetText(entry.Dungeon.Name)
         self.Description:SetText(entry.Description)
