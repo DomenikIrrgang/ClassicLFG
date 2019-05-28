@@ -1,0 +1,32 @@
+## Interface: 80100
+## Title: ClassicLFG
+## Author: Suu
+## Version: 0.1
+## Notes: Tool to form groups for any activity in Classic!
+## DefaultState: Enabled
+## LoadOnDemand: 0
+
+libs.xml
+
+src\main.lua
+src\config.lua
+src\util\util.lua
+src\util\list.lua
+src\util\double-linked-list.lua
+src\util\roles.lua
+src\util\classes.lua
+src\util\factions.lua
+src\util\chat.lua
+src\util\slash-commands.lua
+src\util\dungeons.lua
+src\networking\network.lua
+src\core\player.lua
+src\core\dungeon-group.lua
+src\core\group-manager.lua
+src\gui\button.lua
+src\gui\icon.lua
+src\gui\icon-with-text.lua
+src\gui\group-list-item.lua
+src\gui\group-list.lua
+src\gui\applicant-list.lua
+src\gui\main-menue.lua
