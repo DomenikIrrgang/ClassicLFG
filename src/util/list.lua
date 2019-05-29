@@ -123,7 +123,6 @@ end
 function ClassicLFGLinkedList:ContainsWithEqualsFunction(item, equals)
     local currentItem = self.Items.Head.Next
     local index = 0
-    print("equals called", item)
     while (currentItem ~= nil) do
         if (equals(currentItem.Value, item) == true) then
             return index

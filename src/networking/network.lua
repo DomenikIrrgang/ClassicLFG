@@ -43,7 +43,7 @@ function ClassicLFGNetwork:HandleAddonMessage(...)
         else
             self.MessageBuffer[headers.Hash]["count"] = 1
         end
-        print("received package ", self.MessageBuffer[headers.Hash]["count"], "of", headers.TotalCount)
+        --print("received package ", self.MessageBuffer[headers.Hash]["count"], "of", headers.TotalCount)
         if (self.MessageBuffer[headers.Hash]["count"] == tonumber(headers.TotalCount)) then
             local successful, object = self:MessageToObject(self:MergeMessages(headers,self.MessageBuffer[headers.Hash]))
             self.MessageBuffer[headers.Hash] = nil

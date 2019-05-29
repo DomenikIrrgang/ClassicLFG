@@ -26,7 +26,6 @@ function ClassicLFGGroupManager.new()
                 self:HandleDataRequest(nil, playerName)
             end
         end
-        print(event)
         if (event == "GROUP_ROSTER_UPDATE") then
             for i = 1, GetNumGroupMembers() do
                 local playerName = GetRaidRosterInfo(i)
