@@ -81,6 +81,8 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
         if (self.Player.Invited == false) then
             ClassicLFG.GroupManager:ApplicantInvited(self.Player)
             self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
+            self.InviteButton:SetDisabled(true)
+            self.DeclineButton:SetDisabled(true)
         end
     end
     self:SetPlayer(player)

@@ -129,6 +129,16 @@ ClassicLFG.QueueWindow.SearchGroup.List = CLassicLFGGroupList(ClassicLFG.QueueWi
 -- Create Group
 ---------------------------------
 
+function ClassicLFG.QueueWindow.CreateGroup:DataEntered()
+	if (ClassicLFG.Dungeon[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()] ~= nil and
+	ClassicLFG.QueueWindow.CreateGroup.Title:GetText() ~= "" and
+	ClassicLFG.QueueWindow.CreateGroup.Description:GetText() ~= "") then
+		ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetDisabled(false)
+	else
+		ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetDisabled(true)
+	end
+end
+
 ClassicLFG.QueueWindow.CreateGroup.Title = ClassicLFG.AceGUI:Create("EditBox")
 ClassicLFG.QueueWindow.CreateGroup.Title.frame:SetParent(ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.Title:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup, "TOPLEFT", 10, -8);
@@ -137,6 +147,7 @@ ClassicLFG.QueueWindow.CreateGroup.Title:SetLabel("Title:")
 ClassicLFG.QueueWindow.CreateGroup.Title:SetMaxLetters(25)
 ClassicLFG.QueueWindow.CreateGroup.Title:DisableButton(true)
 ClassicLFG.QueueWindow.CreateGroup.Title.frame:Show()
+ClassicLFG.QueueWindow.CreateGroup.Title:SetCallback("OnTextChanged", ClassicLFG.QueueWindow.CreateGroup.DataEntered)
 
 ClassicLFG.QueueWindow.CreateGroup.Dungeon = ClassicLFG.AceGUI:Create("Dropdown")
 ClassicLFG.QueueWindow.CreateGroup.Dungeon.frame:SetParent(ClassicLFG.QueueWindow.CreateGroup)
@@ -145,6 +156,7 @@ ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetPoint("BOTTOMRIGHT", ClassicLFG.Qu
 ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetText("Select Dungeon")
 ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetLabel("Dungeon:")
 ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetList(ClassicLFG.DungeonList)
+ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetCallback("OnValueChanged", ClassicLFG.QueueWindow.CreateGroup.DataEntered)
 
 ClassicLFG.QueueWindow.CreateGroup.Description = ClassicLFG.AceGUI:Create("MultiLineEditBox")
 ClassicLFG.QueueWindow.CreateGroup.Description.frame:SetParent(ClassicLFG.QueueWindow.CreateGroup)
@@ -154,6 +166,7 @@ ClassicLFG.QueueWindow.CreateGroup.Description:SetLabel("Description:")
 ClassicLFG.QueueWindow.CreateGroup.Description:DisableButton(true)
 ClassicLFG.QueueWindow.CreateGroup.Description:SetMaxLetters(120)
 ClassicLFG.QueueWindow.CreateGroup.Description.frame:Show()
+ClassicLFG.QueueWindow.CreateGroup.Description:SetCallback("OnTextChanged", ClassicLFG.QueueWindow.CreateGroup.DataEntered)
 
 ClassicLFG.QueueWindow.CreateGroup.QueueButton = ClassicLFGButton("List Group", ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Description.frame, "BOTTOMLEFT", 0, -8);
@@ -162,6 +175,7 @@ ClassicLFG.QueueWindow.CreateGroup.QueueButton.OnClick = function(self)
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.frame, "BOTTOM", -5, -30)
 	ClassicLFG.QueueWindow.CreateGroup.DequeueButton:Show()
 	self:SetText("Update Data")
+	PanelTemplates_DisableTab(ClassicLFG.QueueWindow, 1)
 	ClassicLFG.GroupManager:PostGroup(ClassicLFGDungeonGroup(
 		ClassicLFG.Dungeon[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()],
 		ClassicLFGPlayer(),
@@ -169,6 +183,7 @@ ClassicLFG.QueueWindow.CreateGroup.QueueButton.OnClick = function(self)
 		ClassicLFG.QueueWindow.CreateGroup.Description:GetText()
 	))
 end
+ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetDisabled(true)
 
 ClassicLFG.QueueWindow.CreateGroup.DequeueButton = ClassicLFGButton("Delist Group", ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.DequeueButton:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Description.frame, "BOTTOM", 5, -8);
@@ -179,6 +194,7 @@ ClassicLFG.QueueWindow.CreateGroup.DequeueButton.OnClick = function(self)
 	ClassicLFG.QueueWindow.CreateGroup.DequeueButton:Hide()
 	ClassicLFG.GroupManager:DequeueGroup()
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetText("List Group")
+	PanelTemplates_EnableTab(ClassicLFG.QueueWindow, 1)
 end
 
 ClassicLFG.QueueWindow.CreateGroup.ScrollFrame = CreateFrame("ScrollFrame", nil, ClassicLFG.QueueWindow.CreateGroup, "UIPanelScrollFrameTemplate");
