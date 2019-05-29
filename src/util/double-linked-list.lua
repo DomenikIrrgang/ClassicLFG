@@ -98,6 +98,18 @@ function ClassicLFGDoubleLinkedList:RemoveItemEqualsFunction(equals)
     end
 end
 
+function ClassicLFGDoubleLinkedList:FindItem(item)
+    local currentItem = self.Items.Head.Next
+    while (currentItem ~= nil) do
+        if (item:Equals(currentItem) == true) then
+            return item
+        else
+            currentItem = currentItem.Next
+        end
+    end
+    return nil
+end
+
 function ClassicLFGDoubleLinkedList:Print()
     local currentItem = self.Items.Head
     print("FORWARDS")

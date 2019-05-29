@@ -10,50 +10,33 @@ setmetatable(ClassicLFGApplicantList, {
 function ClassicLFGApplicantList.new(parent)
     local self = setmetatable({}, ClassicLFGApplicantList)
     self.Frame = CreateFrame("Frame", nil, parent, nil);
-    self.Applicants = ClassicLFGDoubleLinkedList()
-    self.ListObjects = {}
-    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantReceived, self, function(self, ...)
-        local applicant = ...
-        self:AddApplicant(applicant)
-    end)
-    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantDeclined, self, function(self, ...)
-        local applicant = ...
-        self:RemoveApplicant(applicant)
-    end)
-    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInviteAccepted, self, function(self, ...)
-        local applicant = ...
-        self:RemoveApplicant(applicant)
-    end)
-    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInviteDeclined, self, function(self, ...)
-        local applicant = ...
-        self:RemoveApplicant(applicant)
-    end)
+    self.ListItems = {}
+    self:InitListItems(50)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantReceived, self, self.UpdateList)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantDeclined, self, self.UpdateList)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInviteAccepted, self, self.UpdateList)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInviteDeclined, self, self.UpdateList)
     return self
 end
 
-function ClassicLFGApplicantList:AddApplicant(player)
-    local applicant = player
-    applicant.ListItem = ClassicLFGApplicantListItem(self, player, self.Frame)
-    if (self.Applicants.Size == 0) then
-        applicant.ListItem:AttachToFrame(self.Frame, "TOP", 0)
-    else
-        applicant.ListItem:AttachToFrame(self.Applicants.Items.Tail.Previous.ListItem.Frame, "BOTTOM", -5)
+function ClassicLFGApplicantList:InitListItems(count)
+    local listItem = ClassicLFGApplicantListItem(self, nil, self.Frame)
+    local previous = nil
+    listItem:AttachToFrame(self.Frame, "TOP", 0)
+    table.insert(self.ListItems, listItem)
+    for i=2,count do
+        previous = listItem
+        listItem = ClassicLFGApplicantListItem(self, nil, self.Frame)
+        listItem:AttachToFrame(previous.Frame, "BOTTOM", -5)
+        table.insert(self.ListItems, listItem)
     end
-    self.Applicants:AddItem(player)
 end
 
-function ClassicLFGApplicantList:RemoveApplicant(applicant)
-    if (not applicant.Next.IsTail and not applicant.Previous.IsHead) then
-        applicant.Next.ListItem:AttachToFrame(applicant.Previous.ListItem.Frame, "BOTTOM", -5)
-    else
-        if (applicant.Previous.IsHead and not applicant.Next.IsTail) then
-            applicant.Next.ListItem:AttachToFrame(self.Frame, "TOP", 0)
-        end
+function ClassicLFGApplicantList:UpdateList()
+    for i=1, #self.ListItems do
+        local applicant = ClassicLFG.GroupManager.Applicants:GetItem(i - 1)
+        self.ListItems[i]:SetPlayer(applicant)
     end
-    applicant.ListItem.Frame:Hide()
-    self.Applicants:RemoveItemEqualsFunction(function(item) 
-        return item.Name == applicant.Name
-    end)
 end
 
 
@@ -69,9 +52,9 @@ setmetatable(ClassicLFGApplicantListItem, {
 function ClassicLFGApplicantListItem.new(list, player, parent)
     local self = setmetatable({}, ClassicLFGApplicantListItem)
     self.List = list
-    self.Invited = nil
     self.Frame = CreateFrame("Frame", nil, parent, nil);
     self.BackgroundColor =  { Red = 0.3, Green = 0.3, Blue = 0.6, Alpha = 1 }
+    self.TextColor = { Red = 0, Green = 0, Blue = 0, Alpha = 1 }
     self.Frame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8
     })
@@ -86,7 +69,7 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
     self.DeclineButton:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -5, -5);
     self.DeclineButton:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMRIGHT", -65, 5)
     self.DeclineButton.OnClick = function()
-        if (self.Invited == nil) then
+        if (self.Player.Invited == false) then
             ClassicLFG.GroupManager:ApplicantDeclined(self.Player)
         end
     end
@@ -94,7 +77,8 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
     self.InviteButton:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -70, -5);
     self.InviteButton:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMRIGHT", -130, 5)
     self.InviteButton.OnClick = function()
-        if (self.Invited == nil) then
+        print(self.Player.Invited)
+        if (self.Player.Invited == false) then
             ClassicLFG.GroupManager:ApplicantInvited(self.Player)
             self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
         end
@@ -106,16 +90,26 @@ end
 
 function ClassicLFGApplicantListItem:SetPlayer(player)
     self.Player = player
-    self.PlayerText:SetText(player.Name)
-    self.ClassText:SetText(player.Level .. " " .. player.Class)
-    self.ClassText:SetTextColor(GetClassColor(player.Class:upper()))
-    self.PlayerText:SetPoint("LEFT", self.Frame, "TOPLEFT", 5, -10)
-    if (player.Guild) then
-        self.GuildText:SetText("<" .. player.Guild .. ">")
-        self.GuildText:SetPoint("TOPLEFT", self.PlayerText, "BOTTOMLEFT", 0, -3)
-        self.ClassText:SetPoint("TOPLEFT", self.GuildText, "BOTTOMLEFT", 0, -3)
+    if (player ~= nil) then
+        self.PlayerText:SetText(player.Name)
+        self.ClassText:SetText(player.Level .. " " .. player.Class)
+        self.ClassText:SetTextColor(GetClassColor(player.Class:upper()))
+        self.PlayerText:SetPoint("LEFT", self.Frame, "TOPLEFT", 5, -10)
+        if (player.Guild) then
+            self.GuildText:SetText("<" .. player.Guild .. ">")
+            self.GuildText:SetPoint("TOPLEFT", self.PlayerText, "BOTTOMLEFT", 0, -3)
+            self.ClassText:SetPoint("TOPLEFT", self.GuildText, "BOTTOMLEFT", 0, -3)
+        else
+            self.ClassText:SetPoint("TOPLEFT", self.PlayerText, "BOTTOMLEFT", 0, -3)
+        end
+        if (player.Invited == false) then
+            self.InviteButton.Frame.Title:SetTextColor(1, 1, 1, 1)
+        else
+            self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
+        end
+        self.Frame:Show()
     else
-        self.ClassText:SetPoint("TOPLEFT", self.PlayerText, "BOTTOMLEFT", 0, -3)
+        self.Frame:Hide()
     end
 end
 

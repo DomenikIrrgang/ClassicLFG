@@ -9,6 +9,7 @@ setmetatable(ClassicLFGPlayer, {
 
 function ClassicLFGPlayer.new(name, guild, level, class, talents)
     local self = setmetatable({}, ClassicLFGPlayer)
+    self.Invited = false
     self.Name = name or UnitName("player")
     self.Guild = guild or GetGuildInfo(self.Name)
     self.Level = level or UnitLevel(self.Name)

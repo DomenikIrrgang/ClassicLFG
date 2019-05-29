@@ -14,7 +14,11 @@ function ClassicLFGGroupManager.new()
     self.Frame = CreateFrame("Frame")
     self.Frame:RegisterEvent("CHAT_MSG_CHANNEL_JOIN")
     self.Frame:RegisterEvent("PARTY_INVITE_REQUEST")
-    self.Frame:RegisterEvent("GROUP_JOINED")
+    self.Frame:RegisterEvent("GROUP_ROSTER_UPDATE")
+    self.Frame:RegisterEvent("GROUP_LEFT")
+    self.Frame:RegisterEvent("RAID_ROSTER_UPDATE")
+    self.Frame:RegisterEvent("PARTY_INVITE_REQUEST")
+    self.Frame:RegisterEvent("PARTY_INVITE_REQUEST")
     self.Frame:SetScript("OnEvent", function(_, event, ...) 
         if (event == "CHAT_MSG_CHANNEL_JOIN") then
             local _, playerName, _, channelId, channelName = ...
@@ -23,10 +27,17 @@ function ClassicLFGGroupManager.new()
             end
         end
         print(event)
-        if (event == "GROUP_JOINED") then
-            local index = ...
-            local playerName = GetRaidRosterInfo(index)
-            self:ApplicantInviteAccepted(ClassicLFGPlayer(playerName))
+        if (event == "GROUP_ROSTER_UPDATE") then
+            for i = 1, GetNumGroupMembers() do
+                local playerName = GetRaidRosterInfo(i)
+                for k=0, self.Applicants.Size - 1 do
+                    if (self.Applicants:GetItem(k).Name == playerName) then
+                        local player = ClassicLFGPlayer(playerName)
+                        self:ApplicantInviteAccepted(player)
+                        break
+                    end
+                end
+            end
         end
 
         if (event == "PARTY_INVITE_REQUEST") then
@@ -54,7 +65,6 @@ function ClassicLFGGroupManager:HandleDataRequest(object, sender)
 end
 
 function ClassicLFGGroupManager:HandleApplications(applicant)
-    print(self.Applicants.Size)
     local index = self.Applicants:ContainsWithEqualsFunction(applicant, function(item1, item2)
         return item1.Name == item2.Name
     end)
