@@ -104,6 +104,11 @@ function ClassicLFGLinkedList:RemoveItemByComparison(item)
     end
 end
 
+function ClassicLFGLinkedList:Clear(item)
+    self.Items.Head.Next = nil
+    self.Size = 0
+end
+
 -- Note: Item needs to implements the Function "Equals" on itself and needs to return a boolean value.
 function ClassicLFGLinkedList:Contains(item)
     local currentItem = self.Items.Head.Next

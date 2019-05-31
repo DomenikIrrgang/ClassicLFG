@@ -27,12 +27,18 @@ ClassicLFG.Config = {
         -- Args(dungeonGroup)
         GroupDelisted = "CLASSICLFG_GROUP_DELISTED",
         -- Args(dungeonGroup)
-        GroupUpdated = "CLASSICLFG_GROUP_UPDATED",
-        -- Args(dungeonGroup)
         DungeonGroupJoined = "CLASSICLFG_GROUP_JOINED",
+        -- Args(dungeonGroup)
+        DungeonGroupLeft = "CLASSICLFG_GROUP_LEFT",
+        -- Args(dungeonGroup)
+        DungeonGroupUpdated = "CLASSICLFG_GROUP_UPDATED",
         -- Args()
         DungeonGroupSyncRequest = "CLASSICLFG_GROUP_SYNC_REQUEST",
         -- Args(dungeonGroup)
         DungeonGroupSyncResponse = "CLASSICLFG_GROUP_SYNC_RESPONSE",
+        -- Args()
+        DungeonGroupRequestTalents = "CLASSICLFG_GROUP_TALENTS_REQUEST",
+        -- Args(talents)
+        DungeonGroupRequestTalents = "CLASSICLFG_GROUP_TALENTS_RESPONSE"
     }
 }

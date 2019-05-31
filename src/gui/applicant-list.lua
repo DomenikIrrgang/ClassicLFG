@@ -69,20 +69,17 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
     self.DeclineButton:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -5, -5);
     self.DeclineButton:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMRIGHT", -65, 5)
     self.DeclineButton.OnClick = function()
-        if (self.Player.Invited == false) then
-            ClassicLFG.DungeonGroupManager:ApplicantDeclined(self.Player)
-        end
+        ClassicLFG.DungeonGroupManager:ApplicantDeclined(self.Player)
     end
     self.InviteButton = ClassicLFGButton("Invite", self.Frame)
     self.InviteButton:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -70, -5);
     self.InviteButton:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMRIGHT", -130, 5)
     self.InviteButton.OnClick = function()
-        if (self.Player.Invited == false) then
-            ClassicLFG.DungeonGroupManager:ApplicantInvited(self.Player)
-            self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
-            self.InviteButton:SetDisabled(true)
-            self.DeclineButton:SetDisabled(true)
-        end
+        ClassicLFG.DungeonGroupManager:ApplicantInvited(self.Player)
+        self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
+        self.InviteButton:SetDisabled(true)
+        self.DeclineButton:SetDisabled(true)
+        self.Player.Invited = true
     end
     self:SetPlayer(player)
 

@@ -13,6 +13,14 @@ function ClassicLFG:IteratorToArray(iterator)
     return fields
 end
 
+function ClassicLFG:SplitString(text, sep)
+    local sep, fields = sep or ":", {}
+    local pattern = string.format("([^%s]+)", sep)
+    text:gsub(pattern, function(c) fields[#fields+1] = c end)
+    return fields
+end
+
+
 function ClassicLFG:DeepCopy(orig)
     local orig_type = type(orig)
     local copy

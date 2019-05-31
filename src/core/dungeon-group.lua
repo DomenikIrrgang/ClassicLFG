@@ -24,26 +24,23 @@ function ClassicLFGDungeonGroup.new(dungeon, leader, title, description, source,
 end
 
 function ClassicLFGDungeonGroup:AddMember(player)
-    self.Members:AddItem(player)
-    ClassicLFG:DebugPrint("Added Group Member")
-    ClassicLFG:DebugPrint(player.Name)
+    ClassicLFGLinkedList.AddItem(self.Members, player)
+    ClassicLFG:DebugPrint("Added Group Member:" .. player.Name)
 end
 
-function ClassicLFGDungeonGroup:Sync()
-    ClassicLFG:DebugPrint("Start Syncing DungeonGroup Members")
-    self.Members = ClassicLFGLinkedList()
-    for i = 1, GetNumGroupMembers() do
-        local playerName = GetRaidRosterInfo(i)
-        if (UnitIsGroupLeader(playerName)) then
-            self.Leader = ClassicLFGPlayer(playerName)
+function ClassicLFGDungeonGroup:GetRoleCount(role)
+    local count = 1
+    for i = 0, self.Members.Size - 1 do
+        if (ClassicLFGPlayer.GetSpecialization(ClassicLFGLinkedList.GetItem(self.Members, i)).Role.Name == role.Name) then
+            count = count + 1
         end
-        self:AddMember(ClassicLFGPlayer(playerName))
     end
-    ClassicLFG:DebugPrint("Finished Syncing DungeonGroup Members")
+    
 end
 
 function ClassicLFGDungeonGroup:RemoveMember(player)
     self.Members:RemoveItemByComparison(player)
+    ClassicLFG:DebugPrint("Removed Group Member: " .. player.Name)
 end
 
 function ClassicLFGDungeonGroup:Print()

@@ -11,16 +11,10 @@ function ClassicLFGGroupManager.new()
     local self = setmetatable({}, ClassicLFGGroupManager)
     self.Groups = ClassicLFGLinkedList()
     self.Frame = CreateFrame("Frame")
-    self.Frame:RegisterEvent("CHAT_MSG_CHANNEL_JOIN")
     self.Frame:SetScript("OnEvent", function(_, event, ...) 
-        if (event == "CHAT_MSG_CHANNEL_JOIN") then
-            local _, playerName, _, channelId, channelName = ...
-            if (tonumber(channelId:sub(0,1)) == ClassicLFG.Config.Network.Channel.Id) then
-                self:HandleDataRequest(nil, playerName)
-            end
-        end
+
     end)
-    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupUpdated, self, self.ReceiveGroup)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdated, self, self.ReceiveGroup)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupListed, self, self.ReceiveGroup)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupDelisted, self, self.HandleDequeueGroup)
     return self

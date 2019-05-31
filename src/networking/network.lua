@@ -31,7 +31,8 @@ end
 
 function ClassicLFGNetwork:HandleAddonMessage(...)
     local prefix, message, channel, sender = ...
-	if (prefix:find(ClassicLFG.Config.Network.Prefix)) then
+    local player, playerRealm = UnitFullName("player")
+	if (prefix:find(ClassicLFG.Config.Network.Prefix) and sender ~= player .. "-" .. playerRealm) then
         local headers, content = self:SplitNetworkPackage(message)
         self.MessageBuffer[headers.Hash] = self.MessageBuffer[headers.Hash] or {}
         self.MessageBuffer[headers.Hash][headers.Order] = content
@@ -41,13 +42,10 @@ function ClassicLFGNetwork:HandleAddonMessage(...)
             self.MessageBuffer[headers.Hash]["count"] = 1
         end
         if (self.MessageBuffer[headers.Hash]["count"] == tonumber(headers.TotalCount)) then
-            ClassicLFG:DebugPrint("Network Package from " .. sender .. " complete!")
             local successful, object = self:MessageToObject(self:MergeMessages(headers,self.MessageBuffer[headers.Hash]))
+            ClassicLFG:DebugPrint("Network Package from " .. sender .. " complete! Event: " .. object.Event)
             self.MessageBuffer[headers.Hash] = nil
-            local player, playerRealm = UnitFullName("player")
-            if (sender ~= player .. "-" .. playerRealm) then
-                ClassicLFG.EventBus:PublishEvent(object.Event, object.Payload, sender)
-            end
+            ClassicLFG.EventBus:PublishEvent(object.Event, object.Payload, sender)
         end
     end
 end
