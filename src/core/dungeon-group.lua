@@ -35,7 +35,6 @@ function ClassicLFGDungeonGroup:GetRoleCount(role)
             count = count + 1
         end
     end
-    
 end
 
 function ClassicLFGDungeonGroup:RemoveMember(player)

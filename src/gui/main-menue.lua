@@ -68,7 +68,7 @@ ClassicLFG.QueueWindow.SearchGroup, ClassicLFG.QueueWindow.CreateGroup = SetTabs
 ClassicLFG.QueueWindow.SearchGroup.SearchField = ClassicLFG.AceGUI:Create("Dropdown")
 ClassicLFG.QueueWindow.SearchGroup.SearchField.frame:SetParent(ClassicLFG.QueueWindow.SearchGroup)
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.SearchGroup, "TOPLEFT", 0, -8);
-ClassicLFG.QueueWindow.SearchGroup.SearchField:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.SearchGroup, "TOPRIGHT", -90, -35)
+ClassicLFG.QueueWindow.SearchGroup.SearchField:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.SearchGroup, "TOPRIGHT", -5, -35)
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetText("Select Dungeon")
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetList(ClassicLFG.DungeonList)
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetMultiselect(true)
@@ -80,14 +80,9 @@ ClassicLFG.QueueWindow.SearchGroup.SearchField:SetCallback("OnValueChanged", fun
 	else
 		ClassicLFG.QueueWindow.SearchGroup.SearchField.SelectedDungeons:AddItem(value)
 	end
-end)
-
-ClassicLFG.QueueWindow.SearchGroup.SearchButton = ClassicLFGButton("Search", ClassicLFG.QueueWindow.SearchGroup)
-ClassicLFG.QueueWindow.SearchGroup.SearchButton:SetPoint("TOPRIGHT", ClassicLFG.QueueWindow.SearchGroup, "TOPRIGHT", -4, -10)
-ClassicLFG.QueueWindow.SearchGroup.SearchButton.Frame:SetHeight(24)
-ClassicLFG.QueueWindow.SearchGroup.SearchButton.OnClick = function(self)
 	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.SearchField.SelectedDungeons:ToArray()))
-end
+	ClassicLFG.QueueWindow.SearchGroup.SearchField.pullout:Close()
+end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdated, ClassicLFG.QueueWindow.SearchGroup, function()
 	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.SearchField.SelectedDungeons:ToArray()))

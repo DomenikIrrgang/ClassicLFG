@@ -1,4 +1,4 @@
-function ClassicLFG:Print(...)
+function ClassicLFG:Print(message)
     print("|cFF7777FFClassicLFG:|cFFFFFFFF", message)
 end
 

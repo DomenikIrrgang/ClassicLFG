@@ -58,7 +58,7 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
                 for i = 0, self.DungeonGroup.Members.Size - 1 do
                     local player = ClassicLFGLinkedList.GetItem(self.DungeonGroup.Members, i)
                     if (UnitIsGroupLeader(player.Name) == true) then
-                        self.DUngeonGroup.Leader = player
+                        self.DungeonGroup.Leader = player
                     end
                 end
             end
@@ -227,6 +227,7 @@ end
 function ClassicLFGDungeonGroupManager:ApplicantDeclined(applicant)
     self:RemoveApplicant(applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantDeclined, applicant)
+    ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.DeclineApplicant, self.DungeonGroup, "WHISPER", applicant.Name)
 end
 
 function ClassicLFGDungeonGroupManager:ApplicantInvited(applicant)

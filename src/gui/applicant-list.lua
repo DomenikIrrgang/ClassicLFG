@@ -103,11 +103,13 @@ function ClassicLFGApplicantListItem:SetPlayer(player)
         end
         if (player.Invited == false) then
             self.InviteButton.Frame.Title:SetTextColor(1, 1, 1, 1)
+            self.InviteButton:SetDisabled(false)
+            self.DeclineButton:SetDisabled(false)
         else
             self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
+            self.InviteButton:SetDisabled(true)
+            self.DeclineButton:SetDisabled(true)
         end
-        self.InviteButton:SetDisabled(false)
-        self.DeclineButton:SetDisabled(false)
         self.Frame:Show()
     else
         self.Frame:Hide()

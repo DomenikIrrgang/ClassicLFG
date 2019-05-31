@@ -91,6 +91,18 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
             self.Description:Show()
         end
     end)
+
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.AppliedForGroup, self, function(self, dungeonGroup)
+        if (self.entry ~= nil and dungeonGroup.Leader.Name == self.entry.Leader.Name) then
+            self.QueueButton:SetDisabled(true)
+        end
+    end)
+
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DeclineApplicant, self, function(self, dungeonGroup)
+        if (self.entry ~= nil and dungeonGroup.Leader.Name == self.entry.Leader.Name) then
+            self.QueueButton:SetDisabled(false)
+        end
+    end)
     self:SetGroup(entry)
     return self
 end
@@ -104,6 +116,11 @@ function CLassicLFGGroupListItem:SetGroup(entry)
         self.RoleIcons.Dps.Text:SetText(entry.Group.Dps)
         self.RoleIcons.Tank.Text:SetText(entry.Group.Tank)
         self.RoleIcons.Healer.Text:SetText(entry.Group.Healer)
+
+        if (ClassicLFG.GroupManager:HasAppliedForGroup(entry)) then
+            self.QueueButton:SetDisabled(true)
+        end
+
         if (entry.Source.Type == "ADDON") then
             self.BackgroundColor.Blue = 0.6
             self.MouseOverColor.Blue = 0.7

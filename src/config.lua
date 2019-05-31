@@ -12,7 +12,9 @@ ClassicLFG.Config = {
         RequestData = "CLASSICLFG_DATA_REQUEST",
         SendData = "CLASSICLFG_DATA_RESPONSE",
         ApplyForGroup = "CLASSICLFG_GROUP_APPLY",
-        -- Args(applicant)
+        -- Args(dungeonGroup)
+        AppliedForGroup = "CLASSICLFG_GROUP_APPLIED",
+        -- Args(applicant, dungeonGroup)
         ApplicantInvited = "CLASSICLFG_APPLICANT_INVITED",
         -- Args(applicant)
         ApplicantInviteAccepted = "CLASSICLFG_APPLICANT_INVITE_ACCEPTED",
@@ -22,6 +24,8 @@ ClassicLFG.Config = {
         ApplicantDeclined = "CLASSICLFG_APPLICANT_DECLINED",
         -- Args(applicant)
         ApplicantReceived = "CLASSICLFG_APPLICANT_RECEIVED",
+        -- Args(applicant)
+        DungeonGroupWithdrawApplication = "CLASSICLFG_APPLICANT_WITHDRAW",
         -- Args(dungeonGroup)
         GroupListed = "CLASSICLFG_GROUP_LISTED",
         -- Args(dungeonGroup)
@@ -32,6 +36,8 @@ ClassicLFG.Config = {
         DungeonGroupLeft = "CLASSICLFG_GROUP_LEFT",
         -- Args(dungeonGroup)
         DungeonGroupUpdated = "CLASSICLFG_GROUP_UPDATED",
+        -- Args(dungeonGroup)
+        DeclineApplicant = "CLASSICLFG_APPLICANT_DECLINE",
         -- Args()
         DungeonGroupSyncRequest = "CLASSICLFG_GROUP_SYNC_REQUEST",
         -- Args(dungeonGroup)
