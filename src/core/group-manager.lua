@@ -31,6 +31,7 @@ function ClassicLFGGroupManager:ApplyForGroup(dungeonGroup)
 end
 
 function ClassicLFGGroupManager:HandleDequeueGroup(dungeonGroup)
+    print("group delisted")
     local index = self:HasGroup(dungeonGroup.Leader)
     if (index ~= nil) then
         self.Groups:RemoveItem(index)

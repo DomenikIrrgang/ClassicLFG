@@ -93,7 +93,11 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdate
 	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.SearchField.SelectedDungeons:ToArray()))
 end)
 
-ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined, ClassicLFG.QueueWindow.SearchGroup, function()
+ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupDelisted, ClassicLFG.QueueWindow.SearchGroup, function()
+	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.SearchField.SelectedDungeons:ToArray()))
+end)
+
+ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupListed, ClassicLFG.QueueWindow.SearchGroup, function()
 	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.SearchField.SelectedDungeons:ToArray()))
 end)
 

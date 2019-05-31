@@ -107,7 +107,7 @@ function ClassicLFGDungeonGroupManager:HandleDataRequest(object, sender)
 end
 
 function ClassicLFGDungeonGroupManager:HandleGroupDelisted(dungeonGroup)
-    if (dungeonGroup.Leader.Name == self.DungeonGroup.Leader.Name) then
+    if (self.DUngeonGroup ~= nil and dungeonGroup.Leader.Name == self.DungeonGroup.Leader.Name) then
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupLeft, self.DungeonGroup)
     end
 end
