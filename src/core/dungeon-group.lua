@@ -14,7 +14,6 @@ function ClassicLFGDungeonGroup.new(dungeon, leader, title, description, source,
     self.Description = description or ""
     self.Title = title or ""
     self.Dungeon = dungeon or ClassicLFG.Dungeon["The Deadmines"]
-    self.Applicants = {}
     self.Group = {
         Dps = 0,
         Tank = 0,
@@ -26,6 +25,21 @@ end
 
 function ClassicLFGDungeonGroup:AddMember(player)
     self.Members:AddItem(player)
+    ClassicLFG:DebugPrint("Added Group Member")
+    ClassicLFG:DebugPrint(player.Name)
+end
+
+function ClassicLFGDungeonGroup:Sync()
+    ClassicLFG:DebugPrint("Start Syncing DungeonGroup Members")
+    self.Members = ClassicLFGLinkedList()
+    for i = 1, GetNumGroupMembers() do
+        local playerName = GetRaidRosterInfo(i)
+        if (UnitIsGroupLeader(playerName)) then
+            self.Leader = ClassicLFGPlayer(playerName)
+        end
+        self:AddMember(ClassicLFGPlayer(playerName))
+    end
+    ClassicLFG:DebugPrint("Finished Syncing DungeonGroup Members")
 end
 
 function ClassicLFGDungeonGroup:RemoveMember(player)
@@ -34,10 +48,6 @@ end
 
 function ClassicLFGDungeonGroup:Print()
     for key in pairs(self) do
-        print(key, self[key])
+        ClassicLFG:DebugPrint(key, self[key])
     end
 end
-
---ClassicLFG.ExampleGroup = ClassicLFGDungeonGroup(ClassicLFG.Dungeon["The Deadmines"], ClassicLFGPlayer("Suaddon"), "LF 1 Tank 1 Healer 2 DPS", "We are looking for a Tank.")
---ClassicLFG.ExampleGroup:AddMember(ClassicLFGPlayer("Suaddon"))
---ClassicLFG.ExampleGroup:RemoveMember(ClassicLFGPlayer("Suaddon"))

@@ -11,14 +11,11 @@ setmetatable(ClassicLFGNetwork, {
 
 function ClassicLFGNetwork.new()
     local self = setmetatable({}, ClassicLFGNetwork)
-    for key in pairs(ClassicLFG.Config.Network.Prefixes) do
-        C_ChatInfo.RegisterAddonMessagePrefix(ClassicLFG.Config.Network.Prefixes[key])
-    end
+    C_ChatInfo.RegisterAddonMessagePrefix(ClassicLFG.Config.Network.Prefix)
     self.NetworkThread = CreateFrame("frame")
     self.MessageBuffer = {}
 	self.SendingInterval = 20000
     self.LastMessageSend = GetTime()
-    self.MessageCallbacks = {}
 	self.NetworkThread:SetScript("OnUpdate", function()
 		--print("Network Thread invoked!")
     end)
@@ -43,29 +40,22 @@ function ClassicLFGNetwork:HandleAddonMessage(...)
         else
             self.MessageBuffer[headers.Hash]["count"] = 1
         end
-        --print("received package ", self.MessageBuffer[headers.Hash]["count"], "of", headers.TotalCount)
         if (self.MessageBuffer[headers.Hash]["count"] == tonumber(headers.TotalCount)) then
+            ClassicLFG:DebugPrint("Network Package from " .. sender .. " complete!")
             local successful, object = self:MessageToObject(self:MergeMessages(headers,self.MessageBuffer[headers.Hash]))
             self.MessageBuffer[headers.Hash] = nil
             local player, playerRealm = UnitFullName("player")
-            if (sender ~= player .. "-" .. playerRealm and self.MessageCallbacks[prefix]) then
-                for key in pairs(self.MessageCallbacks[prefix]) do
-                    self.MessageCallbacks[prefix][key].Callback(self.MessageCallbacks[prefix][key].Object, object, sender)
-                end
+            if (sender ~= player .. "-" .. playerRealm) then
+                ClassicLFG.EventBus:PublishEvent(object.Event, object.Payload, sender)
             end
         end
     end
 end
 
-function ClassicLFGNetwork:AddMessageCallback(prefix, object, callback)
-    if (not self.MessageCallbacks[prefix]) then
-        self.MessageCallbacks[prefix] = {}
-    end
-    table.insert(self.MessageCallbacks[prefix], { Object = object, Callback = callback })
-end
-
-function ClassicLFGNetwork:SendObject(prefix, object, channel, target)
-    self:SendMessage(prefix, self:ObjectToMessage(object), channel, target)
+function ClassicLFGNetwork:SendObject(event, object, channel, target)
+    ClassicLFG:DebugPrint("Network Event Send")
+    ClassicLFG:DebugPrint("Event: " .. event .. " Channel: " .. channel)
+    self:SendMessage(ClassicLFG.Config.Network.Prefix, self:ObjectToMessage({ Event = event, Payload = object }), channel, target)
 end
 
 function ClassicLFGNetwork:SendMessage(prefix, message, channel, target)

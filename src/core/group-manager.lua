@@ -10,15 +10,8 @@ setmetatable(ClassicLFGGroupManager, {
 function ClassicLFGGroupManager.new()
     local self = setmetatable({}, ClassicLFGGroupManager)
     self.Groups = ClassicLFGLinkedList()
-    self.Applicants = ClassicLFGLinkedList()
     self.Frame = CreateFrame("Frame")
     self.Frame:RegisterEvent("CHAT_MSG_CHANNEL_JOIN")
-    self.Frame:RegisterEvent("PARTY_INVITE_REQUEST")
-    self.Frame:RegisterEvent("GROUP_ROSTER_UPDATE")
-    self.Frame:RegisterEvent("GROUP_LEFT")
-    self.Frame:RegisterEvent("RAID_ROSTER_UPDATE")
-    self.Frame:RegisterEvent("PARTY_INVITE_REQUEST")
-    self.Frame:RegisterEvent("PARTY_INVITE_REQUEST")
     self.Frame:SetScript("OnEvent", function(_, event, ...) 
         if (event == "CHAT_MSG_CHANNEL_JOIN") then
             local _, playerName, _, channelId, channelName = ...
@@ -26,113 +19,21 @@ function ClassicLFGGroupManager.new()
                 self:HandleDataRequest(nil, playerName)
             end
         end
-        if (event == "GROUP_ROSTER_UPDATE") then
-            for i = 1, GetNumGroupMembers() do
-                local playerName = GetRaidRosterInfo(i)
-                for k=0, self.Applicants.Size - 1 do
-                    if (self.Applicants:GetItem(k).Name == playerName) then
-                        local player = ClassicLFGPlayer(playerName)
-                        self:ApplicantInviteAccepted(player)
-                        break
-                    end
-                end
-            end
-        end
-
-        if (event == "PARTY_INVITE_REQUEST") then
-            -- ToDo: Only Accept if the leader is in one of the groups you applied to.
-            local leader = ...
-            AcceptGroup()
-            StaticPopup1:Hide()
-        end
     end)
-    ClassicLFG.Network:AddMessageCallback(ClassicLFG.Config.Network.Prefixes.RequestData, self, self.HandleDataRequest)
-    ClassicLFG.Network:AddMessageCallback(ClassicLFG.Config.Network.Prefixes.PostGroup, self, self.ReceiveGroup)
-    ClassicLFG.Network:AddMessageCallback(ClassicLFG.Config.Network.Prefixes.DequeueGroup, self, self.HandleDequeueGroup)
-    ClassicLFG.Network:AddMessageCallback(ClassicLFG.Config.Network.Prefixes.ApplyForGroup, self, self.HandleApplications)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupUpdated, self, self.ReceiveGroup)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupListed, self, self.ReceiveGroup)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupDelisted, self, self.HandleDequeueGroup)
     return self
-end
-
-function ClassicLFGGroupManager:HandleDataRequest(object, sender)
-    if (self.Groups.Size > 0) then
-        ClassicLFG.Network:SendObject(
-            ClassicLFG.Config.Network.Prefixes.PostGroup,
-            self.Groups:GetItem(math.random(0, self.Groups.Size - 1)),
-            "WHISPER",
-            sender)
-    end
-end
-
-function ClassicLFGGroupManager:HandleApplications(applicant)
-    local index = self.Applicants:ContainsWithEqualsFunction(applicant, function(item1, item2)
-        return item1.Name == item2.Name
-    end)
-    if (index == nil) then
-        self:AddApplicant(applicant)
-    end
-end
-
-function ClassicLFGGroupManager:ApplicantDeclined(applicant)
-    self:RemoveApplicant(applicant)
-    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantDeclined, applicant)
-end
-
-function ClassicLFGGroupManager:ApplicantInvited(applicant)
-    InviteUnit(applicant.Name)
-    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInvited, applicant)
-end
-
-function ClassicLFGGroupManager:ApplicantInviteAccepted(applicant)
-    self:RemoveApplicant(applicant)
-    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInviteAccepted, applicant)
-end
-
-function ClassicLFGGroupManager:ApplicantInviteDeclined(applicant)
-    self:RemoveApplicant(applicant)
-    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInviteDeclined, applicant)
-end
-
-function ClassicLFGGroupManager:AddApplicant(applicant)
-    self.Applicants:AddItem(applicant)
-    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantReceived, applicant)
-end
-
-function ClassicLFGGroupManager:RemoveApplicant(applicant)
-    local index = self.Applicants:ContainsWithEqualsFunction(applicant, function(item1, item2)
-        return item1.Name == item2.Name
-    end)
-    if (index ~= nil) then
-        self.Applicants:RemoveItem(index)
-    end
 end
 
 function ClassicLFGGroupManager:ApplyForGroup(dungeonGroup)
     if (dungeonGroup.Leader.Name ~= UnitName("player")) then
         ClassicLFG.Network:SendObject(
-            ClassicLFG.Config.Network.Prefixes.ApplyForGroup,
+            ClassicLFG.Config.Events.ApplyForGroup,
             ClassicLFGPlayer(),
             "WHISPER",
             dungeonGroup.Leader.Name)
     end
-end
-
-function ClassicLFGGroupManager:PostGroup(dungeonGroup)
-    self:ReceiveGroup(dungeonGroup)
-    ClassicLFG.Network:SendObject(
-        ClassicLFG.Config.Network.Prefixes.PostGroup,
-        dungeonGroup,
-        "CHANNEL",
-        ClassicLFG.Config.Network.Channel.Id)
-end
-
-function ClassicLFGGroupManager:DequeueGroup()
-    local dungeonGroup = ClassicLFGDungeonGroup()
-    self:HandleDequeueGroup(dungeonGroup)
-    ClassicLFG.Network:SendObject(
-        ClassicLFG.Config.Network.Prefixes.DequeueGroup,
-        dungeonGroup,
-        "CHANNEL",
-        ClassicLFG.Config.Network.Channel.Id)
 end
 
 function ClassicLFGGroupManager:HandleDequeueGroup(dungeonGroup)

@@ -151,7 +151,7 @@ end
 function ClassicLFGLinkedList:Print()
     local currentItem = self.Items.Head
     while (currentItem ~= nil) do
-        print(currentItem.Value)
+        ClassicLFG:DebugPrint(currentItem.Value)
         currentItem = currentItem.Next
     end
 end

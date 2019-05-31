@@ -23,6 +23,7 @@ src\core\event-bus.lua
 src\networking\network.lua
 src\core\player.lua
 src\core\dungeon-group.lua
+src\core\dungeon-group-manager.lua
 src\core\group-manager.lua
 src\gui\button.lua
 src\gui\icon.lua

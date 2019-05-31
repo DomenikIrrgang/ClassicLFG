@@ -34,7 +34,7 @@ end
 
 function ClassicLFGApplicantList:UpdateList()
     for i=1, #self.ListItems do
-        local applicant = ClassicLFG.GroupManager.Applicants:GetItem(i - 1)
+        local applicant = ClassicLFG.DungeonGroupManager.Applicants:GetItem(i - 1)
         self.ListItems[i]:SetPlayer(applicant)
     end
 end
@@ -70,16 +70,15 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
     self.DeclineButton:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMRIGHT", -65, 5)
     self.DeclineButton.OnClick = function()
         if (self.Player.Invited == false) then
-            ClassicLFG.GroupManager:ApplicantDeclined(self.Player)
+            ClassicLFG.DungeonGroupManager:ApplicantDeclined(self.Player)
         end
     end
     self.InviteButton = ClassicLFGButton("Invite", self.Frame)
     self.InviteButton:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -70, -5);
     self.InviteButton:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMRIGHT", -130, 5)
     self.InviteButton.OnClick = function()
-        print(self.Player.Invited)
         if (self.Player.Invited == false) then
-            ClassicLFG.GroupManager:ApplicantInvited(self.Player)
+            ClassicLFG.DungeonGroupManager:ApplicantInvited(self.Player)
             self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
             self.InviteButton:SetDisabled(true)
             self.DeclineButton:SetDisabled(true)
@@ -94,7 +93,7 @@ function ClassicLFGApplicantListItem:SetPlayer(player)
     self.Player = player
     if (player ~= nil) then
         self.PlayerText:SetText(player.Name)
-        self.ClassText:SetText(player.Level .. " " .. player.Class)
+        self.ClassText:SetText(player.Level .. " " .. ClassicLFGPlayer.GetSpecialization(player).Name .. " " .. player.Class .. " (" .. player.Talents[1] .. "/" .. player.Talents[2] .. "/" .. player.Talents[3] .. ")")
         self.ClassText:SetTextColor(GetClassColor(player.Class:upper()))
         self.PlayerText:SetPoint("LEFT", self.Frame, "TOPLEFT", 5, -10)
         if (player.Guild) then
@@ -109,6 +108,8 @@ function ClassicLFGApplicantListItem:SetPlayer(player)
         else
             self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
         end
+        self.InviteButton:SetDisabled(false)
+        self.DeclineButton:SetDisabled(false)
         self.Frame:Show()
     else
         self.Frame:Hide()

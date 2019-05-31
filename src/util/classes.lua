@@ -6,15 +6,15 @@ function ClassicLFG:DefineClass(name, spec1, spec1Role, spec2, spec2Role, spec3,
         Specialization = {},
         Color = { GetClassColor(name:upper()) }
     }
-    ClassicLFG.Class[name:upper()].Specialization[0] = {
+    ClassicLFG.Class[name:upper()].Specialization[1] = {
         Name = spec1,
         Role = spec1Role,
     }
-    ClassicLFG.Class[name:upper()].Specialization[1] = {
+    ClassicLFG.Class[name:upper()].Specialization[2] = {
         Name = spec2,
         Role = spec2Role
     }
-    ClassicLFG.Class[name:upper()].Specialization[2] = {
+    ClassicLFG.Class[name:upper()].Specialization[3] = {
         Name = spec3,
         Role = spec3Role
     }

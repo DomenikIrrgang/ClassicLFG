@@ -33,10 +33,10 @@ function ClassicLFG:RecursivePrint(object, maxDepths, layer)
     if (type(object) == "table" and (maxDepths == nil or layer <= maxDepths)) then
         for key in pairs(object) do
             if (type(object[key]) == "table") then
-                print("Printing Table ", key, object[key])
+                ClassicLFG:DebugPrint("Printing Table ", key, object[key])
                 ClassicLFG:RecursivePrint(object[key], maxDepths, layer + 1)
             else
-                print(key, object[key])
+                ClassicLFG:DebugPrint(key, object[key])
             end
         end
     end

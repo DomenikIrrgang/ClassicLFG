@@ -1,6 +1,10 @@
 ﻿ClassicLFG = LibStub("AceAddon-3.0"):NewAddon("ClassicLFG")
 ClassicLFG.AceGUI = LibStub("AceGUI-3.0")
 
+GetTalentTabInfo = GetTalentTabInfo or function(index)
+    return "Assasination", nil, math.random(1,10), "RogueAssasination"
+end
+
 function ClassicLFG:OnEnable()
     JoinChannelByName(ClassicLFG.Config.Network.Channel.Name)
     local channels = { GetChannelList() }
@@ -11,5 +15,5 @@ function ClassicLFG:OnEnable()
         end
         i = i + 3
     end
-    self.Network:SendMessage(self.Config.Network.Prefixes.RequestData, "RequestCGroupData", "CHANNEL", ClassicLFG.Config.Network.Channel.Id)
+    self.Network:SendObject(self.Config.Events.RequestData, "RequestCGroupData", "CHANNEL", ClassicLFG.Config.Network.Channel.Id)
 end

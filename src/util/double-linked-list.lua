@@ -112,15 +112,15 @@ end
 
 function ClassicLFGDoubleLinkedList:Print()
     local currentItem = self.Items.Head
-    print("FORWARDS")
+    ClassicLFG:DebugPrint("FORWARDS")
     while (currentItem ~= nil) do
-        print(currentItem.Name)
+        ClassicLFG:DebugPrint(currentItem.Name)
         currentItem = currentItem.Next
     end
-    print("BACKWARDS")
+    ClassicLFG:DebugPrint("BACKWARDS")
     currentItem = self.Items.Tail
     while (currentItem ~= nil) do
-        print(currentItem.Name)
+        ClassicLFG:DebugPrint(currentItem.Name)
         currentItem = currentItem.Previous
     end
 end

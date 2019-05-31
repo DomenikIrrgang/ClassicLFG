@@ -176,12 +176,21 @@ ClassicLFG.QueueWindow.CreateGroup.QueueButton.OnClick = function(self)
 	ClassicLFG.QueueWindow.CreateGroup.DequeueButton:Show()
 	self:SetText("Update Data")
 	PanelTemplates_DisableTab(ClassicLFG.QueueWindow, 1)
-	ClassicLFG.GroupManager:PostGroup(ClassicLFGDungeonGroup(
-		ClassicLFG.Dungeon[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()],
-		ClassicLFGPlayer(),
-		ClassicLFG.QueueWindow.CreateGroup.Title:GetText(),
-		ClassicLFG.QueueWindow.CreateGroup.Description:GetText()
-	))
+	if (ClassicLFG.DungeonGroupManager:IsListed()) then
+		ClassicLFG.DungeonGroupManager:UpdateGroup(ClassicLFGDungeonGroup(
+			ClassicLFG.Dungeon[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()],
+			ClassicLFGPlayer(),
+			ClassicLFG.QueueWindow.CreateGroup.Title:GetText(),
+			ClassicLFG.QueueWindow.CreateGroup.Description:GetText()
+		))
+	else
+		ClassicLFG.DungeonGroupManager:ListGroup(ClassicLFGDungeonGroup(
+			ClassicLFG.Dungeon[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()],
+			ClassicLFGPlayer(),
+			ClassicLFG.QueueWindow.CreateGroup.Title:GetText(),
+			ClassicLFG.QueueWindow.CreateGroup.Description:GetText()
+		))
+	end
 end
 ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetDisabled(true)
 
@@ -192,7 +201,7 @@ ClassicLFG.QueueWindow.CreateGroup.DequeueButton.Frame:Hide()
 ClassicLFG.QueueWindow.CreateGroup.DequeueButton.OnClick = function(self)
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.frame, "BOTTOMRIGHT", 0, -30)
 	ClassicLFG.QueueWindow.CreateGroup.DequeueButton:Hide()
-	ClassicLFG.GroupManager:DequeueGroup()
+	ClassicLFG.DungeonGroupManager:DequeueGroup()
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetText("List Group")
 	PanelTemplates_EnableTab(ClassicLFG.QueueWindow, 1)
 end

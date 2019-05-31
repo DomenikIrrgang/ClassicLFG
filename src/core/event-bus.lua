@@ -21,6 +21,7 @@ function ClassicLFGEventBus:RegisterCallback(event, object, callback)
 end
 
 function ClassicLFGEventBus:PublishEvent(event, ...)
+    ClassicLFG:DebugPrint("Event published: " .. event)
     if (self.Listeners[event] ~= nil) then
         for key in pairs(self.Listeners[event]) do
             self.Listeners[event][key].Callback(self.Listeners[event][key].Object, ...)
