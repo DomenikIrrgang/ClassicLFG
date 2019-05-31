@@ -98,6 +98,7 @@ function ClassicLFGApplicantListItem:SetPlayer(player)
             self.GuildText:SetPoint("TOPLEFT", self.PlayerText, "BOTTOMLEFT", 0, -3)
             self.ClassText:SetPoint("TOPLEFT", self.GuildText, "BOTTOMLEFT", 0, -3)
         else
+            self.GuildText:SetText("")
             self.ClassText:SetPoint("TOPLEFT", self.PlayerText, "BOTTOMLEFT", 0, -3)
         end
         if (player.Invited == false) then

@@ -22,6 +22,7 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
     self.Frame:RegisterEvent("PLAYER_ENTERING_WORLD")
     self.Frame:RegisterEvent("CHAT_MSG_SYSTEM")
     self.Frame:RegisterEvent("CHAT_MSG_CHANNEL_JOIN")
+    self.Frame:RegisterEvent("PARTY_LEADER_CHANGED")
     self.Frame:SetScript("OnEvent", function(_, event, ...)
         if (event == "CHAT_MSG_SYSTEM") then
             local message = ...
@@ -48,6 +49,17 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
                 else
                     ClassicLFGLinkedList.Clear(self.DungeonGroup.Members)
                     ClassicLFGLinkedList.AddItem(self.DungeonGroup.Members, ClassicLFGPlayer())
+                end
+            end
+        end
+
+        if(event == "PARTY_LEADER_CHANGED") then
+            if (self:IsListed()) then
+                for i = 0, self.DungeonGroup.Members.Size - 1 do
+                    local player = ClassicLFGLinkedList.GetItem(self.DungeonGroup.Members, i)
+                    if (UnitIsGroupLeader(player.Name) == true) then
+                        self.DUngeonGroup.Leader = player
+                    end
                 end
             end
         end
