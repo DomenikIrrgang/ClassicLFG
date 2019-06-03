@@ -20,6 +20,22 @@ function ClassicLFG:SplitString(text, sep)
     return fields
 end
 
+function ClassicLFG:RandomHash(length)
+    if( length == nil or length <= 0 ) then length = 32; end;
+    local holder = "";
+    hash_chars = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E",
+                    "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+                    "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
+                    "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+
+    for i = 1, length do
+        local index = math.random(1, #hash_chars);
+        holder = holder .. hash_chars[index];
+    end
+
+    return holder;
+end
+
 
 function ClassicLFG:DeepCopy(orig)
     local orig_type = type(orig)

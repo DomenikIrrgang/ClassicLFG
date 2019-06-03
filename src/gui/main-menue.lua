@@ -147,7 +147,6 @@ function ClassicLFG.QueueWindow.CreateGroup:DataEntered()
 end
 
 function ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(disable)
-	print(disable == false and (IsInGroup() == false or UnitIsGroupLeader("player") == true))
 	if (disable == false and (IsInGroup() == false or UnitIsGroupLeader("player") == true)) then
 		ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetDisabled(disable)
 	else
@@ -277,7 +276,6 @@ end)
 ClassicLFG.QueueWindow.CreateGroup:RegisterEvent("PARTY_LEADER_CHANGED")
 ClassicLFG.QueueWindow.CreateGroup:SetScript("OnEvent", function(_, event)
 	if (event == "PARTY_LEADER_CHANGED") then
-		print("party leader changed")
 		if (UnitIsGroupLeader("player") == true or IsInGroup() == false) then
 			ClassicLFG.QueueWindow.CreateGroup:DisableDequeueButton(false)
 		else

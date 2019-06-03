@@ -54,11 +54,17 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
         end
 
         if(event == "PARTY_LEADER_CHANGED") then
+            print("party leader changed")
             if (self:IsListed()) then
+                print("is listed")
                 for i = 0, self.DungeonGroup.Members.Size - 1 do
                     local player = ClassicLFGLinkedList.GetItem(self.DungeonGroup.Members, i)
+                    print("found leader", player.Name, UnitIsGroupLeader(player.Name))
                     if (UnitIsGroupLeader(player.Name) == true) then
-                        self.DungeonGroup.Leader = player
+                        print("found leader")
+                        local oldGroup = self.DungeonGroup
+                        oldGroup.Leader = player
+                        self:UpdateGroup(oldGroup)
                     end
                 end
             end
@@ -119,7 +125,7 @@ function ClassicLFGDungeonGroupManager:HandleDataRequest(object, sender)
 end
 
 function ClassicLFGDungeonGroupManager:HandleGroupDelisted(dungeonGroup)
-    if (self.DUngeonGroup ~= nil and dungeonGroup.Leader.Name == self.DungeonGroup.Leader.Name) then
+    if (self.DungeonGroup ~= nil and dungeonGroup.Leader.Name == self.DungeonGroup.Leader.Name) then
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupLeft, self.DungeonGroup)
     end
 end
@@ -162,7 +168,7 @@ end
 
 function ClassicLFGDungeonGroupManager:ListGroup(dungeonGroup)
     self.DungeonGroup = dungeonGroup
-    self.DungeonGroup:AddMember(ClassicLFGPlayer(UnitName("player")))
+    ClassicLFGDungeonGroup.AddMember(self.DungeonGroup, ClassicLFGPlayer(UnitName("player")))
     ClassicLFG.Network:SendObject(
         ClassicLFG.Config.Events.GroupListed,
         dungeonGroup,

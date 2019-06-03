@@ -9,6 +9,7 @@ setmetatable(ClassicLFGDungeonGroup, {
 
 function ClassicLFGDungeonGroup.new(dungeon, leader, title, description, source, members)
     local self = setmetatable({}, ClassicLFGDungeonGroup)
+    self.Hash = ClassicLFG:RandomHash(8)
     self.Leader = leader or ClassicLFGPlayer()
     self.Members = members or ClassicLFGLinkedList()
     self.Description = description or ""
