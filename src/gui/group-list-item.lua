@@ -122,8 +122,14 @@ function CLassicLFGGroupListItem:SetGroup(entry)
         self.RoleIcons.Healer.Text:SetText(entry.Group.Healer)
         if (self.entry.Source.Type == "CHAT") then
             self.QueueButton:SetText("Whisper")
+            self.RoleIcons.Dps:Hide()
+            self.RoleIcons.Tank:Hide()
+            self.RoleIcons.Healer:Hide()
         else
             self.QueueButton:SetText("Queue")
+            self.RoleIcons.Dps:Show()
+            self.RoleIcons.Tank:Show()
+            self.RoleIcons.Healer:Show()
         end
 
         if (ClassicLFG.GroupManager:HasAppliedForGroup(entry)) then

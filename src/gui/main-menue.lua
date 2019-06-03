@@ -71,7 +71,7 @@ ClassicLFG.QueueWindow.SearchGroup.SearchField:SetPoint("TOPLEFT", ClassicLFG.Qu
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.SearchGroup, "TOPRIGHT", -5, -35)
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetText("Select Dungeon")
 --ClassicLFG.QueueWindow.SearchGroup.SearchField:SetList(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
-ClassicLFG.QueueWindow.SearchGroup.SearchField:SetList(ClassicLFG:GetDungeonsByLevel(40))
+ClassicLFG.QueueWindow.SearchGroup.SearchField:SetList(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetMultiselect(true)
 ClassicLFG.QueueWindow.SearchGroup.SearchField.SelectedDungeons = ClassicLFGLinkedList()
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetCallback("OnValueChanged", function(key, checked, value)

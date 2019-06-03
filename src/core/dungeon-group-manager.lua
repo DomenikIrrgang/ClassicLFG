@@ -20,11 +20,13 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
     self.Frame:RegisterEvent("PARTY_INVITE_REQUEST")
     self.Frame:RegisterEvent("PARTY_INVITE_REQUEST")
     self.Frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+    self.Frame:RegisterEvent("PLAYER_LEAVING_WORLD")
     self.Frame:RegisterEvent("CHAT_MSG_SYSTEM")
     self.Frame:RegisterEvent("CHAT_MSG_CHANNEL_JOIN")
     self.Frame:RegisterEvent("PARTY_LEADER_CHANGED")
     self.Frame:SetScript("OnEvent", function(_, event, ...)
         if (event == "CHAT_MSG_SYSTEM") then
+
             local message = ...
             if(message:find(" declines your group invitation.")) then
                 local playerName = message:gsub(" declines your group invitation.", "")
@@ -181,12 +183,14 @@ function ClassicLFGDungeonGroupManager:IsListed()
 end
 
 function ClassicLFGDungeonGroupManager:DequeueGroup()
-    ClassicLFG.Network:SendObject(
-        ClassicLFG.Config.Events.GroupDelisted,
-        self.DungeonGroup,
-        "CHANNEL",
-        ClassicLFG.Config.Network.Channel.Id)
-    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupLeft, self.DungeonGroup)
+    if (self:IsListed()) then
+        ClassicLFG.Network:SendObject(
+            ClassicLFG.Config.Events.GroupDelisted,
+            self.DungeonGroup,
+            "CHANNEL",
+            ClassicLFG.Config.Network.Channel.Id)
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupLeft, self.DungeonGroup)
+    end
 end
 
 function ClassicLFGDungeonGroupManager:UpdateGroup(dungeonGroup)

@@ -20,3 +20,13 @@ end
 function ClassicLFGIconWithText:GetTexture()
     return self.Texture
 end
+
+function ClassicLFGIconWithText:Hide()
+  self.Icon.Texture:Hide()
+  self.Text:Hide()
+end
+
+function ClassicLFGIconWithText:Show()
+  self.Icon.Texture:Show()
+  self.Text:Show()
+end
