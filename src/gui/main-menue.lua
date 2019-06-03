@@ -285,3 +285,4 @@ ClassicLFG.QueueWindow.CreateGroup:SetScript("OnEvent", function(_, event)
 	end
 end)
 
+ClassicLFG.QueueWindow:Hide()

@@ -5,6 +5,7 @@
 ## Notes: Tool to form groups for any activity in Classic!
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
+## SavedVariables: ClassicLFG_DB
 
 libs.xml
 
