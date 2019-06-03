@@ -57,12 +57,9 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
 
         if(event == "PARTY_LEADER_CHANGED") then
             if (self:IsListed()) then
-                print("is listed")
                 for i = 0, self.DungeonGroup.Members.Size - 1 do
                     local player = ClassicLFGLinkedList.GetItem(self.DungeonGroup.Members, i)
-                    print("found leader", player.Name, UnitIsGroupLeader(player.Name))
                     if (UnitIsGroupLeader(player.Name) == true) then
-                        print("found leader")
                         local oldGroup = self.DungeonGroup
                         oldGroup.Leader = player
                         self:UpdateGroup(oldGroup)

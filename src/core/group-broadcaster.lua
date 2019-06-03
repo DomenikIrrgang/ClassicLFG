@@ -19,7 +19,6 @@ function ClassicLFGGroupBroadCaster:Start(time)
     C_Timer.After(time, function()
         if (self.Canceled == false) then
             ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupListed, self.DungeonGroup)
-            print(self.DungeonGroup.Leader.Name)
             ClassicLFG.Network:SendObject(
                 ClassicLFG.Config.Events.GroupListed,
                 self.DungeonGroup,

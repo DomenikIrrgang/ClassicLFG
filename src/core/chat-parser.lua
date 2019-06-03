@@ -42,7 +42,6 @@ end
 function ClassicLFGChatParser:ParseMessage(sender, message, channel)
     local lowerMessage = string.lower(message)
     local dungeon = self:HasDungeonName(lowerMessage) or self:HasDungeonAbbreviation(lowerMessage)
-    print(lowerMessage, self:HasLFMTag(lowerMessage), dungeon, sender)
     if (self:HasLFMTag(lowerMessage) and dungeon ~= nil) then
         local dungeonGroup = ClassicLFGDungeonGroup(dungeon, ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
         ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. dungeon.Name .. ")")

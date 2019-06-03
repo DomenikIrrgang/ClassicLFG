@@ -17,7 +17,6 @@ function ClassicLFGPlayer.new(name, guild, level, class, talents)
     end
     self.Guild = guild or GetGuildInfo(self.Name)
     self.Level = level or UnitLevel(self.Name)
-    print(self.Name)
     if (UnitClass(self.Name) ~= nil) then
         self.Class = class or ClassicLFG.Class[select(2, UnitClass(self.Name))].Name
     else

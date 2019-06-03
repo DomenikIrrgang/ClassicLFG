@@ -99,7 +99,7 @@ end
 
 function ClassicLFGGroupManager:ReceiveGroup(dungeonGroup)
     local groupIndex = self:HasGroup(self.Groups, dungeonGroup.Leader)
-    print(dungeonGroup.Title)
+
     if (groupIndex ~= nil) then
         self.Groups:SetItem(groupIndex, dungeonGroup)
     else

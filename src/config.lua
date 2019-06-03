@@ -1,5 +1,5 @@
 ClassicLFG.Config = {
-    Debug = true,
+    Debug = false,
     Font = "Fonts\\FRIZQT__.ttf",
     Network = {
         Prefix = "CLFG_Network",
