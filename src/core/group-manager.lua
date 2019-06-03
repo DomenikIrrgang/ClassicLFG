@@ -20,6 +20,7 @@ function ClassicLFGGroupManager.new()
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupDelisted, self, self.HandleDequeueGroup)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined, self, self.HandleDungeonGroupJoined)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DeclineApplicant, self, self.HandleApplicationDeclined)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ChatDungeonGroupFound, self, self.HandleChatDungeonGroupFound)
     return self
 end
 
@@ -35,6 +36,13 @@ function ClassicLFGGroupManager:ApplyForGroup(dungeonGroup)
     end
 end
 
+function ClassicLFGGroupManager:HandleChatDungeonGroupFound(dungeonGroup)
+    if (not self:ContainsGroup(dungeonGroup)) then
+        local broadCast = ClassicLFGGroupBroadCaster(dungeonGroup)
+        broadCast:Start(math.random(1, 2))
+    end
+end
+
 function ClassicLFGGroupManager:WithdrawFromGroup(dungeonGroup)
     if (dungeonGroup.Leader.Name ~= UnitName("player")) then
         local index = self:HasGroup(self.AppliedGroups, dungeonGroup)
@@ -47,6 +55,11 @@ function ClassicLFGGroupManager:WithdrawFromGroup(dungeonGroup)
                 dungeonGroup.Leader.Name)
         end
     end
+end
+
+function ClassicLFGGroupManager:ContainsGroup(dungeonGroup)
+    local groupIndex = self:HasGroup(self.Groups, dungeonGroup.Leader)
+    return groupIndex ~= nil
 end
 
 function ClassicLFGGroupManager:HandleDungeonGroupJoined(dungeonGroup)
@@ -86,6 +99,7 @@ end
 
 function ClassicLFGGroupManager:ReceiveGroup(dungeonGroup)
     local groupIndex = self:HasGroup(self.Groups, dungeonGroup.Leader)
+    print(dungeonGroup.Title)
     if (groupIndex ~= nil) then
         self.Groups:SetItem(groupIndex, dungeonGroup)
     else

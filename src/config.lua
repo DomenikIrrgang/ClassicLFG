@@ -45,6 +45,8 @@ ClassicLFG.Config = {
         -- Args()
         DungeonGroupRequestTalents = "CLASSICLFG_GROUP_TALENTS_REQUEST",
         -- Args(talents)
-        DungeonGroupRequestTalents = "CLASSICLFG_GROUP_TALENTS_RESPONSE"
+        DungeonGroupRequestTalents = "CLASSICLFG_GROUP_TALENTS_RESPONSE",
+        -- Args(dungeonGroup)
+        ChatDungeonGroupFound = "CLASSICLFG_CHAT_DUNGEONGROUP_FOUND"
     }
 }

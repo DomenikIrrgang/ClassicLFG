@@ -26,6 +26,8 @@ src\core\player.lua
 src\core\dungeon-group.lua
 src\core\dungeon-group-manager.lua
 src\core\group-manager.lua
+src\core\chat-parser.lua
+src\core\group-broadcaster.lua
 src\gui\button.lua
 src\gui\icon.lua
 src\gui\icon-with-text.lua
