@@ -10,11 +10,20 @@ setmetatable(ClassicLFGPlayer, {
 function ClassicLFGPlayer.new(name, guild, level, class, talents)
     local self = setmetatable({}, ClassicLFGPlayer)
     self.Invited = false
-    self.Name = ClassicLFG:SplitString(name, "-")[0] or UnitName("player")
-    print(self.Name)
+    if (name ~= nil) then
+        self.Name = ClassicLFG:SplitString(name, "-")[1]
+    else
+        self.Name = UnitName("player")
+    end
     self.Guild = guild or GetGuildInfo(self.Name)
     self.Level = level or UnitLevel(self.Name)
-    self.Class = class or ClassicLFG.Class[select(2, UnitClass(self.Name))].Name
+    print(self.Name)
+    if (UnitClass(self.Name) ~= nil) then
+        self.Class = class or ClassicLFG.Class[select(2, UnitClass(self.Name))].Name
+    else
+        -- ToDo: Get Class from Player differently somehow
+        self.Class = ClassicLFG.Class.WARRIOR
+    end
     self.Talents = talents or self:CreateTalents()
     return self
 end

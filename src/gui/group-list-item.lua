@@ -36,7 +36,12 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.QueueButton = ClassicLFGButton("Queue", self.Frame)
     self.QueueButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -5, 5)
     self.QueueButton.OnClick = function() 
-        ClassicLFG.GroupManager:ApplyForGroup(self.entry)
+        if (self.entry.Source.Type == "ADDON") then
+            ClassicLFG.GroupManager:ApplyForGroup(self.entry)
+        else
+            ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name .. " " .. ClassicLFG.Config.InviteMessage)
+            ChatFrame1EditBox:Show()ChatFrame1EditBox:SetFocus()
+        end
     end
     self.QueueButton:Hide()
 
@@ -83,7 +88,6 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
             self.Frame:SetHeight(95)
             self.IsOpen = true
             if (self.entry.Leader.Name == UnitName("player")) then
-                -- Todo: Once Buttons can be disabled disabled instead of hide
                 self.QueueButton.Frame:Hide()
             else
                 self.QueueButton.Frame:Show()
@@ -116,6 +120,11 @@ function CLassicLFGGroupListItem:SetGroup(entry)
         self.RoleIcons.Dps.Text:SetText(entry.Group.Dps)
         self.RoleIcons.Tank.Text:SetText(entry.Group.Tank)
         self.RoleIcons.Healer.Text:SetText(entry.Group.Healer)
+        if (self.entry.Source.Type == "CHAT") then
+            self.QueueButton:SetText("Whisper")
+        else
+            self.QueueButton:SetText("Queue")
+        end
 
         if (ClassicLFG.GroupManager:HasAppliedForGroup(entry)) then
             self.QueueButton:SetDisabled(true)

@@ -39,7 +39,7 @@ end
 function ClassicLFGGroupManager:HandleChatDungeonGroupFound(dungeonGroup)
     if (not self:ContainsGroup(dungeonGroup)) then
         local broadCast = ClassicLFGGroupBroadCaster(dungeonGroup)
-        broadCast:Start(math.random(1, 2))
+        broadCast:Start(math.random(1, ClassicLFG.Config.BroadcastInterval))
     end
 end
 

@@ -8,6 +8,9 @@ ClassicLFG.Config = {
             Id = 1
         }
     },
+    BroadcastInterval = 2,
+    UnlistInterval = 2,
+    InviteMessage = "invite please",
     Events = {
         RequestData = "CLASSICLFG_DATA_REQUEST",
         SendData = "CLASSICLFG_DATA_RESPONSE",
