@@ -54,7 +54,6 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
         end
 
         if(event == "PARTY_LEADER_CHANGED") then
-            print("party leader changed")
             if (self:IsListed()) then
                 print("is listed")
                 for i = 0, self.DungeonGroup.Members.Size - 1 do

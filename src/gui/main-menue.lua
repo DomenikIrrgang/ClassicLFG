@@ -70,7 +70,8 @@ ClassicLFG.QueueWindow.SearchGroup.SearchField.frame:SetParent(ClassicLFG.QueueW
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.SearchGroup, "TOPLEFT", 0, -8);
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.SearchGroup, "TOPRIGHT", -5, -35)
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetText("Select Dungeon")
-ClassicLFG.QueueWindow.SearchGroup.SearchField:SetList(ClassicLFG.DungeonList)
+--ClassicLFG.QueueWindow.SearchGroup.SearchField:SetList(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
+ClassicLFG.QueueWindow.SearchGroup.SearchField:SetList(ClassicLFG:GetDungeonsByLevel(40))
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetMultiselect(true)
 ClassicLFG.QueueWindow.SearchGroup.SearchField.SelectedDungeons = ClassicLFGLinkedList()
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetCallback("OnValueChanged", function(key, checked, value)
@@ -178,7 +179,7 @@ ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetPoint("TOPLEFT", ClassicLFG.QueueW
 ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Title.frame, "BOTTOMRIGHT", 0, -45)
 ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetText("Select Dungeon")
 ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetLabel("Dungeon:")
-ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetList(ClassicLFG.DungeonList)
+ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetList(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
 ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetCallback("OnValueChanged", ClassicLFG.QueueWindow.CreateGroup.DataEntered)
 
 ClassicLFG.QueueWindow.CreateGroup.Description = ClassicLFG.AceGUI:Create("MultiLineEditBox")

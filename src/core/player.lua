@@ -43,5 +43,3 @@ end
 function ClassicLFGPlayer:Equals(otherPlayer)
     return otherPlayer.Name == self.Name
 end
-
---ClassicLFG.ExamplePlayer = ClassicLFGPlayer("Suaddon")
