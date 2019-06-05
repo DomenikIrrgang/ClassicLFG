@@ -10,6 +10,8 @@ ClassicLFG.Config = {
     },
     BroadcastInterval = 2,
     UnlistInterval = 2,
+    BroadcastChannel = "ClassicLFGNetwork",
+    BroadcastInterval = 5,
     InviteMessage = "invite please",
     Events = {
         RequestData = "CLASSICLFG_DATA_REQUEST",

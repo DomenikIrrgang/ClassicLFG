@@ -134,6 +134,9 @@ end
 function ClassicLFGDungeonGroupManager:HandleDungeonGroupMemberLeft(player)
     if (self:IsListed()) then
         self:RemoveMember(player)
+        if (UnitIsGroupLeader("player") == true) then
+            self:UpdateGroup(self.DungeonGroup)
+        end
     end
 end
 
@@ -144,7 +147,7 @@ function ClassicLFGDungeonGroupManager:HandleGroupDelisted(dungeonGroup)
 end
 
 function ClassicLFGDungeonGroupManager:HandleGroupListed(dungeonGroup)
-    if (UnitIsGroupLeader(dungeonGroup.Leader.Name) == true) then
+    if (UnitIsGroupLeader(dungeonGroup.Leader.Name) == true and dungeonGroup.Source.Type == "ADDON") then
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupJoined, dungeonGroup)
     end
 end
@@ -157,6 +160,11 @@ end
 
 function ClassicLFGDungeonGroupManager:HandleDungeonGroupJoined(dungeonGroup)
     self.DungeonGroup = dungeonGroup
+    if (UnitIsGroupLeader("player") == true) then
+        local ticker = C_Timer.NewTicker(ClassicLFG.Config.BroadcastInterval, function()
+            SendChatMessage("LFM \"" .. self.DungeonGroup.Dungeon.Name .. "\": " .. self.DungeonGroup.Title, "CHANNEL", nil, GetChannelName(ClassicLFG.Config.BroadcastChannel))
+        end)
+    end
 end
 
 function ClassicLFGDungeonGroupManager:HandleDungeonGroupSyncRequest(_, sender)
@@ -281,9 +289,14 @@ function ClassicLFGDungeonGroupManager:ApplicantInviteAccepted(applicant)
     self:RemoveApplicant(applicant)
     ClassicLFGDungeonGroup.AddMember(self.DungeonGroup, applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInviteAccepted, applicant)
-    ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.DungeonGroupJoined, self.DungeonGroup, "WHISPER", applicant.Name)
+    
     if (self.DungeonGroup.Members.Size == 5) then
         self:DequeueGroup()
+    else
+        ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.DungeonGroupJoined, self.DungeonGroup, "WHISPER", applicant.Name)
+        if (UnitIsGroupLeader("player") == true) then
+            self:UpdateGroup(self.DungeonGroup)
+        end
     end
 end
 
