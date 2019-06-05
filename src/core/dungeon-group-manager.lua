@@ -161,8 +161,11 @@ end
 function ClassicLFGDungeonGroupManager:HandleDungeonGroupJoined(dungeonGroup)
     self.DungeonGroup = dungeonGroup
     if (UnitIsGroupLeader("player") == true) then
-        local ticker = C_Timer.NewTicker(ClassicLFG.Config.BroadcastInterval, function()
-            SendChatMessage("LFM \"" .. self.DungeonGroup.Dungeon.Name .. "\": " .. self.DungeonGroup.Title, "CHANNEL", nil, GetChannelName(ClassicLFG.Config.BroadcastChannel))
+        self.BroadcastTicker = C_Timer.NewTicker(ClassicLFG.Config.BroadcastDungeonGroupInterval, function()
+            ClassicLFG:DebugPrint("Broadcast Ticker tick")
+            if (self:IsListed()) then
+                SendChatMessage("LFM \"" .. self.DungeonGroup.Dungeon.Name .. "\": " .. self.DungeonGroup.Title, "CHANNEL", nil, GetChannelName(ClassicLFG.Config.BroadcastDungeonGroupChannel))
+            end
         end)
     end
 end
@@ -238,6 +241,9 @@ function ClassicLFGDungeonGroupManager:UpdateGroup(dungeonGroup)
 end
 
 function ClassicLFGDungeonGroupManager:HandleDungeonGroupLeft(dungeonGroup)
+    if (dungeonGroup.Leader.Name == UnitName("player")) then
+        self.BroadcastTicker:Cancel()
+    end
     self.DungeonGroup = nil
 end
 
