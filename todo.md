@@ -1,8 +1,11 @@
 # High Prio:
-- After leaving a group you cannot list your own before chaning data
+* After leaving a group you cannot list your own before chaning data
+* After member left the group send update
+* After decline of invite cannot requeue
 
 # Low Prio:
 * Party Leader Changed Delist group (maybe send confirmatio back when application is successful, otherwise delist group, might be too much traffic)
+* Sync Party Applicants between members of the group
 
 # Suggestions:
 

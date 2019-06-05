@@ -98,7 +98,13 @@ function ClassicLFGGroupManager:HasAppliedForGroup(dungeonGroup)
 end
 
 function ClassicLFGGroupManager:ReceiveGroup(dungeonGroup)
-    local groupIndex = self:HasGroup(self.Groups, dungeonGroup)
+    local groupIndex = nil
+
+    if (dungeonGroup.Source.Type == "ADDON") then
+        groupIndex = self:HasGroup(self.Groups, dungeonGroup)
+    else
+        groupIndex = self:LeaderHasGroup(self.Groups, dungeonGroup.Leader)
+    end
 
     if (groupIndex ~= nil) then
         self.Groups:SetItem(groupIndex, dungeonGroup)
@@ -110,6 +116,15 @@ end
 function ClassicLFGGroupManager:HasGroup(group, dungeonGroup)
     for i=0, group.Size - 1 do
         if (group:GetItem(i).Hash== dungeonGroup.Hash) then
+            return i
+        end
+    end
+    return nil
+end
+
+function ClassicLFGGroupManager:LeaderHasGroup(group, leader)
+    for i=0, group.Size - 1 do
+        if (group:GetItem(i).Leader.Name== leader.Name) then
             return i
         end
     end

@@ -152,11 +152,13 @@ function CLassicLFGGroupListItem:SetGroup(entry)
             self.RoleIcons.Dps:Hide()
             self.RoleIcons.Tank:Hide()
             self.RoleIcons.Healer:Hide()
+            self.RoleIcons.Unknown:Hide()
         else
             self.QueueButton:SetText("Queue")
             self.RoleIcons.Dps:Show()
             self.RoleIcons.Tank:Show()
             self.RoleIcons.Healer:Show()
+            self.RoleIcons.Unknown:Hide()
         end
 
         if (ClassicLFG.GroupManager:HasAppliedForGroup(entry)) then
