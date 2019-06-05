@@ -148,7 +148,7 @@ function ClassicLFGDungeonGroupManager:HandleGroupListed(dungeonGroup)
 end
 
 function ClassicLFGDungeonGroupManager:HandleGroupUpdated(dungeonGroup)
-    if (dungeonGroup.Hash == self.DungeonGroup.Hash) then
+    if (self:IsListed() and dungeonGroup.Hash == self.DungeonGroup.Hash) then
         self.DungeonGroup = dungeonGroup
     end
 end
