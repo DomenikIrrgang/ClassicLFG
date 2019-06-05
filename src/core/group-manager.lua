@@ -78,6 +78,10 @@ end
 
 function ClassicLFGGroupManager:HandleApplicationDeclined(dungeonGroup)
     ClassicLFG:Print("You have been declined by the group: \"" .. dungeonGroup.Title .. "\"")
+    local index = self:HasGroup(self.AppliedGroups, dungeonGroup)
+    if (index) then
+        self.AppliedGroups:RemoveItem(index)
+    end
 end
 
 function ClassicLFGGroupManager:HandleDequeueGroup(dungeonGroup)
@@ -98,16 +102,12 @@ function ClassicLFGGroupManager:HasAppliedForGroup(dungeonGroup)
 end
 
 function ClassicLFGGroupManager:ReceiveGroup(dungeonGroup)
-    local groupIndex = nil
-
-    if (dungeonGroup.Source.Type == "ADDON") then
-        groupIndex = self:HasGroup(self.Groups, dungeonGroup)
-    else
-        groupIndex = self:LeaderHasGroup(self.Groups, dungeonGroup.Leader)
-    end
-
+    local groupIndex = self:HasGroup(self.Groups, dungeonGroup) or self:LeaderHasGroup(self.Groups, dungeonGroup.Leader)
     if (groupIndex ~= nil) then
-        self.Groups:SetItem(groupIndex, dungeonGroup)
+        print("Previous Group Type:", self.Groups:GetItem(groupIndex).Source.Type, "New Group Type:", dungeonGroup.Source.Type)
+        if (dungeonGroup.Source.Type == "ADDON" or self.Groups:GetItem(groupIndex).Source.Type == dungeonGroup.Source.Type) then
+            self.Groups:SetItem(groupIndex, dungeonGroup)
+        end
     else
         self.Groups:AddItem(dungeonGroup)
     end

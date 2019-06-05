@@ -29,6 +29,7 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.DungeonName = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.DungeonName:SetFont(ClassicLFG.Config.Font, 10, "NONE");
     self.DungeonName:SetPoint("TOPLEFT", self.Title, "BOTTOMLEFT", 0, -2);
+
     self.EntrySource = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.EntrySource:SetFont(ClassicLFG.Config.Font, 8, "NONE");
     self.EntrySource:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", 0, -3);
@@ -124,7 +125,7 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     end)
 
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DeclineApplicant, self, function(self, dungeonGroup)
-        if (self.entry ~= nil and dungeonGroup.Hash == self.entry.Hash) then
+        if (self.entry ~= nil and (dungeonGroup.Hash == self.entry.Hash or dungeonGroup.Leader.Name == self.entry.Leader.Name)) then
             self.QueueButton:SetDisabled(false)
         end
     end)
@@ -142,7 +143,6 @@ function CLassicLFGGroupListItem:SetGroup(entry)
         self.entry = entry
         self.Title:SetText(entry.Title)
         self.DungeonName:SetText(entry.Dungeon.Name)
-        self.Description:SetText(entry.Description)
         self.RoleIcons.Dps.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.DPS))
         self.RoleIcons.Tank.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.TANK))
         self.RoleIcons.Healer.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.HEALER))
@@ -153,12 +153,14 @@ function CLassicLFGGroupListItem:SetGroup(entry)
             self.RoleIcons.Tank:Hide()
             self.RoleIcons.Healer:Hide()
             self.RoleIcons.Unknown:Hide()
+            self.Description:SetText("Leader : " .. entry.Leader.Name)
         else
             self.QueueButton:SetText("Queue")
             self.RoleIcons.Dps:Show()
             self.RoleIcons.Tank:Show()
             self.RoleIcons.Healer:Show()
-            self.RoleIcons.Unknown:Hide()
+            self.RoleIcons.Unknown:Show()
+            self.Description:SetText(entry.Description)
         end
 
         if (ClassicLFG.GroupManager:HasAppliedForGroup(entry)) then
