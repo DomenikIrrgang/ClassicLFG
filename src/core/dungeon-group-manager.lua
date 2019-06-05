@@ -66,12 +66,22 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
         end
 
         if(self:IsListed() and event == "PARTY_LEADER_CHANGED") then
+            if (UnitIsGroupLeader(UnitName("player")) == false and self.BroadcastTicker ~= nil) then
+                self:CancelBroadcast()
+            end
+
+            if (UnitIsGroupLeader(UnitName("player")) == true and self.BroadcastTicker == nil) then
+                self:StartBroadcast()
+            end
+
             for i = 0, self.DungeonGroup.Members.Size - 1 do
                 local player = ClassicLFGLinkedList.GetItem(self.DungeonGroup.Members, i)
+                
                 if (UnitIsGroupLeader(player.Name) == true) then
                     local oldGroup = self.DungeonGroup
                     oldGroup.Leader = player
                     self:UpdateGroup(oldGroup)
+                    break
                 end
             end
         end
@@ -118,6 +128,22 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
     return self
 end
 
+function ClassicLFGDungeonGroupManager:CancelBroadcast()
+    ClassicLFG:DebugPrint("Canceled broadcasting dungeon group")
+    self.BroadcastTicker:Cancel()
+    self.BroadcastTicker = nil
+end
+
+function ClassicLFGDungeonGroupManager:StartBroadcast()
+    ClassicLFG:DebugPrint("Started broadcasting dungeon group")
+    self.BroadcastTicker = C_Timer.NewTicker(ClassicLFG.Config.BroadcastDungeonGroupInterval, function()
+        ClassicLFG:DebugPrint("Broadcast Ticker tick")
+        if (self:IsListed()) then
+            SendChatMessage("LFM \"" .. self.DungeonGroup.Dungeon.Name .. "\": " .. self.DungeonGroup.Title, "CHANNEL", nil, GetChannelName(ClassicLFG.Config.BroadcastDungeonGroupChannel))
+        end
+    end)
+end
+
 function ClassicLFGDungeonGroupManager:HandleDataRequest(object, sender)
     if (self.DungeonGroup ~= nil) then
         local characterName = ClassicLFG:SplitString(sender, "-")[1]
@@ -161,12 +187,7 @@ end
 function ClassicLFGDungeonGroupManager:HandleDungeonGroupJoined(dungeonGroup)
     self.DungeonGroup = dungeonGroup
     if (UnitIsGroupLeader("player") == true) then
-        self.BroadcastTicker = C_Timer.NewTicker(ClassicLFG.Config.BroadcastDungeonGroupInterval, function()
-            ClassicLFG:DebugPrint("Broadcast Ticker tick")
-            if (self:IsListed()) then
-                SendChatMessage("LFM \"" .. self.DungeonGroup.Dungeon.Name .. "\": " .. self.DungeonGroup.Title, "CHANNEL", nil, GetChannelName(ClassicLFG.Config.BroadcastDungeonGroupChannel))
-            end
-        end)
+        self:StartBroadcast()
     end
 end
 
@@ -242,7 +263,7 @@ end
 
 function ClassicLFGDungeonGroupManager:HandleDungeonGroupLeft(dungeonGroup)
     if (dungeonGroup.Leader.Name == UnitName("player")) then
-        self.BroadcastTicker:Cancel()
+        self:CancelBroadcast()
     end
     self.DungeonGroup = nil
 end

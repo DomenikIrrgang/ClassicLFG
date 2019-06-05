@@ -2,8 +2,9 @@
 * After leaving a group you cannot list your own before chaning data
 * After decline of invite cannot requeue
 * Parse messages in guild chat
-* Advertise dungeon group in chat
 * Settings GUI
+* Fix multiple broadcasters for same group
+* Dequeue Chat group on dequeue dungeon group
 
 # Low Prio:
 * Party Leader Changed Delist group (maybe send confirmatio back when application is successful, otherwise delist group, might be too much traffic)
