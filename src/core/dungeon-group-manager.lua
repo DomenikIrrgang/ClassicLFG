@@ -261,6 +261,7 @@ function ClassicLFGDungeonGroupManager:RemoveMember(member)
         return item1.Name == item2.Name
     end)
     if (index ~= nil) then
+        print(index)
         ClassicLFGLinkedList.RemoveItem(self.DungeonGroup.Members, index)
     end
 end

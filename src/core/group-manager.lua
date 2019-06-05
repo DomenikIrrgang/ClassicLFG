@@ -58,7 +58,7 @@ function ClassicLFGGroupManager:WithdrawFromGroup(dungeonGroup)
 end
 
 function ClassicLFGGroupManager:ContainsGroup(dungeonGroup)
-    local groupIndex = self:HasGroup(self.Groups, dungeonGroup.Leader)
+    local groupIndex = self:HasGroup(self.Groups, dungeonGroup)
     return groupIndex ~= nil
 end
 
@@ -81,7 +81,7 @@ function ClassicLFGGroupManager:HandleApplicationDeclined(dungeonGroup)
 end
 
 function ClassicLFGGroupManager:HandleDequeueGroup(dungeonGroup)
-    local index = self:HasGroup(self.Groups, dungeonGroup.Leader)
+    local index = self:HasGroup(self.Groups, dungeonGroup)
     if (index ~= nil) then
         self.Groups:RemoveItem(index)
     end
@@ -98,7 +98,7 @@ function ClassicLFGGroupManager:HasAppliedForGroup(dungeonGroup)
 end
 
 function ClassicLFGGroupManager:ReceiveGroup(dungeonGroup)
-    local groupIndex = self:HasGroup(self.Groups, dungeonGroup.Leader)
+    local groupIndex = self:HasGroup(self.Groups, dungeonGroup)
 
     if (groupIndex ~= nil) then
         self.Groups:SetItem(groupIndex, dungeonGroup)
@@ -107,9 +107,9 @@ function ClassicLFGGroupManager:ReceiveGroup(dungeonGroup)
     end
 end
 
-function ClassicLFGGroupManager:HasGroup(group, player)
+function ClassicLFGGroupManager:HasGroup(group, dungeonGroup)
     for i=0, group.Size - 1 do
-        if (group:GetItem(i).Leader.Name == player.Name) then
+        if (group:GetItem(i).Hash== dungeonGroup.Hash) then
             return i
         end
     end
