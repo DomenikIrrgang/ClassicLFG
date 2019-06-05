@@ -1,5 +1,5 @@
 ClassicLFG.Config = {
-    Debug = true,
+    Debug = false,
     Font = "Fonts\\FRIZQT__.ttf",
     Network = {
         Prefix = "CLFG_Network",
@@ -39,6 +39,8 @@ ClassicLFG.Config = {
         DungeonGroupLeft = "CLASSICLFG_GROUP_LEFT",
         -- Args(dungeonGroup)
         DungeonGroupUpdated = "CLASSICLFG_GROUP_UPDATED",
+        -- Args(player)
+        DungeonGroupMemberLeft = "CLASSICLFG_DUNGEON_GROUP_MEMBER_LEFT",
         -- Args(dungeonGroup)
         DeclineApplicant = "CLASSICLFG_APPLICANT_DECLINE",
         -- Args()

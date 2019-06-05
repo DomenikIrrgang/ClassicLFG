@@ -55,20 +55,41 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.Description:Hide()
 
     self.RoleIcons = {}
-    self.RoleIcons.Dps = ClassicLFGIconWithText(0, "Interface\\LFGFRAME\\UI-LFG-ICON-PORTRAITROLES", self.Frame, 50, 50)
+    self.RoleIcons.Dps = ClassicLFGIconWithText(0, ClassicLFG.Role.DPS.Icon, self.Frame, 50, 50)
     self.RoleIcons.Dps.Icon:GetTexture():SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -20, -15)
     self.RoleIcons.Dps.Icon:GetTexture():SetPoint("BOTTOMLEFT", self.Frame, "TOPRIGHT", -40, -35)
-    self.RoleIcons.Dps.Icon:GetTexture():SetTexCoord(0.31, 0.65, 0.3, 0.65)
+    self.RoleIcons.Dps.Icon:GetTexture():SetTexCoord(
+        ClassicLFG.Role.DPS.Offset.Left,
+        ClassicLFG.Role.DPS.Offset.Right,
+        ClassicLFG.Role.DPS.Offset.Top,
+        ClassicLFG.Role.DPS.Offset.Bottom)
 
-    self.RoleIcons.Healer = ClassicLFGIconWithText(0, "Interface\\LFGFRAME\\UI-LFG-ICON-PORTRAITROLES", self.Frame, 50, 50)
+    self.RoleIcons.Healer = ClassicLFGIconWithText(0, ClassicLFG.Role.HEALER.Icon, self.Frame, 50, 50)
     self.RoleIcons.Healer.Icon:GetTexture():SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -100, -15)
     self.RoleIcons.Healer.Icon:GetTexture():SetPoint("BOTTOMLEFT", self.Frame, "TOPRIGHT", -120, -35)
-    self.RoleIcons.Healer.Icon:GetTexture():SetTexCoord(0.31, 0.65, 0, 0.3)
+    self.RoleIcons.Healer.Icon:GetTexture():SetTexCoord(
+        ClassicLFG.Role.HEALER.Offset.Left,
+        ClassicLFG.Role.HEALER.Offset.Right,
+        ClassicLFG.Role.HEALER.Offset.Top,
+        ClassicLFG.Role.HEALER.Offset.Bottom)
 
-    self.RoleIcons.Tank = ClassicLFGIconWithText(0, "Interface\\LFGFRAME\\UI-LFG-ICON-PORTRAITROLES", self.Frame, 50, 50)
+    self.RoleIcons.Tank = ClassicLFGIconWithText(0, ClassicLFG.Role.TANK.Icon, self.Frame, 50, 50)
     self.RoleIcons.Tank.Icon:GetTexture():SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -60, -15)
     self.RoleIcons.Tank.Icon:GetTexture():SetPoint("BOTTOMLEFT", self.Frame, "TOPRIGHT", -80, -35)
-    self.RoleIcons.Tank.Icon:GetTexture():SetTexCoord(0, 0.31, 0.3, 0.65)
+    self.RoleIcons.Tank.Icon:GetTexture():SetTexCoord(
+        ClassicLFG.Role.TANK.Offset.Left,
+        ClassicLFG.Role.TANK.Offset.Right,
+        ClassicLFG.Role.TANK.Offset.Top,
+        ClassicLFG.Role.TANK.Offset.Bottom)
+
+    self.RoleIcons.Unknown = ClassicLFGIconWithText(0, ClassicLFG.Role.UNKNOWN.Icon, self.Frame, 50, 50)
+    self.RoleIcons.Unknown.Icon:GetTexture():SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -142, -17)
+    self.RoleIcons.Unknown.Icon:GetTexture():SetPoint("BOTTOMLEFT", self.Frame, "TOPRIGHT", -158, -33)
+    self.RoleIcons.Unknown.Icon:GetTexture():SetTexCoord(
+        ClassicLFG.Role.UNKNOWN.Offset.Left,
+        ClassicLFG.Role.UNKNOWN.Offset.Right,
+        ClassicLFG.Role.UNKNOWN.Offset.Top,
+        ClassicLFG.Role.UNKNOWN.Offset.Bottom)
 
     self.Frame:SetScript("OnEnter", function()
         self.Frame:SetBackdropColor(self.MouseOverColor.Red, self.MouseOverColor.Green, self.MouseOverColor.Blue, self.MouseOverColor.Alpha)
@@ -107,6 +128,11 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
             self.QueueButton:SetDisabled(false)
         end
     end)
+
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined, self, function(self, dungeonGroup)
+        self.QueueButton:SetDisabled(false)
+    end)
+
     self:SetGroup(entry)
     return self
 end
@@ -117,9 +143,10 @@ function CLassicLFGGroupListItem:SetGroup(entry)
         self.Title:SetText(entry.Title)
         self.DungeonName:SetText(entry.Dungeon.Name)
         self.Description:SetText(entry.Description)
-        self.RoleIcons.Dps.Text:SetText(entry.Group.Dps)
-        self.RoleIcons.Tank.Text:SetText(entry.Group.Tank)
-        self.RoleIcons.Healer.Text:SetText(entry.Group.Healer)
+        self.RoleIcons.Dps.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.DPS))
+        self.RoleIcons.Tank.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.TANK))
+        self.RoleIcons.Healer.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.HEALER))
+        self.RoleIcons.Unknown.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.UNKNOWN))
         if (self.entry.Source.Type == "CHAT") then
             self.QueueButton:SetText("Whisper")
             self.RoleIcons.Dps:Hide()

@@ -30,12 +30,17 @@ function ClassicLFGDungeonGroup:AddMember(player)
 end
 
 function ClassicLFGDungeonGroup:GetRoleCount(role)
-    local count = 1
+    local count = 0
     for i = 0, self.Members.Size - 1 do
-        if (ClassicLFGPlayer.GetSpecialization(ClassicLFGLinkedList.GetItem(self.Members, i)).Role.Name == role.Name) then
+        if (ClassicLFGPlayer.GetSpecialization(ClassicLFGLinkedList.GetItem(self.Members, i)) ~= nil and ClassicLFGPlayer.GetSpecialization(ClassicLFGLinkedList.GetItem(self.Members, i)).Role.Name == role.Name) then
             count = count + 1
+        else
+            if (ClassicLFGPlayer.GetSpecialization(ClassicLFGLinkedList.GetItem(self.Members, i)) == nil and role.Name == ClassicLFG.Role.UNKNOWN.Name) then
+                count = count + 1
+            end 
         end
     end
+    return count
 end
 
 function ClassicLFGDungeonGroup:RemoveMember(player)

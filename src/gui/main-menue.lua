@@ -204,10 +204,9 @@ ClassicLFG.QueueWindow.CreateGroup.QueueButton.OnClick = function(self)
 			ClassicLFG.QueueWindow.CreateGroup.Description:GetText()
 		))
 	else
-		ClassicLFG.DungeonGroupManager:ListGroup(ClassicLFGDungeonGroup(
-			ClassicLFG.Dungeon[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()],
-			ClassicLFGPlayer(),
+		ClassicLFG.DungeonGroupManager:ListGroup(ClassicLFG.DungeonGroupManager:InitGroup(
 			ClassicLFG.QueueWindow.CreateGroup.Title:GetText(),
+			ClassicLFG.Dungeon[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()],
 			ClassicLFG.QueueWindow.CreateGroup.Description:GetText()
 		))
 	end
@@ -284,6 +283,10 @@ ClassicLFG.QueueWindow.CreateGroup:SetScript("OnEvent", function(_, event)
 			ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
 		end
 	end
+end)
+
+ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, ClassicLFG.QueueWindow.CreateGroup.QueueButton, function(self)
+	self:SetDisabled(false)
 end)
 
 ClassicLFG.QueueWindow:Hide()

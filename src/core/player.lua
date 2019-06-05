@@ -20,7 +20,7 @@ function ClassicLFGPlayer.new(name, guild, level, class, talents)
     if (UnitClass(self.Name) ~= nil) then
         self.Class = class or ClassicLFG.Class[select(2, UnitClass(self.Name))].Name
     else
-        -- ToDo: Get Class from Player differently somehow
+        -- ToDo: Get Class from Player differently somehow, cant get it using UnitClass if the player is not in your group
         self.Class = ClassicLFG.Class.WARRIOR
     end
     self.Talents = talents or self:CreateTalents()
@@ -39,14 +39,18 @@ function ClassicLFGPlayer:CreateTalents()
 end
 
 function ClassicLFGPlayer:GetSpecialization()
-    local highestTalents = 1
-    if (self.Talents[2] > self.Talents[highestTalents]) then
-        highestTalents = 2
+    if (self.Talents ~= nil) then
+        local highestTalents = 1
+        if (self.Talents[2] > self.Talents[highestTalents]) then
+            highestTalents = 2
+        end
+        if (self.Talents[3] > self.Talents[highestTalents]) then
+            highestTalents = 3
+        end
+        return ClassicLFG.Class[self.Class:upper()].Specialization[highestTalents]
+    else
+        return nil
     end
-    if (self.Talents[3] > self.Talents[highestTalents]) then
-        highestTalents = 3
-    end
-    return ClassicLFG.Class[self.Class:upper()].Specialization[highestTalents]
 end
 
 function ClassicLFGPlayer:Equals(otherPlayer)
