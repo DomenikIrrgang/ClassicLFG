@@ -267,9 +267,6 @@ end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, ClassicLFG.QueueWindow, function(self, dungeonGroup)
 	PanelTemplates_EnableTab(ClassicLFG.QueueWindow, 1)
-	ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(false)
-	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetText("List Group")
-	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.frame, "BOTTOMRIGHT", 0, -30)
 	ClassicLFG.QueueWindow.CreateGroup.DequeueButton:Hide()
 end)
 
@@ -287,8 +284,12 @@ end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, ClassicLFG.QueueWindow.CreateGroup.QueueButton, function(self)
 	if ((IsInGroup() and UnitIsGroupLeader("player")) or not IsInGroup()) then
-		self:SetDisabled(false)
+		ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(false)
+	else
+		ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
 	end
+	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetText("List Group")
+	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.frame, "BOTTOMRIGHT", 0, -30)
 end)
 
 ClassicLFG.QueueWindow:Hide()
