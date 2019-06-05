@@ -286,7 +286,9 @@ ClassicLFG.QueueWindow.CreateGroup:SetScript("OnEvent", function(_, event)
 end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, ClassicLFG.QueueWindow.CreateGroup.QueueButton, function(self)
-	self:SetDisabled(false)
+	if ((IsInGroup() and UnitIsGroupLeader("player")) or not IsInGroup()) then
+		self:SetDisabled(false)
+	end
 end)
 
 ClassicLFG.QueueWindow:Hide()
