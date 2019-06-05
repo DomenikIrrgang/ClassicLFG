@@ -50,15 +50,17 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
                 ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupMemberLeft, ClassicLFGPlayer(playerName))
             end
 
-            if(self:IsListed() and (message:find("Your group has been disbanded.") or
+            if((message:find("Your group has been disbanded.") or
             message:find("You leave the group.") or
             message:find("You have been removed from the group."))) then
                  ClassicLFG:DebugPrint("Left party.")
-                if (self.DungeonGroup.Leader.Name ~= UnitName("player")) then
+                if (self:IsListed() and self.DungeonGroup.Leader.Name ~= UnitName("player")) then
                     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupLeft, self.DungeonGroup)
                 else
-                    ClassicLFGLinkedList.Clear(self.DungeonGroup.Members)
-                    ClassicLFGLinkedList.AddItem(self.DungeonGroup.Members, ClassicLFGPlayer())
+                    if (self:IsListed()) then
+                        ClassicLFGLinkedList.Clear(self.DungeonGroup.Members)
+                        ClassicLFGLinkedList.AddItem(self.DungeonGroup.Members, ClassicLFGPlayer())
+                    end
                 end
             end
         end
