@@ -136,7 +136,7 @@ function ClassicLFGDungeonGroupManager:HandleDungeonGroupMemberLeft(player)
 end
 
 function ClassicLFGDungeonGroupManager:HandleGroupDelisted(dungeonGroup)
-    if (self.DungeonGroup ~= nil and dungeonGroup.Leader.Name == self.DungeonGroup.Leader.Name) then
+    if (self.DungeonGroup ~= nil and dungeonGroup.Hash == self.DungeonGroup.Hash) then
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupLeft, self.DungeonGroup)
     end
 end
@@ -148,7 +148,7 @@ function ClassicLFGDungeonGroupManager:HandleGroupListed(dungeonGroup)
 end
 
 function ClassicLFGDungeonGroupManager:HandleGroupUpdated(dungeonGroup)
-    if (UnitIsGroupLeader(dungeonGroup.Leader.Name) == true) then
+    if (dungeonGroup.Hash == self.DungeonGroup.Hash) then
         self.DungeonGroup = dungeonGroup
     end
 end

@@ -65,7 +65,7 @@ end
 function ClassicLFGGroupManager:HandleDungeonGroupJoined(dungeonGroup)
     for i = 0, self.AppliedGroups.Size - 1 do
         local group = self.AppliedGroups:GetItem(i)
-        if (dungeonGroup.Leader.Name ~= group.Leader.Name) then
+        if (dungeonGroup.Hash ~= group.Hash) then
             ClassicLFG.Network:SendObject(
                 ClassicLFG.Config.Events.DungeonGroupWithdrawApplication,
                 ClassicLFGPlayer(),
@@ -90,7 +90,7 @@ end
 function ClassicLFGGroupManager:HasAppliedForGroup(dungeonGroup)
     for i = 0, self.AppliedGroups.Size - 1 do
         local group = self.AppliedGroups:GetItem(i)
-        if (dungeonGroup.Leader.Name ~= group.Leader.Name) then
+        if (dungeonGroup.Hash ~= group.Hash) then
             return true
         end
     end

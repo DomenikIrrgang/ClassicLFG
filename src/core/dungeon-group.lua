@@ -53,3 +53,7 @@ function ClassicLFGDungeonGroup:Print()
         ClassicLFG:DebugPrint(key, self[key])
     end
 end
+
+function ClassicLFGDungeonGroup:Equals(otherGroup)
+    return self.Hash == otherGroup.Hash
+end

@@ -242,7 +242,7 @@ ClassicLFG.QueueWindow.CreateGroup.ApplicantList.Frame:SetPoint("TOPLEFT", Class
 ClassicLFG.QueueWindow.CreateGroup.ApplicantList.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup, "BOTTOMRIGHT", -35, 10)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdated, ClassicLFG.QueueWindow, function(self, dungeonGroup)
-	if (ClassicLFG.DungeonGroupManager:IsListed() and UnitIsGroupLeader(dungeonGroup.Leader.Name) == true) then
+	if (ClassicLFG.DungeonGroupManager:IsListed() and ClassicLFG.DungeonGroupManager.DungeonGroup.Hash == dungeonGroup.Hash) then
 		PanelTemplates_DisableTab(ClassicLFG.QueueWindow, 1)
 		Tab_OnClick(_G[ClassicLFG.QueueWindow:GetName() .."Tab2"]);
 		ClassicLFG.QueueWindow.CreateGroup.Title:SetText(dungeonGroup.Title)

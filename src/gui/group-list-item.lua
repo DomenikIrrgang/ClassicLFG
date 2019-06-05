@@ -118,13 +118,13 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     end)
 
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.AppliedForGroup, self, function(self, dungeonGroup)
-        if (self.entry ~= nil and dungeonGroup.Leader.Name == self.entry.Leader.Name) then
+        if (self.entry ~= nil and dungeonGroup.Hash == self.entry.Hash) then
             self.QueueButton:SetDisabled(true)
         end
     end)
 
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DeclineApplicant, self, function(self, dungeonGroup)
-        if (self.entry ~= nil and dungeonGroup.Leader.Name == self.entry.Leader.Name) then
+        if (self.entry ~= nil and dungeonGroup.Hash == self.entry.Hash) then
             self.QueueButton:SetDisabled(false)
         end
     end)
