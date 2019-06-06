@@ -44,6 +44,15 @@ function ClassicLFGDungeonGroup:GetRoleCount(role)
     return count
 end
 
+function ClassicLFGDungeonGroup:ContainsMember(playerName)
+    for i = 0, self.Members.Size - 1 do
+        if (ClassicLFGLinkedList.GetItem(self.Members, i).Name == playerName) then
+            return true
+        end
+    end
+    return false
+end
+
 function ClassicLFGDungeonGroup:RemoveMember(player)
     self.Members:RemoveItemByComparison(player)
     ClassicLFG:DebugPrint("Removed Group Member: " .. player.Name)

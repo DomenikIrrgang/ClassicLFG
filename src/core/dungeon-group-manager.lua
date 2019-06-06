@@ -270,11 +270,13 @@ function ClassicLFGDungeonGroupManager:HandleDungeonGroupLeft(dungeonGroup)
 end
 
 function ClassicLFGDungeonGroupManager:HandleApplications(applicant)
-    local index = self.Applicants:ContainsWithEqualsFunction(applicant, function(item1, item2)
-        return item1.Name == item2.Name
-    end)
-    if (index == nil) then
-        self:AddApplicant(applicant)
+    if (not ClassicLFG:IsIgnored(applicant.Name)) then
+        local index = self.Applicants:ContainsWithEqualsFunction(applicant, function(item1, item2)
+            return item1.Name == item2.Name
+        end)
+        if (index == nil) then
+            self:AddApplicant(applicant)
+        end
     end
 end
 

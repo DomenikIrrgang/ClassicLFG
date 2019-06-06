@@ -6,6 +6,16 @@ ClassicLFG.QueueWindow = CreateFrame("Frame", "ClassicLFGQueueWindow", UIParent,
 ClassicLFG.QueueWindow:SetSize(400, 600)
 ClassicLFG.QueueWindow:SetPoint("CENTER", UIParent, "CENTER")
 
+ClassicLFG.QueueWindow:SetScript("OnMouseDown", function()
+	ClassicLFG.QueueWindow:SetMovable(true)
+	ClassicLFG.QueueWindow:StartMoving(ClassicLFG.QueueWindow)
+end)
+
+ClassicLFG.QueueWindow:SetScript("OnMouseUp", function()
+	ClassicLFG.QueueWindow:StopMovingOrSizing()
+	ClassicLFG.QueueWindow:SetMovable(false)
+end)
+
 ---------------------------------
 -- Window - Title
 ---------------------------------

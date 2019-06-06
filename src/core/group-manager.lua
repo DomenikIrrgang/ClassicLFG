@@ -122,14 +122,16 @@ function ClassicLFGGroupManager:HasAppliedForGroup(dungeonGroup)
 end
 
 function ClassicLFGGroupManager:ReceiveGroup(dungeonGroup)
-    if (dungeonGroup.Leader.Name ~= UnitName("player")) then
-        local groupIndex = self:HasGroup(self.Groups, dungeonGroup) or self:LeaderHasGroup(self.Groups, dungeonGroup.Leader)
-        if (groupIndex ~= nil) then
-            if (dungeonGroup.Source.Type == "ADDON" or self.Groups:GetItem(groupIndex).Source.Type == dungeonGroup.Source.Type) then
-                self.Groups:SetItem(groupIndex, dungeonGroup)
+    if (not self:GroupContainsIgnoredMember(dungeonGroup)) then
+        if (dungeonGroup.Leader.Name ~= UnitName("player")) then
+            local groupIndex = self:HasGroup(self.Groups, dungeonGroup) or self:LeaderHasGroup(self.Groups, dungeonGroup.Leader)
+            if (groupIndex ~= nil) then
+                if (dungeonGroup.Source.Type == "ADDON" or self.Groups:GetItem(groupIndex).Source.Type == dungeonGroup.Source.Type) then
+                    self.Groups:SetItem(groupIndex, dungeonGroup)
+                end
+            else
+                self.Groups:AddItem(dungeonGroup)
             end
-        else
-            self.Groups:AddItem(dungeonGroup)
         end
     end
 end
@@ -161,6 +163,16 @@ function ClassicLFGGroupManager:FilterGroupsByDungeon(dungeons)
         end
     end
     return groups
+end
+
+function ClassicLFGGroupManager:GroupContainsIgnoredMember(dungeonGroup)
+    for i = 0, dungeonGroup.Members.Size - 1 do
+        local member = ClassicLFGLinkedList.GetItem(dungeonGroup.Members, i)
+        if (ClassicLFG:IsIgnored(member.Name)) then
+            return true
+        end
+    end
+    return false
 end
 
 ClassicLFG.GroupManager = ClassicLFGGroupManager()
