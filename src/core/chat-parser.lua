@@ -59,7 +59,7 @@ end
 
 function ClassicLFGChatParser:HasDungeonAbbreviation(message)
     for key in pairs(ClassicLFG.Dungeon) do
-        if (ClassicLFG:StringContainsTableValue(message, ClassicLFG.Dungeon[key].Abbreviations)) then
+        if (ClassicLFG:StringContainsTableValue(message, ClassicLFG.Dungeo+n[key].Abbreviations)) then
             return ClassicLFG.Dungeon[key]
         end
     end

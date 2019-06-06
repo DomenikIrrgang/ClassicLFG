@@ -25,6 +25,7 @@ local function Tab_OnClick(self)
 	end
 	PanelTemplates_SetTab(self:GetParent(), self:GetID());
 	self.content:Show()
+	PlaySound(SOUNDKIT.IG_CHAT_EMOTE_BUTTON)
 end
 
 local function SetTabs(frame, numTabs, ...)

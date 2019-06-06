@@ -11,6 +11,7 @@ function ClassicLFGGroupManager.new()
     local self = setmetatable({}, ClassicLFGGroupManager)
     self.Groups = ClassicLFGLinkedList()
     self.AppliedGroups = ClassicLFGLinkedList()
+    self.BroadcastTimers = {}
     self.Frame = CreateFrame("Frame")
     self.Frame:SetScript("OnEvent", function(_, event, ...) 
 
@@ -21,6 +22,18 @@ function ClassicLFGGroupManager.new()
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined, self, self.HandleDungeonGroupJoined)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DeclineApplicant, self, self.HandleApplicationDeclined)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ChatDungeonGroupFound, self, self.HandleChatDungeonGroupFound)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupBroadcasterCanceled, self, self.HandleDungeonGroupBroadcasterCanceled)
+    self.CancelCheckTicker = C_Timer.NewTicker(ClassicLFG.Config.CheckGroupExpiredInterval, function()
+        local i = 0
+        while (i < self.Groups.Size) do
+            print(GetTime() - self.Groups:GetItem(i).UpdateTime, ClassicLFG.Config.GroupTimeToLive)
+            if (GetTime() - self.Groups:GetItem(i).UpdateTime > ClassicLFG.Config.GroupTimeToLive) then
+                ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupDelisted, self.Groups:GetItem(i))
+                i = i - 1
+            end
+            i = i + 1
+        end
+    end)
     return self
 end
 
@@ -37,9 +50,9 @@ function ClassicLFGGroupManager:ApplyForGroup(dungeonGroup)
 end
 
 function ClassicLFGGroupManager:HandleChatDungeonGroupFound(dungeonGroup)
-    if (not self:ContainsGroup(dungeonGroup)) then
-        local broadCast = ClassicLFGGroupBroadCaster(dungeonGroup)
-        broadCast:Start(math.random(1, ClassicLFG.Config.BroadcastInterval))
+    if (dungeonGroup.Leader.Name ~= UnitName("player") and self:ContainsGroup(dungeonGroup) == false and self:LeaderHasGroup(self.Groups, dungeonGroup.Leader.Name) == nil) then
+        self.BroadcastTimers[dungeonGroup.Hash] = ClassicLFGGroupBroadCaster(dungeonGroup)
+        self.BroadcastTimers[dungeonGroup.Hash]:Start(math.random(1, ClassicLFG.Config.BroadcastInterval))
     end
 end
 
@@ -76,6 +89,10 @@ function ClassicLFGGroupManager:HandleDungeonGroupJoined(dungeonGroup)
     self.AppliedGroups:Clear()
 end
 
+function ClassicLFGGroupManager:HandleDungeonGroupBroadcasterCanceled(dungeonGroup)
+    self.BroadcastTimers[dungeonGroup.Hash] = nil
+end
+
 function ClassicLFGGroupManager:HandleApplicationDeclined(dungeonGroup)
     ClassicLFG:Print("You have been declined by the group: \"" .. dungeonGroup.Title .. "\"")
     local index = self:HasGroup(self.AppliedGroups, dungeonGroup)
@@ -88,6 +105,10 @@ function ClassicLFGGroupManager:HandleDequeueGroup(dungeonGroup)
     local index = self:HasGroup(self.Groups, dungeonGroup)
     if (index ~= nil) then
         self.Groups:RemoveItem(index)
+        index = self:LeaderHasGroup(self.Groups, dungeonGroup.Leader.Name)
+        if (index ~= nil) then
+            self.Groups:RemoveItem(index)
+        end
     end
 end
 
@@ -102,14 +123,15 @@ function ClassicLFGGroupManager:HasAppliedForGroup(dungeonGroup)
 end
 
 function ClassicLFGGroupManager:ReceiveGroup(dungeonGroup)
-    local groupIndex = self:HasGroup(self.Groups, dungeonGroup) or self:LeaderHasGroup(self.Groups, dungeonGroup.Leader)
-    if (groupIndex ~= nil) then
-        print("Previous Group Type:", self.Groups:GetItem(groupIndex).Source.Type, "New Group Type:", dungeonGroup.Source.Type)
-        if (dungeonGroup.Source.Type == "ADDON" or self.Groups:GetItem(groupIndex).Source.Type == dungeonGroup.Source.Type) then
-            self.Groups:SetItem(groupIndex, dungeonGroup)
+    if (dungeonGroup.Leader.Name ~= UnitName("player")) then
+        local groupIndex = self:HasGroup(self.Groups, dungeonGroup) or self:LeaderHasGroup(self.Groups, dungeonGroup.Leader)
+        if (groupIndex ~= nil) then
+            if (dungeonGroup.Source.Type == "ADDON" or self.Groups:GetItem(groupIndex).Source.Type == dungeonGroup.Source.Type) then
+                self.Groups:SetItem(groupIndex, dungeonGroup)
+            end
+        else
+            self.Groups:AddItem(dungeonGroup)
         end
-    else
-        self.Groups:AddItem(dungeonGroup)
     end
 end
 

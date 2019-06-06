@@ -186,7 +186,7 @@ end
 
 function ClassicLFGDungeonGroupManager:HandleDungeonGroupJoined(dungeonGroup)
     self.DungeonGroup = dungeonGroup
-    if (UnitIsGroupLeader("player") == true) then
+    if (UnitIsGroupLeader("player") == true or not IsInGroup()) then
         self:StartBroadcast()
     end
 end
@@ -253,6 +253,7 @@ function ClassicLFGDungeonGroupManager:UpdateGroup(dungeonGroup)
         self.DungeonGroup.Dungeon = dungeonGroup.Dungeon
         self.DungeonGroup.Description = dungeonGroup.Description
         self.DungeonGroup.Title = dungeonGroup.Title
+        self.DungeonGroup.UpdateTime = GetTime()
         ClassicLFG.Network:SendObject(
             ClassicLFG.Config.Events.DungeonGroupUpdated,
             self.DungeonGroup,
@@ -296,7 +297,6 @@ function ClassicLFGDungeonGroupManager:RemoveMember(member)
         return item1.Name == item2.Name
     end)
     if (index ~= nil) then
-        print(index)
         ClassicLFGLinkedList.RemoveItem(self.DungeonGroup.Members, index)
     end
 end

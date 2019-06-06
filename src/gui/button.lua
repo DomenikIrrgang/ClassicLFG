@@ -47,6 +47,7 @@ function ClassicLFGButton.new(text, parent)
   self.Frame:SetScript("OnMouseDown", function()
     if (self.Disabled == false) then
       self.Frame:SetPoint(self.Position.OwnAnchor, self.Position.RelativeRegion, self.Position.RelativeAnchor, self.Position.XOffset + 2, self.Position.YOffset -2);
+      PlaySound(SOUNDKIT.IG_CHAT_EMOTE_BUTTON)
     end
   end)
   return self

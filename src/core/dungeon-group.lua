@@ -21,6 +21,7 @@ function ClassicLFGDungeonGroup.new(dungeon, leader, title, description, source,
         Healer = 0
     }
     self.Source = source or { Type = "ADDON" }
+    self.UpdateTime = GetTime()
     return self
 end
 

@@ -9,9 +9,10 @@ ClassicLFG.Config = {
         }
     },
     BroadcastInterval = 30,
-    UnlistInterval = 2,
+    CheckGroupExpiredInterval = 5,
+    GroupTimeToLive = 5 * 60,
     BroadcastDungeonGroupChannel = "ClassicLFGNetwork",
-    BroadcastDungeonGroupInterval = 5,
+    BroadcastDungeonGroupInterval = 60,
     InviteMessage = "invite please",
     Events = {
         RequestData = "CLASSICLFG_DATA_REQUEST",
@@ -54,6 +55,8 @@ ClassicLFG.Config = {
         -- Args(talents)
         DungeonGroupRequestTalents = "CLASSICLFG_GROUP_TALENTS_RESPONSE",
         -- Args(dungeonGroup)
-        ChatDungeonGroupFound = "CLASSICLFG_CHAT_DUNGEONGROUP_FOUND"
+        ChatDungeonGroupFound = "CLASSICLFG_CHAT_DUNGEONGROUP_FOUND",
+        -- Args(dungeonGroup)
+        DungeonGroupBroadcasterCanceled = "CLASSICLFG_DUNGEONGROUP_BROADCASTER_CANCLED",
     }
 }
