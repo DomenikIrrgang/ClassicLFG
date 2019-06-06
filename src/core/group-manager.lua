@@ -125,6 +125,7 @@ function ClassicLFGGroupManager:ReceiveGroup(dungeonGroup)
     if (not self:GroupContainsIgnoredMember(dungeonGroup)) then
         if (dungeonGroup.Leader.Name ~= UnitName("player")) then
             local groupIndex = self:HasGroup(self.Groups, dungeonGroup) or self:LeaderHasGroup(self.Groups, dungeonGroup.Leader)
+            dungeonGroup.UpdateTime = GetTime()
             if (groupIndex ~= nil) then
                 if (dungeonGroup.Source.Type == "ADDON" or self.Groups:GetItem(groupIndex).Source.Type == dungeonGroup.Source.Type) then
                     self.Groups:SetItem(groupIndex, dungeonGroup)
