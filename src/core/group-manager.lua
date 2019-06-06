@@ -26,7 +26,6 @@ function ClassicLFGGroupManager.new()
     self.CancelCheckTicker = C_Timer.NewTicker(ClassicLFG.Config.CheckGroupExpiredInterval, function()
         local i = 0
         while (i < self.Groups.Size) do
-            print(GetTime() - self.Groups:GetItem(i).UpdateTime, ClassicLFG.Config.GroupTimeToLive)
             if (GetTime() - self.Groups:GetItem(i).UpdateTime > ClassicLFG.Config.GroupTimeToLive) then
                 ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupDelisted, self.Groups:GetItem(i))
                 i = i - 1
