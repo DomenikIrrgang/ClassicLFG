@@ -10,5 +10,6 @@
 * After decline of invite cannot requeue (not possible afaik ask bara)
 
 # Suggestions:
+Make applicants of your friendlist/guild a different color
 
 # Gamko
