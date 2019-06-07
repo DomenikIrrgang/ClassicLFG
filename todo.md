@@ -15,4 +15,4 @@
 Make applicants of your friendlist/guild a different color
 Add check for Raid Atunements
 
-# Gamko
+# Gamkoß2

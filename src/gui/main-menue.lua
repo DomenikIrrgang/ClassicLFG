@@ -57,7 +57,7 @@ local function SetTabs(frame, numTabs, ...)
 		
 		table.insert(contents, tab.content);
 		table.insert(frame.Tabs, tab)
-		
+
 		if (i == 1) then
 			tab:SetPoint("TOPLEFT", ClassicLFG.QueueWindow, "BOTTOMLEFT", 5, 7);
 		else
@@ -70,7 +70,7 @@ local function SetTabs(frame, numTabs, ...)
 	return unpack(contents);
 end
 
-ClassicLFG.QueueWindow.SearchGroup, ClassicLFG.QueueWindow.CreateGroup = SetTabs(ClassicLFG.QueueWindow, 2, "Search Group", "Create Group")
+ClassicLFG.QueueWindow.SearchGroup, ClassicLFG.QueueWindow.CreateGroup, ClassicLFG.QueueWindow.Settings = SetTabs(ClassicLFG.QueueWindow, 3, "Search Group", "Create Group","Settings")
 
 ---------------------------------
 -- Search Group - Filter
@@ -302,5 +302,43 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, 
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetText("List Group")
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.frame, "BOTTOMRIGHT", 0, -30)
 end)
+
+---------------------------------
+-- Settings 
+---------------------------------
+
+ClassicLFG.QueueWindow.Settings.Broadcastchannel = ClassicLFG.AceGUI:Create("Dropdown")
+ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame:SetParent(ClassicLFG.QueueWindow.Settings)
+ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings, "TOPLEFT", 8, -12);
+ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings, "TOPRIGHT", -8, -45)
+ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetText("Select Broadcastchannel")
+ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetLabel("Broadcastchannel:")
+
+ClassicLFG.QueueWindow.Settings.Broadcastintervall = ClassicLFG.AceGUI:Create("Slider")
+ClassicLFG.QueueWindow.Settings.Broadcastintervall.frame:SetParent(ClassicLFG.QueueWindow.Settings)
+ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetPoint("TOPLEFT",ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame, "BOTTOMLEFT", 0, -15)
+ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetPoint("BOTTOMRIGHT",ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame, "BOTTOMRIGHT", 0, -45)
+ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetLabel("Broadcastintervall")
+ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetSliderValues(60, 180, 1)
+ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetValue(ClassicLFG.Config.BroadcastDungeonGroupInterval)
+
+ClassicLFG.QueueWindow.Settings.Invitemessage = ClassicLFG.AceGUI:Create("EditBox")
+ClassicLFG.QueueWindow.Settings.Invitemessage.frame:SetParent(ClassicLFG.QueueWindow.Settings)
+ClassicLFG.QueueWindow.Settings.Invitemessage:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Broadcastintervall.frame, "BOTTOMLEFT", 0, -15);
+ClassicLFG.QueueWindow.Settings.Invitemessage:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Broadcastintervall.frame, "BOTTOMRIGHT", 0, -60)
+ClassicLFG.QueueWindow.Settings.Invitemessage:SetLabel("Invite message:")
+ClassicLFG.QueueWindow.Settings.Invitemessage:SetMaxLetters(25)
+ClassicLFG.QueueWindow.Settings.Invitemessage:DisableButton(true)
+
+ClassicLFG.QueueWindow.Settings.Invitemessage.frame:SetScript("OnShow", function(self, _, text)
+	ClassicLFG.QueueWindow.Settings.Invitemessage:SetText(ClassicLFG.DB.profile.InviteText)
+end)
+
+ClassicLFG.QueueWindow.Settings.Invitemessage:SetCallback("OnTextChanged", function(self, _, text)
+	ClassicLFG.DB.profile.InviteText = text
+end)
+
+ClassicLFG.QueueWindow.Settings.Invitemessage.frame:Show()
+
 
 ClassicLFG.QueueWindow:Hide()

@@ -11,6 +11,7 @@ ClassicLFG.DefaultProfile ={
         minimap = {
             hide = false,
         },
+        InviteMessage = "invite please"
     },
 }
 
