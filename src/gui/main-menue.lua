@@ -338,6 +338,14 @@ ClassicLFG.QueueWindow.Settings.Invitemessage:SetCallback("OnTextChanged", funct
 	ClassicLFG.DB.profile.InviteText = text
 end)
 
+ClassicLFG.QueueWindow.Settings.Broadcastintervall.frame:SetScript("OnShow", function(self, _, text)
+	ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetValue(ClassicLFG.DB.profile.Broadcastintervall)
+end)
+
+ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetCallback("OnValueChanged". function(self,_,value)
+
+end)
+
 ClassicLFG.QueueWindow.Settings.Invitemessage.frame:Show()
 
 
