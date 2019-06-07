@@ -1,5 +1,6 @@
 # High Prio:
 * Settings GUI
+* Queue and Whisper button enabled state
 
 # Low Prio:
 * Party Leader Not Available Delist group (maybe send confirmation back when application is successful, otherwise delist group, might be too much traffic)

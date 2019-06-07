@@ -57,6 +57,6 @@ ClassicLFG.Config = {
         -- Args(dungeonGroup)
         ChatDungeonGroupFound = "CLASSICLFG_CHAT_DUNGEONGROUP_FOUND",
         -- Args(dungeonGroup)
-        DungeonGroupBroadcasterCanceled = "CLASSICLFG_DUNGEONGROUP_BROADCASTER_CANCLED",
+        DungeonGroupBroadcasterCanceled = "CLASSICLFG_DUNGEONGROUP_BROADCASTER_CANCELED",
     }
 }

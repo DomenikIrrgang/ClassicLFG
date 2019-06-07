@@ -32,7 +32,7 @@ ClassicLFG:DefineDungeon("Blackfathom Deeps", 24, 32, "Ashenvale", {"bfd"}, Clas
 ClassicLFG:DefineDungeon("The Stockade", 24, 32, "Stormwind", {"stockades"}, ClassicLFG.Faction.ALLIANCE)
 ClassicLFG:DefineDungeon("Gnomeregan", 29, 38, "Dun Morogh", {"gnomeregan"}, ClassicLFG.Faction.BOTH)
 ClassicLFG:DefineDungeon("Razorfen Kraul", 24, 32, "Barrens", {"rfk", "kraul"}, ClassicLFG.Faction.BOTH)
-ClassicLFG:DefineDungeon("The Scarlet Monastery: Graveyard", 28, 35, "Tirisfal Glades", {}, ClassicLFG.Faction.BOTH)
+ClassicLFG:DefineDungeon("The Scarlet Monastery: Graveyard", 28, 35, "Tirisfal Glades", {"SM GY"}, ClassicLFG.Faction.BOTH)
 ClassicLFG:DefineDungeon("The Scarlet Monastery: Library", 32, 38, "Tirisfal Glades", {}, ClassicLFG.Faction.BOTH)
 ClassicLFG:DefineDungeon("The Scarlet Monastery: Armory", 36, 42, "Tirisfal Glades", {}, ClassicLFG.Faction.BOTH)
 ClassicLFG:DefineDungeon("The Scarlet Monastery: Cathedral", 38, 44, "Tirisfal Glades", {}, ClassicLFG.Faction.BOTH)

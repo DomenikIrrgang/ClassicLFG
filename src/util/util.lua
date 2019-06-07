@@ -92,3 +92,19 @@ function ClassicLFG:IsIgnored(playerName)
     end
     return false
 end
+
+function ClassicLFG:WhoIs(playerName)
+    C_FriendList.SetWhoToUi(true)
+    C_FriendList.SendWho('n-\"' .. playerName .. '\"')
+end
+
+local frame = CreateFrame("frame")
+frame:RegisterEvent("WHO_LIST_UPDATE")
+frame:SetScript("OnEvent", function(_, event, ...)
+    if (event == "WHO_LIST_UPDATE") then
+        for i=1, C_FriendList.GetNumWhoResults() do
+            local info = C_FriendList.GetWhoInfo(i)
+            --print(info.fullName, info.fullGuildName, info.level, info.classStr, info.raceStr)
+        end
+    end
+end)
