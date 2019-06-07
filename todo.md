@@ -6,10 +6,12 @@
 * Sync Party Applicants between members of the group
 * Memory leak for starting broadcasts for groups in group manager (register from eventbus with broadcaster)
 
+
 # Unknown
 * After decline of invite cannot requeue (not possible afaik ask bara)
 
 # Suggestions:
 Make applicants of your friendlist/guild a different color
+Add check for Raid Atunements
 
 # Gamko
