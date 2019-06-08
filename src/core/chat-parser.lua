@@ -53,6 +53,12 @@ function ClassicLFGChatParser:ParseMessage(sender, message, channel)
         ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. dungeon.Name .. ")")
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ChatDungeonGroupFound, dungeonGroup)
     end
+
+    if (self:HasLFMTag(lowerMessage) and dungeon == nil) then
+        local dungeonGroup = ClassicLFGDungeonGroup(ClassicLFG.Dungeon["Custom"], ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
+        ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. ClassicLFG.Dungeon["Custom"].Name .. ")")
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ChatDungeonGroupFound, dungeonGroup)
+    end
 end
 
 function ClassicLFGChatParser:HasLFMTag(text)

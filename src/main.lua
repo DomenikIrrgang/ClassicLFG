@@ -18,6 +18,7 @@ ClassicLFG.DefaultProfile ={
 }
 
 function ClassicLFG:OnEnable()
+    ClassicLFG.ChannelManager:UpdateChannels()
     JoinChannelByName(ClassicLFG.Config.Network.Channel.Name)
     local channels = { GetChannelList() }
     local i = 2

@@ -313,14 +313,19 @@ ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetPoint("TOPLEFT", ClassicLFG.
 ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings, "TOPRIGHT", -8, -45)
 ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetText("Select Broadcastchannel")
 ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetLabel("Broadcastchannel:")
-ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetList(ClassicLFG:GetChannels())
 
 ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame:SetScript("OnShow", function(self, _, channel)
+	ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetList(ClassicLFG.ChannelManager:GetChannelNames())
 	ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetValue(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel)
 end)
 
 ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetCallback("OnValueChanged", function(self, _, channel)
 	ClassicLFG.DB.profile.BroadcastDungeonGroupChannel = channel
+end)
+
+ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ChannelListChanged, ClassicLFG.QueueWindow.Settings.Broadcastchannel, function(self, channels)
+	self:SetList(ClassicLFG.ChannelManager:GetChannelNames())
+	ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetValue(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel)
 end)
 
 

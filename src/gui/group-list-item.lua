@@ -134,6 +134,11 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
         self.QueueButton:SetDisabled(false)
     end)
 
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupInviteDeclined, self, function(self, playerName)
+        if (self.entry ~= nil and self.entry.Leader.Name == playerName) then
+            self.QueueButton:SetDisabled(false)
+        end
+    end)
     self:SetGroup(entry)
     return self
 end

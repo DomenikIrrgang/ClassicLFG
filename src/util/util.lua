@@ -108,15 +108,3 @@ frame:SetScript("OnEvent", function(_, event, ...)
         end
     end
 end)
-
-function ClassicLFG:GetChannels()
-    local channels = { GetChannelList() }
-    local outputchannels = {}
-    local i = 1
-    while i < #channels do
-        local id, name = GetChannelName(channels[i])
-        table.insert(outputchannels, name)
-        i = i + 3
-    end
-    return outputchannels
-end

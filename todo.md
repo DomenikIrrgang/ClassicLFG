@@ -1,6 +1,5 @@
 # High Prio:
-* Settings GUI
-* Queue and Whisper button enabled state
+
 
 # Low Prio:
 * Party Leader Not Available Delist group (maybe send confirmation back when application is successful, otherwise delist group, might be too much traffic)
@@ -8,12 +7,11 @@
 * Memory leak for starting broadcasts for groups in group manager (register from eventbus with broadcaster)
 * Merge default profile with existing savedvariable profile
 
-
 # Unknown
-* After decline of invite cannot requeue (not possible afaik ask bara)
+
 
 # Suggestions:
 Make applicants of your friendlist/guild a different color
 Add check for Raid Atunements
 
-# Gamkoß2
+# Gamko

@@ -1,5 +1,5 @@
 ClassicLFG.Config = {
-    Debug = true,
+    Debug = false,
     Font = "Fonts\\FRIZQT__.ttf",
     Network = {
         Prefix = "CLFG_Network",
@@ -55,5 +55,9 @@ ClassicLFG.Config = {
         ChatDungeonGroupFound = "CLASSICLFG_CHAT_DUNGEONGROUP_FOUND",
         -- Args(dungeonGroup)
         DungeonGroupBroadcasterCanceled = "CLASSICLFG_DUNGEONGROUP_BROADCASTER_CANCELED",
+        -- Args(channels)
+        ChannelListChanged = "CLASSICLFG_CHANNEL_LIST_CHANGED",
+        -- Args(playerName)
+        GroupInviteDeclined = "CLASSICLFG_GROUP_INVITE_DECLINED",
     }
 }

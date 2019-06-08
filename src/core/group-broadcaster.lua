@@ -37,3 +37,4 @@ function ClassicLFGGroupBroadCaster:Cancel(dungeonGroup)
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupBroadcasterCanceled, self.DungeonGroup)
     end 
 end
+
