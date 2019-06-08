@@ -1,5 +1,6 @@
 ﻿ClassicLFG = LibStub("AceAddon-3.0"):NewAddon("ClassicLFG", "AceConsole-3.0")
 ClassicLFG.AceGUI = LibStub("AceGUI-3.0")
+ClassicLFG.Locale = LibStub("AceLocale-3.0"):GetLocale("ClassicLFG")
 ClassicLFG.MinimapIcon = LibStub("LibDBIcon-1.0")
 
 GetTalentTabInfo = GetTalentTabInfo or function(index)
@@ -19,6 +20,8 @@ ClassicLFG.DefaultProfile ={
 
 function ClassicLFG:OnEnable()
     ClassicLFG.ChannelManager:UpdateChannels()
+    JoinChannelByName("General")
+    JoinChannelByName("Trade")
     JoinChannelByName(ClassicLFG.Config.Network.Channel.Name)
     local channels = { GetChannelList() }
     local i = 2

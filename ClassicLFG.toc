@@ -8,6 +8,7 @@
 ## SavedVariables: ClassicLFG_DB
 
 libs.xml
+locales\locales.xml
 
 src\main.lua
 src\config.lua
@@ -22,6 +23,7 @@ src\util\slash-commands.lua
 src\util\dungeons.lua
 src\core\event-bus.lua
 src\networking\network.lua
+src\networking\whisper-network.lua
 src\core\player.lua
 src\core\dungeon-group.lua
 src\core\dungeon-group-manager.lua

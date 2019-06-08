@@ -7,50 +7,6 @@ setmetatable(CLassicLFGGroupList, {
   end,
 })
 
-local GroupEntry1 = {
-    Title = "LFM DM TANK NO SUCKERS",
-    Description = "We are looking for one THICC Tank and DPS! Please dont be bad, atleast r.io 2k+! Please dont be bad, atleast r.io 2k+! Please dont be bad, atleast r.io 2k+!",
-    Dungeon = {
-        Name = "The Deadmines"
-    },
-    Group = {
-        Healer = 1,
-        Tank = 0,
-        Dps = 2
-    },
-    Source = {
-        Type = "ADDON",
-        Leader = {
-            Name = "Suu",
-            Class = "Warrior",
-            Level = 60
-        }
-    }
-}
-
-local GroupEntry2 = {
-    Title = "LFM RFC TANK",
-    Description = "We are looking for one THICK Tank and DPS!",
-    Dungeon = {
-        Name = "Ragefire Chasm"
-    },
-    Group = {
-        Healer = 1,
-        Tank = 0,
-        Dps = 3
-    },
-    Leader = {
-        Name = "Suu",
-        Class = "Warrior",
-        Level = 60
-    },
-    Source = {
-        Type = "CHAT",
-        Channel = "Trade",
-    }
-}
-
-
 function CLassicLFGGroupList.new(parent, anchor, width, height)
     local self = setmetatable({}, CLassicLFGGroupList)
     self.Frame = CreateFrame("Frame", nil, parent, nil)

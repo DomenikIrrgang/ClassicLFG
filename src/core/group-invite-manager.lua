@@ -15,7 +15,7 @@ function ClassicLFGGroupInviteManager.new()
     StaticPopup1Button2:SetScript("OnHide", function() self:DeclineGroupInvite() end)
     self.Frame:SetScript("OnEvent", function(_, event, message, ...)
         if (event == "CHAT_MSG_SYSTEM") then
-            if (not IsInGroup() and message:find(" has invited you to join a group.")) then
+            if (not IsInGroup() and message:find(ClassicLFG.Locale[" has invited you to join a group."])) then
                 message = message:gsub("|Hplayer", "") 
                 self.InvitePending = message:sub(2, message:find("%[") - 3)
             end

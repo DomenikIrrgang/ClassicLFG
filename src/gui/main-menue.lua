@@ -70,7 +70,7 @@ local function SetTabs(frame, numTabs, ...)
 	return unpack(contents);
 end
 
-ClassicLFG.QueueWindow.SearchGroup, ClassicLFG.QueueWindow.CreateGroup, ClassicLFG.QueueWindow.Settings = SetTabs(ClassicLFG.QueueWindow, 3, "Search Group", "Create Group","Settings")
+ClassicLFG.QueueWindow.SearchGroup, ClassicLFG.QueueWindow.CreateGroup, ClassicLFG.QueueWindow.Settings = SetTabs(ClassicLFG.QueueWindow, 3, ClassicLFG.Locale["Search Group"], ClassicLFG.Locale["Create Group"], ClassicLFG.Locale["Settings"])
 
 ---------------------------------
 -- Search Group - Filter
@@ -80,11 +80,11 @@ ClassicLFG.QueueWindow.SearchGroup.SearchField = ClassicLFG.AceGUI:Create("Dropd
 ClassicLFG.QueueWindow.SearchGroup.SearchField.frame:SetParent(ClassicLFG.QueueWindow.SearchGroup)
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.SearchGroup, "TOPLEFT", 0, -8);
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.SearchGroup, "TOPRIGHT", -5, -35)
-ClassicLFG.QueueWindow.SearchGroup.SearchField:SetText("Select Dungeon")
 --ClassicLFG.QueueWindow.SearchGroup.SearchField:SetList(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetList(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetMultiselect(true)
 ClassicLFG.QueueWindow.SearchGroup.SearchField.SelectedDungeons = ClassicLFGLinkedList()
+ClassicLFG.QueueWindow.SearchGroup.SearchField:SetText(ClassicLFG.Locale["Select Dungeon"])
 ClassicLFG.QueueWindow.SearchGroup.SearchField:SetCallback("OnValueChanged", function(key, checked, value)
 	local index = ClassicLFG.QueueWindow.SearchGroup.SearchField.SelectedDungeons:Contains(value)
 	if (index) then
@@ -178,7 +178,7 @@ ClassicLFG.QueueWindow.CreateGroup.Title = ClassicLFG.AceGUI:Create("EditBox")
 ClassicLFG.QueueWindow.CreateGroup.Title.frame:SetParent(ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.Title:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup, "TOPLEFT", 10, -8);
 ClassicLFG.QueueWindow.CreateGroup.Title:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup, "TOPRIGHT", -13, -45)
-ClassicLFG.QueueWindow.CreateGroup.Title:SetLabel("Title:")
+ClassicLFG.QueueWindow.CreateGroup.Title:SetLabel(ClassicLFG.Locale["Title"] .. ":")
 ClassicLFG.QueueWindow.CreateGroup.Title:SetMaxLetters(25)
 ClassicLFG.QueueWindow.CreateGroup.Title:DisableButton(true)
 ClassicLFG.QueueWindow.CreateGroup.Title.frame:Show()
@@ -188,8 +188,8 @@ ClassicLFG.QueueWindow.CreateGroup.Dungeon = ClassicLFG.AceGUI:Create("Dropdown"
 ClassicLFG.QueueWindow.CreateGroup.Dungeon.frame:SetParent(ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Title.frame, "BOTTOMLEFT", 0, -8);
 ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Title.frame, "BOTTOMRIGHT", 0, -45)
-ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetText("Select Dungeon")
-ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetLabel("Dungeon:")
+ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetText(ClassicLFG.Locale["Select Dungeon"])
+ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetLabel(ClassicLFG.Locale["Dungeon"] .. ":")
 ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetList(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
 ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetCallback("OnValueChanged", ClassicLFG.QueueWindow.CreateGroup.DataEntered)
 
@@ -197,13 +197,13 @@ ClassicLFG.QueueWindow.CreateGroup.Description = ClassicLFG.AceGUI:Create("Multi
 ClassicLFG.QueueWindow.CreateGroup.Description.frame:SetParent(ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.Description:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Dungeon.frame, "BOTTOMLEFT", 0, -8);
 ClassicLFG.QueueWindow.CreateGroup.Description:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Dungeon.frame, "BOTTOMRIGHT", -0, -100)
-ClassicLFG.QueueWindow.CreateGroup.Description:SetLabel("Description:")
+ClassicLFG.QueueWindow.CreateGroup.Description:SetLabel(ClassicLFG.Locale["Description"] .. ":")
 ClassicLFG.QueueWindow.CreateGroup.Description:DisableButton(true)
 ClassicLFG.QueueWindow.CreateGroup.Description:SetMaxLetters(120)
 ClassicLFG.QueueWindow.CreateGroup.Description.frame:Show()
 ClassicLFG.QueueWindow.CreateGroup.Description:SetCallback("OnTextChanged", ClassicLFG.QueueWindow.CreateGroup.DataEntered)
 
-ClassicLFG.QueueWindow.CreateGroup.QueueButton = ClassicLFGButton("List Group", ClassicLFG.QueueWindow.CreateGroup)
+ClassicLFG.QueueWindow.CreateGroup.QueueButton = ClassicLFGButton(ClassicLFG.Locale["List Group"], ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Description.frame, "BOTTOMLEFT", 0, -8);
 ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.frame, "BOTTOMRIGHT", 0, -30)
 ClassicLFG.QueueWindow.CreateGroup.QueueButton.OnClick = function(self)
@@ -225,7 +225,7 @@ ClassicLFG.QueueWindow.CreateGroup.QueueButton.OnClick = function(self)
 end
 ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
 
-ClassicLFG.QueueWindow.CreateGroup.DequeueButton = ClassicLFGButton("Delist Group", ClassicLFG.QueueWindow.CreateGroup)
+ClassicLFG.QueueWindow.CreateGroup.DequeueButton = ClassicLFGButton(ClassicLFG.Locale["Delist Group"], ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.DequeueButton:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Description.frame, "BOTTOM", 5, -8);
 ClassicLFG.QueueWindow.CreateGroup.DequeueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.frame, "BOTTOMRIGHT", -0, -30)
 ClassicLFG.QueueWindow.CreateGroup.DequeueButton.Frame:Hide()
@@ -271,7 +271,7 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined
 	ClassicLFG.QueueWindow.CreateGroup.Title:SetText(dungeonGroup.Title)
 	ClassicLFG.QueueWindow.CreateGroup.Description:SetText(dungeonGroup.Description)
 	ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(dungeonGroup.Dungeon.Name)
-	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetText("Update Data")
+	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetText(ClassicLFG.Locale["Update Data"])
 	ClassicLFG.QueueWindow.CreateGroup.DequeueButton:Show()
 	ClassicLFG.QueueWindow.CreateGroup:DisableDequeueButton(false)
 end)
@@ -299,7 +299,7 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, 
 	else
 		ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
 	end
-	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetText("List Group")
+	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetText(ClassicLFG.Locale["List Group"])
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.frame, "BOTTOMRIGHT", 0, -30)
 end)
 
@@ -311,8 +311,8 @@ ClassicLFG.QueueWindow.Settings.Broadcastchannel = ClassicLFG.AceGUI:Create("Dro
 ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame:SetParent(ClassicLFG.QueueWindow.Settings)
 ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings, "TOPLEFT", 8, -12);
 ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings, "TOPRIGHT", -8, -45)
-ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetText("Select Broadcastchannel")
-ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetLabel("Broadcastchannel:")
+ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetText(ClassicLFG.Locale["Select Broadcastchannel"])
+ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetLabel(ClassicLFG.Locale["Broadcastchannel"] .. ":")
 
 ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame:SetScript("OnShow", function(self, _, channel)
 	ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetList(ClassicLFG.ChannelManager:GetChannelNames())
@@ -333,7 +333,7 @@ ClassicLFG.QueueWindow.Settings.Broadcastintervall = ClassicLFG.AceGUI:Create("S
 ClassicLFG.QueueWindow.Settings.Broadcastintervall.frame:SetParent(ClassicLFG.QueueWindow.Settings)
 ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetPoint("TOPLEFT",ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame, "BOTTOMLEFT", 0, -15)
 ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetPoint("BOTTOMRIGHT",ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame, "BOTTOMRIGHT", 0, -45)
-ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetLabel("Broadcastintervall")
+ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetLabel(ClassicLFG.Locale["Broadcastinterval"])
 ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetSliderValues(60, 180, 1)
 
 ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetCallback("OnValueChanged", function(self,_,value)
@@ -348,7 +348,7 @@ ClassicLFG.QueueWindow.Settings.Invitemessage = ClassicLFG.AceGUI:Create("EditBo
 ClassicLFG.QueueWindow.Settings.Invitemessage.frame:SetParent(ClassicLFG.QueueWindow.Settings)
 ClassicLFG.QueueWindow.Settings.Invitemessage:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Broadcastintervall.frame, "BOTTOMLEFT", 0, -15);
 ClassicLFG.QueueWindow.Settings.Invitemessage:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Broadcastintervall.frame, "BOTTOMRIGHT", 0, -60)
-ClassicLFG.QueueWindow.Settings.Invitemessage:SetLabel("Invite message:")
+ClassicLFG.QueueWindow.Settings.Invitemessage:SetLabel(ClassicLFG.Locale["Invitemessage"] .. ":")
 ClassicLFG.QueueWindow.Settings.Invitemessage:SetMaxLetters(25)
 ClassicLFG.QueueWindow.Settings.Invitemessage:DisableButton(true)
 

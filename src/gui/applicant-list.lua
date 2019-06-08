@@ -65,13 +65,13 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
     self.GuildText:SetFont(ClassicLFG.Config.Font, 12, "NONE");
     self.ClassText = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.ClassText:SetFont(ClassicLFG.Config.Font, 12, "NONE");
-    self.DeclineButton = ClassicLFGButton("Decline", self.Frame)
+    self.DeclineButton = ClassicLFGButton(ClassicLFG.Locale["Decline"], self.Frame)
     self.DeclineButton:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -5, -5);
     self.DeclineButton:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMRIGHT", -65, 5)
     self.DeclineButton.OnClick = function()
         ClassicLFG.DungeonGroupManager:ApplicantDeclined(self.Player)
     end
-    self.InviteButton = ClassicLFGButton("Invite", self.Frame)
+    self.InviteButton = ClassicLFGButton(ClassicLFG.Locale["Invite"], self.Frame)
     self.InviteButton:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -70, -5);
     self.InviteButton:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMRIGHT", -130, 5)
     self.InviteButton.OnClick = function()

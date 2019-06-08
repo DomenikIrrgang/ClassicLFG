@@ -34,7 +34,7 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.EntrySource:SetFont(ClassicLFG.Config.Font, 8, "NONE");
     self.EntrySource:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", 0, -3);
 
-    self.QueueButton = ClassicLFGButton("Queue", self.Frame)
+    self.QueueButton = ClassicLFGButton(ClassicLFG.Locale["Queue"], self.Frame)
     self.QueueButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -5, 5)
     self.QueueButton.OnClick = function() 
         if (self.entry.Source.Type == "ADDON") then
@@ -153,14 +153,14 @@ function CLassicLFGGroupListItem:SetGroup(entry)
         self.RoleIcons.Healer.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.HEALER))
         self.RoleIcons.Unknown.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.UNKNOWN))
         if (self.entry.Source.Type == "CHAT") then
-            self.QueueButton:SetText("Whisper")
+            self.QueueButton:SetText(ClassicLFG.Locale["Whisper"])
             self.RoleIcons.Dps:Hide()
             self.RoleIcons.Tank:Hide()
             self.RoleIcons.Healer:Hide()
             self.RoleIcons.Unknown:Hide()
             self.Description:SetText("Leader : " .. entry.Leader.Name)
         else
-            self.QueueButton:SetText("Queue")
+            self.QueueButton:SetText(ClassicLFG.Locale["Queue"])
             self.RoleIcons.Dps:Show()
             self.RoleIcons.Tank:Show()
             self.RoleIcons.Healer:Show()

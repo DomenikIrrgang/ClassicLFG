@@ -28,14 +28,14 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
         if (event == "CHAT_MSG_SYSTEM") then
 
             local message = ...
-            if(self:IsListed() and message:find(" declines your group invitation.")) then
-                local playerName = message:gsub(" declines your group invitation.", "")
+            if(self:IsListed() and message:find(ClassicLFG.Locale[" declines your group invitation."])) then
+                local playerName = message:gsub(ClassicLFG.Locale[" declines your group invitation."], "")
                 self:ApplicantInviteDeclined(ClassicLFGPlayer(playerName, "", "", "", ""))
             end
 
-            if(self:IsListed() and message:find(" joins the party.")) then
+            if(self:IsListed() and message:find(ClassicLFG.Locale[" joins the party."])) then
                 ClassicLFG:DebugPrint("Player joined the party!")
-                local playerName = message:gsub(" joins the party.", "")
+                local playerName = message:gsub(ClassicLFG.Locale[" joins the party."], "")
                 local index = self.Applicants:Contains(ClassicLFGPlayer(playerName))
                 if (index ~= nil) then
                     self:ApplicantInviteAccepted(self.Applicants:GetItem(index))
@@ -44,15 +44,15 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
                 end
             end
 
-            if(self:IsListed() and message:find(" leaves the party.")) then
-                local playerName = message:gsub(" leaves the party.", "")
+            if(self:IsListed() and message:find(ClassicLFG.Locale[" leaves the party."])) then
+                local playerName = message:gsub(ClassicLFG.Locale[" leaves the party."], "")
                 ClassicLFG:DebugPrint(playerName .. " left the party!")
                 ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupMemberLeft, ClassicLFGPlayer(playerName))
             end
 
-            if((message:find("Your group has been disbanded.") or
-            message:find("You leave the group.") or
-            message:find("You have been removed from the group."))) then
+            if((message:find(ClassicLFG.Locale["Your group has been disbanded."]) or
+            message:find(ClassicLFG.Locale["You leave the group."]) or
+            message:find(ClassicLFG.Locale["You have been removed from the group."]))) then
                  ClassicLFG:DebugPrint("Left party.")
                 if (self:IsListed() and self.DungeonGroup.Leader.Name ~= UnitName("player")) then
                     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupLeft, self.DungeonGroup)
@@ -287,6 +287,10 @@ function ClassicLFGDungeonGroupManager:HandleApplications(applicant)
         if (index == nil) then
             self:AddApplicant(applicant)
         end
+        ClassicLFG.Network:SendObject(
+            ClassicLFG.Config.Events.ApplyForGroup,
+            applicant,
+            "PARTY")
     end
 end
 
@@ -317,6 +321,10 @@ function ClassicLFGDungeonGroupManager:ApplicantDeclined(applicant)
     self:RemoveApplicant(applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantDeclined, applicant)
     ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.DeclineApplicant, self.DungeonGroup, "WHISPER", applicant.Name)
+    ClassicLFG.Network:SendObject(
+            ClassicLFG.Config.Events.DeclineApApplicantDeclinedplicant,
+            applicant,
+            "PARTY")
 end
 
 function ClassicLFGDungeonGroupManager:ApplicantInvited(applicant)
