@@ -11,7 +11,6 @@ ClassicLFG.Config = {
     BroadcastInterval = 30,
     CheckGroupExpiredInterval = 5,
     GroupTimeToLive = 5 * 60,
-    BroadcastDungeonGroupChannel = "ClassicLFGNetwork",
     BroadcastDungeonGroupInterval = 90,
     Events = {
         RequestData = "CLASSICLFG_DATA_REQUEST",
