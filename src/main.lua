@@ -11,7 +11,9 @@ ClassicLFG.DefaultProfile ={
         minimap = {
             hide = false,
         },
-        InviteMessage = "invite please"
+        InviteMessage = "invite please",
+        BroadcastDungeonGroupInterval = 90,
+        BroadcastDungeonGroupChannel = "General",
     },
 }
 

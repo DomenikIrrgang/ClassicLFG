@@ -25,7 +25,7 @@ function ClassicLFGGroupBroadCaster:Start(time)
                 ClassicLFG.Config.Events.GroupListed,
                 self.DungeonGroup,
                 "CHANNEL",
-                ClassicLFG.DB.profile.BroadcastDungeonGroupChannel)
+                ClassicLFG.Config.Network.Channel.Id)
         end
     end)
 end

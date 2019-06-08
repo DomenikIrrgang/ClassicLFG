@@ -108,3 +108,16 @@ frame:SetScript("OnEvent", function(_, event, ...)
         end
     end
 end)
+
+function ClassicLFG:GetChannels()
+    local channels = {}
+    local i = 1
+    while i < 30 do 
+        local id, name = GetChannelName(i)
+        if (id > 0 and name ~= nil) then
+            channels[id]= name
+        end	
+        i = i + 1
+    end
+    return channels
+end

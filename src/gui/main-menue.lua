@@ -313,16 +313,16 @@ ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetPoint("TOPLEFT", ClassicLFG.
 ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings, "TOPRIGHT", -8, -45)
 ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetText("Select Broadcastchannel")
 ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetLabel("Broadcastchannel:")
-channels = {}
-myChannel = 1
-while myChannel < 30 do 
-	id, name = GetChannelName(myChannel)
-	myChannel = myChannel + 1
-	if (id > 0 and name ~= nil) then
-		channels[id]= name
-	end	
-end
-ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetList(channels)
+ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetList(ClassicLFG:GetChannels())
+
+ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame:SetScript("OnShow", function(self, _, channel)
+	ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetValue(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel)
+end)
+
+ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetCallback("OnValueChanged", function(self, _, channel)
+	ClassicLFG.DB.profile.BroadcastDungeonGroupChannel = channel
+end)
+
 
 ClassicLFG.QueueWindow.Settings.Broadcastintervall = ClassicLFG.AceGUI:Create("Slider")
 ClassicLFG.QueueWindow.Settings.Broadcastintervall.frame:SetParent(ClassicLFG.QueueWindow.Settings)
@@ -330,7 +330,14 @@ ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetPoint("TOPLEFT",ClassicLFG
 ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetPoint("BOTTOMRIGHT",ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame, "BOTTOMRIGHT", 0, -45)
 ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetLabel("Broadcastintervall")
 ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetSliderValues(60, 180, 1)
-ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetValue(ClassicLFG.Config.BroadcastDungeonGroupInterval)
+
+ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetCallback("OnValueChanged", function(self,_,value)
+	ClassicLFG.DB.profile.BroadcastDungeonGroupInterval = value
+end)
+
+ClassicLFG.QueueWindow.Settings.Broadcastintervall.frame:SetScript("OnShow", function(self, _ , value)
+	ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetValue(ClassicLFG.DB.profile.BroadcastDungeonGroupInterval)	
+end)
 
 ClassicLFG.QueueWindow.Settings.Invitemessage = ClassicLFG.AceGUI:Create("EditBox")
 ClassicLFG.QueueWindow.Settings.Invitemessage.frame:SetParent(ClassicLFG.QueueWindow.Settings)
@@ -348,32 +355,6 @@ ClassicLFG.QueueWindow.Settings.Invitemessage:SetCallback("OnTextChanged", funct
 	ClassicLFG.DB.profile.InviteText = text
 end)
 
-
-
-ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetCallback("OnValueChanged", function(self,_,value)
-ClassicLFG.DB.profile.Broadcastintervall = value
-end)
-
-ClassicLFG.QueueWindow.Settings.Broadcastintervall.frame:SetScript("OnShow", function(self, _ , value)
-	if(ClassicLFG.DB.profile.Broadcastintervall ~= nil) then
-		ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetValue(ClassicLFG.DB.profile.Broadcastintervall)	
-		else
-		ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetValue(ClassicLFG.Config.BroadcastDungeonGroupInterval)
-		
-	end
-	
-end)
-
-ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame:SetScript("OnShow", function(self, _, channel)
-	ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetValue(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel)
-end)
-
-ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetCallback("OnValueChanged", function(self,_,channel)
-	ClassicLFG.DB.profile.BroadcastDungeonGroupChannel = channel
-	end)
-
-
 ClassicLFG.QueueWindow.Settings.Invitemessage.frame:Show()
-
 
 ClassicLFG.QueueWindow:Hide()

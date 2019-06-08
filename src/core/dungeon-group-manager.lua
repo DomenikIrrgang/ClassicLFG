@@ -136,7 +136,8 @@ end
 
 function ClassicLFGDungeonGroupManager:StartBroadcast()
     ClassicLFG:DebugPrint("Started broadcasting dungeon group")
-    self.BroadcastTicker = C_Timer.NewTicker(ClassicLFG.DB.profile.Broadcastintervall, function()
+    SendChatMessage("LFM \"" .. self.DungeonGroup.Dungeon.Name .. "\": " .. self.DungeonGroup.Title, "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
+    self.BroadcastTicker = C_Timer.NewTicker(ClassicLFG.DB.profile.BroadcastDungeonGroupInterval, function()
         ClassicLFG:DebugPrint("Broadcast Ticker tick")
         if (self:IsListed()) then
             SendChatMessage("LFM \"" .. self.DungeonGroup.Dungeon.Name .. "\": " .. self.DungeonGroup.Title, "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
