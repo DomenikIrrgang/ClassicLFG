@@ -20,19 +20,33 @@ ClassicLFG.DefaultProfile ={
 
 function ClassicLFG:OnEnable()
     ClassicLFG.ChannelManager:UpdateChannels()
-    JoinChannelByName("General")
-    JoinChannelByName("Trade")
-    JoinChannelByName(ClassicLFG.Config.Network.Channel.Name)
-    local channels = { GetChannelList() }
-    local i = 2
-    while i < #channels do
-        if (channels[i] == ClassicLFG.Config.Network.Channel.Name) then
-            ClassicLFG.Config.Network.Channel.Id = channels[i - 1]
-        end
-        i = i + 3
-    end
-    self.Network:SendObject(self.Config.Events.RequestData, "RequestCGroupData", "CHANNEL", ClassicLFG.Config.Network.Channel.Id)
 end
+
+local f = CreateFrame('Frame')
+f:SetScript('OnUpdate', function(self, elapsed)
+	self.delayed = (self.delayed or 0) + elapsed
+	if self.delayed > 5 then
+		local numActiveChannels = C_ChatInfo.GetNumActiveChannels()
+
+		if numActiveChannels and (numActiveChannels >= 1) then
+			if numActiveChannels < MAX_WOW_CHAT_CHANNELS then
+                JoinChannelByName(ClassicLFG.Config.Network.Channel.Name, nil, nil, true)
+                local channels = { GetChannelList() }
+                local i = 2
+                while i < #channels do
+                    if (channels[i] == ClassicLFG.Config.Network.Channel.Name) then
+                        ClassicLFG.Config.Network.Channel.Id = channels[i - 1]
+                    end
+                    i = i + 3
+                end
+                ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.RequestData, "RequestCGroupData", "CHANNEL", ClassicLFG.Config.Network.Channel.Id)
+				self:SetScript('OnUpdate', nil)
+			end
+		end
+	elseif self.delayed > 45 then
+		self:SetScript('OnUpdate', nil)
+	end
+end)
 
 function ClassicLFG:OnInitialize()
     self.DB = LibStub("AceDB-3.0"):New("ClassicLFG_DB", self.DefaultProfile)

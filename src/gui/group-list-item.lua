@@ -40,8 +40,9 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
         if (self.entry.Source.Type == "ADDON") then
             ClassicLFG.GroupManager:ApplyForGroup(self.entry)
         else
+            ChatFrame1EditBox:Show()
             ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name .. " " .. ClassicLFG.DB.profile.InviteText)
-            ChatFrame1EditBox:Show()ChatFrame1EditBox:SetFocus()
+            ChatFrame1EditBox:SetFocus()
         end
     end
     self.QueueButton:Hide()
