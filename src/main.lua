@@ -36,11 +36,13 @@ end
 
 function ClassicLFG:OnInitialize()
     self.DB = LibStub("AceDB-3.0"):New("ClassicLFG_DB", self.DefaultProfile)
-    ClassicLFG.LDB = LibStub("LibDataBroker-1.1"):NewDataObject("ClassicLFG_LDB", {
-        type = "data source",
+    local iconPath = ([[Interface\Addons\%s\%s\%s]]):format("ClassicLFG", "textures", "inv_misc_groupneedmore")
+    self.LDB = LibStub("LibDataBroker-1.1"):NewDataObject("ClassicLFG_LDB", {
+        type = "launcher",
         text = "TestText",
-        icon = "Interface\\Icons\\inv_misc_groupneedmore",
-        OnClick = self.MinimapIconClick
+        icon = iconPath,
+        OnClick = self.MinimapIconClick,
+        OnTooltipShow = self.MinimapTooltip
     })
     self.MinimapIcon:Register("ClassicLFG_LDB", self.LDB, self.DB.profile.minimap)
     self:RegisterChatCommand("lfg", "MinimapIconClick")
@@ -54,4 +56,10 @@ function ClassicLFG:MinimapIconClick()
     else
         ClassicLFG.QueueWindow:Hide()
     end
+end
+
+function ClassicLFG.MinimapTooltip(tooltip)
+    if not tooltip or not tooltip.AddLine then return end
+    tooltip:AddLine("ClassicLFG")
+    tooltip:AddLine(ClassicLFG.Locale["Leftclick: Open LFG Browser"])
 end

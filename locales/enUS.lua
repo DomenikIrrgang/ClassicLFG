@@ -18,6 +18,7 @@ L["Whisper"] = "Whisper"
 L["Search Group"] = "Search Group"
 L["Create Group"] = "Create Group"
 L["Settings"] = "Settings"
+L["Leftclick: Open LFG Browser"] = "Leftclick: Open LFG Browser"
 
 -- SYSTEM MESSAGES (NEED TO BE ACCURATE!!)
 L[" declines your group invitation."] = " declines your group invitation."

@@ -3,7 +3,9 @@
 * Sync Party Applicants between members of the group
 * Fix Channel numbers/join
 * Translate classes/dungeons
-* Note for queueing into groups
+* Note for queueing into groups^
+* Fix Decline Group popup by checking text
+
 
 # Low Prio:
 * Party Leader Not Available Delist group (maybe send confirmation back when application is successful, otherwise delist group, might be too much traffic)
