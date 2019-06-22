@@ -39,3 +39,6 @@ src\gui\group-list-item.lua
 src\gui\group-list.lua
 src\gui\applicant-list.lua
 src\gui\main-menue.lua
+src\gui\find-group.lua
+src\gui\create-group.lua
+src\gui\settings.lua

@@ -3,7 +3,6 @@
 * Sync Party Applicants between members of the group
 * Translate classes/dungeons
 * Note for queueing into groups^
-* Fix Decline Group popup by checking text
 * Max Character Count for Group Titles in GUI
 * Send update every 3 minutes of dungeon group to prevent being delisted
 

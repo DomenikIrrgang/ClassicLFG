@@ -25,9 +25,11 @@ function ClassicLFGGroupInviteManager.new()
 end
 
 function ClassicLFGGroupInviteManager:DeclineGroupInvite()
-    DeclineGroup()
-    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupInviteDeclined, self.InvitePending)
-    self.InvitePending = nil
+    if (self.InvitePending ~= nil) then
+        DeclineGroup()
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupInviteDeclined, self.InvitePending)
+        self.InvitePending = nil
+    end
 end
 
 
