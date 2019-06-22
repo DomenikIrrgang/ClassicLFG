@@ -1,11 +1,11 @@
 # High Prio:
 * Version Check
 * Sync Party Applicants between members of the group
-* Fix Channel numbers/join
 * Translate classes/dungeons
 * Note for queueing into groups^
 * Fix Decline Group popup by checking text
 * Max Character Count for Group Titles in GUI
+* Send update every 3 minutes of dungeon group to prevent being delisted
 
 
 # Low Prio:
