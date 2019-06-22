@@ -5,6 +5,7 @@
 * Translate classes/dungeons
 * Note for queueing into groups^
 * Fix Decline Group popup by checking text
+* Max Character Count for Group Titles in GUI
 
 
 # Low Prio:
