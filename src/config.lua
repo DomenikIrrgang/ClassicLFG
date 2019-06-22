@@ -9,7 +9,7 @@ ClassicLFG.Config = {
             Id = 1
         }
     },
-    BroadcastInterval = 30,
+    BroadcastInterval = 15,
     CheckGroupExpiredInterval = 5,
     GroupTimeToLive = 5 * 60,
     Events = {
