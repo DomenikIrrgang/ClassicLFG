@@ -140,6 +140,8 @@ function ClassicLFGDungeonGroupManager:StartBroadcast()
     self.BroadcastTicker = C_Timer.NewTicker(ClassicLFG.DB.profile.BroadcastDungeonGroupInterval, function()
         ClassicLFG:DebugPrint("Broadcast Ticker tick")
         if (self:IsListed()) then
+            -- Prevent group from being delisted on other clients
+            self:UpdateGroup(self.DungeonGroup)
             SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
         end
     end)
@@ -322,7 +324,7 @@ function ClassicLFGDungeonGroupManager:ApplicantDeclined(applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantDeclined, applicant)
     ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.DeclineApplicant, self.DungeonGroup, "WHISPER", applicant.Name)
     ClassicLFG.Network:SendObject(
-            ClassicLFG.Config.Events.DeclineApApplicantDeclinedplicant,
+            ClassicLFG.Config.Events.DeclineApplicant,
             applicant,
             "PARTY")
 end

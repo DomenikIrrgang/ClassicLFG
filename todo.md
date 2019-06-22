@@ -2,10 +2,7 @@
 * Version Check
 * Sync Party Applicants between members of the group
 * Translate classes/dungeons
-* Note for queueing into groups^
-* Max Character Count for Group Titles in GUI
-* Send update every 3 minutes of dungeon group to prevent being delisted
-
+* Note for queueing into groups
 
 # Low Prio:
 * Party Leader Not Available Delist group (maybe send confirmation back when application is successful, otherwise delist group, might be too much traffic)

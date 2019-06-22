@@ -25,6 +25,16 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.Title = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.Title:SetFont(ClassicLFG.Config.Font, 12, "NONE");
     self.Title:SetPoint("TOPLEFT", self.Frame, "TOPLEFT", 5, -5);
+    self.Title.OldSetText = self.Title.SetText
+    self.Title.SetText = function(title, text)
+        
+        if (text:len() > 35) then
+            text = text:sub(1, 32)
+            text = text .. "..."
+        end
+
+        self.Title.OldSetText(title, text)
+    end
 
     self.DungeonName = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.DungeonName:SetFont(ClassicLFG.Config.Font, 10, "NONE");
