@@ -25,7 +25,7 @@ end
 local f = CreateFrame('Frame')
 f:SetScript('OnUpdate', function(self, elapsed)
 	self.delayed = (self.delayed or 0) + elapsed
-	if self.delayed > 5 then
+	if self.delayed > 2 then
 		local numActiveChannels = C_ChatInfo.GetNumActiveChannels()
 
 		if numActiveChannels and (numActiveChannels >= 1) then
@@ -40,6 +40,7 @@ f:SetScript('OnUpdate', function(self, elapsed)
                     i = i + 3
                 end
                 ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.RequestData, "RequestCGroupData", "CHANNEL", ClassicLFG.Config.Network.Channel.Id)
+                ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.VersionCheck, ClassicLFG.Config.Version, "CHANNEL", ClassicLFG.Config.Network.Channel.Id)
 				self:SetScript('OnUpdate', nil)
 			end
 		end

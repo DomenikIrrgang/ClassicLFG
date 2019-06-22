@@ -1,5 +1,4 @@
 # High Prio:
-* Version Check
 * Sync Party Applicants between members of the group
 * Translate classes/dungeons
 * Note for queueing into groups

@@ -1,6 +1,6 @@
 ClassicLFG.Config = {
-    Debug = true,
-    Version = "0.2.4",
+    Debug = false,
+    Version = "0.3.2",
     Font = "Fonts\\FRIZQT__.ttf",
     Network = {
         Prefix = "CLFG_Network",
@@ -60,5 +60,7 @@ ClassicLFG.Config = {
         ChannelListChanged = "CLASSICLFG_CHANNEL_LIST_CHANGED",
         -- Args(playerName)
         GroupInviteDeclined = "CLASSICLFG_GROUP_INVITE_DECLINED",
+        -- Args(version)
+        VersionCheck = "CLASSICLFG_VERSION_CHECK"
     }
 }

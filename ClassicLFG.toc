@@ -32,6 +32,7 @@ src\core\chat-parser.lua
 src\core\group-broadcaster.lua
 src\core\channel-manager.lua
 src\core\group-invite-manager.lua
+src\core\version-check.lua
 src\gui\button.lua
 src\gui\icon.lua
 src\gui\icon-with-text.lua
