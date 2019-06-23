@@ -2,9 +2,9 @@
 -- Search Group - Filter
 ---------------------------------
 
-ClassicLFG.QueueWindow.SearchGroup.Filter = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Dungeon"], ClassicLFG.QueueWindow.SearchGroup, 300, 50)
+ClassicLFG.QueueWindow.SearchGroup.Filter = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Dungeon"], ClassicLFG.QueueWindow.SearchGroup)
 ClassicLFG.QueueWindow.SearchGroup.Filter.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.SearchGroup, "TOPLEFT", 0, 0);
-ClassicLFG.QueueWindow.SearchGroup.Filter.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.SearchGroup, "TOPRIGHT", 0, -20)
+ClassicLFG.QueueWindow.SearchGroup.Filter.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.SearchGroup, "TOPRIGHT", 0, -22)
 ClassicLFG.QueueWindow.SearchGroup.Filter:SetItems(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
 ClassicLFG.QueueWindow.SearchGroup.Filter:SetMultiSelect(true)
 ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons = ClassicLFGLinkedList()

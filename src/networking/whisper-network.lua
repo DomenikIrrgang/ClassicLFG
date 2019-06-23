@@ -52,7 +52,6 @@ function ClassicLFGWhisperNetwork:SendMessage(prefix, message, channel, target)
     local messages = self:SplitMessage(message)
     for key in pairs(messages) do
         self.Count = self.Count + 1
-        print(self.Count)
         SendChatMessage(messages[key], "WHISPER", nil, target)
     end
 end

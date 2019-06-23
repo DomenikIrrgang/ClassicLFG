@@ -72,14 +72,14 @@ ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Unknown.Icon:GetTexture():SetTexCoo
 
 ClassicLFG.QueueWindow.CreateGroup.Title = ClassicLFGEditBox(nil, ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Icon.Texture, "BOTTOMLEFT", 0, -5);
-ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Icon.Texture, "BOTTOMRIGHT", 0, -22)
+ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Icon.Texture, "BOTTOMRIGHT", 0, -27)
 ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetMaxLetters(25)
 ClassicLFG.QueueWindow.CreateGroup.Title:SetPlaceholder(ClassicLFG.Locale["Title"])
 ClassicLFG.QueueWindow.CreateGroup.Title.OnTextChanged = ClassicLFG.QueueWindow.CreateGroup.DataEntered
 
-ClassicLFG.QueueWindow.CreateGroup.Dungeon = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Dungeon"], ClassicLFG.QueueWindow.CreateGroup, 300, 50)
+ClassicLFG.QueueWindow.CreateGroup.Dungeon = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Dungeon"], ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.Dungeon.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Title.Frame, "BOTTOMLEFT", 0, -8);
-ClassicLFG.QueueWindow.CreateGroup.Dungeon.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Title.Frame, "BOTTOMRIGHT", 0, -28)
+ClassicLFG.QueueWindow.CreateGroup.Dungeon.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Title.Frame, "BOTTOMRIGHT", 0, -30)
 ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetItems(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
 ClassicLFG.QueueWindow.CreateGroup.Dungeon.OnValueChanged = function(value)
     ClassicLFG.QueueWindow.CreateGroup.Icon.Texture:SetTexture(ClassicLFG.Dungeon[value].Background)

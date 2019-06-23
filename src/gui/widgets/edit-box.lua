@@ -7,7 +7,7 @@ setmetatable(ClassicLFGEditBox, {
     end,
 })
 
-function ClassicLFGEditBox.new(name, parent)
+function ClassicLFGEditBox.new(name, parent, title)
     local self = setmetatable({}, ClassicLFGEditBox)
     self.Disabled = false
     self.Frame = CreateFrame("EditBox", name, parent, "InputBoxTemplate")
@@ -20,7 +20,7 @@ function ClassicLFGEditBox.new(name, parent)
     self.Frame:SetAutoFocus(false)
     self.Frame:SetTextInsets(5, 5, 0, 0)
 
-    self.Frame:SetScript("OnTextChanged", function(_, isUserInput) self:CheckPlaceholder(); self:OnTextChanged(isUserInput) end)
+    self.Frame:SetScript("OnTextChanged", function(_, isUserInput) self:CheckPlaceholder(); self:OnTextChanged(isUserInput, self.Frame:GetText()) end)
     self.Frame:SetScript("OnEditFocusLost", function() self:CheckPlaceholder(); self:OnFocusLost() end)
     self.Frame:SetScript("OnEditFocusGained", function() self.Placeholder:Hide(); self:OnFocus() end)
 
@@ -39,6 +39,11 @@ function ClassicLFGEditBox.new(name, parent)
     self.Placeholder = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.Placeholder:SetFont(ClassicLFG.Config.Font, 12, "NONE");
     self.Placeholder:SetPoint("LEFT", self.Frame, "LEFT", 5, 0);
+
+    self.Frame.Title = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
+    self.Frame.Title:SetFont(ClassicLFG.Config.Font, 12, "NONE");
+    self.Frame.Title:SetPoint("BOTTOM", self.Frame, "TOP", 0, 5)
+    self.Frame.Title:SetText(title)
 
     self.Frame.Left:Hide()
     self.Frame.Middle:Hide()

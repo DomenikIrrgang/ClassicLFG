@@ -7,7 +7,7 @@ setmetatable(ClassicLFGDropdownMenue, {
     end,
 })
 
-function ClassicLFGDropdownMenue.new(text, parent)
+function ClassicLFGDropdownMenue.new(text, parent, title)
     local self = setmetatable({}, ClassicLFGDropdownMenue)
     self.Disabled = false
     self.Items = {}
@@ -26,6 +26,11 @@ function ClassicLFGDropdownMenue.new(text, parent)
     self.Frame.Text:SetFont(ClassicLFG.Config.Font, 12, "NONE");
     self.Frame.Text:SetPoint("LEFT", self.Frame, "LEFT", 5, 0);
     self.Frame.Text:SetText(text);
+
+    self.Frame.Title = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
+    self.Frame.Title:SetFont(ClassicLFG.Config.Font, 12, "NONE");
+    self.Frame.Title:SetPoint("BOTTOM", self.Frame, "TOP", 0, 5)
+    self.Frame.Title:SetText(title)
 
     for i = 1, 20 do
         table.insert(self.Entries, self:CreateEntry(i))
