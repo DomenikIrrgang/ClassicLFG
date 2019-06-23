@@ -29,6 +29,10 @@ function ClassicLFG:StringContainsTableValue(text, values)
     return nil
 end
 
+function ClassicLFG:SetFrameBackgroundColor(frame, color)
+    frame:SetBackdropColor(color.Red, color.Green, color.Blue, color.Alpha)
+end
+
 function ClassicLFG:RandomHash(length)
     if( length == nil or length <= 0 ) then length = 32; end;
     local holder = "";

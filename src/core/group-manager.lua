@@ -176,4 +176,13 @@ function ClassicLFGGroupManager:GroupContainsIgnoredMember(dungeonGroup)
     return false
 end
 
+function ClassicLFGGroupManager:Test()
+    for i = 1, 15 do
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupListed, ClassicLFGDungeonGroup(nil, ClassicLFGPlayer("TimTheTatMan" .. i, "NONAME", 60, ClassicLFG.Class.WARRIOR), "LF YOUR HELP!", "We have no idea what we are doing", { Type ="ADDON" }))
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupListed, ClassicLFGDungeonGroup(nil, ClassicLFGPlayer("TimTheTatMan" .. (2 * i), "NONAME", 60, ClassicLFG.Class.WARRIOR), "LF YOUR HELP!", "We have no idea what we are doing", { Type ="CHAT",  Channel = "World"}))        
+    end
+end
+
+
+
 ClassicLFG.GroupManager = ClassicLFGGroupManager()

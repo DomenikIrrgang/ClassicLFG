@@ -21,7 +21,7 @@ function ClassicLFGPlayer.new(name, guild, level, class, talents)
         self.Class = class or ClassicLFG.Class[select(2, UnitClass(self.Name))].Name
     else
         -- ToDo: Get Class from Player differently somehow, cant get it using UnitClass if the player is not in your group
-        self.Class = ClassicLFG.Class.WARRIOR
+        self.Class = ClassicLFG.Class.WARRIOR.Name
     end
     self.Talents = talents or self:CreateTalents()
     return self

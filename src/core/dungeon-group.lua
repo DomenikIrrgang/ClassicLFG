@@ -14,7 +14,7 @@ function ClassicLFGDungeonGroup.new(dungeon, leader, title, description, source,
     self.Members = members or ClassicLFGLinkedList()
     self.Description = description or ""
     self.Title = title or ""
-    self.Dungeon = dungeon or ClassicLFG.Dungeon["The Deadmines"]
+    self.Dungeon = dungeon or ClassicLFG.Dungeon["Custom"]
     self.Group = {
         Dps = 0,
         Tank = 0,

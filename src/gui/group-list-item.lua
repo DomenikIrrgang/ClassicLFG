@@ -14,7 +14,7 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.BackgroundColor =  { Red = 0.3, Green = 0.3, Blue = 0.3, Alpha = 1 }
     self.MouseOverColor =  { Red = 0.4, Green = 0.4, Blue = 0.4, Alpha = 1 }
     self.Frame:SetPoint("TOPLEFT", anchor, relativeAnchor, 0, -space);
-    self.Frame:SetSize(358, 50);
+    self.Frame:SetSize(ClassicLFG.QueueWindow.SearchGroup:GetWidth(), 50);
     self.Frame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8
     })
@@ -42,7 +42,7 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
 
     self.EntrySource = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.EntrySource:SetFont(ClassicLFG.Config.Font, 8, "NONE");
-    self.EntrySource:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", 0, -3);
+    self.EntrySource:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -5, -5);
 
     self.QueueButton = ClassicLFGButton(ClassicLFG.Locale["Queue"], self.Frame)
     self.QueueButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -5, 5)
@@ -187,8 +187,8 @@ function CLassicLFGGroupListItem:SetGroup(entry)
             self.BackgroundColor.Blue = 0.6
             self.MouseOverColor.Blue = 0.7
         else
-            self.BackgroundColor.Blue = 0.3
-            self.MouseOverColor.Blue = 0.4
+            self.BackgroundColor.Blue = 0.4
+            self.MouseOverColor.Blue = 0.5
         end
         self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
     

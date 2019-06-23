@@ -1,6 +1,5 @@
 ClassicLFGChatParser = {}
 ClassicLFGChatParser.__index = ClassicLFGChatParser
-ClassicLFG.Test = "adas"
 
 setmetatable(ClassicLFGChatParser, {
     __call = function (cls, ...)

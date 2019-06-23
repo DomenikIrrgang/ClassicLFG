@@ -50,5 +50,21 @@ function ClassicLFGChannelManager:GetChannelNames()
     return names
 end
 
+function ClassicLFGChannelManager:GetChannelId(name)
+    for key, value in pairs(self.Channels) do
+        if (value.Name == name) then
+            return value.Id
+        end
+    end
+end
+
+function ClassicLFGChannelManager:GetChannelName(id)
+    for key, value in pairs(self.Channels) do
+        if (value.Id == id) then
+            return value.Name
+        end
+    end
+end
+
 
 ClassicLFG.ChannelManager = ClassicLFGChannelManager()

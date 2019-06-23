@@ -7,18 +7,18 @@ setmetatable(CLassicLFGGroupList, {
   end,
 })
 
-function CLassicLFGGroupList.new(parent, anchor, width, height)
+function CLassicLFGGroupList.new(parent, width, height)
     local self = setmetatable({}, CLassicLFGGroupList)
     self.Frame = CreateFrame("Frame", nil, parent, nil)
     self.Frame:SetSize(width, height);
-    self.Frame:SetPoint(anchor);
+    self.Frame:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0);
     self.Entries = {}
     self:Init(50)
     return self
 end
 
 function CLassicLFGGroupList:Init(count)
-    local Item1 = CLassicLFGGroupListItem(nil, self.Frame, "TOPLEFT", 2)
+    local Item1 = CLassicLFGGroupListItem(nil, self.Frame, "TOPLEFT", 0)
     local Previous = CLassicLFGGroupListItem(nil, Item1.Frame, "BOTTOMLEFT", 4)
     self.Entries[1] = Item1
     self.Entries[2] = Previous

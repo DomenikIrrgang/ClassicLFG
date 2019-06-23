@@ -38,7 +38,6 @@ function ClassicLFGWhisperNetwork:HandleAddonMessage(sender, message)
             ClassicLFG:DebugPrint("Network Package from " .. sender .. " complete! Event: " .. object.Event)
             self.MessageBuffer[headers.Hash] = nil
             ClassicLFG.EventBus:PublishEvent(object.Event, object.Payload, sender)
-            print(object.Payload.WARRIOR.Name)
         end
     end
 end

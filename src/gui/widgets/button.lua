@@ -7,17 +7,20 @@ setmetatable(ClassicLFGButton, {
   end,
 })
 
-function ClassicLFGButton.new(text, parent)
+function ClassicLFGButton.new(text, parent, width, height)
   local self = setmetatable({}, ClassicLFGButton)
-  self.Frame = CreateFrame("Frame", nil, parent, nil);
+  self.Frame = CreateFrame("Frame", nil, parent, nil)
   self.Position = {}
   self.OnClick = function() end
   self.Disabled = false
-  self.Frame:SetSize(80, 30);
+  self.Frame:SetSize(width or 80, height or 30);
   self.Frame:SetBackdrop({
       bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8
   })
-  self.Frame:SetBackdropColor(0.5, 0.5, 0.5, 1)
+  self.Frame:SetBackdropColor(ClassicLFG.Config.PrimaryColor.Red,
+    ClassicLFG.Config.PrimaryColor.Green,
+    ClassicLFG.Config.PrimaryColor.Blue,
+    ClassicLFG.Config.PrimaryColor.Alpha)
   self.Frame:SetBackdropBorderColor(1,1,1,1)
 
   self.Frame.Title = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
@@ -27,13 +30,19 @@ function ClassicLFGButton.new(text, parent)
 
   self.Frame:SetScript("OnEnter", function()
     if (self.Disabled == false) then
-      self.Frame:SetBackdropColor(0.7, 0.7, 0.7, 1)
+      self.Frame:SetBackdropColor(ClassicLFG.Config.SecondaryColor.Red,
+      ClassicLFG.Config.SecondaryColor.Green,
+      ClassicLFG.Config.SecondaryColor.Blue,
+      ClassicLFG.Config.SecondaryColor.Alpha)
     end
   end)
 
   self.Frame:SetScript("OnLeave", function()
     if (self.Disabled == false) then
-      self.Frame:SetBackdropColor(0.5, 0.5, 0.5, 1)
+      self.Frame:SetBackdropColor(ClassicLFG.Config.PrimaryColor.Red,
+      ClassicLFG.Config.PrimaryColor.Green,
+      ClassicLFG.Config.PrimaryColor.Blue,
+      ClassicLFG.Config.PrimaryColor.Alpha)
     end
   end)
 
@@ -47,7 +56,7 @@ function ClassicLFGButton.new(text, parent)
   self.Frame:SetScript("OnMouseDown", function()
     if (self.Disabled == false) then
       self.Frame:SetPoint(self.Position.OwnAnchor, self.Position.RelativeRegion, self.Position.RelativeAnchor, self.Position.XOffset + 2, self.Position.YOffset -2);
-      PlaySound(SOUNDKIT.IG_CHAT_EMOTE_BUTTON)
+      PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON)
     end
   end)
   return self
@@ -71,7 +80,10 @@ function ClassicLFGButton:SetDisabled(disabled)
   if (self.Disabled) then
     self.Frame:SetBackdropColor(0.2, 0.2, 0.2, 1)
   else
-    self.Frame:SetBackdropColor(0.5, 0.5, 0.5, 1)
+    self.Frame:SetBackdropColor(ClassicLFG.Config.PrimaryColor.Red,
+    ClassicLFG.Config.PrimaryColor.Green,
+    ClassicLFG.Config.PrimaryColor.Blue,
+    ClassicLFG.Config.PrimaryColor.Alpha)
   end
 end
 

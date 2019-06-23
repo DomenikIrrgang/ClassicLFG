@@ -3,32 +3,30 @@
 -- Settings 
 ---------------------------------
 
-ClassicLFG.QueueWindow.Settings.Broadcastchannel = ClassicLFG.AceGUI:Create("Dropdown")
-ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame:SetParent(ClassicLFG.QueueWindow.Settings)
-ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings, "TOPLEFT", 8, -12);
-ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings, "TOPRIGHT", -8, -45)
-ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetText(ClassicLFG.Locale["Select Broadcastchannel"])
-ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetLabel(ClassicLFG.Locale["Broadcastchannel"] .. ":")
+ClassicLFG.QueueWindow.Settings.Broadcastchannel = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Broadcastchannel"], ClassicLFG.QueueWindow.Settings, 300, 50)
+ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings, "TOPLEFT", 0, 0)
+ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings, "TOPRIGHT", 0, -22)
+ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetItems(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
+ClassicLFG.QueueWindow.Settings.Broadcastchannel.OnValueChanged = function(_, _, channel)
+    ClassicLFG.DB.profile.BroadcastDungeonGroupChannel = ClassicLFG.ChannelManager:GetChannelId(channel)
+end
 
-ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame:SetScript("OnShow", function(self, _, channel)
-	ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetList(ClassicLFG.ChannelManager:GetChannelNames())
-	ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetValue(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel)
-end)
 
-ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetCallback("OnValueChanged", function(self, _, channel)
-	ClassicLFG.DB.profile.BroadcastDungeonGroupChannel = channel
+ClassicLFG.QueueWindow.Settings:SetScript("OnShow", function(self, _, channel)
+	ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetItems(ClassicLFG.ChannelManager:GetChannelNames())
+	ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetValue(ClassicLFG.ChannelManager:GetChannelName((ClassicLFG.DB.profile.BroadcastDungeonGroupChannel)))
 end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ChannelListChanged, ClassicLFG.QueueWindow.Settings.Broadcastchannel, function(self, channels)
-	self:SetList(ClassicLFG.ChannelManager:GetChannelNames())
-	ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetValue(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel)
+	self:SetItems(ClassicLFG.ChannelManager:GetChannelNames())
+    ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetValue(ClassicLFG.ChannelManager:GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
 end)
 
 
 ClassicLFG.QueueWindow.Settings.Broadcastintervall = ClassicLFG.AceGUI:Create("Slider")
 ClassicLFG.QueueWindow.Settings.Broadcastintervall.frame:SetParent(ClassicLFG.QueueWindow.Settings)
-ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetPoint("TOPLEFT",ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame, "BOTTOMLEFT", 0, -15)
-ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetPoint("BOTTOMRIGHT",ClassicLFG.QueueWindow.Settings.Broadcastchannel.frame, "BOTTOMRIGHT", 0, -45)
+ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetPoint("TOPLEFT",ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame, "BOTTOMLEFT", 0, -15)
+ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetPoint("BOTTOMRIGHT",ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame, "BOTTOMRIGHT", 0, -45)
 ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetLabel(ClassicLFG.Locale["Broadcastinterval"])
 ClassicLFG.QueueWindow.Settings.Broadcastintervall:SetSliderValues(60, 180, 1)
 

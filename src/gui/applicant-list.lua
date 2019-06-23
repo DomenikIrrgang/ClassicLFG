@@ -39,6 +39,12 @@ function ClassicLFGApplicantList:UpdateList()
     end
 end
 
+function ClassicLFGApplicantList:Test()
+    for i=1, 25 do
+        self.ListItems[i]:SetPlayer(ClassicLFGPlayer("TimTheTatMan" .. i, "NONAME", 60, ClassicLFG.Class.WARRIOR.Name, { 1, 1, 1 }))
+    end
+end
+
 
 ClassicLFGApplicantListItem = {}
 ClassicLFGApplicantListItem.__index = ClassicLFGApplicantListItem
