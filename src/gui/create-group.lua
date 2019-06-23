@@ -201,7 +201,7 @@ end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, ClassicLFG.QueueWindow, function(self, dungeonGroup)
 	ClassicLFG.QueueWindow:EnableTab(1)
-	ClassicLFG.QueueWindow.CreateGroup.DequeueButton:Hide()
+    ClassicLFG.QueueWindow.CreateGroup.DequeueButton:Hide()
 end)
 
 ClassicLFG.QueueWindow.CreateGroup:RegisterEvent("PARTY_LEADER_CHANGED")
@@ -234,6 +234,7 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, 
     ClassicLFG.QueueWindow.CreateGroup.Description:Enable()
     ClassicLFG.QueueWindow.CreateGroup.Description.Frame:SetText("")
     ClassicLFG.QueueWindow.CreateGroup.Dungeon:Enable()
-    ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(ClassicLFG.Locale["Select Dungeon"])
+    ClassicLFG.QueueWindow.CreateGroup.Dungeon:Reset()
+    --ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(ClassicLFG.Locale["Select Dungeon"])
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.Frame, "BOTTOMRIGHT", 0, -30)
 end)

@@ -72,6 +72,15 @@ function ClassicLFGDropdownMenue:ShowEntries()
     self.Open = true
 end
 
+function ClassicLFGDropdownMenue:Reset()
+    self.SelectedItems = {}
+    for key, value in pairs(self.Entries) do
+        value.Selected = false
+        ClassicLFG:SetFrameBackgroundColor(value.Frame, ClassicLFG.Config.DialogColor)
+    end
+    self:UpdateSelectedItems()
+end
+
 function ClassicLFGDropdownMenue:GetValue()
     return self.SelectedItems[1]
 end
@@ -151,7 +160,7 @@ function ClassicLFGDropdownMenue:CreateEntry(id)
     entry.Frame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8
     })
-    ClassicLFG:SetFrameBackgroundColor(entry.Frame, ClassicLFG.Config.PrimaryColor)
+    ClassicLFG:SetFrameBackgroundColor(entry.Frame, ClassicLFG.Config.DialogColor)
     
     entry.Frame:SetScript("OnEnter", function()
         if (self.Disabled == false and entry.Selected == false) then
@@ -161,7 +170,7 @@ function ClassicLFGDropdownMenue:CreateEntry(id)
     
     entry.Frame:SetScript("OnLeave", function()
         if (self.Disabled == false and entry.Selected == false) then
-            ClassicLFG:SetFrameBackgroundColor(entry.Frame, ClassicLFG.Config.PrimaryColor)
+            ClassicLFG:SetFrameBackgroundColor(entry.Frame, ClassicLFG.Config.DialogColor)
         end
     end)
 
@@ -177,7 +186,7 @@ function ClassicLFGDropdownMenue:CreateEntry(id)
                 if (value.Selected == true) then
                     ClassicLFG:SetFrameBackgroundColor(value.Frame, ClassicLFG.Config.ActiveColor)
                 else
-                    ClassicLFG:SetFrameBackgroundColor(value.Frame, ClassicLFG.Config.PrimaryColor)
+                    ClassicLFG:SetFrameBackgroundColor(value.Frame, ClassicLFG.Config.DialogColor)
                 end
             end
         else
@@ -185,7 +194,7 @@ function ClassicLFGDropdownMenue:CreateEntry(id)
             if (entry.Selected == true) then
                 ClassicLFG:SetFrameBackgroundColor(entry.Frame, ClassicLFG.Config.ActiveColor)
             else
-                ClassicLFG:SetFrameBackgroundColor(entry.Frame, ClassicLFG.Config.PrimaryColor)
+                ClassicLFG:SetFrameBackgroundColor(entry.Frame, ClassicLFG.Config.DialogColor)
             end
         end
         self:UpdateSelectedItems()

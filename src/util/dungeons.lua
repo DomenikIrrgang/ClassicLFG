@@ -25,14 +25,14 @@ function ClassicLFG:GetDungeonsByLevel(level)
     return dungeonsForLevel
 end
 
-ClassicLFG:DefineDungeon("Ragefire Chasm", 1, 60, "Orgrimmar", {"rfc", "ragefire"}, ClassicLFG.Faction.HORDE, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-RAGEFIRECHASM")
-ClassicLFG:DefineDungeon("Wailing Caverns", 1, 60, "Barrens", {"wc"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-WAILINGCAVERNS")
-ClassicLFG:DefineDungeon("The Deadmines", 1, 60, "Westfall", {"dm", "vc", "deadmines"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-DEADMINES")
-ClassicLFG:DefineDungeon("Shadowfang Keep", 1, 60, "Silverpine Forest", {"sfk", "shadowfang"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SHADOWFANGKEEP")
-ClassicLFG:DefineDungeon("Blackfathom Deeps", 1, 60, "Ashenvale", {"bfd"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKFATHOMDEEPS")
-ClassicLFG:DefineDungeon("The Stockade", 1, 60, "Stormwind", {"stockades"}, ClassicLFG.Faction.ALLIANCE, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-STORMWINDSTOCKADES")
-ClassicLFG:DefineDungeon("Gnomeregan", 1, 60, "Dun Morogh", {"gnomeregan"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-GNOMEREGAN")
-ClassicLFG:DefineDungeon("Razorfen Kraul", 1, 60, "Barrens", {"rfk", "kraul"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-RAZORFENKRAUL")
+ClassicLFG:DefineDungeon("Ragefire Chasm", 12, 60, "Orgrimmar", {"rfc", "ragefire"}, ClassicLFG.Faction.HORDE, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-RAGEFIRECHASM")
+ClassicLFG:DefineDungeon("Wailing Caverns", 16, 60, "Barrens", {"wc"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-WAILINGCAVERNS")
+ClassicLFG:DefineDungeon("The Deadmines", 15, 60, "Westfall", {"dm", "vc", "deadmines"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-DEADMINES")
+ClassicLFG:DefineDungeon("Shadowfang Keep", 18, 60, "Silverpine Forest", {"sfk", "shadowfang"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SHADOWFANGKEEP")
+ClassicLFG:DefineDungeon("Blackfathom Deeps", 21, 60, "Ashenvale", {"bfd"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKFATHOMDEEPS")
+ClassicLFG:DefineDungeon("The Stockades", 21, 60, "Stormwind", {"stockades"}, ClassicLFG.Faction.ALLIANCE, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-STORMWINDSTOCKADES")
+ClassicLFG:DefineDungeon("Gnomeregan", 26, 60, "Dun Morogh", {"gnomeregan"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-GNOMEREGAN")
+ClassicLFG:DefineDungeon("Razorfen Kraul", 23, 60, "Barrens", {"rfk", "kraul"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-RAZORFENKRAUL")
 ClassicLFG:DefineDungeon("The Scarlet Monastery: Graveyard", 26, 60, "Tirisfal Glades", {"SM GY"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCARLETMONASTERY")
 ClassicLFG:DefineDungeon("The Scarlet Monastery: Library", 30, 60, "Tirisfal Glades", {}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCARLETMONASTERY")
 ClassicLFG:DefineDungeon("The Scarlet Monastery: Armory", 33, 60, "Tirisfal Glades", {}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCARLETMONASTERY")
@@ -49,4 +49,4 @@ ClassicLFG:DefineDungeon("Lower Blackrock Spire", 55, 60, "Blackrock Mountain", 
 --
 ClassicLFG:DefineDungeon("Stratholme", 58, 60, "Eastern Plaguelands", {"strat"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-STRATHOLME")
 ClassicLFG:DefineDungeon("Scholomance", 58, 60, "Eastern Plaguelands", {"scholo"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCHOLOMANCE")
-ClassicLFG:DefineDungeon("Custom", 1, 60, "Everywhere", {}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BREW")
+ClassicLFG:DefineDungeon("Custom", 1, 120, "Everywhere", {}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BREW")
