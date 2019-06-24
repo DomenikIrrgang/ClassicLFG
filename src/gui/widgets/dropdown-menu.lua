@@ -32,10 +32,18 @@ function ClassicLFGDropdownMenue.new(text, parent, title)
     self.Frame.Title:SetPoint("BOTTOM", self.Frame, "TOP", 0, 5)
     self.Frame.Title:SetText(title)
 
-    for i = 1, 20 do
+    for i = 1, 30 do
         table.insert(self.Entries, self:CreateEntry(i))
     end
-
+    self.SelectAllEntry = self:CreateEntry(-2)
+    self.DeselectAllEntry = self:CreateEntry(-1)
+    self.SelectAllEntry.Frame:SetScript("OnMouseDown", function() self:SelectAll(); self:HideEntries() end)
+    self.SelectAllEntry.Frame:SetScript("OnMouseUp", function() end)
+    self.SelectAllEntry.Text:SetText(ClassicLFG.Locale["Select all"])
+    self.DeselectAllEntry.Frame:SetScript("OnMouseDown", function() self:DeselectAll(); self:HideEntries()end)
+    self.DeselectAllEntry.Frame:SetScript("OnMouseUp", function() end)
+    self.DeselectAllEntry.Text:SetText(ClassicLFG.Locale["Deselect all"])
+    
     self.Frame:SetScript("OnEnter", function()
         if (self.Disabled == false) then
             self:SetBackgroundColor(ClassicLFG.Config.SecondaryColor)
@@ -63,11 +71,41 @@ function ClassicLFGDropdownMenue.new(text, parent, title)
     return self
 end
 
+function ClassicLFGDropdownMenue:SelectAll()
+    if (self.MultiSelect == true) then
+        for key, value in pairs(self.Entries) do
+            if (value.Active == true) then
+                value.Selected = true
+                ClassicLFG:SetFrameBackgroundColor(value.Frame, ClassicLFG.Config.ActiveColor)
+                self.OnValueChanged(value.Key, value.Selected, self.Items[value.Key])
+            end
+        end
+        self:UpdateSelectedItems()
+    end
+end
+
+function ClassicLFGDropdownMenue:DeselectAll()
+    if (self.MultiSelect == true) then
+        for key, value in pairs(self.Entries) do
+            if (value.Active == true) then
+                value.Selected = false
+                ClassicLFG:SetFrameBackgroundColor(value.Frame, ClassicLFG.Config.DialogColor)
+                self.OnValueChanged(value.Key, value.Selected, self.Items[value.Key])
+            end
+        end
+        self:UpdateSelectedItems()
+    end
+end
+
 function ClassicLFGDropdownMenue:ShowEntries()
     for key, value in pairs(self.Entries) do
         if (value.Active == true) then
             value.Frame:Show()
         end
+    end
+    if (self.MultiSelect == true) then
+        self.SelectAllEntry.Frame:Show()
+        self.DeselectAllEntry.Frame:Show()
     end
     self.Open = true
 end
@@ -95,6 +133,10 @@ function ClassicLFGDropdownMenue:HideEntries()
         value.Frame:Hide()
     end
     self.Open = false
+    if (self.MultiSelect == true) then
+        self.SelectAllEntry.Frame:Hide()
+        self.DeselectAllEntry.Frame:Hide()
+    end
 end
 
 function ClassicLFGDropdownMenue:SetMultiSelect(multiSelect)
@@ -121,6 +163,10 @@ function ClassicLFGDropdownMenue:SetItems(items)
         end
         i = i + 1
     end
+    self.SelectAllEntry.Frame:SetPoint("TOPLEFT", self.Entries[i - 1].Frame, "BOTTOMLEFT", 0, -1)
+    self.SelectAllEntry.Frame:SetPoint("BOTTOMRIGHT", self.Entries[i - 1].Frame, "BOTTOMRIGHT", 0, -21)
+    self.DeselectAllEntry.Frame:SetPoint("TOPLEFT", self.SelectAllEntry.Frame, "BOTTOMLEFT", 0, -1)
+    self.DeselectAllEntry.Frame:SetPoint("BOTTOMRIGHT", self.SelectAllEntry.Frame, "BOTTOMRIGHT", 0, -21)
 end
 
 function ClassicLFGDropdownMenue:SetBackgroundColor(color)

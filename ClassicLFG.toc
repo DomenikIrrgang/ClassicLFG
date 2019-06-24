@@ -38,6 +38,7 @@ src\gui\widgets\tab-button.lua
 src\gui\widgets\dropdown-menu.lua
 src\gui\widgets\edit-box.lua
 src\gui\widgets\slider.lua
+src\gui\widgets\checkbox.lua
 src\gui\widgets\window.lua
 src\gui\icon.lua
 src\gui\icon-with-text.lua

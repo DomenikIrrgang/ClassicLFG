@@ -25,6 +25,14 @@ function ClassicLFG:GetDungeonsByLevel(level)
     return dungeonsForLevel
 end
 
+function ClassicLFG:GetAllDungeonNames()
+    local dungeonNames = {}
+    for key, value in pairs(ClassicLFG.Dungeon) do
+        table.insert(dungeonNames, value.Name)
+    end
+    return dungeonNames
+end
+
 ClassicLFG:DefineDungeon("Ragefire Chasm", 12, 60, "Orgrimmar", {"rfc", "ragefire"}, ClassicLFG.Faction.HORDE, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-RAGEFIRECHASM")
 ClassicLFG:DefineDungeon("Wailing Caverns", 16, 60, "Barrens", {"wc"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-WAILINGCAVERNS")
 ClassicLFG:DefineDungeon("The Deadmines", 15, 60, "Westfall", {"dm", "vc", "deadmines"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-DEADMINES")

@@ -3,6 +3,7 @@
 * Translate classes/dungeons
 * Note for queueing into groups
 * Update Group Data when player leave or join group
+* on Dequeue 0 out all roles
 
 # Low Prio:
 * Party Leader Not Available Delist group (maybe send confirmation back when application is successful, otherwise delist group, might be too much traffic)
