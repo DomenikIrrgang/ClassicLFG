@@ -1,0 +1,13 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+    <Script file="player.lua"/>
+    <Script file="event-bus.lua"/>
+    <Script file="dungeon-group.lua"/>
+    <Script file="dungeon-group.lua"/>
+    <Script file="dungeon-group-manager.lua"/>
+    <Script file="group-manager.lua"/>
+    <Script file="chat-parser.lua"/>
+    <Script file="group-broadcaster.lua"/>
+    <Script file="channel-manager.lua"/>
+    <Script file="group-invite-manager.lua"/>
+    <Script file="version-check.lua"/>
+</Ui>

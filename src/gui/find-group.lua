@@ -6,6 +6,7 @@ ClassicLFG.QueueWindow.SearchGroup.Filter = ClassicLFGDropdownMenue(ClassicLFG.L
 ClassicLFG.QueueWindow.SearchGroup.Filter.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.SearchGroup, "TOPLEFT", 0, 0);
 ClassicLFG.QueueWindow.SearchGroup.Filter.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.SearchGroup, "TOPRIGHT", 0, -22)
 ClassicLFG.QueueWindow.SearchGroup.Filter:SetMultiSelect(true)
+ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons = ClassicLFGLinkedList()
 ClassicLFG.QueueWindow.SearchGroup.Filter.InitFilterValues = function()
     ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons = ClassicLFGLinkedList()
     ClassicLFG.QueueWindow.SearchGroup.Filter:Reset()

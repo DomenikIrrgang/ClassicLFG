@@ -88,7 +88,38 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
         self.Player.Invited = true
     end
     self:SetPlayer(player)
-
+    self.Tooltip = CreateFrame("Frame", nil, UIParent, nil)
+    self.Tooltip:SetSize(150, 30)
+    self.Tooltip:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 16, edgeSize = 16, tileEdge = true
+    })
+    self.Tooltip:SetBackdropColor(ClassicLFG.Config.BackgroundColor.Red,
+        ClassicLFG.Config.BackgroundColor.Green,
+        ClassicLFG.Config.BackgroundColor.Blue,
+        ClassicLFG.Config.BackgroundColor.Alpha)
+    self.Tooltip:SetFrameStrata("TOOLTIP")
+    self.Tooltip.Text = self.Tooltip:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
+    self.Tooltip.Text:SetFont(ClassicLFG.Config.Font, 11, "NONE");
+    self.Tooltip.Text:SetPoint("LEFT", self.Tooltip, "LEFT", 5, 0);
+    self.Tooltip:Show()
+    self.MouseOver = false
+    self.Frame:SetScript("OnEnter", function()
+        if (self.Player and self.Player.Note ~= nil and self.Player.Note ~= "") then
+            self.MouseOver = true
+            self.Tooltip:Show()
+        end
+    end)
+    self.Frame:SetScript("OnLeave", function() 
+        self.MouseOver = false
+        self.Tooltip:Hide()
+    end)
+    self.Frame:SetScript("OnUpdate", function()
+        if (self.MouseOver == true) then
+            local x, y = GetCursorPosition()
+            x, y = x / UIParent:GetEffectiveScale(), y / UIParent:GetEffectiveScale()
+            self.Tooltip:SetPoint("TOPLEFT", x, y - GetScreenHeight() + 30)
+        end
+    end)
     return self
 end
 
@@ -115,6 +146,10 @@ function ClassicLFGApplicantListItem:SetPlayer(player)
             self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
             self.InviteButton:SetDisabled(true)
             self.DeclineButton:SetDisabled(true)
+        end
+        if (self.Player.Note ~= nil) then
+            self.Tooltip.Text:SetText(self.Player.Note)
+            self.Tooltip:SetWidth(self.Tooltip.Text:GetStringWidth() + 10)
         end
         self.Frame:Show()
     else

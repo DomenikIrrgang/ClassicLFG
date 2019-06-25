@@ -1,0 +1,11 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+    <Script file="button.lua"/>
+    <Script file="tab-button.lua"/>
+    <Script file="dropdown-menu.lua"/>
+    <Script file="edit-box.lua"/>
+    <Script file="slider.lua"/>
+    <Script file="checkbox.lua"/>
+    <Script file="window.lua"/>
+    <Script file="icon.lua"/>
+    <Script file="icon-with-text.lua"/>
+</Ui>

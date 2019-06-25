@@ -7,7 +7,7 @@ setmetatable(ClassicLFGWindow, {
     end,
 })
 
-function ClassicLFGWindow.new(parent, name, width, height)
+function ClassicLFGWindow.new(name, parent, width, height)
     local self = setmetatable({}, ClassicLFGWindow)
     self.Frame = CreateFrame("Frame", name, parent, nil)
     self.ShowAnimationGroup = self.Frame:CreateAnimationGroup()
@@ -67,6 +67,7 @@ function ClassicLFGWindow.new(parent, name, width, height)
     self.Frame.Content:SetPoint("TOPLEFT", self.Frame.TitleBar, "BOTTOMLEFT", 0, 0)
     self.Frame.Content:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", 0, 0)
     self.Frame.Content:Show()
+    self.Frame:Hide()
     return self
 end
 

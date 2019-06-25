@@ -36,13 +36,15 @@ function ClassicLFGGroupManager.new()
     return self
 end
 
-function ClassicLFGGroupManager:ApplyForGroup(dungeonGroup)
+function ClassicLFGGroupManager:ApplyForGroup(dungeonGroup, note)
     if (dungeonGroup.Leader.Name ~= UnitName("player")) then
+        local player = ClassicLFGPlayer()
+        player.Note = note
         self.AppliedGroups:AddItem(dungeonGroup)
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.AppliedForGroup, dungeonGroup)
         ClassicLFG.Network:SendObject(
             ClassicLFG.Config.Events.ApplyForGroup,
-            ClassicLFGPlayer(),
+            player,
             "WHISPER",
             dungeonGroup.Leader.Name)
     end

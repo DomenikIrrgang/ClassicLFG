@@ -11,7 +11,7 @@ function ClassicLFGPlayer.new(name, guild, level, class, talents)
     local self = setmetatable({}, ClassicLFGPlayer)
     self.Invited = false
     if (name ~= nil) then
-        self.Name = ClassicLFG:SplitString(name, "-")[1]
+        self.Name = name:SplitString("-")[1]
     else
         self.Name = UnitName("player")
     end

@@ -158,7 +158,7 @@ end
 
 function ClassicLFGDungeonGroupManager:HandleDataRequest(object, sender)
     if (self.DungeonGroup ~= nil) then
-        local characterName = ClassicLFG:SplitString(sender, "-")[1]
+        local characterName = sender:SplitString("-")[1]
         if (self.DungeonGroup.Leader.Name == UnitName("player") or characterName == self.DungeonGroup.Leader.Name) then
             ClassicLFG.Network:SendObject(
                 ClassicLFG.Config.Events.GroupListed,

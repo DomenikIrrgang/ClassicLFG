@@ -1,0 +1,7 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+    <Include file="src\util\util.xml"/>
+    <Include file="src\networking\networking.xml"/>
+    <Include file="src\core\core.xml"/>
+    <Include file="src\gui\widgets\widgets.xml"/>
+    <Include file="src\gui\gui.xml"/>
+</Ui>

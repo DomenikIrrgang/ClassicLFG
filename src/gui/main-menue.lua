@@ -2,7 +2,7 @@
 -- Window
 ---------------------------------
 
-ClassicLFG.QueueWindow = ClassicLFGWindow(UIParent, "ClassicLFGQueueWindow", 400, 600)
+ClassicLFG.QueueWindow = ClassicLFGWindow("ClassicLFGQueueWindow", UIParent, 400, 600)
 ClassicLFG.QueueWindow:SetTitle("ClassicLFG");
 ClassicLFG.QueueWindow.Padding = 6
 table.insert(UISpecialFrames, ClassicLFG.QueueWindow.Frame:GetName())

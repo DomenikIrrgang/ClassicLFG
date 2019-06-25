@@ -22,6 +22,8 @@ L["Always show all dungeons"] = "Always show all dungeons"
 L["Leftclick: Open LFG Browser"] = "Leftclick: Open LFG Browser"
 L["Select all"] = "Select all"
 L["Deselect all"] = "Deselect all"
+L["Queue Dungeon"] = "Queue Dungeon"
+L["Note"] = "Note"
 
 -- SYSTEM MESSAGES (NEED TO BE ACCURATE!!)
 L[" declines your group invitation."] = " declines your group invitation."

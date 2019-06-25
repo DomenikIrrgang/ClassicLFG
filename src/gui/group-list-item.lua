@@ -48,7 +48,8 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.QueueButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -5, 5)
     self.QueueButton.OnClick = function() 
         if (self.entry.Source.Type == "ADDON") then
-            ClassicLFG.GroupManager:ApplyForGroup(self.entry)
+            ClassicLFG.QueueDungeonGroupWindow.DungeonGroup = self.entry
+            ClassicLFG.QueueDungeonGroupWindow.Frame:Show()
         else
             ChatFrame1EditBox:Show()
             ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name .. " " .. ClassicLFG.DB.profile.InviteText)

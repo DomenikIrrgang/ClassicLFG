@@ -1,0 +1,13 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+    <Script file="util.lua"/>
+    <Script file="chat.lua"/>
+    <Script file="factions.lua"/>
+    <Script file="roles.lua"/>
+    <Script file="classes.lua"/>
+    <Script file="double-linked-list.lua"/>
+    <Script file="dungeons.lua"/>
+    <Script file="list.lua"/>
+    <Script file="slash-commands.lua"/>
+    <Script file="string.lua"/>
+    <Script file="table.lua"/>
+</Ui>
