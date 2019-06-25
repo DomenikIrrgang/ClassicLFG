@@ -8,7 +8,7 @@ end
 
 function table.Merge(target, source)
 	for key, value in pairs(source) do
-		if ( istable(value) && istable(target[key])) then
+		if (istable(value) and istable(target[key])) then
 			table.Merge(target[key], value)
 		else
 			target[key] = value

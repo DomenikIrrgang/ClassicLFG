@@ -9,7 +9,7 @@ function ClassicLFG:DefineDungeon(name, size, minLevel, maxLevel, location, abbr
         Location = location,
         Faction = faction,
         Abbreviations = abbreviations,
-        Background = background
+        Background = background,
         Size = size
     }
     ClassicLFG.DungeonList[name] = name

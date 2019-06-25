@@ -20,6 +20,8 @@ src\util\classes.lua
 src\util\factions.lua
 src\util\chat.lua
 src\util\slash-commands.lua
+src\util\string.lua
+src\util\table.lua
 src\util\dungeons.lua
 src\core\event-bus.lua
 src\networking\network.lua
