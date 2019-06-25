@@ -2,28 +2,32 @@
 -- Search Group - Filter
 ---------------------------------
 
-local function InitFilterValues()
+ClassicLFG.QueueWindow.SearchGroup.Filter = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Dungeon"], ClassicLFG.QueueWindow.SearchGroup)
+ClassicLFG.QueueWindow.SearchGroup.Filter.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.SearchGroup, "TOPLEFT", 0, 0);
+ClassicLFG.QueueWindow.SearchGroup.Filter.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.SearchGroup, "TOPRIGHT", 0, -22)
+ClassicLFG.QueueWindow.SearchGroup.Filter:SetMultiSelect(true)
+ClassicLFG.QueueWindow.SearchGroup.Filter.InitFilterValues = function()
+    ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons = ClassicLFGLinkedList()
+    ClassicLFG.QueueWindow.SearchGroup.Filter:Reset()
     if (ClassicLFG.DB.profile.ShowAllDungeons) then
         ClassicLFG.QueueWindow.SearchGroup.Filter:SetItems(ClassicLFG:GetAllDungeonNames())
     else
         ClassicLFG.QueueWindow.SearchGroup.Filter:SetItems(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
     end
+	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))
 end
 
-ClassicLFG.QueueWindow.SearchGroup:SetScript("OnShow", function()
-    InitFilterValues()
+ClassicLFG.QueueWindow.SearchGroup.Filter.Frame:SetScript("OnShow", function()
+    ClassicLFG.QueueWindow.SearchGroup.Filter:InitFilterValues()
 end)
 
-ClassicLFG.QueueWindow.SearchGroup.Filter = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Dungeon"], ClassicLFG.QueueWindow.SearchGroup)
-ClassicLFG.QueueWindow.SearchGroup.Filter.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.SearchGroup, "TOPLEFT", 0, 0);
-ClassicLFG.QueueWindow.SearchGroup.Filter.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.SearchGroup, "TOPRIGHT", 0, -22)
-ClassicLFG.QueueWindow.SearchGroup.Filter:SetMultiSelect(true)
-ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons = ClassicLFGLinkedList()
 ClassicLFG.QueueWindow.SearchGroup.Filter.OnValueChanged = function(key, checked, value)
-	local index = ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:Contains(value)
-	if (index) then
+    local index = ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:Contains(value)
+	if (index ~= nil and checked == false) then
 		ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:RemoveItem(index)
-	else
+    end
+
+    if (checked == true) then
 		ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:AddItem(value)
 	end
 	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))

@@ -16,7 +16,7 @@ ClassicLFG.Config = {
     SecondaryColor = { Red = 0.7, Blue = 0.7, Green = 0.7, Alpha = 1 },
     BackgroundColor = { Red = 0.2, Blue = 0.2, Green = 0.2, Alpha = 1 },
     ActiveColor = { Red = 0.8, Blue = 0.8, Green = 0.8, Alpha = 1 },
-    DialogColor = { Red = 0.5, Blue = 0.5, Green = 0.5, Alpha = 1 },
+    DialogColor = { Red = 0.3, Blue = 0.3, Green = 0.3, Alpha = 1 },
     DisabledColor = { Red = 0.15, Blue = 0.15, Green = 0.15, Alpha = 0.4 },
     Events = {
         RequestData = "CLASSICLFG_DATA_REQUEST",

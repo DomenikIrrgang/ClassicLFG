@@ -48,4 +48,5 @@ ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("TOPLEFT", Classi
 ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMRIGHT", 0, -30)
 ClassicLFG.QueueWindow.Settings.ShowAllDungeons.OnValueChanged = function(_, value)
     ClassicLFG.DB.profile.ShowAllDungeons = value
+    ClassicLFG.QueueWindow.SearchGroup.Filter:InitFilterValues()
 end
