@@ -88,6 +88,14 @@ function ClassicLFG:ArrayContainsValue(array, val)
     return false
 end
 
+function table.inherit(target, base)
+	for key, value in pairs( base ) do
+		if ( target[ key ] == nil ) then target[ key ] = value end
+	end
+	target[ "super" ] = base
+	return t
+end
+
 function ClassicLFG:IsIgnored(playerName)
     for i = 1, C_FriendList.GetNumIgnores() do
         if (C_FriendList.GetIgnoreName(i) == playerName) then
