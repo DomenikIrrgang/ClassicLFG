@@ -81,7 +81,6 @@ end
 
 function ClassicLFGWindow:Hide()
     self.HideAnimationGroup:Play()
-    --self.Frame:Hide()
 end
 
 function ClassicLFGWindow:IsShown()

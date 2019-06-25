@@ -7,13 +7,8 @@
 * Create Content of window on show
 
 # Low Prio:
-* Party Leader Not Available Delist group (maybe send confirmation back when application is successful, otherwise delist group, might be too much traffic)
 * Memory leak for starting broadcasts for groups in group manager (register from eventbus with broadcaster)
-
-# Unknown
 
 # Suggestions:
 Make applicants of your friendlist/guild a different color
 Add check for Raid Atunements
-
-# Gamko
