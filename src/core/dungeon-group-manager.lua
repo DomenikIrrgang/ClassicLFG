@@ -290,10 +290,12 @@ function ClassicLFGDungeonGroupManager:HandleApplications(applicant)
         if (index == nil) then
             self:AddApplicant(applicant)
         end
-        ClassicLFG.Network:SendObject(
-            ClassicLFG.Config.Events.ApplyForGroup,
-            applicant,
-            "PARTY")
+        if (UnitIsGroupLeader("player")) then
+            ClassicLFG.Network:SendObject(
+                ClassicLFG.Config.Events.ApplyForGroup,
+                applicant,
+                "PARTY")
+        end
     end
 end
 
