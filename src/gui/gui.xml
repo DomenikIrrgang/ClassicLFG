@@ -7,4 +7,5 @@
     <Script file="create-group.lua"/>
     <Script file="settings.lua"/>
     <Script file="queue-window.lua"/>
+    <Script file="version-alert.lua"/>
 </Ui>

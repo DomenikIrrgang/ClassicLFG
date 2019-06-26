@@ -18,7 +18,6 @@ function ClassicLFGVersionCheck:CheckVersion(version)
     if (self.UserNotified == false and self:CompareVersions(version, ClassicLFG.Config.Version) == 1) then 
         self.UserNotified = true
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.NewVersionAvailable, version)
-        ClassicLFG:Print("There is a new version (" .. version .. ") available. Please update as soon as possible! Your version: " .. ClassicLFG.Config.Version)
     end
 end
 

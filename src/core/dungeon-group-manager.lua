@@ -322,6 +322,7 @@ end
 function ClassicLFGDungeonGroupManager:ApplicantDeclined(applicant)
     self:RemoveApplicant(applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantDeclined, applicant)
+    print(self.DungeonGroup, "lul")
     ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.DeclineApplicant, self.DungeonGroup, "WHISPER", applicant.Name)
     ClassicLFG.Network:SendObject(
             ClassicLFG.Config.Events.DeclineApplicant,
