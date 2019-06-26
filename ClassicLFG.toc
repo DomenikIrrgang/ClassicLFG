@@ -15,6 +15,3 @@ src\main.lua
 src\config.lua
 
 code.xml
-
-src\networking\network.lua
-src\networking\whisper-network.lua

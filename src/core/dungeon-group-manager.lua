@@ -25,47 +25,8 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
     self.Frame:RegisterEvent("CHAT_MSG_CHANNEL_JOIN")
     self.Frame:RegisterEvent("PARTY_LEADER_CHANGED")
     self.Frame:SetScript("OnEvent", function(_, event, ...)
-        if (event == "CHAT_MSG_SYSTEM") then
-
-            local message = ...
-            if(self:IsListed() and message:find(ClassicLFG.Locale[" declines your group invitation."])) then
-                local playerName = message:gsub(ClassicLFG.Locale[" declines your group invitation."], "")
-                self:ApplicantInviteDeclined(ClassicLFGPlayer(playerName, "", "", "", ""))
-            end
-
-            if(self:IsListed() and message:find(ClassicLFG.Locale[" joins the party."])) then
-                ClassicLFG:DebugPrint("Player joined the party!")
-                local playerName = message:gsub(ClassicLFG.Locale[" joins the party."], "")
-                local index = self.Applicants:Contains(ClassicLFGPlayer(playerName))
-                if (index ~= nil) then
-                    self:ApplicantInviteAccepted(self.Applicants:GetItem(index))
-                else
-                    self:ApplicantInviteAccepted(ClassicLFGPlayer(playerName))
-                end
-            end
-
-            if(self:IsListed() and message:find(ClassicLFG.Locale[" leaves the party."])) then
-                local playerName = message:gsub(ClassicLFG.Locale[" leaves the party."], "")
-                ClassicLFG:DebugPrint(playerName .. " left the party!")
-                ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupMemberLeft, ClassicLFGPlayer(playerName))
-            end
-
-            if((message:find(ClassicLFG.Locale["Your group has been disbanded."]) or
-            message:find(ClassicLFG.Locale["You leave the group."]) or
-            message:find(ClassicLFG.Locale["You have been removed from the group."]))) then
-                 ClassicLFG:DebugPrint("Left party.")
-                if (self:IsListed() and self.DungeonGroup.Leader.Name ~= UnitName("player")) then
-                    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupLeft, self.DungeonGroup)
-                else
-                    if (self:IsListed()) then
-                        ClassicLFGLinkedList.Clear(self.DungeonGroup.Members)
-                        ClassicLFGLinkedList.AddItem(self.DungeonGroup.Members, ClassicLFGPlayer())
-                    end
-                end
-            end
-        end
-
         if(self:IsListed() and event == "PARTY_LEADER_CHANGED") then
+            print("party leader changed")
             if (UnitIsGroupLeader(UnitName("player")) == false and self.BroadcastTicker ~= nil) then
                 self:CancelBroadcast()
             end
@@ -93,28 +54,18 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
             end
         end
         
-        if (event == "GROUP_ROSTER_UPDATE") then
-            if (self.DungeonGroup) then
-                --self.DungeonGroup:Sync()
-                for i = 1, GetNumGroupMembers() do
-                    local playerName = GetRaidRosterInfo(i)
-                    local player = ClassicLFGPlayer(playerName)
-                    for k=0, self.Applicants.Size - 1 do
-                        if (self.Applicants:GetItem(k).Name == playerName) then
-                            self:ApplicantInviteAccepted(player)
-                            break
-                        end
-                    end
-                end
-            end
-        end
-
         if (event == "PARTY_INVITE_REQUEST") then
             -- ToDo: Only Accept if the leader is in one of the groups you applied to.
             --AcceptGroup()
             --StaticPopup1:Hide()
         end
     end)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupKicked, self, self.OnGroupKicked)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupLeft, self, self.OnGroupLeft)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupDisbanded, self, self.OnGroupDisbanded)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupMemberLeft, self, self.OnGroupMemberLeft)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupMemberJoined, self, self.OnGroupMemberJoined)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupInviteDeclined, self, self.OnGroupInviteDeclined)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.RequestData, self, self.HandleDataRequest)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplyForGroup, self, self.HandleApplications)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupSyncRequest, self, self.HandleDungeonGroupSyncRequest)
@@ -126,6 +77,50 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdated, self, self.HandleGroupUpdated)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupMemberLeft, self, self.HandleDungeonGroupMemberLeft)
     return self
+end
+
+function ClassicLFGDungeonGroupManager:OnGroupKicked()
+    if (self:IsListed()) then
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupLeft, self.DungeonGroup)
+    end
+end
+
+function ClassicLFGDungeonGroupManager:OnGroupLeft()
+    if (self:IsListed()) then
+        if (self.DungeonGroup.Leader.Name ~= UnitName("player")) then
+            ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupLeft, self.DungeonGroup)
+        else
+            self:DequeueGroup()
+        end
+    end
+end
+
+function ClassicLFGDungeonGroupManager:OnGroupDisbanded()
+    if (self:IsListed()) then
+        ClassicLFGLinkedList.Clear(self.DungeonGroup.Members)
+        ClassicLFGLinkedList.AddItem(self.DungeonGroup.Members, ClassicLFGPlayer())
+    end
+end
+
+function ClassicLFGDungeonGroupManager:OnGroupMemberLeft(playerName)
+    if(self:IsListed()) then
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupMemberLeft, ClassicLFGPlayer(playerName))
+    end
+end
+
+function ClassicLFGDungeonGroupManager:OnGroupMemberJoined(playerName)
+    if(self:IsListed() and playerName) then
+        local index = self.Applicants:Contains(ClassicLFGPlayer(playerName))
+        if (index ~= nil) then
+            self:ApplicantInviteAccepted(self.Applicants:GetItem(index))
+        else
+            self:ApplicantInviteAccepted(ClassicLFGPlayer(playerName))
+        end
+    end
+end
+
+function ClassicLFGDungeonGroupManager:OnGroupInviteDeclined(playerName)
+    self:ApplicantInviteDeclined(ClassicLFGPlayer(playerName, "", "", "", ""))
 end
 
 function ClassicLFGDungeonGroupManager:CancelBroadcast()
@@ -171,9 +166,15 @@ end
 
 function ClassicLFGDungeonGroupManager:HandleDungeonGroupMemberLeft(player)
     if (self:IsListed()) then
-        self:RemoveMember(player)
-        if (UnitIsGroupLeader("player") == true) then
-            self:UpdateGroup(self.DungeonGroup)
+        print(player.Name)
+        if (UnitIsGroupLeader(player.Name) == nil) then
+            print("member removed")
+            self:RemoveMember(player)
+        else
+            print("member not removed")
+            if (UnitIsGroupLeader("player") == true) then
+                self:UpdateGroup(self.DungeonGroup)
+            end
         end
     end
 end
@@ -322,7 +323,6 @@ end
 function ClassicLFGDungeonGroupManager:ApplicantDeclined(applicant)
     self:RemoveApplicant(applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantDeclined, applicant)
-    print(self.DungeonGroup, "lul")
     ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.DeclineApplicant, self.DungeonGroup, "WHISPER", applicant.Name)
     ClassicLFG.Network:SendObject(
             ClassicLFG.Config.Events.DeclineApplicant,
@@ -337,6 +337,7 @@ end
 
 function ClassicLFGDungeonGroupManager:ApplicantInviteAccepted(applicant)
     self:RemoveApplicant(applicant)
+    print("added group member", applicant.Name)
     ClassicLFGDungeonGroup.AddMember(self.DungeonGroup, applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInviteAccepted, applicant)
     

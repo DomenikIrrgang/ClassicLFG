@@ -45,7 +45,7 @@ function ClassicLFGGroupInviteManager.new()
             
             if(message:find(ClassicLFG.Locale[" joins the party."])) then
                 local player = message:gsub(ClassicLFG.Locale[" joins the party."], "")
-                ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupMemberJoined)
+                ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupMemberJoined, player)
             end
 
             if(message:find(ClassicLFG.Locale[" to join your group."])) then
