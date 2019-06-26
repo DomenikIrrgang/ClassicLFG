@@ -185,6 +185,4 @@ function ClassicLFGGroupManager:Test()
     end
 end
 
-
-
 ClassicLFG.GroupManager = ClassicLFGGroupManager()

@@ -29,3 +29,4 @@ ClassicLFG:DefineClass("Shaman", "Elemental", ClassicLFG.Role.DPS, "Enhancement"
 ClassicLFG:DefineClass("Warlock", "Affliction", ClassicLFG.Role.DPS, "Demonology", ClassicLFG.Role.DPS, "Destruction", ClassicLFG.Role.DPS)
 ClassicLFG:DefineClass("Druid", "Balance", ClassicLFG.Role.DPS, "Feral", ClassicLFG.Role.DPS, "Restoration", ClassicLFG.Role.HEALER)
 ClassicLFG:DefineClass("Mage", "Arcane", ClassicLFG.Role.DPS, "Fire", ClassicLFG.Role.DPS, "Frost", ClassicLFG.Role.DPS)
+ClassicLFG:DefineClass("Monk", "Windwalker", ClassicLFG.Role.DPS, "Brewmaster", ClassicLFG.Role.DPS, "Mistweaver", ClassicLFG.Role.DPS)

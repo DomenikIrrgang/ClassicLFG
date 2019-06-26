@@ -49,20 +49,14 @@ function ClassicLFGTabButton.new(text, name, parent, width, height, padding)
         self:OnClick()
       end
     end)
-  
-    self.Frame:SetScript("OnMouseDown", function()
-      if (self.Disabled == false) then
-        
-      end
-    end)
     
-    self.OnClick = function(self)
-        --PanelTemplates_SetTab(self.Frame:GetParent(), self.Frame:GetID());
-        if (self.Disabled == false and self.Selected ~= true) then
-            self:Select()
-        end
-    end
     return self
+end
+
+function ClassicLFGTabButton:OnClick()
+    if (self.Disabled == false and self.Selected ~= true) then
+        self:Select()
+    end
 end
 
 function ClassicLFGTabButton:Select()
