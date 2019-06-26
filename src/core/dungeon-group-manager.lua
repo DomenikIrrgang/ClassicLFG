@@ -326,10 +326,12 @@ function ClassicLFGDungeonGroupManager:ApplicantDeclined(applicant)
     self:RemoveApplicant(applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantDeclined, applicant)
     ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.DeclineApplicant, self.DungeonGroup, "WHISPER", applicant.Name)
-    ClassicLFG.Network:SendObject(
+    if (UnitIsGroupLeader("player") == true) then
+        ClassicLFG.Network:SendObject(
             ClassicLFG.Config.Events.DeclineApplicant,
             applicant,
             "PARTY")
+    end
 end
 
 function ClassicLFGDungeonGroupManager:ApplicantInvited(applicant)
