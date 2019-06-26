@@ -22,7 +22,7 @@ function ClassicLFGEditBox.new(name, parent, title)
 
     self.Frame:SetScript("OnTextChanged", function(_, isUserInput) self:CheckPlaceholder(); self:OnTextChanged(isUserInput, self.Frame:GetText()) end)
     self.Frame:SetScript("OnEditFocusLost", function() self:CheckPlaceholder(); self:OnFocusLost() end)
-    self.Frame:SetScript("OnEditFocusGained", function() self.Placeholder:Hide(); self:OnFocus() end)
+    self.Frame:SetScript("OnEditFocusGained", function() self.Placeholder:Hide(); PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON); self:OnFocus() end)
 
     self.Frame:SetScript("OnEnter", function()
         if (self.Disabled == false) then

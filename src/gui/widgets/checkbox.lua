@@ -55,7 +55,7 @@ function ClassicLFGCheckBox.new(text, parent, text)
     end)
 
     self.Frame:SetScript("OnMouseDown", function()
-        
+        PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON)
     end)
     return self
 end

@@ -42,6 +42,10 @@ function ClassicLFGSlider.new(title, name, parent)
         self:OnValueChanged(value)
     end)
 
+    self.Frame:SetScript("OnMouseDown", function()
+        PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON)
+    end)
+
     self.Frame:Show()
     return self
 end
