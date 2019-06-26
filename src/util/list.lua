@@ -84,9 +84,21 @@ function ClassicLFGLinkedList:AddItem(newItem)
 end
 
 function ClassicLFGLinkedList:RemoveItem(index)
-    local currentItem = self:GetItemNode(index - 1)
-    currentItem.Next = currentItem.Next.Next
-    self.Size = self.Size - 1
+    local currentItem = self.Items.Head
+    if (index >= 0) then
+        for i = 0, index - 1 do
+            print(i, index)
+            if (currentItem == nil) then
+                break
+            end
+            currentItem = currentItem.Next
+        end
+        if (currentItem ~= nil) then
+            currentItem.Next = currentItem.Next.Next
+            self.Size = self.Size - 1
+        end
+    end
+
 end
 
 -- Note: Item needs to implements the Function "Equals" on itself and needs to return a boolean value.

@@ -75,7 +75,7 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
     self.DeclineButton:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -5, -5);
     self.DeclineButton:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMRIGHT", -65, 5)
     self.DeclineButton.OnClick = function()
-        ClassicLFG.DungeonGroupManager:ApplicantDeclined(self.Player)
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantDeclined, self.Player)
     end
     self.InviteButton = ClassicLFGButton(ClassicLFG.Locale["Invite"], self.Frame)
     self.InviteButton:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -70, -5);

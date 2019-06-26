@@ -76,6 +76,7 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupListed, self, self.HandleGroupListed)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdated, self, self.HandleGroupUpdated)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupMemberLeft, self, self.HandleDungeonGroupMemberLeft)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantDeclined, self, self.OnApplicantDeclined)
     return self
 end
 
@@ -317,18 +318,18 @@ function ClassicLFGDungeonGroupManager:RemoveMember(member)
     local index = ClassicLFGLinkedList.ContainsWithEqualsFunction(self.DungeonGroup.Members, member, function(item1, item2)
         return item1.Name == item2.Name
     end)
+    print(index)
     if (index ~= nil) then
         ClassicLFGLinkedList.RemoveItem(self.DungeonGroup.Members, index)
     end
 end
 
-function ClassicLFGDungeonGroupManager:ApplicantDeclined(applicant)
+function ClassicLFGDungeonGroupManager:OnApplicantDeclined(applicant)
     self:RemoveApplicant(applicant)
-    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantDeclined, applicant)
-    ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.DeclineApplicant, self.DungeonGroup, "WHISPER", applicant.Name)
     if (UnitIsGroupLeader("player") == true) then
+        ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.DeclineApplicant, self.DungeonGroup, "WHISPER", applicant.Name)
         ClassicLFG.Network:SendObject(
-            ClassicLFG.Config.Events.DeclineApplicant,
+            ClassicLFG.Config.Events.ApplicantDeclined,
             applicant,
             "PARTY")
     end
@@ -345,7 +346,6 @@ end
 
 function ClassicLFGDungeonGroupManager:ApplicantInviteAccepted(applicant)
     self:RemoveApplicant(applicant)
-    print("added group member", applicant.Name)
     ClassicLFGDungeonGroup.AddMember(self.DungeonGroup, applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInviteAccepted, applicant)
     
