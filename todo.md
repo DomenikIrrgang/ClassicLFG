@@ -1,8 +1,7 @@
 # High Prio:
-* Sync Party Applicants between members of the group
+* Disable Invite/Decline Buttons for non party leaders
 * Translate classes/dungeons
-* Update Group Data when player leave or join group
-* on Dequeue 0 out all roles
+* Update Group Data when player leave or join group (on Dequeue 0 out all roles)
 * Create Content of window on show
 * Handle dungeongroup on leader left properly
 
