@@ -337,6 +337,7 @@ end
 function ClassicLFGDungeonGroupManager:ApplicantInvited(applicant)
     if (UnitIsGroupLeader) then
         InviteUnit(applicant.Name)
+        applicant.Invited = true
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInvited, applicant)
         ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.ApplicantInvited, applicant, "PARTY")
     end

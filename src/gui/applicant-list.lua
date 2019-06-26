@@ -120,7 +120,6 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
         self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
         self.InviteButton:SetDisabled(true)
         self.DeclineButton:SetDisabled(true)
-        self.Player.Invited = true
     end)
     return self
 end
