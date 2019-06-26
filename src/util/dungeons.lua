@@ -52,7 +52,8 @@ ClassicLFG:DefineDungeon("Zul'Farak", 5, 40, 50, "Tanaris", {"zf"}, ClassicLFG.F
 ClassicLFG:DefineDungeon("Maraudon", 5, 44, 54, "Desolace", {"maraudon"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-MARAUDON")
 ClassicLFG:DefineDungeon("Temple of Atal'Hakkar", 5, 47, 60, "Swamp of Sorrows", {"toa", "atal"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SUNKENTEMPLE")
 ClassicLFG:DefineDungeon("Blackrock Depths", 5, 49, 60, "Blackrock Mountain", {"brd"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKROCKDEPTHS")
-ClassicLFG:DefineDungeon("Lower Blackrock Spire", 5, 55, 60, "Blackrock Mountain", {"lbrs"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKROCKSPIRE")
+ClassicLFG:DefineDungeon("Lower Blackrock Spire", 10, 55, 60, "Blackrock Mountain", {"lbrs"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKROCKSPIRE")
+ClassicLFG:DefineDungeon("Upper Blackrock Spire", 10, 55, 60, "Blackrock Mountain", {"ubrs"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKROCKSPIRE")
 -- ToDo: Need to add all the Dungeon parts once they are released on Classic Realms
 --ClassicLFG:DefineDungeon("Dire Maul", 55, 60, "Feralas", {"dm:"}, ClassicLFG.Faction.BOTH)
 --

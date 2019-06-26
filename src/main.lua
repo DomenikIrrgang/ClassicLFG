@@ -16,6 +16,7 @@ ClassicLFG.DefaultProfile ={
         BroadcastDungeonGroupInterval = 90,
         BroadcastDungeonGroupChannel = "General",
         ShowAllDungeons = false,
+        AutoAcceptInvite = false,
     },
 }
 
