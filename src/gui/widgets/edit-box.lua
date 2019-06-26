@@ -52,7 +52,7 @@ function ClassicLFGEditBox.new(name, parent, title)
     return self
 end
 
-function ClassicLFGEditBox:OnTextChanged(isUserInput)
+function ClassicLFGEditBox:OnTextChanged(isUserInput, newText)
     
 end
 

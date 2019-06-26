@@ -61,7 +61,7 @@ end
 
 function ClassicLFGDoubleLinkedList:RemoveItemByIndex(index)
     local currentItem = self.Items.Head.Next
-    local index = 0
+    local i = 0
     while (currentItem ~= nil) do
         if (i == index) then
             self:RemoveItem(currentItem)

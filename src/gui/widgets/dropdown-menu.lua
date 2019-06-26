@@ -17,7 +17,7 @@ function ClassicLFGDropdownMenue.new(text, parent, title)
     self.OnValueChanged = function(key, selected, value) end
     self.MultiSelect = false
     self.Open = false
-    self.Frame = CreateFrame("Frame", name, parent, nil)
+    self.Frame = CreateFrame("Frame", nil, parent, nil)
     self.Frame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8
     })
@@ -251,7 +251,6 @@ function ClassicLFGDropdownMenue:CreateEntry(id)
     entry.Text = entry.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     entry.Text:SetFont(ClassicLFG.Config.Font, 12, "NONE");
     entry.Text:SetPoint("LEFT", entry.Frame, "LEFT", 5, 0);
-    entry.Text:SetText(text);
     entry.Active = false
     entry.Frame:Hide()
     return entry

@@ -60,7 +60,7 @@ end
 
 function ClassicLFGDungeonGroup:Print()
     for key in pairs(self) do
-        ClassicLFG:DebugPrint(key, self[key])
+        ClassicLFG:DebugPrint(key .. " " .. self[key])
     end
 end
 

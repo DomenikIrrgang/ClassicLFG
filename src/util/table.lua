@@ -15,14 +15,3 @@ function table.inheritAttributes(target, base)
 	end
 	return target
 end
-
-function table.merge(target, source)
-	for key, value in pairs(source) do
-		if (istable(value) and istable(target[key])) then
-			table.Merge(target[key], value)
-		else
-			target[key] = value
-		end
-	end
-	return target
-end

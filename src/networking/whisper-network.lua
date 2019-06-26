@@ -66,7 +66,7 @@ end
 
 function ClassicLFGWhisperNetwork:MergeMessages(headers, messages)
     local tmp = ""
-    ClassicLFG:RecursivePrint(message, 2)
+    ClassicLFG:RecursivePrint(messages, 2)
     for i = 1, tonumber(headers.TotalCount) do
         tmp = tmp .. messages[tostring(i)]
     end
@@ -114,7 +114,7 @@ end
 function ClassicLFGWhisperNetwork:RandomHash(length)
     if( length == nil or length <= 0 ) then length = 32; end;
     local holder = "";
-    hash_chars = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E",
+    local hash_chars = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E",
                     "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
                     "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
                     "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
