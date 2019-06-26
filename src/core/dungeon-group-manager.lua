@@ -77,6 +77,7 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdated, self, self.HandleGroupUpdated)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupMemberLeft, self, self.HandleDungeonGroupMemberLeft)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantDeclined, self, self.OnApplicantDeclined)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInviteDeclined, self, self.OnApplicantInviteDeclined)
     return self
 end
 
@@ -121,7 +122,7 @@ function ClassicLFGDungeonGroupManager:OnGroupMemberJoined(playerName)
 end
 
 function ClassicLFGDungeonGroupManager:OnGroupInviteDeclined(playerName)
-    self:ApplicantInviteDeclined(ClassicLFGPlayer(playerName, "", "", "", ""))
+    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInviteDeclined, ClassicLFGPlayer(playerName, "", "", "", ""))
 end
 
 function ClassicLFGDungeonGroupManager:CancelBroadcast()
@@ -359,9 +360,8 @@ function ClassicLFGDungeonGroupManager:ApplicantInviteAccepted(applicant)
     end
 end
 
-function ClassicLFGDungeonGroupManager:ApplicantInviteDeclined(applicant)
+function ClassicLFGDungeonGroupManager:OnApplicantInviteDeclined(applicant)
     self:RemoveApplicant(applicant)
-    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInviteDeclined, applicant)
     if (UnitIsGroupLeader("player") == true) then
         ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.ApplicantInviteDeclined, applicant, "PARTY")
     end
