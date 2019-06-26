@@ -335,8 +335,11 @@ function ClassicLFGDungeonGroupManager:ApplicantDeclined(applicant)
 end
 
 function ClassicLFGDungeonGroupManager:ApplicantInvited(applicant)
-    InviteUnit(applicant.Name)
-    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInvited, applicant)
+    if (UnitIsGroupLeader) then
+        InviteUnit(applicant.Name)
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInvited, applicant)
+        ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.ApplicantInvited, applicant, "PARTY")
+    end
 end
 
 function ClassicLFGDungeonGroupManager:ApplicantInviteAccepted(applicant)

@@ -82,10 +82,6 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
     self.InviteButton:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMRIGHT", -130, 5)
     self.InviteButton.OnClick = function()
         ClassicLFG.DungeonGroupManager:ApplicantInvited(self.Player)
-        self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
-        self.InviteButton:SetDisabled(true)
-        self.DeclineButton:SetDisabled(true)
-        self.Player.Invited = true
     end
     self:SetPlayer(player)
     self.Tooltip = CreateFrame("Frame", nil, UIParent, nil)
@@ -119,6 +115,12 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
             x, y = x / UIParent:GetEffectiveScale(), y / UIParent:GetEffectiveScale()
             self.Tooltip:SetPoint("TOPLEFT", x, y - GetScreenHeight() + 30)
         end
+    end)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInvited, self, function(self, applicant)
+        self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
+        self.InviteButton:SetDisabled(true)
+        self.DeclineButton:SetDisabled(true)
+        self.Player.Invited = true
     end)
     return self
 end
