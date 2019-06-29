@@ -9,11 +9,15 @@ setmetatable(ClassicLFGVersionAlert, {
 
 function ClassicLFGVersionAlert.new()
     local self = setmetatable({}, ClassicLFGVersionAlert)
-    self.Window = ClassicLFGWindow("ClassicLFGVersionAlert", UIParent, 300, 70)
+    self.Window = ClassicLFGWindow("ClassicLFGVersionAlert", UIParent, 310, 81)
     self.Window:SetTitle("ClassicLFG")
     self.Text = self.Window.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     self.Text:SetFont(ClassicLFG.Config.Font, 12, "NONE")
-    self.Text:SetPoint("CENTER", self.Window.Frame.Content, "CENTER", 0, 0)
+    self.Text:SetPoint("TOP", self.Window.Frame.Content, "TOP", 0, -5)
+    self.Link = ClassicLFGEditBox(nil, self.Window.Frame)
+    self.Link.Frame:SetPoint("TOPLEFT", self.Text, "BOTTOMLEFT", 0, -5);
+    self.Link.Frame:SetPoint("BOTTOMRIGHT", self.Text, "BOTTOMRIGHT", 0, -27)
+    self.Link.Frame:SetText("https://www.curseforge.com/wow/addons/classiclfg")
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.NewVersionAvailable, self, self.OnNewVersionAvailable)
     return self
 end

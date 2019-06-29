@@ -12,6 +12,7 @@ function ClassicLFGGroupInviteManager.new()
     self.Frame = CreateFrame("frame")
     self.InvitePending = nil
     self.Frame:RegisterEvent("CHAT_MSG_SYSTEM")
+    self.Frame:RegisterEvent("PARTY_INVITE_REQUEST")
     StaticPopup1Button2:SetScript("OnHide", function() self:DeclineGroupInvite() end)
     self.Frame:SetScript("OnEvent", function(_, event, message, ...)
         if (event == "CHAT_MSG_SYSTEM") then
@@ -52,6 +53,17 @@ function ClassicLFGGroupInviteManager.new()
                 local player = message:gsub(ClassicLFG.Locale[" to join your group."], "")
                 player = player:gsub(ClassicLFG.Locale["You have invited "], "")
                 ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupInviteSend, player)
+            end
+        end
+
+        if (event == "PARTY_INVITE_REQUEST") then
+            if (ClassicLFG.DB.profile.AutoAcceptInvite == true) then
+                for key, group in pairs(ClassicLFG.GroupManager.AppliedGroups:ToArray()) do
+                    if (group.Leader.Name == message) then
+                        AcceptGroup()
+                        StaticPopup1:Hide()
+                    end
+                end
             end
         end
     end)

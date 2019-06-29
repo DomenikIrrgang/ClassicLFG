@@ -79,7 +79,8 @@
         "UnitFullName",
         "ChatFrame1",
         "ReloadUI",
-        "C_FriendList"
+        "C_FriendList",
+        "AcceptGroup"
     ],
     "Lua.diagnostics.disable": [
         "ambiguity-1"
