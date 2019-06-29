@@ -1,0 +1,5 @@
+<Bindings>
+  <Binding name="Open/Close ClassicLFG" description="Opens/Closes ClassicLFG Window" header="ClassicLFGBinding">
+    ClassicLFG:MinimapIconClick()
+  </Binding>
+</Bindings>

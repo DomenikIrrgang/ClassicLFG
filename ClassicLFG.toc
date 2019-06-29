@@ -15,3 +15,5 @@ src\main.lua
 src\config.lua
 
 code.xml
+
+bindings.xml
