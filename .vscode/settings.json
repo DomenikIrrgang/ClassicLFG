@@ -80,9 +80,11 @@
         "ChatFrame1",
         "ReloadUI",
         "C_FriendList",
-        "AcceptGroup"
+        "AcceptGroup",
+        "StaticPopup1"
     ],
     "Lua.diagnostics.disable": [
-        "ambiguity-1"
+        "ambiguity-1",
+        "empty-block"
     ]
 }

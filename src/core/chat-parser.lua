@@ -12,9 +12,7 @@ function ClassicLFGChatParser.new()
     self.Frame = CreateFrame("frame")
     self.Frame:RegisterEvent("CHAT_MSG_SAY")
     self.Frame:RegisterEvent("CHAT_MSG_CHANNEL")
-    self.Frame:RegisterEvent("CHAT_MSG_WHISPER")
     self.Frame:RegisterEvent("CHAT_MSG_YELL")
-    self.Frame:RegisterEvent("CHAT_MSG_GUILD")
     self.Frame:SetScript("OnEvent", function(_, event, ...)
         if (event == "CHAT_MSG_CHANNEL") then
             local message, player, _, _, _, _, _, _, channelName = ...
@@ -26,20 +24,11 @@ function ClassicLFGChatParser.new()
             self:ParseMessage(player, message, "SAY")
         end
 
-        if (event == "CHAT_MSG_WHISPER") then
-            local message, player, _, _, _, _, _, _, channelName = ...
-            self:ParseMessage(player, message, "WHISPER")
-        end
-
         if (event == "CHAT_MSG_YELL") then
             local message, player, _, _, _, _, _, _, channelName = ...
             self:ParseMessage(player, message, "YELL")
         end
 
-        if (event == "CHAT_MSG_GUILD") then
-            local message, player, _, _, _, _, _, _, channelName = ...
-            self:ParseMessage(player, message, "GUILD")
-        end
     end)
     return self
 end

@@ -12,21 +12,10 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
     self.DungeonGroup = nil
     self.Applicants = ClassicLFGLinkedList()
     self.Frame = CreateFrame("Frame")
-    self.Frame:RegisterEvent("PARTY_INVITE_REQUEST")
-    self.Frame:RegisterEvent("GROUP_ROSTER_UPDATE")
-    self.Frame:RegisterEvent("GROUP_JOINED")
-    self.Frame:RegisterEvent("GROUP_LEFT")
-    self.Frame:RegisterEvent("RAID_ROSTER_UPDATE")
-    self.Frame:RegisterEvent("PARTY_INVITE_REQUEST")
-    self.Frame:RegisterEvent("PARTY_INVITE_REQUEST")
-    self.Frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-    self.Frame:RegisterEvent("PLAYER_LEAVING_WORLD")
-    self.Frame:RegisterEvent("CHAT_MSG_SYSTEM")
     self.Frame:RegisterEvent("CHAT_MSG_CHANNEL_JOIN")
     self.Frame:RegisterEvent("PARTY_LEADER_CHANGED")
     self.Frame:SetScript("OnEvent", function(_, event, ...)
         if(self:IsListed() and event == "PARTY_LEADER_CHANGED") then
-            print("party leader changed")
             if (UnitIsGroupLeader(UnitName("player")) == false and self.BroadcastTicker ~= nil) then
                 self:CancelBroadcast()
             end
@@ -52,12 +41,6 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
             if (tonumber(channelId:sub(0,1)) == ClassicLFG.Config.Network.Channel.Id) then
                 self:HandleDataRequest(nil, playerName)
             end
-        end
-        
-        if (event == "PARTY_INVITE_REQUEST") then
-            -- ToDo: Only Accept if the leader is in one of the groups you applied to.
-            --AcceptGroup()
-            --StaticPopup1:Hide()
         end
     end)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupKicked, self, self.OnGroupKicked)
