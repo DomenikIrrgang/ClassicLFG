@@ -87,7 +87,6 @@ function ClassicLFGLinkedList:RemoveItem(index)
     local currentItem = self.Items.Head
     if (index >= 0) then
         for i = 0, index - 1 do
-            print(i, index)
             if (currentItem == nil) then
                 break
             end
