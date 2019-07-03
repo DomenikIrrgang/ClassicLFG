@@ -131,7 +131,7 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
 end
 
 function ClassicLFGApplicantListItem:PartyLeaderCheck()
-    if (UnitIsGroupLeader(UnitName("player")) == true) then
+    if (not IsInGroup() or UnitIsGroupLeader(UnitName("player")) == true) then
         self:Enable()
     else
         self:Disable()

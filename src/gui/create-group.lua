@@ -172,7 +172,11 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdate
 		ClassicLFG.QueueWindow.CreateGroup.Description.Frame:SetText(dungeonGroup.Description)
 		ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(dungeonGroup.Dungeon.Name)
         ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
-        ClassicLFG.QueueWindow.CreateGroup.Icon.Texture:SetTexture(dungeonGroup.Dungeon.Background)
+		ClassicLFG.QueueWindow.CreateGroup.Icon.Texture:SetTexture(dungeonGroup.Dungeon.Background)
+		ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Dps.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(dungeonGroup, ClassicLFG.Role.DPS))
+		ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Tank.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(dungeonGroup, ClassicLFG.Role.TANK))
+		ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Healer.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(dungeonGroup, ClassicLFG.Role.HEALER))
+		ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Unknown.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(dungeonGroup, ClassicLFG.Role.UNKNOWN))
 	end
 end)
 
@@ -201,7 +205,19 @@ end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, ClassicLFG.QueueWindow, function(self, dungeonGroup)
 	ClassicLFG.QueueWindow:EnableTab(1)
-    ClassicLFG.QueueWindow.CreateGroup.DequeueButton:Hide()
+	ClassicLFG.QueueWindow.CreateGroup.DequeueButton:Hide()
+	ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Dps.Text:SetText("0")
+    ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Tank.Text:SetText("0")
+    ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Healer.Text:SetText("0")
+    ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Unknown.Text:SetText("0")
+end)
+
+ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupDisbanded, ClassicLFG.QueueWindow, function(self)
+	local dungeonGroup = ClassicLFG.DungeonGroupManager.DungeonGroup
+	ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Dps.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(dungeonGroup, ClassicLFG.Role.DPS))
+    ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Tank.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(dungeonGroup, ClassicLFG.Role.TANK))
+    ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Healer.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(dungeonGroup, ClassicLFG.Role.HEALER))
+    ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Unknown.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(dungeonGroup, ClassicLFG.Role.UNKNOWN))
 end)
 
 ClassicLFG.QueueWindow.CreateGroup:RegisterEvent("PARTY_LEADER_CHANGED")

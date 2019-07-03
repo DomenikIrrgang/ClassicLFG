@@ -14,6 +14,7 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
     self.Frame = CreateFrame("Frame")
     self.Frame:RegisterEvent("CHAT_MSG_CHANNEL_JOIN")
     self.Frame:RegisterEvent("PARTY_LEADER_CHANGED")
+    self.Frame:RegisterEvent("PLAYER_FLAGS_CHANGED")
     self.Frame:SetScript("OnEvent", function(_, event, ...)
         if(self:IsListed() and event == "PARTY_LEADER_CHANGED") then
             if (UnitIsGroupLeader(UnitName("player")) == false and self.BroadcastTicker ~= nil) then
@@ -33,6 +34,12 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
                     self:UpdateGroup(oldGroup)
                     break
                 end
+            end
+        end
+
+        if (event == "PLAYER_FLAGS_CHANGED") then
+            if (UnitIsAFK("player") == true) then
+                self:DequeueGroup()
             end
         end
 
@@ -84,6 +91,7 @@ function ClassicLFGDungeonGroupManager:OnGroupDisbanded()
     if (self:IsListed()) then
         ClassicLFGLinkedList.Clear(self.DungeonGroup.Members)
         ClassicLFGLinkedList.AddItem(self.DungeonGroup.Members, ClassicLFGPlayer())
+        self:UpdateGroup(self.DungeonGroup)
     end
 end
 
@@ -116,13 +124,14 @@ end
 
 function ClassicLFGDungeonGroupManager:StartBroadcast()
     ClassicLFG:DebugPrint("Started broadcasting dungeon group")
-    SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
-    self.BroadcastTicker = C_Timer.NewTicker(ClassicLFG.DB.profile.BroadcastDungeonGroupInterval, function()
+    self.BroadcastTicker = C_Timer.NewTicker(ClassicLFG.DB.profile.BroadcastDungeonGroupInterval + math.random(0, 10), function()
         ClassicLFG:DebugPrint("Broadcast Ticker tick")
         if (self:IsListed()) then
             -- Prevent group from being delisted on other clients
             self:UpdateGroup(self.DungeonGroup)
             SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
+            self:CancelBroadcast()
+            self:StartBroadcast()
         end
     end)
 end
@@ -151,15 +160,12 @@ end
 
 function ClassicLFGDungeonGroupManager:HandleDungeonGroupMemberLeft(player)
     if (self:IsListed()) then
-        print(player.Name)
         if (UnitIsGroupLeader(player.Name) == nil) then
-            print("member removed")
             self:RemoveMember(player)
-        else
-            print("member not removed")
-            if (UnitIsGroupLeader("player") == true) then
-                self:UpdateGroup(self.DungeonGroup)
-            end
+        end
+
+        if (UnitIsGroupLeader("player") == true) then
+            self:UpdateGroup(self.DungeonGroup)
         end
     end
 end
@@ -222,6 +228,7 @@ end
 
 function ClassicLFGDungeonGroupManager:ListGroup(dungeonGroup)
     self.DungeonGroup = dungeonGroup
+    SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
     ClassicLFGDungeonGroup.AddMember(self.DungeonGroup, ClassicLFGPlayer(UnitName("player")))
     ClassicLFG.Network:SendObject(
         ClassicLFG.Config.Events.GroupListed,
@@ -257,6 +264,7 @@ function ClassicLFGDungeonGroupManager:UpdateGroup(dungeonGroup)
             self.DungeonGroup,
             "CHANNEL",
             ClassicLFG.Config.Network.Channel.Id)
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupUpdated, self.DungeonGroup)
     end
 end
 
@@ -302,7 +310,6 @@ function ClassicLFGDungeonGroupManager:RemoveMember(member)
     local index = ClassicLFGLinkedList.ContainsWithEqualsFunction(self.DungeonGroup.Members, member, function(item1, item2)
         return item1.Name == item2.Name
     end)
-    print(index)
     if (index ~= nil) then
         ClassicLFGLinkedList.RemoveItem(self.DungeonGroup.Members, index)
     end
@@ -333,7 +340,7 @@ function ClassicLFGDungeonGroupManager:ApplicantInviteAccepted(applicant)
     ClassicLFGDungeonGroup.AddMember(self.DungeonGroup, applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInviteAccepted, applicant)
     
-    if (self.DungeonGroup.Members.Size == 5) then
+    if (self.DungeonGroup.Members.Size >= self.DungeonGroup.Dungeon.Size) then
         self:DequeueGroup()
     else
         ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.DungeonGroupJoined, self.DungeonGroup, "WHISPER", applicant.Name)

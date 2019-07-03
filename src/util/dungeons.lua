@@ -59,4 +59,6 @@ ClassicLFG:DefineDungeon("Upper Blackrock Spire", 10, 55, 60, "Blackrock Mountai
 --
 ClassicLFG:DefineDungeon("Stratholme", 5, 58, 60, "Eastern Plaguelands", {"strat"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-STRATHOLME")
 ClassicLFG:DefineDungeon("Scholomance", 5, 58, 60, "Eastern Plaguelands", {"scholo"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCHOLOMANCE")
+ClassicLFG:DefineDungeon("Molten Core", 40, 60, 60, "Blackrock Depths", {"mc"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-MOLTENCORE")
+ClassicLFG:DefineDungeon("Onyxia's Lair", 40, 60, 60, "Dustwallow Marsh", {"ony", "onyxia"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\LFGIcon-OnyxiaEncounter")
 ClassicLFG:DefineDungeon("Custom", 40, 1, 120, "Everywhere", {}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BREW")
