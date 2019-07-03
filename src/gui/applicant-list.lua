@@ -99,6 +99,11 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
     self.Tooltip.Text:SetPoint("LEFT", self.Tooltip, "LEFT", 5, 0);
     self.Tooltip:Show()
     self.MouseOver = false
+
+    self.Frame:RegisterEvent("PARTY_LEADER_CHANGED")
+    self.Frame:SetScript("OnEvent", function(_, event, ...)
+        self:PartyLeaderCheck()
+    end)
     self.Frame:SetScript("OnEnter", function()
         if (self.Player and self.Player.Note ~= nil and self.Player.Note ~= "") then
             self.MouseOver = true
@@ -121,7 +126,26 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
         self.InviteButton:SetDisabled(true)
         self.DeclineButton:SetDisabled(true)
     end)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined, self, self.PartyLeaderCheck)
     return self
+end
+
+function ClassicLFGApplicantListItem:PartyLeaderCheck()
+    if (UnitIsGroupLeader(UnitName("player")) == true) then
+        self:Enable()
+    else
+        self:Disable()
+    end
+end
+
+function ClassicLFGApplicantListItem:Enable()
+    self.DeclineButton:SetDisabled(false)
+    self.InviteButton:SetDisabled(false)
+end
+
+function ClassicLFGApplicantListItem:Disable()
+    self.DeclineButton:SetDisabled(true)
+    self.InviteButton:SetDisabled(true)
 end
 
 function ClassicLFGApplicantListItem:SetPlayer(player)
@@ -141,8 +165,7 @@ function ClassicLFGApplicantListItem:SetPlayer(player)
         end
         if (player.Invited == false) then
             self.InviteButton.Frame.Title:SetTextColor(1, 1, 1, 1)
-            self.InviteButton:SetDisabled(false)
-            self.DeclineButton:SetDisabled(false)
+            self:PartyLeaderCheck()
         else
             self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
             self.InviteButton:SetDisabled(true)
