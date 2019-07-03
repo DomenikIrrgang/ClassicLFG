@@ -317,7 +317,7 @@ end
 
 function ClassicLFGDungeonGroupManager:OnApplicantDeclined(applicant)
     self:RemoveApplicant(applicant)
-    if (UnitIsGroupLeader("player") == true) then
+    if (not IsInGroup() or UnitIsGroupLeader("player") == true) then
         ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.DeclineApplicant, self.DungeonGroup, "WHISPER", applicant.Name)
         ClassicLFG.Network:SendObject(
             ClassicLFG.Config.Events.ApplicantDeclined,

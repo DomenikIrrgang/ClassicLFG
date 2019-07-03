@@ -44,24 +44,29 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.EntrySource:SetFont(ClassicLFG.Config.Font, 8, "NONE");
     self.EntrySource:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -5, -5);
 
+    self.WhisperButton = ClassicLFGButton(ClassicLFG.Locale["Queue"], self.Frame)
+    self.WhisperButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -5, 5)
+    self.WhisperButton.OnClick = function() 
+        ChatFrame1EditBox:Show()
+        ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name .. " " .. ClassicLFG.DB.profile.InviteText)
+        ChatFrame1EditBox:SetFocus()
+    end
+    self.WhisperButton:SetText(ClassicLFG.Locale["Whisper"])
+    self.WhisperButton:Hide()
+
     self.QueueButton = ClassicLFGButton(ClassicLFG.Locale["Queue"], self.Frame)
-    self.QueueButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -5, 5)
+    self.QueueButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -92, 5)
     self.QueueButton.OnClick = function() 
-        if (self.entry.Source.Type == "ADDON") then
             ClassicLFG.QueueDungeonGroupWindow.DungeonGroup = self.entry
             ClassicLFG.QueueDungeonGroupWindow.Frame:Show()
-        else
-            ChatFrame1EditBox:Show()
-            ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name .. " " .. ClassicLFG.DB.profile.InviteText)
-            ChatFrame1EditBox:SetFocus()
-        end
     end
+    self.QueueButton:SetText(ClassicLFG.Locale["Queue"])
     self.QueueButton:Hide()
 
     self.Description = CreateFrame("EditBox", nil, self.Frame, nil);
     self.Description:SetFont(ClassicLFG.Config.Font, 10, "NONE");
     self.Description:SetPoint("BOTTOMLEFT", self.Frame, "BOTTOMLEFT", 5, 15);
-    self.Description:SetSize(250, 180)
+    self.Description:SetSize(198, 240)
     self.Description:EnableMouse(false)
     self.Description:SetMultiLine(true)
     self.Description:Disable()
@@ -118,15 +123,15 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
             self.IsOpen = false
             self.QueueButton:Hide()
             self.Description:Hide()
+            self.WhisperButton:Hide()
         else
             self.Frame:SetHeight(95)
             self.IsOpen = true
-            if (self.entry.Leader.Name == UnitName("player")) then
-                self.QueueButton.Frame:Hide()
-            else
-                self.QueueButton.Frame:Show()
-            end
             self.Description:Show()
+            self.WhisperButton:Show()
+            if (self.entry.Source.Type == "ADDON") then
+                self.QueueButton:Show()
+            end
         end
     end)
 
@@ -165,14 +170,13 @@ function CLassicLFGGroupListItem:SetGroup(entry)
         self.RoleIcons.Healer.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.HEALER))
         self.RoleIcons.Unknown.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.UNKNOWN))
         if (self.entry.Source.Type == "CHAT") then
-            self.QueueButton:SetText(ClassicLFG.Locale["Whisper"])
             self.RoleIcons.Dps:Hide()
             self.RoleIcons.Tank:Hide()
             self.RoleIcons.Healer:Hide()
             self.RoleIcons.Unknown:Hide()
+            self.QueueButton:Hide()
             self.Description:SetText("Leader : " .. entry.Leader.Name)
         else
-            self.QueueButton:SetText(ClassicLFG.Locale["Queue"])
             self.RoleIcons.Dps:Show()
             self.RoleIcons.Tank:Show()
             self.RoleIcons.Healer:Show()

@@ -121,6 +121,13 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
             self.Tooltip:SetPoint("TOPLEFT", x, y - GetScreenHeight() + 30)
         end
     end)
+
+    self.Frame:SetScript("OnMouseUp", function()
+        ChatFrame1EditBox:Show()
+        ChatFrame1EditBox:SetText("/w ".. self.Player.Name .. " ")
+        ChatFrame1EditBox:SetFocus()
+    end)
+
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInvited, self, function(self, applicant)
         self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
         self.InviteButton:SetDisabled(true)
