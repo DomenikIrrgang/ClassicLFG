@@ -162,6 +162,17 @@ function ClassicLFGApplicantListItem:SetPlayer(player)
         self.ClassText:SetText(player.Level .. " " .. ClassicLFGPlayer.GetSpecialization(player).Name .. " " .. player.Class .. " (" .. player.Talents[1] .. "/" .. player.Talents[2] .. "/" .. player.Talents[3] .. ")")
         self.ClassText:SetTextColor(GetClassColor(player.Class:upper()))
         self.PlayerText:SetPoint("LEFT", self.Frame, "TOPLEFT", 5, -10)
+
+        if (ClassicLFG:IsInPlayersGuild(player.Name) == true) then
+            self.Frame:SetBackdropColor(64/255, 251/255, 64/255, 0.5)
+        elseif (ClassicLFG:PlayerIsFriend(player.Name) == true) then
+            self.Frame:SetBackdropColor(239/255, 244/255, 39/255, 0.5)
+        elseif (ClassicLFG:IsBattleNetFriend(player.Name) == true) then
+            self.Frame:SetBackdropColor(13/255, 135/255, 202/255, 0.5)
+        else
+            self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
+        end
+
         if (player.Guild) then
             self.GuildText:SetText("<" .. player.Guild .. ">")
             self.GuildText:SetPoint("TOPLEFT", self.PlayerText, "BOTTOMLEFT", 0, -3)

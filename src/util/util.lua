@@ -90,3 +90,33 @@ frame:SetScript("OnEvent", function(_, event, ...)
         end
     end
 end)
+
+function ClassicLFG:IsInPlayersGuild(playerName)
+    for i = 1, GetNumGuildMembers() do
+        local name = GetGuildRosterInfo(i)
+        if (playerName == name) then
+            return true
+        end
+    end
+    return false
+end
+
+function ClassicLFG:PlayerIsFriend(playerName)
+    for i = 1, GetNumFriends() do
+        local name = GetFriendInfo(i)
+        if (playerName == name) then
+            return true
+        end
+    end
+    return false
+end
+
+function ClassicLFG:IsBattleNetFriend(playerName)
+    for i = 1, BNGetNumFriends() do
+        local _, _, _, _, name = BNGetFriendInfo(i)
+        if (playerName == name) then
+            return true
+        end
+    end
+    return false
+end
