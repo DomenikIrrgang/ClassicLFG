@@ -43,7 +43,7 @@ f:SetScript('OnUpdate', function(self, elapsed)
                     end
                     i = i + 3
                 end
-                ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.RequestData, "RequestCGroupData", "CHANNEL", ClassicLFG.Config.Network.Channel.Id)
+                ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.RequestData, "RequestGroupData", "CHANNEL", ClassicLFG.Config.Network.Channel.Id)
                 ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.VersionCheck, ClassicLFG.Config.Version, "CHANNEL", ClassicLFG.Config.Network.Channel.Id)
 				self:SetScript('OnUpdate', nil)
 			end

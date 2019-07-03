@@ -159,7 +159,7 @@ function ClassicLFGApplicantListItem:SetPlayer(player)
     self.Player = player
     if (player ~= nil) then
         self.PlayerText:SetText(player.Name)
-        self.ClassText:SetText(player.Level .. " " .. ClassicLFGPlayer.GetSpecialization(player).Name .. " " .. player.Class .. " (" .. player.Talents[1] .. "/" .. player.Talents[2] .. "/" .. player.Talents[3] .. ")")
+        self.ClassText:SetText(player.Level .. " " .. ClassicLFG.Locale[ClassicLFGPlayer.GetSpecialization(player).Name] .. " " .. ClassicLFG.Locale[player.Class] .. " (" .. player.Talents[1] .. "/" .. player.Talents[2] .. "/" .. player.Talents[3] .. ")")
         self.ClassText:SetTextColor(GetClassColor(player.Class:upper()))
         self.PlayerText:SetPoint("LEFT", self.Frame, "TOPLEFT", 5, -10)
 

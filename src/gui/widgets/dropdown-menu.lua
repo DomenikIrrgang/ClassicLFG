@@ -150,7 +150,7 @@ function ClassicLFGDropdownMenue:SetItems(items)
         value.Active = false
     end
     for key, value in pairs(self.Items) do
-        self.Entries[i].Text:SetText(value)
+        self.Entries[i].Text:SetText(ClassicLFG.Locale[value] or value)
         self.Entries[i].Active = true
         self.Entries[i].Selected = false
         self.Entries[i].Key = key
@@ -184,9 +184,9 @@ function ClassicLFGDropdownMenue:UpdateSelectedItems()
     if (#self.SelectedItems > 0) then
         for key, value in pairs(self.SelectedItems) do
             if (key == 1) then
-                self.Frame.Text:SetText(self.Items[value])
+                self.Frame.Text:SetText(ClassicLFG.Locale[self.Items[value]] or self.Items[value])
             else
-                self.Frame.Text:SetText(self.Frame.Text:GetText() .. ", " .. self.Items[value])
+                self.Frame.Text:SetText(self.Frame.Text:GetText() .. ", " .. (ClassicLFG.Locale[self.Items[value]] or self.Items[value]))
             end
         end
         while (self.Frame.Text:GetStringWidth() >= self.Frame:GetWidth() - 5) do
