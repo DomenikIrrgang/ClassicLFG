@@ -282,6 +282,10 @@ function ClassicLFGDungeonGroupManager:HandleApplications(applicant)
         end)
         if (index == nil) then
             self:AddApplicant(applicant)
+             if (ClassicLFG.QueueWindow:IsShown() == false) then
+                ClassicLFG:Print(ClassicLFG.Locale["New Applicant: "] .. applicant.Name .. ClassicLFG.Locale[" - Level "].. applicant.Level .. " " .. ClassicLFG.Locale[ClassicLFGPlayer.GetSpecialization(applicant).Name] .." " .. ClassicLFG.Locale[applicant.Class])
+                PlaySound(SOUNDKIT.RAID_BOSS_EMOTE_WARNING)
+            end
         end
         if (UnitIsGroupLeader("player")) then
             ClassicLFG.Network:SendObject(

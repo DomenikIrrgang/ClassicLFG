@@ -26,6 +26,8 @@ if (L) then
     L["Queue Dungeon"] = "Dungeon anmelden"
     L["Note"] = "Notiz"
     L["Autoaccept invites of parties you applied to"] = "Einladungen automatisch annehmen"
+    L["New Applicant: "] = "Neuer Spieler: "
+    L[" - Level "] = " - Level "
 
     -- Classes
     L["Warlock"] = "Hexenmeister"

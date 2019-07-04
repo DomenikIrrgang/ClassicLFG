@@ -25,6 +25,8 @@ L["Deselect all"] = "Deselect all"
 L["Queue Dungeon"] = "Queue Dungeon"
 L["Note"] = "Note"
 L["Autoaccept invites of parties you applied to"] = "Autoaccept invites of parties you applied to"
+L["New Applicant: "] = "New Applicant: "
+L[" - Level "] = " - Level "
 
 -- Classes
 L["Warlock"] = "Warlock"
