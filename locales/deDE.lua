@@ -77,7 +77,7 @@ if (L) then
     L["Gnomeregan"] = "Gnomeregan"
     L["Razorfen Kraul"] = "Kral der Klingenhauer"
     L["The Scarlet Monastery: Graveyard"] = "Das schwarlachrote Kloster: Friedhof"
-    L["The Scarlet Monastery: Library"] = "Das schwarlachrote Kloster: Bücherrei"
+    L["The Scarlet Monastery: Library"] = "Das schwarlachrote Kloster: Bibliothek"
     L["The Scarlet Monastery: Armory"] = "Das schwarlachrote Kloster: Waffenkammer"
     L["The Scarlet Monastery: Cathedral"] = "Das schwarlachrote Kloster: Kathedrale"
     L["Razorfen Downs"] = "Hügel der Klingenhauer"
