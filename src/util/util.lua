@@ -92,6 +92,7 @@ frame:SetScript("OnEvent", function(_, event, ...)
 end)
 
 function ClassicLFG:IsInPlayersGuild(playerName)
+    playerName = playerName .. "-" .. GetRealmName()
     for i = 1, GetNumGuildMembers() do
         local name = GetGuildRosterInfo(i)
         if (playerName == name) then
