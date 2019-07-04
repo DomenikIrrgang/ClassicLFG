@@ -81,7 +81,14 @@
         "ReloadUI",
         "C_FriendList",
         "AcceptGroup",
-        "StaticPopup1"
+        "StaticPopup1",
+        "GetNumGuildMembers",
+        "GetGuildRosterInfo",
+        "GetNumFriends",
+        "GetFriendInfo",
+        "BNGetNumFriends",
+        "BNGetFriendInfo",
+        "UnitIsAFK"
     ],
     "Lua.diagnostics.disable": [
         "ambiguity-1",
