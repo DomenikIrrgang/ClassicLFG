@@ -18,6 +18,7 @@ function ClassicLFGVersionAlert.new()
     self.Link.Frame:SetPoint("TOPLEFT", self.Text, "BOTTOMLEFT", 0, -5);
     self.Link.Frame:SetPoint("BOTTOMRIGHT", self.Text, "BOTTOMRIGHT", 0, -27)
     self.Link.Frame:SetText("https://www.curseforge.com/wow/addons/classiclfg")
+    self.Link.Frame:SetCursorPosition(1)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.NewVersionAvailable, self, self.OnNewVersionAvailable)
     return self
 end
