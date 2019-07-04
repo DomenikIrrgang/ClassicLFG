@@ -102,6 +102,7 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
 
     self.Frame:RegisterEvent("PARTY_LEADER_CHANGED")
     self.Frame:SetScript("OnEvent", function(_, event, ...)
+        print("Party Leader changed")
         self:PartyLeaderCheck()
     end)
     self.Frame:SetScript("OnEnter", function()
@@ -129,9 +130,11 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
     end)
 
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInvited, self, function(self, applicant)
-        self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
-        self.InviteButton:SetDisabled(true)
-        self.DeclineButton:SetDisabled(true)
+        if(self.Player and self.Player.Name == applicant.Name) then
+            self.InviteButton.Frame.Title:SetTextColor(0, 1, 0, 1)
+            self.InviteButton:SetDisabled(true)
+            self.DeclineButton:SetDisabled(true)
+        end
     end)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined, self, self.PartyLeaderCheck)
     return self
@@ -139,7 +142,9 @@ end
 
 function ClassicLFGApplicantListItem:PartyLeaderCheck()
     if (not IsInGroup() or UnitIsGroupLeader(UnitName("player")) == true) then
-        self:Enable()
+        if(self.Player and self.Player.Invited ~= true) then
+            self:Enable()
+        end
     else
         self:Disable()
     end
