@@ -50,8 +50,8 @@ ClassicLFG.QueueWindow.Settings.Invitemessage.OnTextChanged = function(self, _, 
 end
 
 ClassicLFG.QueueWindow.Settings.InviteKeyword = ClassicLFGEditBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Invite Keyword"])
-ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMLEFT", 0, -38);
-ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMRIGHT", 0, -60)
+ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMLEFT", 0, -25);
+ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMRIGHT", 0, -47)
 ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetMaxLetters(25)
 ClassicLFG.QueueWindow.Settings.InviteKeyword:SetPlaceholder(ClassicLFG.Locale["Invite Keyword"])
 
