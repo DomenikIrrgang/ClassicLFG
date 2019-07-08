@@ -99,7 +99,6 @@ function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(playerName)
     if (self:IsListed()) then
         ClassicLFG:WhoQuery(playerName, function(result)
             if (result) then
-                print(result.level, result.filename, result.name)
                 if (result.fullGuildName == "") then
                     result.fullGuildName = nil
                 end
@@ -287,7 +286,6 @@ function ClassicLFGDungeonGroupManager:UpdateGroup(dungeonGroup)
         self.DungeonGroup.Dungeon = dungeonGroup.Dungeon
         self.DungeonGroup.Description = dungeonGroup.Description
         self.DungeonGroup.Title = dungeonGroup.Title
-        self.DungeonGroup.Hash = dungeonGroup.Hash
         self.DungeonGroup.UpdateTime = GetTime()
         ClassicLFG.Network:SendObject(
             ClassicLFG.Config.Events.DungeonGroupUpdated,
