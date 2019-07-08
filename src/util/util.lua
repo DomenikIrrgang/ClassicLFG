@@ -102,6 +102,18 @@ function ClassicLFG:IsInPlayersGuild(playerName)
     return false
 end
 
+function ClassicLFG:IsInPlayersGroup(playerName)
+    playerName = playerName
+    for i = 1, GetNumGroupMembers() do
+        local name = GetRaidRosterInfo(i)
+        print(name, playerName)
+        if (playerName == name) then
+            return true
+        end
+    end
+    return false
+end
+
 function ClassicLFG:PlayerIsFriend(playerName)
     for i = 1, GetNumFriends() do
         local name = GetFriendInfo(i)
