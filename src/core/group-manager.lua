@@ -88,6 +88,7 @@ function ClassicLFGGroupManager:HandleDungeonGroupJoined(dungeonGroup)
         end
     end
     self.AppliedGroups:Clear()
+    ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.PlayerTalents, { Name = UnitName("player"), Talents = ClassicLFGPlayer():CreateTalents() }, "WHISPER", dungeonGroup.Leader.Name)
 end
 
 function ClassicLFGGroupManager:HandleDungeonGroupBroadcasterCanceled(dungeonGroup)

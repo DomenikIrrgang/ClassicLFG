@@ -50,10 +50,8 @@ ClassicLFG.Config = {
         DungeonGroupMemberLeft = "CLASSICLFG_DUNGEON_GROUP_MEMBER_LEFT",
         -- Args(dungeonGroup)
         DeclineApplicant = "CLASSICLFG_APPLICANT_DECLINE",
-        -- Args()
-        DungeonGroupSyncRequest = "CLASSICLFG_GROUP_SYNC_REQUEST",
-        -- Args(dungeonGroup)
-        DungeonGroupSyncResponse = "CLASSICLFG_GROUP_SYNC_RESPONSE",
+        -- Args(applicantList)
+        SyncApplicantList = "CLASSICLFG_SYNC_APPLICANT_LIST",
         -- Args()
         DungeonGroupTalentsRequest = "CLASSICLFG_GROUP_TALENTS_REQUEST",
         -- Args(talents)
@@ -93,6 +91,8 @@ ClassicLFG.Config = {
         -- Args(player)
         InviteWhisperReceived = "CLASSICLFG_INVITE_WHISPER_RECEIVED",
         -- Args(player)
-        GroupInviteAlreadyInGroup = "CLASSICLFG_GROUP_INVITE_ALREADY_IN_GROUP"
+        GroupInviteAlreadyInGroup = "CLASSICLFG_GROUP_INVITE_ALREADY_IN_GROUP",
+         -- Args({ player, talents })
+        PlayerTalents = "CLASSICLFG_TALENT_SYNC",
     }
 }

@@ -29,7 +29,11 @@ end)
 ClassicLFG.QueueWindow.Settings.BroadcastSlider = ClassicLFGSlider(ClassicLFG.Locale["Broadcastinterval"], nil, ClassicLFG.QueueWindow.Settings)
 ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame, "BOTTOMLEFT", 0, -25);
 ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame, "BOTTOMRIGHT", 0, -47)
-ClassicLFG.QueueWindow.Settings.BroadcastSlider:SetSliderValues(60, 180, 1)
+if (ClassicLFG.Config.Debug == true) then
+    ClassicLFG.QueueWindow.Settings.BroadcastSlider:SetSliderValues(1, 180, 1)
+else
+    ClassicLFG.QueueWindow.Settings.BroadcastSlider:SetSliderValues(60, 180, 1)
+end
 ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame:SetValue(5)
 ClassicLFG.QueueWindow.Settings.BroadcastSlider.OnValueChanged = function(_, value)
 	ClassicLFG.DB.profile.BroadcastDungeonGroupInterval = value
@@ -46,8 +50,8 @@ ClassicLFG.QueueWindow.Settings.Invitemessage.OnTextChanged = function(self, _, 
 end
 
 ClassicLFG.QueueWindow.Settings.InviteKeyword = ClassicLFGEditBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Invite Keyword"])
-ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMLEFT", 0, -38);
-ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMRIGHT", 0, -60)
+ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMLEFT", 0, -25);
+ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMRIGHT", 0, -47)
 ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetMaxLetters(25)
 ClassicLFG.QueueWindow.Settings.InviteKeyword:SetPlaceholder(ClassicLFG.Locale["Invite Keyword"])
 
