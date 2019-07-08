@@ -237,6 +237,7 @@ ClassicLFG.QueueWindow.CreateGroup:RegisterEvent("PARTY_LEADER_CHANGED")
 ClassicLFG.QueueWindow.CreateGroup:SetScript("OnEvent", function(_, event)
 	if (event == "PARTY_LEADER_CHANGED") then
 		if (UnitIsGroupLeader("player") == true or IsInGroup() == false) then
+			ClassicLFG.QueueWindow.CreateGroup.AutoInvite.Frame:Show()
             ClassicLFG.QueueWindow.CreateGroup:DisableDequeueButton(false)
             ClassicLFG.QueueWindow.CreateGroup.Title:Enable()
             ClassicLFG.QueueWindow.CreateGroup.Description:Enable()
@@ -246,7 +247,8 @@ ClassicLFG.QueueWindow.CreateGroup:SetScript("OnEvent", function(_, event)
             ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
             ClassicLFG.QueueWindow.CreateGroup.Title:Disable()
             ClassicLFG.QueueWindow.CreateGroup.Description:Disable()
-            ClassicLFG.QueueWindow.CreateGroup.Dungeon:Disable()
+			ClassicLFG.QueueWindow.CreateGroup.Dungeon:Disable()
+			ClassicLFG.QueueWindow.CreateGroup.AutoInvite.Frame:Hide()
 		end
 	end
 end)
@@ -263,7 +265,8 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, 
     ClassicLFG.QueueWindow.CreateGroup.Description:Enable()
     ClassicLFG.QueueWindow.CreateGroup.Description.Frame:SetText("")
     ClassicLFG.QueueWindow.CreateGroup.Dungeon:Enable()
-    ClassicLFG.QueueWindow.CreateGroup.Dungeon:Reset()
+	ClassicLFG.QueueWindow.CreateGroup.Dungeon:Reset()
+	ClassicLFG.QueueWindow.CreateGroup.AutoInvite.Frame:Show()
     --ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(ClassicLFG.Locale["Select Dungeon"])
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.Frame, "BOTTOMRIGHT", 0, -30)
 end)
