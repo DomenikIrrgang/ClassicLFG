@@ -40,19 +40,25 @@ function ClassicLFGChatParser.new()
     return self
 end
 
+function ClassicLFGChatParser:HasIgnoreMessageTag(text)
+    return string.find(text, "#noclassiclfg") ~= nil
+end
+
 function ClassicLFGChatParser:ParseMessage(sender, message, channel)
     local lowerMessage = string.lower(message)
     local dungeon = self:HasDungeonName(lowerMessage) or self:HasDungeonAbbreviation(lowerMessage)
-    if (self:HasLFMTag(lowerMessage) and dungeon ~= nil) then
-        local dungeonGroup = ClassicLFGDungeonGroup(dungeon, ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
-        ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. dungeon.Name .. ")")
-        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ChatDungeonGroupFound, dungeonGroup)
-    end
+    if (not self:HasIgnoreMessageTag(lowerMessage)) then
+        if (self:HasLFMTag(lowerMessage) and dungeon ~= nil) then
+            local dungeonGroup = ClassicLFGDungeonGroup(dungeon, ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
+            ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. dungeon.Name .. ")")
+            ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ChatDungeonGroupFound, dungeonGroup)
+        end
 
-    if (self:HasLFMTag(lowerMessage) and dungeon == nil) then
-        local dungeonGroup = ClassicLFGDungeonGroup(ClassicLFG.Dungeon["Custom"], ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
-        ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. ClassicLFG.Dungeon["Custom"].Name .. ")")
-        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ChatDungeonGroupFound, dungeonGroup)
+        if (self:HasLFMTag(lowerMessage) and dungeon == nil) then
+            local dungeonGroup = ClassicLFGDungeonGroup(ClassicLFG.Dungeon["Custom"], ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
+            ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. ClassicLFG.Dungeon["Custom"].Name .. ")")
+            ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ChatDungeonGroupFound, dungeonGroup)
+        end
     end
 end
 
