@@ -74,7 +74,8 @@ end
 
 function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(player)
     if (self:IsListed()) then
-        self:HandleApplications(ClassicLFGPlayer(player))
+        -- TODO: Who Query before adding
+        self:HandleApplications(ClassicLFGPlayer(player, "FIX ME", 60, ClassicLFG.Class.WARRIOR.Name, { 1, 1, 1 }))
     end
 end
 
