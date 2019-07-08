@@ -32,7 +32,7 @@ function ClassicLFGChatParser.new()
 
         if (event == "CHAT_MSG_WHISPER") then
             local message, player = ...
-            if (message:find(ClassicLFG.DB.profile.InviteKeyword) ~= nil) then
+            if (message == ClassicLFG.DB.profile.InviteKeyword) then
                 ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.InviteWhisperReceived, player)
             end
         end
