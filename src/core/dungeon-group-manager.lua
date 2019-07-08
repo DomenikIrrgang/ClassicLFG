@@ -99,6 +99,7 @@ function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(playerName)
     if (self:IsListed()) then
         ClassicLFG:WhoQuery(playerName, function(result)
             if (result) then
+                print(result.level, result.filename, result.name)
                 if (result.fullGuildName == "") then
                     result.fullGuildName = nil
                 end
@@ -313,7 +314,11 @@ function ClassicLFGDungeonGroupManager:HandleApplications(applicant)
         if (index == nil) then
             self:AddApplicant(applicant)
              if (ClassicLFG.QueueWindow:IsShown() == false) then
-                ClassicLFG:Print(ClassicLFG.Locale["New Applicant: "] .. applicant.Name .. ClassicLFG.Locale[" - Level "].. applicant.Level .. " " .. ClassicLFG.Locale[ClassicLFGPlayer.GetSpecialization(applicant).Name] .." " .. ClassicLFG.Locale[applicant.Class])
+                local text = ClassicLFG.Locale["New Applicant: "] .. applicant.Name .. ClassicLFG.Locale[" - Level "].. applicant.Level .. " "
+                if (applicant.Talents ~= nil) then
+                    text = text .. ClassicLFG.Locale[ClassicLFGPlayer.GetSpecialization(applicant).Name] .. " "
+                end
+                ClassicLFG:Print(text .. ClassicLFG.Locale[applicant.Class])
                 PlaySound(SOUNDKIT.RAID_BOSS_EMOTE_WARNING)
             end
         end
