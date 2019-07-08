@@ -69,7 +69,12 @@ function ClassicLFGDungeonGroupManager.new()
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantDeclined, self, self.OnApplicantDeclined)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInviteDeclined, self, self.OnApplicantInviteDeclined)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.InviteWhisperReceived, self, self.HandleInviteWhisperReceived)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupInviteAlreadyInGroup, self, self.OnGroupInviteAlreadyInGroup)
     return self
+end
+
+function ClassicLFGDungeonGroupManager:OnGroupInviteAlreadyInGroup(playerName)
+    ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInviteDeclined, ClassicLFGPlayer(playerName, "", "", "", ""))
 end
 
 function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(player)

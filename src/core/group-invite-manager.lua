@@ -32,6 +32,11 @@ function ClassicLFGGroupInviteManager.new()
                 ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupMemberLeft, player)
             end
 
+            if(message:find(ClassicLFG.Locale[" is already in a group."])) then
+                local player = message:gsub(ClassicLFG.Locale[" is already in a group."], "")
+                ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupInviteAlreadyInGroup, player)
+            end
+
             if (message:find(ClassicLFG.Locale["Your group has been disbanded."])) then
                 ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupDisbanded)
             end

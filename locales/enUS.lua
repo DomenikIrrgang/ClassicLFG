@@ -104,3 +104,4 @@ L["You have been removed from the group."] = "You have been removed from the gro
 L[" has invited you to join a group."] = " has invited you to join a group."
 L[" to join your group."] = " to join your group."
 L["You have invited "] = "You have invited "
+L[" is already in a group."] = " is already in a group."

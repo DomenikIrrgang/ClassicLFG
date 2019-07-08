@@ -103,4 +103,6 @@ if (L) then
     L["You leave the group."] = "Ihr verlassst die Gruppe."
     L["You have been removed from the group."] = "Ihr wurdet aus der Gruppe entfernt."
     L[" has invited you to join a group."] = " hat Euch in eine Gruppe eingeladen."
+    -- TODO: TRANSLATE PROPERLY!
+    L[" is already in a group."] = " ist bereits in einer Gruppe."
 end
