@@ -77,10 +77,16 @@ function ClassicLFGDungeonGroupManager:OnGroupInviteAlreadyInGroup(playerName)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInviteDeclined, ClassicLFGPlayer(playerName, "", "", "", ""))
 end
 
-function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(player)
+function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(playerName)
     if (self:IsListed()) then
-        -- TODO: Who Query before adding
-        self:HandleApplications(ClassicLFGPlayer(player, "FIX ME", 60, ClassicLFG.Class.WARRIOR.Name, { 1, 1, 1 }))
+        ClassicLFG:WhoQuery(playerName, function(result)
+            if (result) then
+                if (result.fullGuildName == "") then
+                    result.fullGuildName = nil
+                end
+                self:HandleApplications(ClassicLFGPlayer(playerName, result.fullGuildName, result.level, ClassicLFG.Class[result.filename].Name))
+            end
+        end)
     end
 end
 

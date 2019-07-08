@@ -80,16 +80,20 @@ function ClassicLFG:WhoIs(playerName)
     C_FriendList.SendWho('n-\"' .. playerName .. '\"')
 end
 
-local frame = CreateFrame("frame")
-frame:RegisterEvent("WHO_LIST_UPDATE")
-frame:SetScript("OnEvent", function(_, event, ...)
-    if (event == "WHO_LIST_UPDATE") then
-        for i=1, C_FriendList.GetNumWhoResults() do
-            local info = C_FriendList.GetWhoInfo(i)
-            --print(info.fullName, info.fullGuildName, info.level, info.classStr, info.raceStr)
+--print(info.fullName, info.fullGuildName, info.level, info.classStr, info.raceStr)
+function ClassicLFG:WhoQuery(query, callback)
+    local frame = CreateFrame("frame")
+    frame:RegisterEvent("WHO_LIST_UPDATE")
+    frame:SetScript("OnEvent", function(_, event, ...)
+        if (event == "WHO_LIST_UPDATE") then
+            callback(C_FriendList.GetWhoInfo(1))
+            FriendsFrame:RegisterEvent("WHO_LIST_UPDATE")
         end
-    end
-end)
+    end)
+    C_FriendList.SetWhoToUi(1)
+    FriendsFrame:UnregisterEvent("WHO_LIST_UPDATE")
+    C_FriendList.SendWho(query)
+end
 
 function ClassicLFG:IsInPlayersGuild(playerName)
     playerName = playerName .. "-" .. GetRealmName()
@@ -106,7 +110,6 @@ function ClassicLFG:IsInPlayersGroup(playerName)
     playerName = playerName
     for i = 1, GetNumGroupMembers() do
         local name = GetRaidRosterInfo(i)
-        print(name, playerName)
         if (playerName == name) then
             return true
         end
