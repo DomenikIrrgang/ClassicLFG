@@ -95,9 +95,9 @@ function ClassicLFGGroupManager:HandleDungeonGroupBroadcasterCanceled(dungeonGro
 end
 
 function ClassicLFGGroupManager:HandleApplicationDeclined(dungeonGroup)
-    ClassicLFG:Print("You have been declined by the group: \"" .. dungeonGroup.Title .. "\"")
     local index = self:HasGroup(self.AppliedGroups, dungeonGroup)
     if (index) then
+        ClassicLFG:Print("You have been declined by the group: \"" .. dungeonGroup.Title .. "\"")
         self.AppliedGroups:RemoveItem(index)
     end
 end
@@ -105,6 +105,7 @@ end
 function ClassicLFGGroupManager:HandleDequeueGroup(dungeonGroup)
     local index = self:HasGroup(self.Groups, dungeonGroup)
     if (index ~= nil) then
+        self:HandleApplicationDeclined(dungeonGroup)
         self.Groups:RemoveItem(index)
         index = self:LeaderHasGroup(self.Groups, dungeonGroup.Leader.Name)
         if (index ~= nil) then
