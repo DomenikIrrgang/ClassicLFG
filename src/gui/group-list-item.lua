@@ -186,6 +186,8 @@ function CLassicLFGGroupListItem:SetGroup(entry)
 
         if (ClassicLFG.GroupManager:HasAppliedForGroup(entry)) then
             self.QueueButton:SetDisabled(true)
+        else
+            self.QueueButton:SetDisabled(false)
         end
 
         if (entry.Source.Type == "ADDON") then
