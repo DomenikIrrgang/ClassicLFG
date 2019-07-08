@@ -312,6 +312,9 @@ end
 function ClassicLFGDungeonGroupManager:AddApplicant(applicant)
     self.Applicants:AddItem(applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantReceived, applicant)
+    if(ClassicLFG.DB.profile.AutoInvite == true) then
+        self:ApplicantInvited(applicant)
+    end
 end
 
 function ClassicLFGDungeonGroupManager:RemoveApplicant(applicant)
@@ -344,7 +347,7 @@ function ClassicLFGDungeonGroupManager:OnApplicantDeclined(applicant)
 end
 
 function ClassicLFGDungeonGroupManager:ApplicantInvited(applicant)
-    if (UnitIsGroupLeader) then
+    if (not IsInGroup() or UnitIsGroupLeader("player")) then
         InviteUnit(applicant.Name)
         applicant.Invited = true
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInvited, applicant)

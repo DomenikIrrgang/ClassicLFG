@@ -18,6 +18,7 @@ ClassicLFG.DefaultProfile ={
         ShowAllDungeons = false,
         AutoAcceptInvite = false,
         InviteKeyword = "inv",
+        AutoInvite = false,
     },
 }
 

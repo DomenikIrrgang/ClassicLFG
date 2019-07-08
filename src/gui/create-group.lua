@@ -2,6 +2,10 @@
 -- Create Group
 ---------------------------------
 
+ClassicLFG.QueueWindow.CreateGroup:SetScript("OnShow", function(self, _, channel)
+	ClassicLFG.QueueWindow.CreateGroup.AutoInvite:SetState(ClassicLFG.DB.profile.AutoInvite)
+end)
+
 function ClassicLFG.QueueWindow.CreateGroup:DataEntered()
 	if (ClassicLFG.Dungeon[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()] ~= nil and
 	ClassicLFG.QueueWindow.CreateGroup.Title.Frame:GetText() ~= "" and
@@ -68,7 +72,14 @@ ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Unknown.Icon:GetTexture():SetTexCoo
     ClassicLFG.Role.UNKNOWN.Offset.Left,
     ClassicLFG.Role.UNKNOWN.Offset.Right,
     ClassicLFG.Role.UNKNOWN.Offset.Top,
-    ClassicLFG.Role.UNKNOWN.Offset.Bottom)
+	ClassicLFG.Role.UNKNOWN.Offset.Bottom)
+	
+ClassicLFG.QueueWindow.CreateGroup.AutoInvite = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.CreateGroup, ClassicLFG.Locale["Auto Accept"])
+ClassicLFG.QueueWindow.CreateGroup.AutoInvite.Frame:SetPoint("TOPRIGHT", ClassicLFG.QueueWindow.CreateGroup.Icon.Texture, "BOTTOMRIGHT", -5, 25)
+ClassicLFG.QueueWindow.CreateGroup.AutoInvite.Frame:SetPoint("BOTTOMLEFT", ClassicLFG.QueueWindow.CreateGroup.Icon.Texture, "BOTTOMLEFT", 250, 5)
+ClassicLFG.QueueWindow.CreateGroup.AutoInvite.OnValueChanged = function(_, value)
+	ClassicLFG.DB.profile.AutoInvite = value
+end
 
 ClassicLFG.QueueWindow.CreateGroup.Title = ClassicLFGEditBox(nil, ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Icon.Texture, "BOTTOMLEFT", 0, -5);
