@@ -44,9 +44,19 @@ ClassicLFG.QueueWindow.Settings.Invitemessage.OnTextChanged = function(self, _, 
 	ClassicLFG.DB.profile.InviteText = text
 end
 
+ClassicLFG.QueueWindow.Settings.InviteKeyword = ClassicLFGEditBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Invite Keyword"])
+ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMLEFT", 0, -38);
+ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMRIGHT", 0, -60)
+ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetMaxLetters(25)
+ClassicLFG.QueueWindow.Settings.InviteKeyword:SetPlaceholder(ClassicLFG.Locale["Invite Keyword"])
+
+ClassicLFG.QueueWindow.Settings.InviteKeyword.OnTextChanged = function(self, _, text)
+	ClassicLFG.DB.profile.InviteKeyword = text
+end
+
 ClassicLFG.QueueWindow.Settings.ShowAllDungeons = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Always show all dungeons"])
-ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMLEFT", 0, -8)
-ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame, "BOTTOMLEFT", 0, -8)
+ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame, "BOTTOMRIGHT", 0, -30)
 ClassicLFG.QueueWindow.Settings.ShowAllDungeons.OnValueChanged = function(_, value)
     ClassicLFG.DB.profile.ShowAllDungeons = value
     ClassicLFG.QueueWindow.SearchGroup.Filter:InitFilterValues()

@@ -27,6 +27,7 @@ L["Note"] = "Note"
 L["Autoaccept invites of parties you applied to"] = "Autoaccept invites of parties you applied to"
 L["New Applicant: "] = "New Applicant: "
 L[" - Level "] = " - Level "
+L["Invite Keyword"] = "Invite Keyword"
 
 -- Classes
 L["Warlock"] = "Warlock"

@@ -28,6 +28,7 @@ if (L) then
     L["Autoaccept invites of parties you applied to"] = "Einladungen automatisch annehmen"
     L["New Applicant: "] = "Neuer Spieler: "
     L[" - Level "] = " - Level "
+    L["Invite Keyword"] = "Invite Stichwort"
 
     -- Classes
     L["Warlock"] = "Hexenmeister"
