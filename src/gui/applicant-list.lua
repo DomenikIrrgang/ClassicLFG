@@ -16,6 +16,7 @@ function ClassicLFGApplicantList.new(parent)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantDeclined, self, self.UpdateList)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInviteAccepted, self, self.UpdateList)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInviteDeclined, self, self.UpdateList)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, self, self.UpdateList)
     return self
 end
 

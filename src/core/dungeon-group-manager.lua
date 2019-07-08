@@ -285,6 +285,7 @@ function ClassicLFGDungeonGroupManager:HandleDungeonGroupLeft(dungeonGroup)
     if (dungeonGroup.Leader.Name == UnitName("player")) then
         self:CancelBroadcast()
     end
+    self.Applicants:Clear()
     self.DungeonGroup = nil
 end
 
@@ -356,7 +357,7 @@ function ClassicLFGDungeonGroupManager:ApplicantInviteAccepted(applicant)
     self:RemoveApplicant(applicant)
     ClassicLFGDungeonGroup.AddMember(self.DungeonGroup, applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInviteAccepted, applicant)
-    
+
     if (self.DungeonGroup.Members.Size >= self.DungeonGroup.Dungeon.Size) then
         self:DequeueGroup()
     else
