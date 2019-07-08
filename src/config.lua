@@ -90,5 +90,7 @@ ClassicLFG.Config = {
         VersionCheck = "CLASSICLFG_VERSION_CHECK",
         -- Args(version)
         NewVersionAvailable = "CLASSICLFG_NEW_VERSION_AVAILABLE",
+        -- Args(player)
+        InviteWhisperReceived = "CLASSICLFG_INVITE_WHISPER_RECEIVED",
     }
 }

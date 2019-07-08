@@ -17,6 +17,7 @@ ClassicLFG.DefaultProfile ={
         BroadcastDungeonGroupChannel = "General",
         ShowAllDungeons = false,
         AutoAcceptInvite = false,
+        InviteKeyword = "inv",
     },
 }
 

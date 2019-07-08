@@ -7,7 +7,7 @@ setmetatable(ClassicLFGDungeonGroupManager, {
     end,
 })
 
-function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, source, members)
+function ClassicLFGDungeonGroupManager.new()
     local self = setmetatable({}, ClassicLFGDungeonGroupManager)
     self.DungeonGroup = nil
     self.Applicants = ClassicLFGLinkedList()
@@ -68,7 +68,14 @@ function ClassicLFGDungeonGroupManager.new(dungeon, leader, title, description, 
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupMemberLeft, self, self.HandleDungeonGroupMemberLeft)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantDeclined, self, self.OnApplicantDeclined)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInviteDeclined, self, self.OnApplicantInviteDeclined)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.InviteWhisperReceived, self, self.HandleInviteWhisperReceived)
     return self
+end
+
+function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(player)
+    if (self:IsListed()) then
+        self:HandleApplications(ClassicLFGPlayer(player))
+    end
 end
 
 function ClassicLFGDungeonGroupManager:OnGroupKicked()
@@ -276,7 +283,7 @@ function ClassicLFGDungeonGroupManager:HandleDungeonGroupLeft(dungeonGroup)
 end
 
 function ClassicLFGDungeonGroupManager:HandleApplications(applicant)
-    if (not ClassicLFG:IsIgnored(applicant.Name)) then
+    if (self:IsListed() and not ClassicLFG:IsIgnored(applicant.Name)) then
         local index = self.Applicants:ContainsWithEqualsFunction(applicant, function(item1, item2)
             return item1.Name == item2.Name
         end)

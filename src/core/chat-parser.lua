@@ -13,6 +13,7 @@ function ClassicLFGChatParser.new()
     self.Frame:RegisterEvent("CHAT_MSG_SAY")
     self.Frame:RegisterEvent("CHAT_MSG_CHANNEL")
     self.Frame:RegisterEvent("CHAT_MSG_YELL")
+    self.Frame:RegisterEvent("CHAT_MSG_WHISPER")
     self.Frame:SetScript("OnEvent", function(_, event, ...)
         if (event == "CHAT_MSG_CHANNEL") then
             local message, player, _, _, _, _, _, _, channelName = ...
@@ -29,6 +30,12 @@ function ClassicLFGChatParser.new()
             self:ParseMessage(player, message, "YELL")
         end
 
+        if (event == "CHAT_MSG_WHISPER") then
+            local message, player = ...
+            if (message:find(ClassicLFG.DB.profile.InviteKeyword) ~= nil) then
+                ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.InviteWhisperReceived, player)
+            end
+        end
     end)
     return self
 end
