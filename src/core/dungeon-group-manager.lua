@@ -58,8 +58,6 @@ function ClassicLFGDungeonGroupManager.new()
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupInviteDeclined, self, self.OnGroupInviteDeclined)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.RequestData, self, self.HandleDataRequest)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplyForGroup, self, self.HandleApplications)
-    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupSyncRequest, self, self.HandleDungeonGroupSyncRequest)
-    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupSyncResponse, self, self.HandleDungeonGroupSyncResponse)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined, self, self.HandleDungeonGroupJoined)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, self, self.HandleDungeonGroupLeft)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupDelisted, self, self.HandleGroupDelisted)
@@ -70,7 +68,15 @@ function ClassicLFGDungeonGroupManager.new()
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantInviteDeclined, self, self.OnApplicantInviteDeclined)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.InviteWhisperReceived, self, self.HandleInviteWhisperReceived)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupInviteAlreadyInGroup, self, self.OnGroupInviteAlreadyInGroup)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.SyncApplicantList, self, self.OnSyncApplicantList)
     return self
+end
+
+function ClassicLFGDungeonGroupManager:OnSyncApplicantList(applicantList)
+    self.Applicants:Clear()
+    for i = 0, applicantList.Size do
+        self:HandleApplications(ClassicLFGList.GetItem(applicantList, i))
+    end
 end
 
 function ClassicLFGDungeonGroupManager:OnGroupInviteAlreadyInGroup(playerName)
@@ -128,6 +134,7 @@ function ClassicLFGDungeonGroupManager:OnGroupMemberJoined(playerName)
         else
             self:ApplicantInviteAccepted(ClassicLFGPlayer(playerName))
         end
+        ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.SyncApplicantList, self.Applicants, "WHISPER", playerName)
     end
 end
 
@@ -211,16 +218,6 @@ function ClassicLFGDungeonGroupManager:HandleDungeonGroupJoined(dungeonGroup)
     self.DungeonGroup = dungeonGroup
     if (UnitIsGroupLeader("player") == true or not IsInGroup()) then
         self:StartBroadcast()
-    end
-end
-
-function ClassicLFGDungeonGroupManager:HandleDungeonGroupSyncRequest(_, sender)
-    if (self.DungeonGroup ~= nil) then
-        ClassicLFG.Network:SendObject(
-            ClassicLFG.Config.Events.DungeonGroupSyncResponse,
-            self.DungeonGroup,
-            "WHISPER",
-            sender)
     end
 end
 
