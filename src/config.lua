@@ -91,6 +91,8 @@ ClassicLFG.Config = {
         -- Args(player)
         InviteWhisperReceived = "CLASSICLFG_INVITE_WHISPER_RECEIVED",
         -- Args(player)
-        GroupInviteAlreadyInGroup = "CLASSICLFG_GROUP_INVITE_ALREADY_IN_GROUP"
+        GroupInviteAlreadyInGroup = "CLASSICLFG_GROUP_INVITE_ALREADY_IN_GROUP",
+         -- Args({ player, talents })
+        PlayerTalents = "CLASSICLFG_TALENT_SYNC",
     }
 }
