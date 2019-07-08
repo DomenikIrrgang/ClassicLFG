@@ -103,7 +103,6 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
 
     self.Frame:RegisterEvent("PARTY_LEADER_CHANGED")
     self.Frame:SetScript("OnEvent", function(_, event, ...)
-        print("Party Leader changed")
         self:PartyLeaderCheck()
     end)
     self.Frame:SetScript("OnEnter", function()

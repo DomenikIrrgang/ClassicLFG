@@ -290,7 +290,6 @@ function ClassicLFGDungeonGroupManager:HandleDungeonGroupLeft(dungeonGroup)
 end
 
 function ClassicLFGDungeonGroupManager:HandleApplications(applicant)
-    print(ClassicLFG:IsInPlayersGroup(applicant.Name))
     if (self:IsListed() and not ClassicLFG:IsInPlayersGroup(applicant.Name) and not ClassicLFG:IsIgnored(applicant.Name)) then
         local index = self.Applicants:ContainsWithEqualsFunction(applicant, function(item1, item2)
             return item1.Name == item2.Name
