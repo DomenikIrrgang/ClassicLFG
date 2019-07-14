@@ -29,6 +29,7 @@ if (L) then
     L["New Applicant: "] = "Neuer Spieler: "
     L[" - Level "] = " - Level "
     L["Invite Keyword"] = "Invite Stichwort"
+    L["Autoinvite"] = "Autoinvite"
 
     -- Classes
     L["Warlock"] = "Hexenmeister"

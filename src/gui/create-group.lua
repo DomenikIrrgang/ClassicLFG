@@ -74,7 +74,7 @@ ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Unknown.Icon:GetTexture():SetTexCoo
     ClassicLFG.Role.UNKNOWN.Offset.Top,
 	ClassicLFG.Role.UNKNOWN.Offset.Bottom)
 	
-ClassicLFG.QueueWindow.CreateGroup.AutoInvite = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.CreateGroup, ClassicLFG.Locale["Auto Accept"])
+ClassicLFG.QueueWindow.CreateGroup.AutoInvite = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.CreateGroup, ClassicLFG.Locale["Autoinvite"])
 ClassicLFG.QueueWindow.CreateGroup.AutoInvite.Frame:SetPoint("TOPRIGHT", ClassicLFG.QueueWindow.CreateGroup.Icon.Texture, "BOTTOMRIGHT", -5, 25)
 ClassicLFG.QueueWindow.CreateGroup.AutoInvite.Frame:SetPoint("BOTTOMLEFT", ClassicLFG.QueueWindow.CreateGroup.Icon.Texture, "BOTTOMLEFT", 250, 5)
 ClassicLFG.QueueWindow.CreateGroup.AutoInvite.OnValueChanged = function(_, value)
