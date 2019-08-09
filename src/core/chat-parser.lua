@@ -67,13 +67,20 @@ function ClassicLFGChatParser:HasLFMTag(text)
 end
 
 function ClassicLFGChatParser:HasDungeonName(message)
-    return ClassicLFG.Dungeon[ClassicLFG:StringContainsTableValue(message, ClassicLFG.DungeonList)]
+    for dungeonName, dungeon in pairs(ClassicLFG.DungeonList) do
+        if (ClassicLFG.Dungeon[ClassicLFG:ArrayContainsValue(message:SplitString(" "), dungeonName)]) then
+            return dungeon
+        end
+    end
+    return nil
 end
 
 function ClassicLFGChatParser:HasDungeonAbbreviation(message)
-    for key in pairs(ClassicLFG.Dungeon) do
-        if (ClassicLFG:StringContainsTableValue(message, ClassicLFG.Dungeon[key].Abbreviations)) then
-            return ClassicLFG.Dungeon[key]
+    for key, dungeon in pairs(ClassicLFG.Dungeon) do
+        for _, abbreviation in pairs(dungeon.Abbreviations) do
+            if (ClassicLFG:ArrayContainsValue(message:SplitString(" "), abbreviation)) then
+                return dungeon
+            end
         end
     end
     return nil
