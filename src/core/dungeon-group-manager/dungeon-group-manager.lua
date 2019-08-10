@@ -79,7 +79,9 @@ function ClassicLFGDungeonGroupManager:OnPlayerTalents(object)
     for i = 0, self.DungeonGroup.Members.Size - 1 do
         if (ClassicLFGLinkedList.GetItem(self.DungeonGroup.Members, i).Name == name) then
             ClassicLFGLinkedList.GetItem(self.DungeonGroup.Members, i).Talents = talents
-            self:UpdateGroup(self.DungeonGroup)
+            if (self.DungeonGroup.Members.Size <= 5) then
+                self:UpdateGroup(self.DungeonGroup)
+            end
         end
     end
 end

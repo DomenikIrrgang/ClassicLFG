@@ -72,11 +72,11 @@ function ClassicLFG:OnInitialize()
 end
 
 function ClassicLFG:MinimapIconClick()
-    if (ClassicLFG.QueueWindow:IsShown() == false) then
-        ClassicLFG.QueueWindow:Show()
-    else
-        ClassicLFG.QueueWindow:Hide()
-    end
+    ClassicLFG.Store:PublishAction(ClassicLFG.Actions.ToggleMainWindow)
+end
+
+function ClassicLFG:Reset()
+    self.Store:SetState(self.InitialState)
 end
 
 function ClassicLFG.MinimapTooltip(tooltip)

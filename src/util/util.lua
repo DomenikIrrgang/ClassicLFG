@@ -75,11 +75,6 @@ function ClassicLFG:IsIgnored(playerName)
     return false
 end
 
-function ClassicLFG:WhoIs(playerName)
-    C_FriendList.SetWhoToUi(true)
-    C_FriendList.SendWho('n-\"' .. playerName .. '\"')
-end
-
 --print(info.fullName, info.fullGuildName, info.level, info.classStr, info.raceStr)
 function ClassicLFG:WhoQuery(query, callback)
     local frame = CreateFrame("frame")
@@ -125,6 +120,17 @@ function ClassicLFG:PlayerIsFriend(playerName)
         end
     end
     return false
+end
+
+function ClassicLFG:MergeTables(table1, table2)
+    local combinedTable = {}
+    for key, value in pairs(table1) do
+        combinedTable[key] = value
+    end
+    for key, value in pairs(table2) do
+        combinedTable[key] = value
+    end
+    return combinedTable
 end
 
 function ClassicLFG:IsBattleNetFriend(playerName)

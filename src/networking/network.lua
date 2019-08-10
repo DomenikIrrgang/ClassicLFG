@@ -25,7 +25,13 @@ function ClassicLFGNetwork.new()
         if (event == "CHAT_MSG_ADDON" or event == "CHAT_MSG_ADDON_LOGGED") then
             self:HandleAddonMessage(...)
         end
-	end)
+    end)
+    ClassicLFG.Store:AddActionReducer(ClassicLFG.Actions.NetworkObjectSend, self, function(self, action, state)
+        return ClassicLFG:MergeTables(state, { NetworkObjectsSend = state.NetworkObjectsSend + 1 })
+    end)
+    ClassicLFG.Store:AddActionReducer(ClassicLFG.Actions.NetworkPackageSend, self, function(self, action, state)
+        return ClassicLFG:MergeTables(state, { NetworkPackagesSend = state.NetworkPackagesSend + 1 })
+    end)
 	return self
 end
 
@@ -51,14 +57,15 @@ function ClassicLFGNetwork:HandleAddonMessage(...)
 end
 
 function ClassicLFGNetwork:SendObject(event, object, channel, target)
-    ClassicLFG:DebugPrint("Network Event Send")
     ClassicLFG:DebugPrint("Event: " .. event .. " Channel: " .. channel)
+    ClassicLFG.Store:PublishAction(ClassicLFG.Actions.NetworkObjectSend)
     self:SendMessage(ClassicLFG.Config.Network.Prefix, self:ObjectToMessage({ Event = event, Payload = object }), channel, target)
 end
 
 function ClassicLFGNetwork:SendMessage(prefix, message, channel, target)
     local messages = self:SplitMessage(message)
     for key in pairs(messages) do
+        ClassicLFG.Store:PublishAction(ClassicLFG.Actions.NetworkPackageSend)
         C_ChatInfo.SendAddonMessage(prefix, messages[key], channel, target)
     end
 end
