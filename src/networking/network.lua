@@ -17,7 +17,6 @@ function ClassicLFGNetwork.new()
 	self.SendingInterval = 20000
     self.LastMessageSend = GetTime()
 	self.NetworkThread:SetScript("OnUpdate", function()
-		--print("Network Thread invoked!")
     end)
     self.NetworkThread:RegisterEvent("CHAT_MSG_ADDON")
     self.NetworkThread:RegisterEvent("CHAT_MSG_ADDON_LOGGED")

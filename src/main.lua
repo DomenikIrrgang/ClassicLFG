@@ -19,6 +19,7 @@ ClassicLFG.DefaultProfile ={
         AutoAcceptInvite = false,
         InviteKeyword = "inv",
         AutoInvite = false,
+        ShowMinimapIcon = true,
     },
 }
 
@@ -60,15 +61,23 @@ function ClassicLFG:OnInitialize()
     local iconPath = ([[Interface\Addons\%s\%s\%s]]):format("ClassicLFG", "textures", "inv_misc_groupneedmore")
     self.LDB = LibStub("LibDataBroker-1.1"):NewDataObject("ClassicLFG_LDB", {
         type = "launcher",
-        text = "TestText",
+        text = "ClassicLFG_LDB",
         icon = iconPath,
         OnClick = self.MinimapIconClick,
-        OnTooltipShow = self.MinimapTooltip
+        OnTooltipShow = self.MinimapTooltip,
     })
     self.MinimapIcon:Register("ClassicLFG_LDB", self.LDB, self.DB.profile.minimap)
     self:RegisterChatCommand("lfg", "MinimapIconClick")
     self:RegisterChatCommand("classiclfg", "MinimapIconClick")
     self:RegisterChatCommand("clfg", "MinimapIconClick")
+end
+
+function ClassicLFG:InitMInimapIcon()
+    if self.DB.profile.minimap.hide then
+		self.MinimapIcon:Hide("ClassicLFG_LDB")
+    else
+		self.MinimapIcon:Show("ClassicLFG_LDB")
+	end
 end
 
 function ClassicLFG:MinimapIconClick()

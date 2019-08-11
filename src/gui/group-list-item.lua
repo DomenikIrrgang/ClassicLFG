@@ -21,20 +21,19 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
 
     self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
     self.Frame:SetBackdropBorderColor(1,1,1,1)
-
     self.Title = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.Title:SetFont(ClassicLFG.Config.Font, 12, "NONE");
     self.Title:SetPoint("TOPLEFT", self.Frame, "TOPLEFT", 5, -5);
     self.Title.OldSetText = self.Title.SetText
     self.Title.SetText = function(title, text)
-        
         if (text:len() > 35) then
             text = text:sub(1, 32)
             text = text .. "..."
         end
-
         self.Title.OldSetText(title, text)
     end
+
+    self.Tooltip = ClassicLFGTooltip(self.Frame)
 
     self.DungeonName = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.DungeonName:SetFont(ClassicLFG.Config.Font, 10, "NONE");
@@ -111,10 +110,15 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
 
     self.Frame:SetScript("OnEnter", function()
         self.Frame:SetBackdropColor(self.MouseOverColor.Red, self.MouseOverColor.Green, self.MouseOverColor.Blue, self.MouseOverColor.Alpha)
+        self.Tooltip:SetText(self.entry.Title)
+        if (self.IsOpen) then
+            self.Tooltip.Frame:Show()
+        end
     end)
 
     self.Frame:SetScript("OnLeave", function()
         self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
+        self.Tooltip.Frame:Hide()
     end)
 
     self.Frame:SetScript("OnMouseDown", function()
@@ -124,11 +128,13 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
             self.QueueButton:Hide()
             self.Description:Hide()
             self.WhisperButton:Hide()
+            self.Tooltip.Frame:Hide()
         else
             self.Frame:SetHeight(95)
             self.IsOpen = true
             self.Description:Show()
             self.WhisperButton:Show()
+            self.Tooltip.Frame:Show()
             if (self.entry.Source.Type == "ADDON") then
                 self.QueueButton:Show()
             end

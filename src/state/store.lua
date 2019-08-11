@@ -28,7 +28,7 @@ function ClassicLFGStore:PublishAction(action, ...)
     end
     if (self.listeners[action]) then
         for _, listener in pairs(self.listeners[action]) do
-            listener.Callback(listener.Object, self.state, ...)
+            listener.Callback(listener.Object, action, self.state, ...)
         end
     end
 end

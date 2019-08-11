@@ -75,7 +75,6 @@ function ClassicLFG:IsIgnored(playerName)
     return false
 end
 
---print(info.fullName, info.fullGuildName, info.level, info.classStr, info.raceStr)
 function ClassicLFG:WhoQuery(query, callback)
     local frame = CreateFrame("frame")
     frame:RegisterEvent("WHO_LIST_UPDATE")

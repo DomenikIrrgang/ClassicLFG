@@ -12,6 +12,7 @@ setmetatable(ClassicLFGQueueDungeonGroupWindow, {
 function ClassicLFGQueueDungeonGroupWindow.new(parent)
     local self = setmetatable({}, ClassicLFGQueueDungeonGroupWindow)
     self.Frame = ClassicLFGWindow("ClassicLFGQueueDungeonFrame", parent, 250, 100)
+    self.Frame.Frame:SetFrameStrata("TOOLTIP")
     self.EditBox = ClassicLFGEditBox(nil, self.Frame.Frame.Content)
     self.EditBox.Frame:SetPoint("TOPLEFT", self.Frame.Frame.Content, "TOPLEFT", 8, -8)
     self.EditBox.Frame:SetPoint("BOTTOMRIGHT", self.Frame.Frame.Content, "TOPRIGHT", -8, -30)

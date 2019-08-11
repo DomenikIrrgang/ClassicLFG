@@ -13,7 +13,7 @@ function CLassicLFGGroupList.new(parent, width, height)
     self.Frame:SetSize(width, height);
     self.Frame:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0);
     self.Entries = {}
-    self:Init(50)
+    self:Init(80)
     return self
 end
 

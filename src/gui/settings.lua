@@ -11,6 +11,7 @@ ClassicLFG.QueueWindow.Settings:SetScript("OnShow", function(self, _, channel)
     ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetText(ClassicLFG.DB.profile.InviteKeyword)
     ClassicLFG.QueueWindow.Settings.ShowAllDungeons:SetState(ClassicLFG.DB.profile.ShowAllDungeons)
     ClassicLFG.QueueWindow.Settings.AutoAcceptInvite:SetState(ClassicLFG.DB.profile.AutoAcceptInvite)
+    ClassicLFG.QueueWindow.Settings.HideMinimapIcon:SetState(ClassicLFG.DB.profile.minimap.hide)
 end)
 
 ClassicLFG.QueueWindow.Settings.Broadcastchannel = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Broadcastchannel"], ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Broadcastchannel"])
@@ -72,4 +73,12 @@ ClassicLFG.QueueWindow.Settings.AutoAcceptInvite.Frame:SetPoint("TOPLEFT", Class
 ClassicLFG.QueueWindow.Settings.AutoAcceptInvite.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame, "BOTTOMRIGHT", 0, -30)
 ClassicLFG.QueueWindow.Settings.AutoAcceptInvite.OnValueChanged = function(_, value)
     ClassicLFG.DB.profile.AutoAcceptInvite = value
+end
+
+ClassicLFG.QueueWindow.Settings.HideMinimapIcon = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Hide Minimap Icon"])
+ClassicLFG.QueueWindow.Settings.HideMinimapIcon.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.AutoAcceptInvite.Frame, "BOTTOMLEFT", 0, -8)
+ClassicLFG.QueueWindow.Settings.HideMinimapIcon.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.AutoAcceptInvite.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.Settings.HideMinimapIcon.OnValueChanged = function(_, value)
+    ClassicLFG.DB.profile.minimap.hide = value
+    ClassicLFG:InitMInimapIcon()
 end
