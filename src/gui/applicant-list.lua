@@ -176,11 +176,11 @@ function ClassicLFGApplicantListItem:SetPlayer(player)
         self.PlayerText:SetPoint("LEFT", self.Frame, "TOPLEFT", 5, -10)
 
         if (ClassicLFG:IsInPlayersGuild(player.Name) == true) then
-            self.Frame:SetBackdropColor(64/255, 251/255, 64/255, 0.5)
+            self.Frame:SetBackdropColor(ClassicLFG.Config.GuildColor)
         elseif (ClassicLFG:PlayerIsFriend(player.Name) == true) then
-            self.Frame:SetBackdropColor(239/255, 244/255, 39/255, 0.5)
+            self.Frame:SetBackdropColor(ClassicLFG.Config.FriendColor)
         elseif (ClassicLFG:IsBattleNetFriend(player.Name) == true) then
-            self.Frame:SetBackdropColor(13/255, 135/255, 202/255, 0.5)
+            self.Frame:SetBackdropColor(ClassicLFG.Config.BattleNetColor)
         else
             self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
         end

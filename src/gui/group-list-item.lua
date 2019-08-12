@@ -11,8 +11,10 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     local self = setmetatable({}, CLassicLFGGroupListItem)
     self.Frame = CreateFrame("Frame", nil, anchor, nil)
     self.IsOpen = false
-    self.BackgroundColor =  { Red = 0.3, Green = 0.3, Blue = 0.3, Alpha = 1 }
-    self.MouseOverColor =  { Red = 0.4, Green = 0.4, Blue = 0.4, Alpha = 1 }
+    self.DefaultBackgroundColor = { Red = 0.3, Green = 0.3, Blue = 0.3, Alpha = 1 }
+    self.DefaultMouserOverColor = { Red = 0.4, Green = 0.4, Blue = 0.4, Alpha = 1 }
+    self.BackgroundColor =  self.DefaultBackgroundColor
+    self.MouseOverColor =  self.DefaultMouserOverColor
     self.Frame:SetPoint("TOPLEFT", anchor, relativeAnchor, 0, -space);
     self.Frame:SetSize(ClassicLFG.QueueWindow.SearchGroup:GetWidth(), 50);
     self.Frame:SetBackdrop({
@@ -215,13 +217,36 @@ function CLassicLFGGroupListItem:SetGroup(entry)
             self.QueueButton:SetDisabled(false)
         end
 
-        if (entry.Source.Type == "ADDON") then
-            self.BackgroundColor.Blue = 0.6
-            self.MouseOverColor.Blue = 0.7
+        if (ClassicLFG:IsInPlayersGuild(entry.Leader.Name) == true) then
+            print("guild")
+            self.BackgroundColor = ClassicLFG.Config.GuildColor
+            self.MouseOverColor = ClassicLFG.Config.GuildColor
+            self.MouseOverColor.Blue = self.MouseOverColor.Blue + 0.1
+        elseif (ClassicLFG:PlayerIsFriend(entry.Leader.Name) == true) then
+            print("friend", entry.Leader.Name)
+            self.BackgroundColor = ClassicLFG.Config.FriendColor
+            self.MouseOverColor = ClassicLFG.Config.FriendColor
+            self.MouseOverColor.Blue = self.MouseOverColor.Blue + 0.1
+        elseif (ClassicLFG:IsBattleNetFriend(entry.Leader.Name) == true) then
+            print("bnet")
+            self.BackgroundColor = ClassicLFG.Config.BattleNetColor
+            self.MouseOverColor = ClassicLFG.Config.BattleNetColor
+            self.MouseOverColor.Blue = self.MouseOverColor.Blue + 0.1
         else
-            self.BackgroundColor.Blue = 0.4
-            self.MouseOverColor.Blue = 0.5
+            print("default")
+            self.BackgroundColor = self.DefaultBackgroundColor
+            self.MouseOverColor = self.DefaultMouserOverColor
+            if (entry.Source.Type == "ADDON") then
+                self.BackgroundColor.Blue = 0.6
+                self.MouseOverColor.Blue = 0.7
+            else
+                self.BackgroundColor.Blue = 0.4
+                self.MouseOverColor.Blue = 0.5
+            end
         end
+        print(ClassicLFG.Config.FriendColor.Red, ClassicLFG.Config.FriendColor.Green, ClassicLFG.Config.FriendColor.Blue, ClassicLFG.Config.FriendColor.Alpha)
+        self.BackgroundColor = { Red = 239/255, Green = 244/255, Blue = 39/255, Alpha = 0.5 }
+        print(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
         self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
     
         if (entry.Source.Type == "CHAT") then

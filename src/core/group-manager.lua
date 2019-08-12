@@ -182,7 +182,7 @@ end
 
 function ClassicLFGGroupManager:Test()
     for i = 1, 15 do
-        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupListed, ClassicLFGDungeonGroup(nil, ClassicLFGPlayer("Leroy" .. i, "NONAME", 60, ClassicLFG.Class.WARRIOR), "LFM HOGGER!", "We have no idea what we are doing", { Type ="ADDON" }))
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupListed, ClassicLFGDungeonGroup(nil, ClassicLFGPlayer("Hydropain", "NONAME", 60, ClassicLFG.Class.WARRIOR), "LFM HOGGER!", "We have no idea what we are doing", { Type ="ADDON" }))
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupListed, ClassicLFGDungeonGroup(nil, ClassicLFGPlayer("Leroy" .. (2 * i), "NONAME", 60, ClassicLFG.Class.WARRIOR), "LFM HOGGER!! 1 TANK 1 HEALER 1 DPS 1 EVERYTHING!", "Lets start our epic journey to get Hogger!", { Type ="CHAT",  Channel = "World"}))        
     end
 end

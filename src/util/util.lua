@@ -112,9 +112,9 @@ function ClassicLFG:IsInPlayersGroup(playerName)
 end
 
 function ClassicLFG:PlayerIsFriend(playerName)
-    for i = 1, GetNumFriends() do
-        local name = GetFriendInfo(i)
-        if (playerName == name) then
+    for i = 1, C_FriendList.GetNumFriends() do
+        local player = C_FriendList.GetFriendInfoByIndex(i)
+        if (playerName == player.name) then
             return true
         end
     end
