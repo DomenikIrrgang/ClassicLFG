@@ -43,6 +43,11 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.EntrySource:SetFont(ClassicLFG.Config.Font, 8, "NONE");
     self.EntrySource:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -5, -5);
 
+    self.Timer = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
+    self.Timer:SetFont(ClassicLFG.Config.Font, 8, "NONE");
+    self.Timer:SetPoint("TOPLEFT", self.DungeonName, "BOTTOMLEFT", 0, -2);
+    self.Timer:Hide()
+
     self.WhisperButton = ClassicLFGButton(ClassicLFG.Locale["Queue"], self.Frame)
     self.WhisperButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -5, 5)
     self.WhisperButton.OnClick = function() 
@@ -50,15 +55,17 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
         ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name .. " " .. ClassicLFG.DB.profile.InviteText)
         ChatFrame1EditBox:SetFocus()
     end
+    
     self.WhisperButton:SetText(ClassicLFG.Locale["Whisper"])
     self.WhisperButton:Hide()
 
     self.QueueButton = ClassicLFGButton(ClassicLFG.Locale["Queue"], self.Frame)
     self.QueueButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -92, 5)
     self.QueueButton.OnClick = function() 
-            ClassicLFG.QueueDungeonGroupWindow.DungeonGroup = self.entry
-            ClassicLFG.QueueDungeonGroupWindow.Frame:Show()
+        ClassicLFG.QueueDungeonGroupWindow.DungeonGroup = self.entry
+        ClassicLFG.QueueDungeonGroupWindow.Frame:Show()
     end
+
     self.QueueButton:SetText(ClassicLFG.Locale["Queue"])
     self.QueueButton:Hide()
 
@@ -129,12 +136,14 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
             self.Description:Hide()
             self.WhisperButton:Hide()
             self.Tooltip.Frame:Hide()
+            self.Timer:Hide()
         else
             self.Frame:SetHeight(95)
             self.IsOpen = true
             self.Description:Show()
             self.WhisperButton:Show()
             self.Tooltip.Frame:Show()
+            self.Timer:Show()
             if (self.entry.Source.Type == "ADDON") then
                 self.QueueButton:Show()
             end
@@ -163,6 +172,16 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
         end
     end)
     self:SetGroup(entry)
+
+    self.Frame:SetScript("OnUpdate", function()
+        if (self.Frame:IsShown()) then
+            local seconds = (math.floor(GetTime() - self.entry.UpdateTime) % 60)
+            if (seconds < 10) then
+                seconds = "0" .. tostring(seconds)
+            end
+            self.Timer:SetText(math.floor((GetTime() - self.entry.UpdateTime) / 60) .. ":" .. seconds)
+        end
+    end)
     return self
 end
 

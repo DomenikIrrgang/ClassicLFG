@@ -178,7 +178,6 @@ ClassicLFG.QueueWindow.CreateGroup.ApplicantList.Frame:SetPoint("BOTTOMRIGHT", C
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdated, ClassicLFG.QueueWindow, function(self, dungeonGroup)
 	if (ClassicLFG.DungeonGroupManager:IsListed() and ClassicLFG.DungeonGroupManager.DungeonGroup.Hash == dungeonGroup.Hash) then
-		ClassicLFG.QueueWindow:DisableTab(1)
 		ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetText(dungeonGroup.Title)
 		ClassicLFG.QueueWindow.CreateGroup.Description.Frame:SetText(dungeonGroup.Description)
 		ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(dungeonGroup.Dungeon.Name)
@@ -192,7 +191,6 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdate
 end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined, ClassicLFG.QueueWindow, function(self, dungeonGroup)
-	ClassicLFG.QueueWindow:DisableTab(1)
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.Frame, "BOTTOM", -5, -30)
 	ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
 	ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetText(dungeonGroup.Title)
@@ -215,7 +213,6 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined
 end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, ClassicLFG.QueueWindow, function(self, dungeonGroup)
-	ClassicLFG.QueueWindow:EnableTab(1)
 	ClassicLFG.QueueWindow.CreateGroup.DequeueButton:Hide()
 	ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Dps.Text:SetText("0")
     ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Tank.Text:SetText("0")

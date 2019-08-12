@@ -51,7 +51,13 @@ end)
 ---------------------------------
 
 local function ScrollFrame_OnMouseWheel(self, delta)
-	local newValue = self:GetVerticalScroll() - (delta * 20);
+    local newValue = self:GetVerticalScroll() - (delta * 20);
+    
+    if (self:GetVerticalScrollRange() > 0) then
+        self.ScrollBar:Show()
+    else 
+        self.ScrollBar:Hide()
+    end
 	
 	if (newValue < 0) then
 		newValue = 0;
@@ -81,6 +87,7 @@ ClassicLFG.QueueWindow.SearchGroup.ScrollFrame.ScrollBar.ThumbTexture:SetColorTe
     ClassicLFG.Config.PrimaryColor.Blue,
     ClassicLFG.Config.PrimaryColor.Alpha
 )
+ClassicLFG.QueueWindow.SearchGroup.ScrollFrame.ScrollBar:Hide()
 
 ClassicLFG.QueueWindow.SearchGroup.ScrollFrame.Child = CreateFrame("Frame", nil, ClassicLFG.QueueWindow.SearchGroup.ScrollFrame);
 ClassicLFG.QueueWindow.SearchGroup.ScrollFrame.Child:SetSize(ClassicLFG.QueueWindow.SearchGroup:GetWidth(), 20);
