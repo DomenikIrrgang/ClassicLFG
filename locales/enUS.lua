@@ -29,6 +29,7 @@ L["New Applicant: "] = "New Applicant: "
 L[" - Level "] = " - Level "
 L["Invite Keyword"] = "Invite Keyword"
 L["Autoinvite"] = "Autoinvite"
+L["Hide Minimap Icon"] = "Hide Minimap Icon"
 
 -- Classes
 L["Warlock"] = "Warlock"

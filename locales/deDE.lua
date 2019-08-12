@@ -30,6 +30,7 @@ if (L) then
     L[" - Level "] = " - Level "
     L["Invite Keyword"] = "Invite Stichwort"
     L["Autoinvite"] = "Autoinvite"
+    L["Hide Minimap Icon"] = "Minimap Icon verstecken"
 
     -- Classes
     L["Warlock"] = "Hexenmeister"
