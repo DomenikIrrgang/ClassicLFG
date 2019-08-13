@@ -218,22 +218,20 @@ function CLassicLFGGroupListItem:SetGroup(entry)
         end
 
         if (ClassicLFG:IsInPlayersGuild(entry.Leader.Name) == true) then
-            print("guild")
-            self.BackgroundColor = ClassicLFG.Config.GuildColor
-            self.MouseOverColor = ClassicLFG.Config.GuildColor
-            self.MouseOverColor.Blue = self.MouseOverColor.Blue + 0.1
+            self.BackgroundColor = ClassicLFG:DeepCopy(ClassicLFG.Config.GuildColor)
+            self.MouseOverColor = ClassicLFG:DeepCopy(ClassicLFG.Config.GuildColor)
+            self.MouseOverColor.Blue = self.MouseOverColor.Blue + 0.2
+            self.MouseOverColor.Red = self.MouseOverColor.Red + 0.2
         elseif (ClassicLFG:PlayerIsFriend(entry.Leader.Name) == true) then
-            print("friend", entry.Leader.Name)
-            self.BackgroundColor = ClassicLFG.Config.FriendColor
-            self.MouseOverColor = ClassicLFG.Config.FriendColor
-            self.MouseOverColor.Blue = self.MouseOverColor.Blue + 0.1
+            self.BackgroundColor =  ClassicLFG:DeepCopy(ClassicLFG.Config.FriendColor)
+            self.MouseOverColor = ClassicLFG:DeepCopy(ClassicLFG.Config.FriendColor)
+            self.MouseOverColor.Green = 1
         elseif (ClassicLFG:IsBattleNetFriend(entry.Leader.Name) == true) then
-            print("bnet")
-            self.BackgroundColor = ClassicLFG.Config.BattleNetColor
-            self.MouseOverColor = ClassicLFG.Config.BattleNetColor
-            self.MouseOverColor.Blue = self.MouseOverColor.Blue + 0.1
+            self.BackgroundColor =  ClassicLFG:DeepCopy(ClassicLFG.Config.BattleNetColor)
+            self.MouseOverColor = ClassicLFG:DeepCopy(ClassicLFG.Config.BattleNetColor)
+            self.MouseOverColor.Blue = self.MouseOverColor.Blue + 0.2
+            self.MouseOverColor.Red = self.MouseOverColor.Red + 0.2
         else
-            print("default")
             self.BackgroundColor = self.DefaultBackgroundColor
             self.MouseOverColor = self.DefaultMouserOverColor
             if (entry.Source.Type == "ADDON") then
@@ -244,9 +242,6 @@ function CLassicLFGGroupListItem:SetGroup(entry)
                 self.MouseOverColor.Blue = 0.5
             end
         end
-        print(ClassicLFG.Config.FriendColor.Red, ClassicLFG.Config.FriendColor.Green, ClassicLFG.Config.FriendColor.Blue, ClassicLFG.Config.FriendColor.Alpha)
-        self.BackgroundColor = { Red = 239/255, Green = 244/255, Blue = 39/255, Alpha = 0.5 }
-        print(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
         self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
     
         if (entry.Source.Type == "CHAT") then

@@ -35,6 +35,7 @@ function CLassicLFGGroupList:Init(count)
 end
 
 function CLassicLFGGroupList:SetDungeonGroups(dungeonGroups)
+    self:SortGroupByFriendsAndGuild(dungeonGroups)
     for i=1, #dungeonGroups do
         self.Entries[i]:SetGroup(dungeonGroups[i])
         self.Entries[i].Frame:Show()
@@ -43,4 +44,16 @@ function CLassicLFGGroupList:SetDungeonGroups(dungeonGroups)
     for i=#dungeonGroups + 1, #self.Entries do
         self.Entries[i].Frame:Hide()
     end
+end
+
+function CLassicLFGGroupList:SortGroupByFriendsAndGuild(dungeonGroups)
+    table.sort(dungeonGroups, function(item1, item2)
+        if (ClassicLFG:IsInPlayersGuild(item1.Leader.Name) == true and not ClassicLFG:IsInPlayersGuild(item2.Leader.Name) ) then
+            return true
+        end
+        if (ClassicLFG:PlayerIsFriend(item1.Leader.Name) == true and not ClassicLFG:PlayerIsFriend(item2.Leader.Name) == true) then
+            return true
+        end
+        return false
+    end)
 end
