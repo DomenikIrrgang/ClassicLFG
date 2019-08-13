@@ -17,6 +17,7 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.MouseOverColor =  self.DefaultMouserOverColor
     self.Frame:SetPoint("TOPLEFT", anchor, relativeAnchor, 0, -space);
     self.Frame:SetSize(ClassicLFG.QueueWindow.SearchGroup:GetWidth(), 50);
+    self.TitleBackground = CreateFrame("Frame", nil, self.Frame, nil)
     self.Frame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8
     })
@@ -31,8 +32,13 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
         if (text:len() > 35) then
             text = text:sub(1, 32)
             text = text .. "..."
+            self.Title.Truncated = true
+        else
+            self.Title.Truncated = false
         end
         self.Title.OldSetText(title, text)
+        self.TitleBackground:SetPoint("TOPLEFT", self.Title, "TOPLEFT")
+        self.TitleBackground:SetPoint("BOTTOMRIGHT", self.Title, "BOTTOMRIGHT")
     end
 
     self.Tooltip = ClassicLFGTooltip(self.Frame)
@@ -120,13 +126,19 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.Frame:SetScript("OnEnter", function()
         self.Frame:SetBackdropColor(self.MouseOverColor.Red, self.MouseOverColor.Green, self.MouseOverColor.Blue, self.MouseOverColor.Alpha)
         self.Tooltip:SetText(self.entry.Title)
-        if (self.IsOpen) then
-            self.Tooltip.Frame:Show()
-        end
     end)
 
     self.Frame:SetScript("OnLeave", function()
         self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
+    end)
+
+    self.TitleBackground:SetScript("OnEnter", function()
+        if (self.Title.Truncated) then
+            self.Tooltip.Frame:Show()
+        end
+    end)
+
+    self.TitleBackground:SetScript("OnLeave", function()
         self.Tooltip.Frame:Hide()
     end)
 
@@ -137,14 +149,12 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
             self.QueueButton:Hide()
             self.Description:Hide()
             self.WhisperButton:Hide()
-            self.Tooltip.Frame:Hide()
             self.Timer:Hide()
         else
             self.Frame:SetHeight(95)
             self.IsOpen = true
             self.Description:Show()
             self.WhisperButton:Show()
-            self.Tooltip.Frame:Show()
             self.Timer:Show()
             if (self.entry.Source.Type == "ADDON") then
                 self.QueueButton:Show()
