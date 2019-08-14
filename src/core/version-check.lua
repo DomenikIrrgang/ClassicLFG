@@ -25,6 +25,9 @@ function ClassicLFGVersionCheck:CompareVersions(version1, version2)
     if (version1 ~= version2) then
         version1 = version1:SplitString(".")
         version2 = version2:SplitString(".")
+        if (#version1 ~= 3 or #version2 ~= 3) then
+          return 0
+        end
         if (tonumber(version1[1]) == tonumber(version2[1])) then
             if (tonumber(version1[2]) == tonumber(version2[2])) then
                 if (tonumber(version1[3]) < tonumber(version2[3])) then
