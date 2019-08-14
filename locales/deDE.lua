@@ -31,6 +31,18 @@ if (L) then
     L["Invite Keyword"] = "Invite Stichwort"
     L["Autoinvite"] = "Autoinvite"
     L["Hide Minimap Icon"] = "Minimap Icon verstecken"
+    L["RolesArray"] = {
+        "tank",
+        "dd",
+        "dds",
+        "heal",
+        "healer",
+        "heiler",
+        "schadensverursacher",
+        "damagedealer"
+    }
+    L["Looking"] = "suchen"
+    L["group"] = "gruppe"
 
     -- Classes
     L["Warlock"] = "Hexenmeister"

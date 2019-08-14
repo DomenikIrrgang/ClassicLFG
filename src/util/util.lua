@@ -141,3 +141,12 @@ function ClassicLFG:IsBattleNetFriend(playerName)
     end
     return false
 end
+
+function ClassicLFG:ArrayContainsArrayValue(array1, array2)
+    for _, value in pairs(array2) do
+        if (self:ArrayContainsValue(array1, value)) then
+            return true
+        end
+    end
+    return false
+end

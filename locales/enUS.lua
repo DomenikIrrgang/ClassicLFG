@@ -30,6 +30,15 @@ L[" - Level "] = " - Level "
 L["Invite Keyword"] = "Invite Keyword"
 L["Autoinvite"] = "Autoinvite"
 L["Hide Minimap Icon"] = "Hide Minimap Icon"
+L["RolesArray"] = {
+    "tank",
+    "dps",
+    "heal",
+    "healer",
+    "damagedealer"
+}
+L["looking"] = "looking"
+L["group"] = "group"
 
 -- Classes
 L["Warlock"] = "Warlock"
