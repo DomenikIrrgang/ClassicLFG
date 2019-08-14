@@ -46,6 +46,7 @@ end
 
 function ClassicLFGChatParser:ParseMessage(sender, message, channel)
     local lowerMessage = string.lower(message)
+    self:HasRoleName(lowerMessage)
     local dungeon = self:HasDungeonName(lowerMessage) or self:HasDungeonAbbreviation(lowerMessage)
     if (not self:HasIgnoreMessageTag(lowerMessage)) then
         if (self:HasLFMTag(lowerMessage) and dungeon ~= nil) then
@@ -84,6 +85,11 @@ function ClassicLFGChatParser:HasDungeonAbbreviation(message)
         end
     end
     return nil
+end
+
+function ClassicLFGChatParser:HasRoleName(message)
+    local words = message:SplitString(" ")
+    return ClassicLFG:ArrayContainsValue(words, "")
 end
 
 ClassicLFG.ChatParser = ClassicLFGChatParser()
