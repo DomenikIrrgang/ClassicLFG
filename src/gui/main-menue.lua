@@ -18,17 +18,15 @@ ClassicLFG.QueueWindow.SearchGroup, ClassicLFG.QueueWindow.CreateGroup, ClassicL
 ---------------------------------
 
 ClassicLFG.Store:AddActionReducer(ClassicLFG.Actions.ToggleMainWindow, ClassicLFG.QueueDungeonGroupWindow, function(self, action, state)
-    if (ClassicLFG.QueueWindow:IsShown() == false) then
-        return ClassicLFG:MergeTables(state, { MainWindowOpen = true })
-    else
-        return ClassicLFG:MergeTables(state, { MainWindowOpen = false })
-    end
+    return ClassicLFG:MergeTables(state, { MainWindowOpen = not ClassicLFG.QueueWindow:IsShown() })
 end)
 
 ClassicLFG.Store:AddListener(ClassicLFG.Actions.ToggleMainWindow, ClassicLFG.QueueDungeonGroupWindow, function(self, action, state)
-    if (state.MainWindowOpen) then
-        ClassicLFG.QueueWindow:Show()
-    else
-        ClassicLFG.QueueWindow:Hide()
+    if (ClassicLFG.Initialized == true) then
+        if (state.MainWindowOpen == true) then
+            ClassicLFG.QueueWindow:Show()
+        else
+            ClassicLFG.QueueWindow:Hide()
+        end
     end
 end)

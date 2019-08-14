@@ -9,7 +9,6 @@ ClassicLFG.QueueWindow.Settings:SetScript("OnShow", function(self, _, channel)
     ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame:SetValue(ClassicLFG.DB.profile.BroadcastDungeonGroupInterval)	
     ClassicLFG.QueueWindow.Settings.Invitemessage.Frame:SetText(ClassicLFG.DB.profile.InviteText)
     ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetText(ClassicLFG.DB.profile.InviteKeyword)
-    ClassicLFG.QueueWindow.Settings.ShowAllDungeons:SetState(ClassicLFG.DB.profile.ShowAllDungeons)
     ClassicLFG.QueueWindow.Settings.AutoAcceptInvite:SetState(ClassicLFG.DB.profile.AutoAcceptInvite)
     ClassicLFG.QueueWindow.Settings.HideMinimapIcon:SetState(ClassicLFG.DB.profile.minimap.hide)
 end)
@@ -63,10 +62,20 @@ end
 ClassicLFG.QueueWindow.Settings.ShowAllDungeons = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Always show all dungeons"])
 ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame, "BOTTOMLEFT", 0, -8)
 ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame, "BOTTOMRIGHT", 0, -30)
+
 ClassicLFG.QueueWindow.Settings.ShowAllDungeons.OnValueChanged = function(_, value)
-    ClassicLFG.DB.profile.ShowAllDungeons = value
-    ClassicLFG.QueueWindow.SearchGroup.Filter:InitFilterValues()
+    ClassicLFG.Store:PublishAction(ClassicLFG.Actions.ToggleShowAllDungeons, value)
 end
+
+ClassicLFG.Store:AddListener(ClassicLFG.Actions.ToggleShowAllDungeons, ClassicLFG.QueueWindow.Settings.ShowAllDungeons, function(self, action, state, value)
+    if (state.Db.profile.ShowAllDungeons == true) then
+        self:Select()
+        self.Selected = true
+    else
+        self:Deselect()
+        self.Selected = false
+    end
+end)
 
 ClassicLFG.QueueWindow.Settings.AutoAcceptInvite = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Autoaccept invites of parties you applied to"])
 ClassicLFG.QueueWindow.Settings.AutoAcceptInvite.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame, "BOTTOMLEFT", 0, -8)

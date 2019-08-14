@@ -3,5 +3,6 @@ ClassicLFG.Actions = {
     NetworkObjectSend = "NetworkObjectSend",
     NetworkPackageSend = "NetworkPackageSend",
     QueueDungeonGroup = "QueueDungeonGroup",
-    DequeueDungeonGroup = "DequeueDungeonGroup"
+    DequeueDungeonGroup = "DequeueDungeonGroup",
+    ToggleShowAllDungeons = "ToggleShowAllDungeons"
 }
