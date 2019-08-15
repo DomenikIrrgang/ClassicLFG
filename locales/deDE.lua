@@ -7,7 +7,7 @@ if (L) then
     L["Description"] = "Beschreibung"
     L["List Group"] = "Gruppe anmelden"
     L["Delist Group"] = "Gruppe abmelden"
-    L["Update Data"] = "Daten speichern"
+    L["Update Data"] = "Daten aktualisieren"
     L["Select Broadcastchannel"] = "Übertragunskanal auswählen"
     L["Broadcastchannel"] = "Übertragungskanal"
     L["Broadcastinterval"] = "Übertragunsinterval"
@@ -117,6 +117,5 @@ if (L) then
     L["You leave the group."] = "Ihr verlassst die Gruppe."
     L["You have been removed from the group."] = "Ihr wurdet aus der Gruppe entfernt."
     L[" has invited you to join a group."] = " hat Euch in eine Gruppe eingeladen."
-    -- TODO: TRANSLATE PROPERLY!
-    L[" is already in a group."] = " ist bereits in einer Gruppe."
+    L[" is already in a group."] = " gehört bereits zu einer Gruppe."
 end

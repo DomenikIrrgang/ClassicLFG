@@ -180,7 +180,7 @@ function ClassicLFGDungeonGroupManager:GetBroadcastMessage()
     if (self.DungeonGroup.Dungeon.Name == ClassicLFG.Dungeon.Custom.Name) then
         return self.DungeonGroup.Title
     else 
-        return "LFM \"" .. self.DungeonGroup.Dungeon.Name .. "\": " .. self.DungeonGroup.Title
+        return "LFM \"" .. ClassicLFG.Locale[self.DungeonGroup.Dungeon.Name] .. "\": " .. self.DungeonGroup.Title
     end    
 end
 
