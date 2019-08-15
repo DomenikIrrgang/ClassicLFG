@@ -3,6 +3,8 @@
     <Script file="event-bus.lua"/>
     <Script file="dungeon-group.lua"/>
     <Script file="dungeon-group.lua"/>
+    <Script file="dungeon-manager.lua"/>
+    <Include file="player-manager\player-manager.xml"/>
     <Include file="dungeon-group-manager\dungeon-group-manager.xml"/>
     <Script file="group-manager.lua"/>
     <Script file="chat-parser.lua"/>

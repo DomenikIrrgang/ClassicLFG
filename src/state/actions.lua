@@ -4,5 +4,6 @@ ClassicLFG.Actions = {
     NetworkPackageSend = "NetworkPackageSend",
     QueueDungeonGroup = "QueueDungeonGroup",
     DequeueDungeonGroup = "DequeueDungeonGroup",
-    ToggleShowAllDungeons = "ToggleShowAllDungeons"
+    ToggleShowAllDungeons = "ToggleShowAllDungeons",
+    ChangePlayerLevel = "ChangePlayerLevel"
 }

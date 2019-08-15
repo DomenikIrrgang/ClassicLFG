@@ -7,7 +7,7 @@ ClassicLFG.QueueWindow.CreateGroup:SetScript("OnShow", function(self, _, channel
 end)
 
 function ClassicLFG.QueueWindow.CreateGroup:DataEntered()
-	if (ClassicLFG.Dungeon[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()] ~= nil and
+	if (ClassicLFG.DungeonManager.Dungeons[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()] ~= nil and
 	ClassicLFG.QueueWindow.CreateGroup.Title.Frame:GetText() ~= "" and
     ClassicLFG.QueueWindow.CreateGroup.Description.Frame:GetText() ~= "") then
 		ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(false)
@@ -91,9 +91,9 @@ ClassicLFG.QueueWindow.CreateGroup.Title.OnTextChanged = ClassicLFG.QueueWindow.
 ClassicLFG.QueueWindow.CreateGroup.Dungeon = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Dungeon"], ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.Dungeon.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Title.Frame, "BOTTOMLEFT", 0, -8);
 ClassicLFG.QueueWindow.CreateGroup.Dungeon.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Title.Frame, "BOTTOMRIGHT", 0, -30)
-ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetItems(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
+ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetItems(ClassicLFG.DungeonManager:GetAvailableDungeons())
 ClassicLFG.QueueWindow.CreateGroup.Dungeon.OnValueChanged = function(value)
-    ClassicLFG.QueueWindow.CreateGroup.Icon.Texture:SetTexture(ClassicLFG.Dungeon[value].Background)
+    ClassicLFG.QueueWindow.CreateGroup.Icon.Texture:SetTexture(ClassicLFG.DungeonManager.Dungeons[value].Background)
     ClassicLFG.QueueWindow.CreateGroup.DataEntered()
 end
 
@@ -110,7 +110,7 @@ ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLF
 ClassicLFG.QueueWindow.CreateGroup.QueueButton.OnClick = function(self)
 	if (ClassicLFG.DungeonGroupManager:IsListed()) then
 		ClassicLFG.DungeonGroupManager:UpdateGroup(ClassicLFGDungeonGroup(
-			ClassicLFG.Dungeon[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()],
+			ClassicLFG.DungeonManager.Dungeons[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()],
 			ClassicLFGPlayer(),
 			ClassicLFG.QueueWindow.CreateGroup.Title.Frame:GetText(),
 			ClassicLFG.QueueWindow.CreateGroup.Description.Frame:GetText()
@@ -118,7 +118,7 @@ ClassicLFG.QueueWindow.CreateGroup.QueueButton.OnClick = function(self)
 	else
 		ClassicLFG.DungeonGroupManager:ListGroup(ClassicLFG.DungeonGroupManager:InitGroup(
 			ClassicLFG.QueueWindow.CreateGroup.Title.Frame:GetText(),
-			ClassicLFG.Dungeon[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()],
+			ClassicLFG.DungeonManager.Dungeons[ClassicLFG.QueueWindow.CreateGroup.Dungeon:GetValue()],
 			ClassicLFG.QueueWindow.CreateGroup.Description.Frame:GetText()
 		))
 	end
@@ -266,4 +266,8 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, 
 	ClassicLFG.QueueWindow.CreateGroup.AutoInvite.Frame:Show()
     --ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(ClassicLFG.Locale["Select Dungeon"])
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.Frame, "BOTTOMRIGHT", 0, -30)
+end)
+
+ClassicLFG.Store:AddListener(ClassicLFG.Actions.ChangePlayerLevel, ClassicLFG.QueueWindow.CreateGroup.Dungeon, function(self, action, state)
+    self:SetItems(ClassicLFG.DungeonManager:GetDungeonsByLevel(state.Player.Level))
 end)

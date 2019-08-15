@@ -71,7 +71,8 @@ function ClassicLFG:OnInitialize()
     self:RegisterChatCommand("classiclfg", "MinimapIconClick")
     self:RegisterChatCommand("clfg", "MinimapIconClick")
     self.InitialState.Db = self.DB
-    self.Store:SetState(self.InitialState)
+    self.Store:SetState(self:DeepCopy(self.InitialState))
+    self.Store:GetState().Db = self.DB
     self.Initialized = true
 end
 

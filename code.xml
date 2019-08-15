@@ -3,5 +3,6 @@
     <Include file="src\state\state.xml"/>
     <Include file="src\networking\networking.xml"/>
     <Include file="src\core\core.xml"/>
+    <Include file="src\data\data.xml"/>
     <Include file="src\gui\gui.xml"/>
 </Ui>

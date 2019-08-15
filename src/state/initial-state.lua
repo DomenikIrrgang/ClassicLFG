@@ -5,4 +5,7 @@ ClassicLFG.InitialState = {
     DungeonGroupQueued = false,
     DungeonGroup = nil,
     Db = nil,
+    Player = {
+        Level = UnitLevel("player")
+    }
 }

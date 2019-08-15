@@ -56,8 +56,8 @@ function ClassicLFGChatParser:ParseMessage(sender, message, channel)
         end
 
         if (self:HasLFMTag(lowerMessage) and dungeon == nil) then
-            local dungeonGroup = ClassicLFGDungeonGroup(ClassicLFG.Dungeon["Custom"], ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
-            ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. ClassicLFG.Dungeon["Custom"].Name .. ")")
+            local dungeonGroup = ClassicLFGDungeonGroup(ClassicLFG.DungeonManager.Dungeons["Custom"], ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
+            ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. ClassicLFG.DungeonManager.Dungeons["Custom"].Name .. ")")
             ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ChatDungeonGroupFound, dungeonGroup)
         end
     end
@@ -68,8 +68,8 @@ function ClassicLFGChatParser:HasLFMTag(text)
 end
 
 function ClassicLFGChatParser:HasDungeonName(message)
-    for dungeonName, dungeon in pairs(ClassicLFG.DungeonList) do
-        if (ClassicLFG.Dungeon[ClassicLFG:ArrayContainsValue(message:SplitString(" "), dungeonName)]) then
+    for dungeonName, dungeon in pairs(ClassicLFG.DungeonManager:GetAllDungeons()) do
+        if (ClassicLFG.DungeonManager.Dungeons[ClassicLFG:ArrayContainsValue(message:SplitString(" "), dungeonName)]) then
             return dungeon
         end
     end
@@ -77,7 +77,7 @@ function ClassicLFGChatParser:HasDungeonName(message)
 end
 
 function ClassicLFGChatParser:HasDungeonAbbreviation(message)
-    for key, dungeon in pairs(ClassicLFG.Dungeon) do
+    for key, dungeon in pairs(ClassicLFG.DungeonManager.Dungeons) do
         for _, abbreviation in pairs(dungeon.Abbreviations) do
             if (ClassicLFG:ArrayContainsValue(message:SplitString(" "), abbreviation)) then
                 return dungeon

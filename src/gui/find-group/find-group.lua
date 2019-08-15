@@ -11,13 +11,21 @@ ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons = ClassicLFGLinkedLis
 ClassicLFG.Store:AddListener(ClassicLFG.Actions.ToggleShowAllDungeons, ClassicLFG.QueueWindow.SearchGroup.Filter, function(self, action, state)
     self.SelectedDungeons = ClassicLFGLinkedList()
     self:Reset()
-    if (state.Db.profile.ShowAllDungeons) then
-        self:SetItems(ClassicLFG:GetAllDungeonNames())
-    else
-        self:SetItems(ClassicLFG:GetDungeonsByLevel(UnitLevel("player")))
-    end
+    self:UpdateDungeons()
 	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))
 end)
+
+ClassicLFG.Store:AddListener(ClassicLFG.Actions.ChangePlayerLevel, ClassicLFG.QueueWindow.SearchGroup.Filter, function(self, action, state)
+    self:UpdateDungeons()
+end)
+
+function ClassicLFG.QueueWindow.SearchGroup.Filter:UpdateDungeons()
+    if (ClassicLFG.Store:GetState().Db.profile.ShowAllDungeons) then
+        self:SetItems(ClassicLFG.DungeonManager:GetAllDungeonNames())
+    else
+        self:SetItems(ClassicLFG.DungeonManager:GetDungeonsByLevel((ClassicLFG.Store:GetState().Player.Level)))
+    end
+end
 
 ClassicLFG.QueueWindow.SearchGroup.Filter.OnValueChanged = function(key, checked, value)
     local index = ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:Contains(value)
