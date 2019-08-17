@@ -93,7 +93,7 @@ L["Stratholme"] = "Стратхольм"
 L["Scholomance"] = "Шоломанс"
 L["Molten Core"] = "Огненные недра"
 L["Onyxia's Lair"] = "Логово Ониксии"
-L["Custom"] = "Выбранные"
+L["Custom"] = "разное"
 
 -- SYSTEM MESSAGES (NEED TO BE ACCURATE!!)
 L[" declines your group invitation."] = " отклоняет приглашение в группу."
