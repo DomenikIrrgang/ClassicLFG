@@ -23,13 +23,14 @@ function ClassicLFGDungeonManager:GetAvailableDungeons()
     return self:GetDungeonsByLevel(UnitLevel("player"))
 end
 
-function ClassicLFGDungeonManager:DefineDungeon(name, size, minLevel, maxLevel, location, abbreviations, faction, background)
+function ClassicLFGDungeonManager:DefineDungeon(name, size, minLevel, maxLevel, location, abbreviation, abbreviations, faction, background)
     self.Dungeons[name] = {
         Name = name,
         MinLevel = minLevel,
         MaxLevel = maxLevel,
         Location = location,
         Faction = faction,
+        Abbreviation = abbreviation,
         Abbreviations = abbreviations,
         Background = background,
         Size = size
