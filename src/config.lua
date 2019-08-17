@@ -100,3 +100,19 @@ ClassicLFG.Config = {
         PlayerTalents = "CLASSICLFG_TALENT_SYNC",
     }
 }
+
+if (GetLocale() == "ruRU") then
+    ClassicLFG.Config.Font = "Fonts\\FRIZQT___CYR.TTF"
+end
+
+if (GetLocale() == "koKR") then
+    ClassicLFG.Config.Font  = "Fonts\\2002.TTF"
+end
+
+if (GetLocale() == "zhCN") then
+    ClassicLFG.Config.Font  = "Fonts\\ARKai_T.ttf"
+end
+
+if (GetLocale() == "zhTW") then
+    ClassicLFG.Config.Font  = "Fonts\\blei00d.TTF"
+end
