@@ -84,7 +84,7 @@ end
 ClassicLFG.QueueWindow.CreateGroup.Title = ClassicLFGEditBox(nil, ClassicLFG.QueueWindow.CreateGroup)
 ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Icon.Texture, "BOTTOMLEFT", 0, -5);
 ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Icon.Texture, "BOTTOMRIGHT", 0, -27)
-ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetMaxLetters(25)
+ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetMaxLetters(75)
 ClassicLFG.QueueWindow.CreateGroup.Title:SetPlaceholder(ClassicLFG.Locale["Title"])
 ClassicLFG.QueueWindow.CreateGroup.Title.OnTextChanged = ClassicLFG.QueueWindow.CreateGroup.DataEntered
 
