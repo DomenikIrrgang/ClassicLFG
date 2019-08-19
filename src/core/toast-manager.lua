@@ -41,10 +41,12 @@ function ClassicLFGToastManager:OnApplicationDeclined(dungeonGroup)
 end
 
 function ClassicLFGToastManager:ShowToast(title, message, duration)
-    if (#self.ToastQueue == 0) then
-        self.Toast:Show(title, message, duration)
+    if (ClassicLFG.Store:GetState().Db.profile.Toast.Enabled == true) then
+        if (#self.ToastQueue == 0) then
+            self.Toast:Show(title, message, duration)
+        end
+        table.insert(self.ToastQueue, { Title = title, Message = message, Duration = duration })
     end
-    table.insert(self.ToastQueue, { Title = title, Message = message, Duration = duration })
 end
 
 function ClassicLFGToastManager:SetMovable(movable)

@@ -22,6 +22,7 @@ ClassicLFG.DefaultProfile ={
         ShowMinimapIcon = true,
         BroadcastDungeonGroup = true,
         Toast = {
+            Enabled = true,
             X = GetScreenWidth() / 2 - 260 / 2,
             Y = (GetScreenHeight() / 4) * -1,
         }

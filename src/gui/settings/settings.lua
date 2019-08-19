@@ -11,6 +11,7 @@ ClassicLFG.QueueWindow.Settings:SetScript("OnShow", function(self, _, channel)
     ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetText(ClassicLFG.DB.profile.InviteKeyword)
     ClassicLFG.QueueWindow.Settings.AutoAcceptInvite:SetState(ClassicLFG.DB.profile.AutoAcceptInvite)
     ClassicLFG.QueueWindow.Settings.HideMinimapIcon:SetState(ClassicLFG.DB.profile.minimap.hide)
+    ClassicLFG.QueueWindow.Settings.EnableToasts:SetState(ClassicLFG.DB.profile.Toast.Enabled)
 end)
 
 ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Broadcast dungeon group in chat"])
@@ -110,9 +111,16 @@ ClassicLFG.QueueWindow.Settings.HideMinimapIcon.OnValueChanged = function(_, val
     ClassicLFG:InitMInimapIcon()
 end
 
-ClassicLFG.QueueWindow.Settings.QueueButton = ClassicLFGButton(ClassicLFG.Locale["Toggle Toast"], ClassicLFG.QueueWindow.Settings)
-ClassicLFG.QueueWindow.Settings.QueueButton:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.HideMinimapIcon.Frame, "BOTTOMLEFT", 0, -8);
-ClassicLFG.QueueWindow.Settings.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.HideMinimapIcon.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.Settings.EnableToasts = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Show Notifications"])
+ClassicLFG.QueueWindow.Settings.EnableToasts.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.HideMinimapIcon.Frame, "BOTTOMLEFT", 0, -8)
+ClassicLFG.QueueWindow.Settings.EnableToasts.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.HideMinimapIcon.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.Settings.EnableToasts.OnValueChanged = function(_, value)
+    ClassicLFG.DB.profile.Toast.Enabled = value
+end
+
+ClassicLFG.QueueWindow.Settings.QueueButton = ClassicLFGButton(ClassicLFG.Locale["Toggle Notifications"], ClassicLFG.QueueWindow.Settings)
+ClassicLFG.QueueWindow.Settings.QueueButton:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.EnableToasts.Frame, "BOTTOMLEFT", 0, -8);
+ClassicLFG.QueueWindow.Settings.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.EnableToasts.Frame, "BOTTOMRIGHT", 0, -30)
 ClassicLFG.QueueWindow.Settings.QueueButton.OnClick = function()
     ClassicLFG.ToastManager:SetMovable(not ClassicLFG.ToastManager.Movable)
 end

@@ -46,6 +46,8 @@ L["Joined group for "] = "Joined group for "
 L["You have been declined by the group: \""] = "You have been declined by the group: \""
 L["Dungeon group left!"] = "Dungeon group left!"
 L["Left group for "] = "Left group for "
+L["Show Notifications"] = "Show Notifications"
+L["Toggle Notifications"] = "Toggle Notifications"
 
 -- Classes
 L["Warlock"] = "Warlock"
