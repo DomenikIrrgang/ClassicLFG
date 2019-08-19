@@ -105,6 +105,8 @@ function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(playerName)
                     result.fullGuildName = nil
                 end
                 self:HandleApplications(ClassicLFGPlayer(playerName, result.fullGuildName, result.level, ClassicLFG.Class[result.filename].Name))
+            else
+                self:HandleApplications(ClassicLFGPlayer(playerName, nil, "", ""))
             end
         end)
     end
