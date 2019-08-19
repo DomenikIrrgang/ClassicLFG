@@ -7,5 +7,5 @@ ClassicLFG.InitialState = {
     Db = nil,
     Player = {
         Level = UnitLevel("player")
-    }
+    },
 }

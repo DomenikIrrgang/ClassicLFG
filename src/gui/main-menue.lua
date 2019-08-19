@@ -5,6 +5,9 @@
 ClassicLFG.QueueWindow = ClassicLFGWindow("ClassicLFGQueueWindow", UIParent, 400, 600)
 ClassicLFG.QueueWindow:SetTitle("ClassicLFG");
 ClassicLFG.QueueWindow.Padding = 6
+ClassicLFG.QueueWindow.Frame.CloseButton.OnClick = function()
+    ClassicLFG.Store:PublishAction(ClassicLFG.Actions.ToggleMainWindow)
+end
 table.insert(UISpecialFrames, ClassicLFG.QueueWindow.Frame:GetName())
 
 ---------------------------------

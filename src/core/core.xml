@@ -12,4 +12,5 @@
     <Script file="channel-manager.lua"/>
     <Script file="group-invite-manager.lua"/>
     <Script file="version-check.lua"/>
+    <Script file="toast-manager.lua"/>
 </Ui>

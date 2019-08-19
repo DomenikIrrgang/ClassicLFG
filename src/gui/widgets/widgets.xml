@@ -9,4 +9,5 @@
     <Script file="icon.lua"/>
     <Script file="icon-with-text.lua"/>
     <Script file="tooltip.lua"/>
+    <Script file="toast.lua"/>
 </Ui>

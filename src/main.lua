@@ -21,6 +21,10 @@ ClassicLFG.DefaultProfile ={
         AutoInvite = false,
         ShowMinimapIcon = true,
         BroadcastDungeonGroup = true,
+        Toast = {
+            X = GetScreenWidth() / 2 - 260 / 2,
+            Y = (GetScreenHeight() / 4) * -1,
+        }
     },
 }
 
@@ -75,6 +79,7 @@ function ClassicLFG:OnInitialize()
     self.Store:SetState(self:DeepCopy(self.InitialState))
     self.Store:GetState().Db = self.DB
     self.Initialized = true
+    self.ToastManager = ClassicLFGToastManager()
 end
 
 function ClassicLFG:InitMInimapIcon()

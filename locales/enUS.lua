@@ -40,6 +40,12 @@ L["RolesArray"] = {
 L["looking"] = "looking"
 L["group"] = "group"
 L["No groups found!"] = "No groups found!"
+L["Application declined"] = "Application declined"
+L["Application accepted"] = "Application accepted"
+L["Joined group for "] = "Joined group for "
+L["You have been declined by the group: \""] = "You have been declined by the group: \""
+L["Dungeon group left!"] = "Dungeon group left!"
+L["Left group for "] = "Left group for "
 
 -- Classes
 L["Warlock"] = "Warlock"

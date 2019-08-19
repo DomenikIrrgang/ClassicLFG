@@ -109,3 +109,10 @@ ClassicLFG.QueueWindow.Settings.HideMinimapIcon.OnValueChanged = function(_, val
     ClassicLFG.DB.profile.minimap.hide = value
     ClassicLFG:InitMInimapIcon()
 end
+
+ClassicLFG.QueueWindow.Settings.QueueButton = ClassicLFGButton(ClassicLFG.Locale["Toggle Toast"], ClassicLFG.QueueWindow.Settings)
+ClassicLFG.QueueWindow.Settings.QueueButton:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.HideMinimapIcon.Frame, "BOTTOMLEFT", 0, -8);
+ClassicLFG.QueueWindow.Settings.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.HideMinimapIcon.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.Settings.QueueButton.OnClick = function()
+    ClassicLFG.ToastManager:SetMovable(not ClassicLFG.ToastManager.Movable)
+end

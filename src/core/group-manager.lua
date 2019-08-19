@@ -98,7 +98,6 @@ end
 function ClassicLFGGroupManager:HandleApplicationDeclined(dungeonGroup)
     local index = self:HasGroup(self.AppliedGroups, dungeonGroup)
     if (index) then
-        ClassicLFG:Print("You have been declined by the group: \"" .. dungeonGroup.Title .. "\"")
         self.AppliedGroups:RemoveItem(index)
     end
 end
@@ -136,6 +135,9 @@ function ClassicLFGGroupManager:ReceiveGroup(dungeonGroup)
                 end
             else
                 self.Groups:AddItem(dungeonGroup)
+                if (ClassicLFG.Store:GetState().MainWindowOpen == false and ClassicLFG:ArrayContainsValue(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray(), dungeonGroup.Dungeon.Name)) then
+                    ClassicLFG.ToastManager:ShowToast(dungeonGroup.Title, dungeonGroup.Dungeon.Name, 5)
+                end
             end
         end
     end
