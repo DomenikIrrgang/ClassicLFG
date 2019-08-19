@@ -13,9 +13,27 @@ ClassicLFG.QueueWindow.Settings:SetScript("OnShow", function(self, _, channel)
     ClassicLFG.QueueWindow.Settings.HideMinimapIcon:SetState(ClassicLFG.DB.profile.minimap.hide)
 end)
 
+ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Broadcast dungeon group in chat"])
+ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings, "TOPLEFT", 0, -10)
+ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings, "TOPRIGHT", 0, -32)
+
+ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup.OnValueChanged = function(_, value)
+    ClassicLFG.Store:PublishAction(ClassicLFG.Actions.ToggleBroadcastDungeonGroup, value)
+end
+
+ClassicLFG.Store:AddListener(ClassicLFG.Actions.ToggleBroadcastDungeonGroup, ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup, function(self, action, state, value)
+    if (state.Db.profile.BroadcastDungeonGroup == true) then
+        self:Select()
+        self.Selected = true
+    else
+        self:Deselect()
+        self.Selected = false
+    end
+end)
+
 ClassicLFG.QueueWindow.Settings.Broadcastchannel = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Broadcastchannel"], ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Broadcastchannel"])
-ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings, "TOPLEFT", 0, -10)
-ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings, "TOPRIGHT", 0, -32)
+ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup.Frame, "BOTTOMLEFT", 0, -26)
+ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup.Frame, "BOTTOMRIGHT", 0, -48)
 ClassicLFG.QueueWindow.Settings.Broadcastchannel.OnValueChanged = function(_, _, channel)
     ClassicLFG.DB.profile.BroadcastDungeonGroupChannel = ClassicLFG.ChannelManager:GetChannelId(channel)
 end

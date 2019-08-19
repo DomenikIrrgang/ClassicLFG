@@ -14,11 +14,11 @@ function CLassicLFGGroupList.new(parent, width, height)
     self.Frame:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0);
     self.Entries = {}
     self:Init(100)
-    self.NoResults = ClassicLFG.QueueWindow.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
+    self.NoResults = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.NoResults:ClearAllPoints();
     self.NoResults:SetFontObject("GameFontHighlight");
     self.NoResults:SetPoint("TOP", self.Frame, "TOP", 0, -50);
-    self.NoResults:SetText("No groups found!")
+    self.NoResults:SetText(ClassicLFG.Locale["No groups found!"])
     self.NoResults:Hide()
     return self
 end

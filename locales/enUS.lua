@@ -39,6 +39,7 @@ L["RolesArray"] = {
 }
 L["looking"] = "looking"
 L["group"] = "group"
+L["No groups found!"] = "No groups found!"
 
 -- Classes
 L["Warlock"] = "Warlock"

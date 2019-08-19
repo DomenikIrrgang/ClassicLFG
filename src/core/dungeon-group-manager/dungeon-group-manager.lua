@@ -157,23 +157,27 @@ function ClassicLFGDungeonGroupManager:OnGroupInviteDeclined(playerName)
 end
 
 function ClassicLFGDungeonGroupManager:CancelBroadcast()
-    ClassicLFG:DebugPrint("Canceled broadcasting dungeon group")
-    self.BroadcastTicker:Cancel()
-    self.BroadcastTicker = nil
+    if (self.BroadcastTicker ~= nil) then
+        ClassicLFG:DebugPrint("Canceled broadcasting dungeon group")
+        self.BroadcastTicker:Cancel()
+        self.BroadcastTicker = nil
+    end
 end
 
 function ClassicLFGDungeonGroupManager:StartBroadcast()
-    ClassicLFG:DebugPrint("Started broadcasting dungeon group")
-    self.BroadcastTicker = C_Timer.NewTicker(ClassicLFG.DB.profile.BroadcastDungeonGroupInterval + math.random(0, 10), function()
-        ClassicLFG:DebugPrint("Broadcast Ticker tick")
-        if (self:IsListed()) then
-            -- Prevent group from being delisted on other clients
-            self:UpdateGroup(self.DungeonGroup)
-            SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
-            self:CancelBroadcast()
-            self:StartBroadcast()
-        end
-    end)
+    if (ClassicLFG.DB.profile.BroadcastDungeonGroup == true) then
+        ClassicLFG:DebugPrint("Started broadcasting dungeon group")
+        self.BroadcastTicker = C_Timer.NewTicker(ClassicLFG.DB.profile.BroadcastDungeonGroupInterval + math.random(0, 10), function()
+            ClassicLFG:DebugPrint("Broadcast Ticker tick")
+            if (self:IsListed()) then
+                -- Prevent group from being delisted on other clients
+                self:UpdateGroup(self.DungeonGroup)
+                SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
+                self:CancelBroadcast()
+                self:StartBroadcast()
+            end
+        end)
+    end
 end
 
 function ClassicLFGDungeonGroupManager:GetBroadcastMessage()
@@ -258,7 +262,9 @@ end
 
 function ClassicLFGDungeonGroupManager:ListGroup(dungeonGroup)
     self.DungeonGroup = dungeonGroup
-    SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
+    if (ClassicLFG.DB.profile.BroadcastDungeonGroup == true) then
+        SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
+    end
     ClassicLFGDungeonGroup.AddMember(self.DungeonGroup, ClassicLFGPlayer(UnitName("player")))
     ClassicLFG.Network:SendObject(
         ClassicLFG.Config.Events.GroupListed,

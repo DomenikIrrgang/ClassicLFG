@@ -20,6 +20,7 @@ ClassicLFG.DefaultProfile ={
         InviteKeyword = "inv",
         AutoInvite = false,
         ShowMinimapIcon = true,
+        BroadcastDungeonGroup = true,
     },
 }
 
