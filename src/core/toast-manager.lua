@@ -29,11 +29,11 @@ function ClassicLFGToastManager.new()
 end
 
 function ClassicLFGToastManager:OnDungeonGroupJoined(dungeonGroup)
-    self:ShowToast(ClassicLFG.Locale["Dungeon group joined!"], ClassicLFG.Locale["Joined group for "] .. ClassicLFG.Locale[dungeonGroup.Dungeon.Name], 5)
+    self:ShowToast(ClassicLFG.Locale["Dungeon group joined!"], ClassicLFG.Locale["Joined group for "] .. ClassicLFG.Locale[dungeonGroup.Dungeon.Name], 3)
 end
 
 function ClassicLFGToastManager:OnDungeonGroupLeft(dungeonGroup)
-    self:ShowToast(ClassicLFG.Locale["Dungeon group left!"], ClassicLFG.Locale["Left group for "] .. ClassicLFG.Locale[dungeonGroup.Dungeon.Name], 5)
+    self:ShowToast(ClassicLFG.Locale["Dungeon group left!"], ClassicLFG.Locale["Left group for "] .. ClassicLFG.Locale[dungeonGroup.Dungeon.Name], 3)
 end
 
 function ClassicLFGToastManager:OnApplicationDeclined(dungeonGroup)
