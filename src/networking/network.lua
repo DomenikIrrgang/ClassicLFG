@@ -22,7 +22,7 @@ function ClassicLFGNetwork.new()
     self.NetworkThread:SetScript("OnUpdate", function()
         if (self.MessagesSend < self.MessageCap) then
             while (self.MessagesSend < self.MessageCap and #self.MessageQueue > 0) do
-                local message = table.remove(self.MessageQueue)
+                local message = table.remove(self.MessageQueue, 1)
                 self:SendMessage(message.content, message.channel, message.target, false)
             end
         end

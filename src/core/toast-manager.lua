@@ -14,7 +14,7 @@ function ClassicLFGToastManager.new()
     self.Movable = false
     self.Toast.OnToastFinished = function()
         if (self.Movable == false) then
-            table.remove(self.ToastQueue)
+            table.remove(self.ToastQueue, 1)
             if (#self.ToastQueue > 0) then
                 self.Toast:Show(self.ToastQueue[1].Title, self.ToastQueue[1].Message, self.ToastQueue[1].Duration)
             end
