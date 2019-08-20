@@ -69,8 +69,8 @@ end
 
 function ClassicLFGChatParser:HasDungeonName(message)
     for dungeonName, dungeon in pairs(ClassicLFG.DungeonManager:GetAllDungeons()) do
-        if (ClassicLFG.DungeonManager.Dungeons[ClassicLFG:ArrayContainsValue(message:SplitString(" "), dungeonName)]) then
-            return dungeon
+        if (string.find(message, ClassicLFG.Locale[dungeonName]:lower())) then
+            return ClassicLFG.DungeonManager.Dungeons[dungeonName]
         end
     end
     return nil
