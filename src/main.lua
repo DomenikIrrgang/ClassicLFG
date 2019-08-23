@@ -76,11 +76,26 @@ function ClassicLFG:OnInitialize()
     self:RegisterChatCommand("lfg", "MinimapIconClick")
     self:RegisterChatCommand("classiclfg", "MinimapIconClick")
     self:RegisterChatCommand("clfg", "MinimapIconClick")
-    self.InitialState.Db = self.DB
-    self.Store:SetState(self:DeepCopy(self.InitialState))
+    local initialState = self:GetInitialState()
+    initialState.Db = self.DB
+    self.Store:SetState(self:DeepCopy(initialState))
     self.Store:GetState().Db = self.DB
     self.Initialized = true
     self.ToastManager = ClassicLFGToastManager()
+end
+
+function ClassicLFG:GetInitialState()
+    return {
+        MainWindowOpen = false,
+        NetworkObjectsSend = 0,
+        NetworkPackagesSend = 0,
+        DungeonGroupQueued = false,
+        DungeonGroup = nil,
+        Db = nil,
+        Player = {
+            Level = UnitLevel("player")
+        },
+    }
 end
 
 function ClassicLFG:InitMInimapIcon()
