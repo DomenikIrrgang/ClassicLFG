@@ -22,4 +22,4 @@ Features that are/will be included.
     * Automatic group matchmaking
  
 
-To join the discussion and get the latest information about the state of the addon and future features join our [Discord](https://discord.gg/Y6F7dE)
+To join the discussion and get the latest information about the state of the addon and future features join our [Discord](https://discord.gg/DYxZKe)
