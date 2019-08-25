@@ -60,7 +60,7 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.WhisperButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -5, 5)
     self.WhisperButton.OnClick = function() 
         ChatFrame1EditBox:Show()
-        ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name)
+        ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name .. " ")
         ChatFrame1EditBox:SetFocus()
     end
     

@@ -173,6 +173,7 @@ function ClassicLFGDungeonGroupManager:StartBroadcast()
         if (self:IsListed()) then
             -- Prevent group from being delisted on other clients
             self:UpdateGroup(self.DungeonGroup)
+            local channel = GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel) or ClassicLFG.ChannelManager:GetBroadcastChannelNames()[1]
             SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
             self:CancelBroadcast()
             self:StartBroadcast()
