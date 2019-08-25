@@ -6,8 +6,7 @@
 ClassicLFG.QueueWindow.Settings:SetScript("OnShow", function(self, _, channel)
     ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetItems(ClassicLFG.ChannelManager:GetBroadcastChannelNames())
     ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetValue(ClassicLFG.ChannelManager:GetChannelName((ClassicLFG.DB.profile.BroadcastDungeonGroupChannel)))
-    ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame:SetValue(ClassicLFG.DB.profile.BroadcastDungeonGroupInterval)	
-    ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetText(ClassicLFG.DB.profile.InviteKeyword)
+    ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame:SetValue(ClassicLFG.DB.profile.BroadcastDungeonGroupInterval)
     ClassicLFG.QueueWindow.Settings.AutoAcceptInvite:SetState(ClassicLFG.DB.profile.AutoAcceptInvite)
     ClassicLFG.QueueWindow.Settings.HideMinimapIcon:SetState(ClassicLFG.DB.profile.minimap.hide)
     ClassicLFG.QueueWindow.Settings.EnableToasts:SetState(ClassicLFG.DB.profile.Toast.Enabled)
@@ -38,19 +37,9 @@ ClassicLFG.QueueWindow.Settings.BroadcastSlider.OnValueChanged = function(_, val
 	ClassicLFG.DB.profile.BroadcastDungeonGroupInterval = value
 end
 
-ClassicLFG.QueueWindow.Settings.InviteKeyword = ClassicLFGEditBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Invite Keyword"])
-ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame, "BOTTOMLEFT", 0, -40);
-ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame, "BOTTOMRIGHT", 0, -62)
-ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetMaxLetters(25)
-ClassicLFG.QueueWindow.Settings.InviteKeyword:SetPlaceholder(ClassicLFG.Locale["Invite Keyword"])
-
-ClassicLFG.QueueWindow.Settings.InviteKeyword.OnTextChanged = function(self, _, text)
-	ClassicLFG.DB.profile.InviteKeyword = text
-end
-
 ClassicLFG.QueueWindow.Settings.ShowAllDungeons = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Always show all dungeons"])
-ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame, "BOTTOMLEFT", 0, -8)
-ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame, "BOTTOMLEFT", 0, -40)
+ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame, "BOTTOMRIGHT", 0, -62)
 
 ClassicLFG.QueueWindow.Settings.ShowAllDungeons.OnValueChanged = function(_, value)
     ClassicLFG.Store:PublishAction(ClassicLFG.Actions.ToggleShowAllDungeons, value)
