@@ -15,9 +15,22 @@ function ClassicLFGNetwork.new()
     self.NetworkThread = CreateFrame("frame")
     self.MessageBuffer = {}
 	self.SendingInterval = 20000
-    self.LastMessageSend = GetTime()
-	self.NetworkThread:SetScript("OnUpdate", function()
-		--print("Network Thread invoked!")
+    self.MessagesSendCleared = GetTime()
+    self.MessagesSend = 0
+    self.MessageQueue = {}
+    self.MessageCap = 40
+    self.NetworkThread:SetScript("OnUpdate", function()
+        if (self.MessagesSend < self.MessageCap) then
+            while (self.MessagesSend < self.MessageCap and #self.MessageQueue > 0) do
+                local message = table.remove(self.MessageQueue, 1)
+                self:SendMessage(message.content, message.channel, message.target, false)
+            end
+        end
+        if (GetTime() - self.MessagesSendCleared >= 5) then
+            self.MessagesSendCleared = GetTime()
+            self.MessagesSend = 0
+            ClassicLFG:NetworkDebugPrint("[Network] Cleared MessagesSend. QueueSize: " .. #self.MessageQueue)
+        end
     end)
     self.NetworkThread:RegisterEvent("CHAT_MSG_ADDON")
     self.NetworkThread:RegisterEvent("CHAT_MSG_ADDON_LOGGED")
@@ -40,16 +53,20 @@ function ClassicLFGNetwork:HandleAddonMessage(...)
     local player, playerRealm = UnitFullName("player")
 	if (prefix:find(ClassicLFG.Config.Network.Prefix) and sender ~= player .. "-" .. playerRealm) then
         local headers, content = self:SplitNetworkPackage(message)
-        self.MessageBuffer[headers.Hash] = self.MessageBuffer[headers.Hash] or {}
+        ClassicLFG:NetworkDebugPrint("[Network] Package Received Hash: " .. headers.Hash .. " Order: " .. headers.Order .. " Total: " .. headers.TotalCount)
+        if (self.MessageBuffer[headers.Hash] == nil) then
+            self.MessageBuffer[headers.Hash] = { TransmissionStart = GetTime() }
+        end
         self.MessageBuffer[headers.Hash][headers.Order] = content
         if (self.MessageBuffer[headers.Hash]["count"] ~= nil and self.MessageBuffer[headers.Hash]["count"] >= 1) then
             self.MessageBuffer[headers.Hash]["count"] = self.MessageBuffer[headers.Hash]["count"] + 1
         else
             self.MessageBuffer[headers.Hash]["count"] = 1
         end
+        --ClassicLFG:DebugPrint("[Network] Package Received Hash: " .. header.hash .. " Order: " .. headers.Order .. " Total: " .. self.MessageBuffer[headers.Hash]["count"])
         if (self.MessageBuffer[headers.Hash]["count"] == tonumber(headers.TotalCount)) then
             local successful, object = self:MessageToObject(self:MergeMessages(headers,self.MessageBuffer[headers.Hash]))
-            ClassicLFG:DebugPrint("Network Package from " .. sender .. " complete! Event: " .. object.Event)
+            ClassicLFG:NetworkDebugPrint("[Network] Network Package from " .. sender .. " complete! Event: " .. object.Event .. " Time: " .. (GetTime() - self.MessageBuffer[headers.Hash].TransmissionStart))
             self.MessageBuffer[headers.Hash] = nil
             ClassicLFG.EventBus:PublishEvent(object.Event, object.Payload, sender)
         end
@@ -57,16 +74,32 @@ function ClassicLFGNetwork:HandleAddonMessage(...)
 end
 
 function ClassicLFGNetwork:SendObject(event, object, channel, target)
-    ClassicLFG:DebugPrint("Event: " .. event .. " Channel: " .. channel)
-    ClassicLFG.Store:PublishAction(ClassicLFG.Actions.NetworkObjectSend)
-    self:SendMessage(ClassicLFG.Config.Network.Prefix, self:ObjectToMessage({ Event = event, Payload = object }), channel, target)
+    local messageObject = { message = { Event = event, Payload = object }, channel = channel, target = target }
+    ClassicLFG:NetworkDebugPrint("[Network] SendObject Event: " .. event .. " Channel: " .. channel)
+    self:SendMessage(self:ObjectToMessage(messageObject.message), messageObject.channel, messageObject.target)
 end
 
-function ClassicLFGNetwork:SendMessage(prefix, message, channel, target)
-    local messages = self:SplitMessage(message)
+function ClassicLFGNetwork:QueueMessage(message, channel, target)
+    ClassicLFG:NetworkDebugPrint("[Network] Queued Message. MessagesSend: " .. self.MessagesSend .. " MessageCap: " .. self.MessageCap)
+    table.insert(self.MessageQueue, { content = message, channel = channel, target = target })
+end
+
+function ClassicLFGNetwork:SendMessage(message, channel, target, split)
+    local messages = nil
+    if (split == false) then
+        messages = { message }
+    else
+        messages = self:SplitMessage(message)
+    end
+    
     for key in pairs(messages) do
-        ClassicLFG.Store:PublishAction(ClassicLFG.Actions.NetworkPackageSend)
-        C_ChatInfo.SendAddonMessage(prefix, messages[key], channel, target)
+        if (self.MessagesSend < self.MessageCap) then
+            ClassicLFG:NetworkDebugPrint("[Network] Send Message. MessagesSend: " .. self.MessagesSend .. " MessageCap: " .. self.MessageCap)
+            C_ChatInfo.SendAddonMessage(ClassicLFG.Config.Network.Prefix, messages[key], channel, target)
+            self.MessagesSend = self.MessagesSend + 1
+        else
+            self:QueueMessage(messages[key], channel, target)
+        end
     end
 end
 

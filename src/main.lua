@@ -19,6 +19,13 @@ ClassicLFG.DefaultProfile ={
         AutoAcceptInvite = false,
         InviteKeyword = "inv",
         AutoInvite = false,
+        ShowMinimapIcon = true,
+        BroadcastDungeonGroup = true,
+        Toast = {
+            Enabled = true,
+            X = GetScreenWidth() / 2 - 260 / 2,
+            Y = (GetScreenHeight() / 4) * -1,
+        }
     },
 }
 
@@ -60,15 +67,44 @@ function ClassicLFG:OnInitialize()
     local iconPath = ([[Interface\Addons\%s\%s\%s]]):format("ClassicLFG", "textures", "inv_misc_groupneedmore")
     self.LDB = LibStub("LibDataBroker-1.1"):NewDataObject("ClassicLFG_LDB", {
         type = "launcher",
-        text = "TestText",
+        text = "ClassicLFG_LDB",
         icon = iconPath,
         OnClick = self.MinimapIconClick,
-        OnTooltipShow = self.MinimapTooltip
+        OnTooltipShow = self.MinimapTooltip,
     })
     self.MinimapIcon:Register("ClassicLFG_LDB", self.LDB, self.DB.profile.minimap)
     self:RegisterChatCommand("lfg", "MinimapIconClick")
     self:RegisterChatCommand("classiclfg", "MinimapIconClick")
     self:RegisterChatCommand("clfg", "MinimapIconClick")
+    local initialState = self:GetInitialState()
+    initialState.Db = self.DB
+    self.Store:SetState(self:DeepCopy(initialState))
+    self.Store:GetState().Db = self.DB
+    self.Initialized = true
+    self.ToastManager = ClassicLFGToastManager()
+end
+
+function ClassicLFG:GetInitialState()
+    return {
+        MainWindowOpen = false,
+        NetworkObjectsSend = 0,
+        NetworkPackagesSend = 0,
+        DungeonGroupQueued = false,
+        DungeonGroup = nil,
+        Db = nil,
+        Player = {
+            Level = UnitLevel("player")
+        },
+        ShareTalents = true
+    }
+end
+
+function ClassicLFG:InitMInimapIcon()
+    if self.DB.profile.minimap.hide then
+		self.MinimapIcon:Hide("ClassicLFG_LDB")
+    else
+		self.MinimapIcon:Show("ClassicLFG_LDB")
+	end
 end
 
 function ClassicLFG:MinimapIconClick()

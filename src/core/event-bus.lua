@@ -7,7 +7,7 @@ setmetatable(ClassicLFGEventBus, {
     end,
 })
 
-function ClassicLFGEventBus.new(name, guild, level, class, talents)
+function ClassicLFGEventBus.new()
     local self = setmetatable({}, ClassicLFGEventBus)
     self.Listeners = {}
     return self

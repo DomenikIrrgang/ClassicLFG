@@ -1,8 +1,9 @@
 ClassicLFG.Config = {
     Debug = true,
-    Version = "0.4.4",
+    Version = "0.6.0",
     Font = "Fonts\\FRIZQT__.ttf",
     Network = {
+        Debug = true,
         Prefix = "CLFG_Network",
         Channel = {
             Name = "ClassicLFG",
@@ -18,6 +19,10 @@ ClassicLFG.Config = {
     ActiveColor = { Red = 0.8, Blue = 0.8, Green = 0.8, Alpha = 1 },
     DialogColor = { Red = 0.3, Blue = 0.3, Green = 0.3, Alpha = 1 },
     DisabledColor = { Red = 0.15, Blue = 0.15, Green = 0.15, Alpha = 0.4 },
+    GuildColor = { Red = 64/255, Green = 251/255, Blue = 64/255, Alpha = 0.5 },
+    BattleNetColor = { Red = 13/255, Green = 135/255, Blue = 255/255, Alpha = 0.5 },
+    --FriendColor = { Green = 1/255, Red = 255/255, Blue = 1/255, Alpha = 1 },
+    FriendColor = { Red = 239/255, Green = 244/255, Blue = 39/255, Alpha = 0.5 },
     Events = {
         RequestData = "CLASSICLFG_DATA_REQUEST",
         SendData = "CLASSICLFG_DATA_RESPONSE",
@@ -96,3 +101,19 @@ ClassicLFG.Config = {
         PlayerTalents = "CLASSICLFG_TALENT_SYNC",
     }
 }
+
+if (GetLocale() == "ruRU") then
+    ClassicLFG.Config.Font = "Fonts\\FRIZQT___CYR.TTF"
+end
+
+if (GetLocale() == "koKR") then
+    ClassicLFG.Config.Font  = "Fonts\\2002.TTF"
+end
+
+if (GetLocale() == "zhCN") then
+    ClassicLFG.Config.Font  = "Fonts\\ARKai_T.ttf"
+end
+
+if (GetLocale() == "zhTW") then
+    ClassicLFG.Config.Font  = "Fonts\\blei00d.TTF"
+end

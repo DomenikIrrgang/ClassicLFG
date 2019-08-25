@@ -1,5 +1,5 @@
 <Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
     <Script file="reducers\queue-dungeon-group.reducer.lua"/>
-    <Script file="reducers\dequeue-dungeon-group-reducer.lua"/>
+    <Script file="reducers\dequeue-dungeon-group.reducer.lua"/>
     <Script file="dungeon-group-manager.lua"/>
 </Ui>

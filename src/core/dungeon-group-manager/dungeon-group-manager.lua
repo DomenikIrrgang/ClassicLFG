@@ -105,6 +105,8 @@ function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(playerName)
                     result.fullGuildName = nil
                 end
                 self:HandleApplications(ClassicLFGPlayer(playerName, result.fullGuildName, result.level, ClassicLFG.Class[result.filename].Name))
+            else
+                self:HandleApplications(ClassicLFGPlayer(playerName, nil, "", ""))
             end
         end)
     end
@@ -157,9 +159,11 @@ function ClassicLFGDungeonGroupManager:OnGroupInviteDeclined(playerName)
 end
 
 function ClassicLFGDungeonGroupManager:CancelBroadcast()
-    ClassicLFG:DebugPrint("Canceled broadcasting dungeon group")
-    self.BroadcastTicker:Cancel()
-    self.BroadcastTicker = nil
+    if (self.BroadcastTicker ~= nil) then
+        ClassicLFG:DebugPrint("Canceled broadcasting dungeon group")
+        self.BroadcastTicker:Cancel()
+        self.BroadcastTicker = nil
+    end
 end
 
 function ClassicLFGDungeonGroupManager:StartBroadcast()
@@ -177,10 +181,10 @@ function ClassicLFGDungeonGroupManager:StartBroadcast()
 end
 
 function ClassicLFGDungeonGroupManager:GetBroadcastMessage()
-    if (self.DungeonGroup.Dungeon.Name == ClassicLFG.Dungeon.Custom.Name) then
+    if (self.DungeonGroup.Dungeon.Name == ClassicLFG.DungeonManager.Dungeons.Custom.Name) then
         return self.DungeonGroup.Title
     else 
-        return "LFM \"" .. self.DungeonGroup.Dungeon.Name .. "\": " .. self.DungeonGroup.Title
+        return "LFM " .. ClassicLFG.Locale[self.DungeonGroup.Dungeon.Abbreviation]  .. " " .. self.DungeonGroup.Title
     end    
 end
 
@@ -258,7 +262,9 @@ end
 
 function ClassicLFGDungeonGroupManager:ListGroup(dungeonGroup)
     self.DungeonGroup = dungeonGroup
-    SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
+    if (ClassicLFG.DB.profile.BroadcastDungeonGroup == true) then
+        SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
+    end
     ClassicLFGDungeonGroup.AddMember(self.DungeonGroup, ClassicLFGPlayer(UnitName("player")))
     ClassicLFG.Network:SendObject(
         ClassicLFG.Config.Events.GroupListed,
@@ -335,7 +341,7 @@ function ClassicLFGDungeonGroupManager:AddApplicant(applicant)
     self.Applicants:AddItem(applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantReceived, applicant)
     if(ClassicLFG.DB.profile.AutoInvite == true) then
-        self:ApplicantInvited(applicant)
+        --self:ApplicantInvited(applicant)
     end
 end
 

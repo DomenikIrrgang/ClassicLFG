@@ -47,7 +47,11 @@ function ClassicLFGCheckBox.new(text, parent, text)
     end)
 
     self.Frame:SetScript("OnLeave", function()
-        self:SetState(self.Selected)
+        if (self.Selected == true) then
+            self:Select()
+        else
+            self:Deselect()
+        end
     end)
 
     self.Frame:SetScript("OnMouseUp", function()
@@ -56,39 +60,41 @@ function ClassicLFGCheckBox.new(text, parent, text)
 
     self.Frame:SetScript("OnMouseDown", function()
         PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON)
+        self:OnMouseDown()
     end)
     return self
 end
 
 function ClassicLFGCheckBox:SetState(selected)
+    self.Selected = selected
     if (selected == true) then
         self:Select()
     else
         self:Deselect()
     end
+    self:OnValueChanged(self.Selected)
 end
 
 function ClassicLFGCheckBox:Select()
-    self.Selected = true
     self.Frame.Thumb:SetColorTexture(
         ClassicLFG.Config.PrimaryColor.Red,
         ClassicLFG.Config.PrimaryColor.Green,
         ClassicLFG.Config.PrimaryColor.Blue,
         ClassicLFG.Config.PrimaryColor.Alpha
     )
-    self:OnValueChanged(self.Selected)
 end
 
 function ClassicLFGCheckBox:Deselect()
-    self.Selected = false
     self.Frame.Thumb:SetColorTexture(
         ClassicLFG.Config.BackgroundColor.Red,
         ClassicLFG.Config.BackgroundColor.Green,
         ClassicLFG.Config.BackgroundColor.Blue,
         ClassicLFG.Config.BackgroundColor.Alpha
     )
-    self:OnValueChanged(self.Selected)
 end
 
 function ClassicLFGCheckBox:OnValueChanged(selected)
+end
+
+function ClassicLFGCheckBox:OnMouseDown()
 end

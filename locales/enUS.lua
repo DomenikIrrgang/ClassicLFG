@@ -29,6 +29,25 @@ L["New Applicant: "] = "New Applicant: "
 L[" - Level "] = " - Level "
 L["Invite Keyword"] = "Invite Keyword"
 L["Autoinvite"] = "Autoinvite"
+L["Hide Minimap Icon"] = "Hide Minimap Icon"
+L["RolesArray"] = {
+    "tank",
+    "dps",
+    "heal",
+    "healer",
+    "damagedealer"
+}
+L["looking"] = "looking"
+L["group"] = "group"
+L["No groups found!"] = "No groups found!"
+L["Application declined"] = "Application declined"
+L["Application accepted"] = "Application accepted"
+L["Joined group for "] = "Joined group for "
+L["You have been declined by the group: \""] = "You have been declined by the group: \""
+L["Dungeon group left!"] = "Dungeon group left!"
+L["Left group for "] = "Left group for "
+L["Show Notifications"] = "Show Notifications"
+L["Toggle Notifications"] = "Toggle Notifications"
 
 -- Classes
 L["Warlock"] = "Warlock"

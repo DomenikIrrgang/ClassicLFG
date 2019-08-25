@@ -1,0 +1,6 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+    <Script file="reducers\toggle-show-all-dungeons.reducer.lua"/>
+    <Script file="reducers\toggle-broadcast-dungeon-group.reducer.lua"/>
+    <Script file="reducers\toggle-share-talents.reducer.lua"/>
+    <Script file="settings.lua"/>
+</Ui>

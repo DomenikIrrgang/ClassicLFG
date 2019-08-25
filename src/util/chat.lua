@@ -7,3 +7,9 @@ function ClassicLFG:DebugPrint(message)
         print("|cFF7777FFClassicLFG Debug:|cFFFFFFFF", message)
     end
 end
+
+function ClassicLFG:NetworkDebugPrint(message)
+    if (self.Config.Network.Debug == true) then
+        self:DebugPrint(message)
+    end
+end

@@ -13,13 +13,13 @@ Features that are/will be included.
 
 * Looking for Groups
     * You can look for groups for any dungeon, but there is also a "Custom" category for world events and more.
-    * The addon automatically parses all chat messages send in the general/trade and guild channels and lists them as groups to queue up
+    * The addon automatically parses all chat messages send in public channels and lists them as groups to queue up
         * Note: If you queue for such a group it will whisper the leader of the group with the message that you provide 
     * Multiple dungeons can be selected at a time
-    * Groups that contain people on your ignore list will not show up
+    * Groups of people that you have on your ignore list will not show up
 
 * Features that will not be included:
     * Automatic group matchmaking
  
 
-To join the discussion and get the latest information about the state of the addon and future features join our [Discord](https://discord.gg/Y6F7dE)
+To join the discussion and get the latest information about the state of the addon and future features join our [Discord](https://discord.gg/DYxZKe)

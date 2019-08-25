@@ -1,11 +1,12 @@
 <Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+    <Include file="widgets\widgets.xml"/>
     <Script file="main-menue.lua"/>
     <Script file="group-list.lua"/>
     <Script file="group-list-item.lua"/>
     <Script file="applicant-list.lua"/>
-    <Script file="find-group.lua"/>
     <Script file="create-group.lua"/>
-    <Script file="settings.lua"/>
-    <Script file="queue-window.lua"/>
+    <Include file="settings\settings.xml"/>
+    <Include file="find-group\find-group.xml"/>
     <Script file="version-alert.lua"/>
+    <Script file="queue-window.lua"/>
 </Ui>

@@ -42,6 +42,25 @@ function ClassicLFGChannelManager:GetChannels()
     return self.Channels
 end
 
+function ClassicLFGChannelManager:GetBroadcastChannels()
+    local channels = {}
+    for key in pairs(self.Channels) do
+        if (self.Channels[key].Name ~= ClassicLFG.Config.Network.Channel.Name) then
+            table.insert(channels, self.Channels[key])
+        end
+    end
+    return channels
+end
+
+function ClassicLFGChannelManager:GetBroadcastChannelNames()
+    local names = {}
+    local channels = self:GetBroadcastChannels()
+    for key in pairs(channels) do
+        table.insert(names, channels[key].Name)
+    end
+    return names
+end
+
 function ClassicLFGChannelManager:GetChannelNames()
     local names = {}
     for key in pairs(self.Channels) do

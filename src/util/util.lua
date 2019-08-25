@@ -75,7 +75,6 @@ function ClassicLFG:IsIgnored(playerName)
     return false
 end
 
---print(info.fullName, info.fullGuildName, info.level, info.classStr, info.raceStr)
 function ClassicLFG:WhoQuery(query, callback)
     local frame = CreateFrame("frame")
     frame:RegisterEvent("WHO_LIST_UPDATE")
@@ -113,9 +112,9 @@ function ClassicLFG:IsInPlayersGroup(playerName)
 end
 
 function ClassicLFG:PlayerIsFriend(playerName)
-    for i = 1, GetNumFriends() do
-        local name = GetFriendInfo(i)
-        if (playerName == name) then
+    for i = 1, C_FriendList.GetNumFriends() do
+        local player = C_FriendList.GetFriendInfoByIndex(i)
+        if (playerName == player.name) then
             return true
         end
     end
@@ -137,6 +136,15 @@ function ClassicLFG:IsBattleNetFriend(playerName)
     for i = 1, BNGetNumFriends() do
         local _, _, _, _, name = BNGetFriendInfo(i)
         if (playerName == name) then
+            return true
+        end
+    end
+    return false
+end
+
+function ClassicLFG:ArrayContainsArrayValue(array1, array2)
+    for _, value in pairs(array2) do
+        if (self:ArrayContainsValue(array1, value)) then
             return true
         end
     end

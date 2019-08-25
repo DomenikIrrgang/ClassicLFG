@@ -12,6 +12,7 @@ function ClassicLFGWindow.new(name, parent, width, height)
     self.Frame = CreateFrame("Frame", name, parent, nil)
     self.ShowAnimationGroup = self.Frame:CreateAnimationGroup()
     self.ShowAnimation = self.ShowAnimationGroup:CreateAnimation("Alpha")
+    self.Movable = true
     self.ShowAnimation:SetDuration(0.4)
     self.ShowAnimation:SetSmoothing("OUT")
     self.ShowAnimation:SetFromAlpha(0)
@@ -38,8 +39,10 @@ function ClassicLFGWindow.new(name, parent, width, height)
     self.Frame:SetPoint("TOPLEFT", parent, "CENTER", -1 * self.Width / 2, self.Height / 2)
 
     self.Frame:SetScript("OnMouseDown", function()
-        self.Frame:SetMovable(true)
-        self.Frame:StartMoving(ClassicLFG.QueueWindow)
+        if (self.Movable == true) then
+            self.Frame:SetMovable(true)
+            self.Frame:StartMoving(ClassicLFG.QueueWindow)
+        end
     end)
 
     self.Frame:SetScript("OnMouseUp", function()
@@ -78,6 +81,10 @@ end
 function ClassicLFGWindow:Show()
     self.Frame:Show()
     self.ShowAnimationGroup:Play()
+end
+
+function ClassicLFGWindow:SetMovable(movable)
+    self.Movable = movable
 end
 
 function ClassicLFGWindow:Hide()

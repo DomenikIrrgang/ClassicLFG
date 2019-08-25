@@ -46,37 +46,64 @@ end
 
 function ClassicLFGChatParser:ParseMessage(sender, message, channel)
     local lowerMessage = string.lower(message)
+    self:HasRoleName(lowerMessage)
     local dungeon = self:HasDungeonName(lowerMessage) or self:HasDungeonAbbreviation(lowerMessage)
     if (not self:HasIgnoreMessageTag(lowerMessage)) then
-        if (self:HasLFMTag(lowerMessage) and dungeon ~= nil) then
+        if ((self:HasLFMTag(lowerMessage) or self:HasRoleName(lowerMessage)) and dungeon ~= nil) then
             local dungeonGroup = ClassicLFGDungeonGroup(dungeon, ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
             ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. dungeon.Name .. ")")
             ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ChatDungeonGroupFound, dungeonGroup)
         end
 
         if (self:HasLFMTag(lowerMessage) and dungeon == nil) then
-            local dungeonGroup = ClassicLFGDungeonGroup(ClassicLFG.Dungeon["Custom"], ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
-            ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. ClassicLFG.Dungeon["Custom"].Name .. ")")
+            local dungeonGroup = ClassicLFGDungeonGroup(ClassicLFG.DungeonManager.Dungeons["Custom"], ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
+            ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. ClassicLFG.DungeonManager.Dungeons["Custom"].Name .. ")")
             ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ChatDungeonGroupFound, dungeonGroup)
         end
     end
 end
 
 function ClassicLFGChatParser:HasLFMTag(text)
-    return string.find(text, "lfm") ~= nil or string.find(text, "lf3m") ~= nil or string.find(text, "lf2m") ~= nil or string.find(text, "lf1m") ~= nil
+    local lfmTags = {
+        "lfm",
+        "lf3m",
+        "lf2m",
+        "lf1m",
+        "looking for more"
+    }
+    local found = false
+    for _, tag in pairs(lfmTags) do
+        if (string.find(text, tag)) then
+            found = true
+            break
+        end
+    end
+    return found
 end
 
 function ClassicLFGChatParser:HasDungeonName(message)
-    return ClassicLFG.Dungeon[ClassicLFG:StringContainsTableValue(message, ClassicLFG.DungeonList)]
-end
-
-function ClassicLFGChatParser:HasDungeonAbbreviation(message)
-    for key in pairs(ClassicLFG.Dungeon) do
-        if (ClassicLFG:StringContainsTableValue(message, ClassicLFG.Dungeon[key].Abbreviations)) then
-            return ClassicLFG.Dungeon[key]
+    for dungeonName, dungeon in pairs(ClassicLFG.DungeonManager:GetAllDungeons()) do
+        if (string.find(message, ClassicLFG.Locale[dungeonName]:lower())) then
+            return ClassicLFG.DungeonManager.Dungeons[dungeonName]
         end
     end
     return nil
+end
+
+function ClassicLFGChatParser:HasDungeonAbbreviation(message)
+    for key, dungeon in pairs(ClassicLFG.DungeonManager.Dungeons) do
+        for _, abbreviation in pairs(dungeon.Abbreviations) do
+            if (ClassicLFG:ArrayContainsValue(message:SplitString(" "), abbreviation)) then
+                return dungeon
+            end
+        end
+    end
+    return nil
+end
+
+function ClassicLFGChatParser:HasRoleName(message)
+    local words = message:SplitString(" ")
+    return ClassicLFG:ArrayContainsArrayValue(words, ClassicLFG.Locale["RolesArray"])
 end
 
 ClassicLFG.ChatParser = ClassicLFGChatParser()

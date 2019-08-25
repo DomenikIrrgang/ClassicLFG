@@ -11,30 +11,37 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     local self = setmetatable({}, CLassicLFGGroupListItem)
     self.Frame = CreateFrame("Frame", nil, anchor, nil)
     self.IsOpen = false
-    self.BackgroundColor =  { Red = 0.3, Green = 0.3, Blue = 0.3, Alpha = 1 }
-    self.MouseOverColor =  { Red = 0.4, Green = 0.4, Blue = 0.4, Alpha = 1 }
+    self.DefaultBackgroundColor = { Red = 0.3, Green = 0.3, Blue = 0.3, Alpha = 1 }
+    self.DefaultMouserOverColor = { Red = 0.4, Green = 0.4, Blue = 0.4, Alpha = 1 }
+    self.BackgroundColor =  self.DefaultBackgroundColor
+    self.MouseOverColor =  self.DefaultMouserOverColor
     self.Frame:SetPoint("TOPLEFT", anchor, relativeAnchor, 0, -space);
     self.Frame:SetSize(ClassicLFG.QueueWindow.SearchGroup:GetWidth(), 50);
+    self.TitleBackground = CreateFrame("Frame", nil, self.Frame, nil)
     self.Frame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8
     })
 
     self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
     self.Frame:SetBackdropBorderColor(1,1,1,1)
-
     self.Title = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.Title:SetFont(ClassicLFG.Config.Font, 12, "NONE");
     self.Title:SetPoint("TOPLEFT", self.Frame, "TOPLEFT", 5, -5);
     self.Title.OldSetText = self.Title.SetText
     self.Title.SetText = function(title, text)
-        
         if (text:len() > 35) then
             text = text:sub(1, 32)
             text = text .. "..."
+            self.Title.Truncated = true
+        else
+            self.Title.Truncated = false
         end
-
         self.Title.OldSetText(title, text)
+        self.TitleBackground:SetPoint("TOPLEFT", self.Title, "TOPLEFT")
+        self.TitleBackground:SetPoint("BOTTOMRIGHT", self.Title, "BOTTOMRIGHT")
     end
+
+    self.Tooltip = ClassicLFGTooltip(self.Frame)
 
     self.DungeonName = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.DungeonName:SetFont(ClassicLFG.Config.Font, 10, "NONE");
@@ -44,22 +51,29 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.EntrySource:SetFont(ClassicLFG.Config.Font, 8, "NONE");
     self.EntrySource:SetPoint("TOPRIGHT", self.Frame, "TOPRIGHT", -5, -5);
 
+    self.Timer = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
+    self.Timer:SetFont(ClassicLFG.Config.Font, 8, "NONE");
+    self.Timer:SetPoint("TOPLEFT", self.DungeonName, "BOTTOMLEFT", 0, -2);
+    self.Timer:Hide()
+
     self.WhisperButton = ClassicLFGButton(ClassicLFG.Locale["Queue"], self.Frame)
     self.WhisperButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -5, 5)
     self.WhisperButton.OnClick = function() 
         ChatFrame1EditBox:Show()
-        ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name .. " " .. ClassicLFG.DB.profile.InviteText)
+        ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name)
         ChatFrame1EditBox:SetFocus()
     end
+    
     self.WhisperButton:SetText(ClassicLFG.Locale["Whisper"])
     self.WhisperButton:Hide()
 
     self.QueueButton = ClassicLFGButton(ClassicLFG.Locale["Queue"], self.Frame)
     self.QueueButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -92, 5)
     self.QueueButton.OnClick = function() 
-            ClassicLFG.QueueDungeonGroupWindow.DungeonGroup = self.entry
-            ClassicLFG.QueueDungeonGroupWindow.Frame:Show()
+        ClassicLFG.QueueDungeonGroupWindow.DungeonGroup = self.entry
+        ClassicLFG.QueueDungeonGroupWindow.Frame:Show()
     end
+
     self.QueueButton:SetText(ClassicLFG.Locale["Queue"])
     self.QueueButton:Hide()
 
@@ -111,10 +125,21 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
 
     self.Frame:SetScript("OnEnter", function()
         self.Frame:SetBackdropColor(self.MouseOverColor.Red, self.MouseOverColor.Green, self.MouseOverColor.Blue, self.MouseOverColor.Alpha)
+        self.Tooltip:SetText(self.entry.Title)
     end)
 
     self.Frame:SetScript("OnLeave", function()
         self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
+    end)
+
+    self.TitleBackground:SetScript("OnEnter", function()
+        if (self.Title.Truncated) then
+            self.Tooltip.Frame:Show()
+        end
+    end)
+
+    self.TitleBackground:SetScript("OnLeave", function()
+        self.Tooltip.Frame:Hide()
     end)
 
     self.Frame:SetScript("OnMouseDown", function()
@@ -124,11 +149,13 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
             self.QueueButton:Hide()
             self.Description:Hide()
             self.WhisperButton:Hide()
+            self.Timer:Hide()
         else
             self.Frame:SetHeight(95)
             self.IsOpen = true
             self.Description:Show()
             self.WhisperButton:Show()
+            self.Timer:Show()
             if (self.entry.Source.Type == "ADDON") then
                 self.QueueButton:Show()
             end
@@ -157,6 +184,16 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
         end
     end)
     self:SetGroup(entry)
+
+    self.Frame:SetScript("OnUpdate", function()
+        if (self.Frame:IsShown()) then
+            local seconds = (math.floor(GetTime() - self.entry.UpdateTime) % 60)
+            if (seconds < 10) then
+                seconds = "0" .. tostring(seconds)
+            end
+            self.Timer:SetText(math.floor((GetTime() - self.entry.UpdateTime) / 60) .. ":" .. seconds)
+        end
+    end)
     return self
 end
 
@@ -190,12 +227,30 @@ function CLassicLFGGroupListItem:SetGroup(entry)
             self.QueueButton:SetDisabled(false)
         end
 
-        if (entry.Source.Type == "ADDON") then
-            self.BackgroundColor.Blue = 0.6
-            self.MouseOverColor.Blue = 0.7
+        if (ClassicLFG:IsInPlayersGuild(entry.Leader.Name) == true) then
+            self.BackgroundColor = ClassicLFG:DeepCopy(ClassicLFG.Config.GuildColor)
+            self.MouseOverColor = ClassicLFG:DeepCopy(ClassicLFG.Config.GuildColor)
+            self.MouseOverColor.Blue = self.MouseOverColor.Blue + 0.2
+            self.MouseOverColor.Red = self.MouseOverColor.Red + 0.2
+        elseif (ClassicLFG:PlayerIsFriend(entry.Leader.Name) == true) then
+            self.BackgroundColor =  ClassicLFG:DeepCopy(ClassicLFG.Config.FriendColor)
+            self.MouseOverColor = ClassicLFG:DeepCopy(ClassicLFG.Config.FriendColor)
+            self.MouseOverColor.Green = 1
+        elseif (ClassicLFG:IsBattleNetFriend(entry.Leader.Name) == true) then
+            self.BackgroundColor =  ClassicLFG:DeepCopy(ClassicLFG.Config.BattleNetColor)
+            self.MouseOverColor = ClassicLFG:DeepCopy(ClassicLFG.Config.BattleNetColor)
+            self.MouseOverColor.Blue = self.MouseOverColor.Blue + 0.2
+            self.MouseOverColor.Red = self.MouseOverColor.Red + 0.2
         else
-            self.BackgroundColor.Blue = 0.4
-            self.MouseOverColor.Blue = 0.5
+            self.BackgroundColor = self.DefaultBackgroundColor
+            self.MouseOverColor = self.DefaultMouserOverColor
+            if (entry.Source.Type == "ADDON") then
+                self.BackgroundColor.Blue = 0.6
+                self.MouseOverColor.Blue = 0.7
+            else
+                self.BackgroundColor.Blue = 0.4
+                self.MouseOverColor.Blue = 0.5
+            end
         end
         self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
     

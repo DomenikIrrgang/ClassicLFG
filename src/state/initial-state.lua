@@ -4,4 +4,8 @@ ClassicLFG.InitialState = {
     NetworkPackagesSend = 0,
     DungeonGroupQueued = false,
     DungeonGroup = nil,
+    Db = nil,
+    Player = {
+        Level = UnitLevel("player")
+    },
 }

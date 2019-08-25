@@ -88,7 +88,9 @@ function ClassicLFGGroupManager:HandleDungeonGroupJoined(dungeonGroup)
         end
     end
     self.AppliedGroups:Clear()
-    ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.PlayerTalents, { Name = UnitName("player"), Talents = ClassicLFGPlayer():CreateTalents() }, "WHISPER", dungeonGroup.Leader.Name)
+    if (ClassicLFG.Store:GetState().Db.profile.ShareTalents == true) then
+        ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.PlayerTalents, { Name = UnitName("player"), Talents = ClassicLFGPlayer():CreateTalents() }, "WHISPER", dungeonGroup.Leader.Name)
+    end
 end
 
 function ClassicLFGGroupManager:HandleDungeonGroupBroadcasterCanceled(dungeonGroup)
@@ -98,7 +100,6 @@ end
 function ClassicLFGGroupManager:HandleApplicationDeclined(dungeonGroup)
     local index = self:HasGroup(self.AppliedGroups, dungeonGroup)
     if (index) then
-        ClassicLFG:Print("You have been declined by the group: \"" .. dungeonGroup.Title .. "\"")
         self.AppliedGroups:RemoveItem(index)
     end
 end
@@ -136,6 +137,9 @@ function ClassicLFGGroupManager:ReceiveGroup(dungeonGroup)
                 end
             else
                 self.Groups:AddItem(dungeonGroup)
+                if (ClassicLFG.Store:GetState().MainWindowOpen == false and ClassicLFG:ArrayContainsValue(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray(), dungeonGroup.Dungeon.Name)) then
+                    ClassicLFG.ToastManager:ShowToast(dungeonGroup.Title, dungeonGroup.Dungeon.Name, 5)
+                end
             end
         end
     end
@@ -182,8 +186,8 @@ end
 
 function ClassicLFGGroupManager:Test()
     for i = 1, 15 do
-        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupListed, ClassicLFGDungeonGroup(nil, ClassicLFGPlayer("Leroy" .. i, "NONAME", 60, ClassicLFG.Class.WARRIOR), "LFM HOGGER!", "We have no idea what we are doing", { Type ="ADDON" }))
-        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupListed, ClassicLFGDungeonGroup(nil, ClassicLFGPlayer("Leroy" .. (2 * i), "NONAME", 60, ClassicLFG.Class.WARRIOR), "LFM HOGGER!!", "Lets start our epic journey to get Hogger!", { Type ="CHAT",  Channel = "World"}))        
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupListed, ClassicLFGDungeonGroup(nil, ClassicLFGPlayer("Suaddon", "NONAME", 60, ClassicLFG.Class.WARRIOR), "LFM HOGGER!", "We have no idea what we are doing", { Type ="ADDON" }))
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupListed, ClassicLFGDungeonGroup(nil, ClassicLFGPlayer("Leroy" .. (2 * i), "NONAME", 60, ClassicLFG.Class.WARRIOR), "LFM HOGGER!! 1 TANK 1 HEALER 1 DPS 1 EVERYTHING!", "Lets start our epic journey to get Hogger!", { Type ="CHAT",  Channel = "World"}))        
     end
 end
 

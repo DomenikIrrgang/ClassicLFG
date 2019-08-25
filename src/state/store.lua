@@ -7,9 +7,9 @@ setmetatable(ClassicLFGStore, {
   end,
 })
 
-function ClassicLFGStore.new(initialState)
+function ClassicLFGStore.new()
     local self = setmetatable({}, ClassicLFGStore)
-    self.state = initialState or {}
+    self.state = {}
     self.actionReducers = {}
     self.globalReducers = {}
     self.listeners = {}
@@ -28,7 +28,7 @@ function ClassicLFGStore:PublishAction(action, ...)
     end
     if (self.listeners[action]) then
         for _, listener in pairs(self.listeners[action]) do
-            listener.Callback(listener.Object, self.state, ...)
+            listener.Callback(listener.Object, action, self.state, ...)
         end
     end
 end
@@ -45,7 +45,7 @@ function ClassicLFGStore:SetState(state)
     self.state = state
     for _, listeners in pairs(self.listeners) do
         for _, listener in pairs(listeners) do
-            listener.Callback(listener.Object, self.state)
+            listener.Callback(listener.Object, nil, self.state)
         end
     end
 end
@@ -65,4 +65,4 @@ function ClassicLFGStore:GetState()
     return self.state
 end
 
-ClassicLFG.Store = ClassicLFGStore(ClassicLFG.InitialState)
+ClassicLFG.Store = ClassicLFGStore()

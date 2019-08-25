@@ -1,7 +1,7 @@
-## Interface: 80100
+## Interface: 11302
 ## Title: ClassicLFG
 ## Author: Suu
-## Version: @project-version@
+## Version: 0.6.0
 ## Notes: Tool to form groups for any activity in Classic!
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
