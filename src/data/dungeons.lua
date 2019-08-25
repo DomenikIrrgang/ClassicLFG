@@ -25,4 +25,4 @@ ClassicLFG.DungeonManager:DefineDungeon("Stratholme", 5, 56, 60, "Eastern Plague
 ClassicLFG.DungeonManager:DefineDungeon("Scholomance", 5, 56, 60, "Eastern Plaguelands", "scholo", {"scholo"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCHOLOMANCE")
 ClassicLFG.DungeonManager:DefineDungeon("Molten Core", 40, 60, 60, "Blackrock Depths", "mc", {"mc"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-MOLTENCORE")
 ClassicLFG.DungeonManager:DefineDungeon("Onyxia's Lair", 40, 60, 60, "Dustwallow Marsh", "ony", {"ony", "onyxia"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\LFGIcon-OnyxiaEncounter")
-ClassicLFG.DungeonManager:DefineDungeon("Custom", 40, 1, 60, "Everywhere", "", {}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BREW")
+ClassicLFG.DungeonManager:DefineDungeon("Custom", 40, 1, 120, "Everywhere", "", {}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BREW")

@@ -64,7 +64,21 @@ function ClassicLFGChatParser:ParseMessage(sender, message, channel)
 end
 
 function ClassicLFGChatParser:HasLFMTag(text)
-    return string.find(text, "lfm") ~= nil or string.find(text, "lf3m") ~= nil or string.find(text, "lf2m") ~= nil or string.find(text, "lf1m") ~= nil
+    local lfmTags = {
+        "lfm",
+        "lf3m",
+        "lf2m",
+        "lf1m",
+        "looking for more"
+    }
+    local found = false
+    for _, tag in pairs(lfmTags) do
+        if (string.find(text, tag)) then
+            found = true
+            break
+        end
+    end
+    return found
 end
 
 function ClassicLFGChatParser:HasDungeonName(message)

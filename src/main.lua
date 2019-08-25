@@ -95,6 +95,7 @@ function ClassicLFG:GetInitialState()
         Player = {
             Level = UnitLevel("player")
         },
+        ShareTalents = true
     }
 end
 

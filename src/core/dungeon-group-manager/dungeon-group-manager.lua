@@ -343,7 +343,7 @@ function ClassicLFGDungeonGroupManager:AddApplicant(applicant)
     self.Applicants:AddItem(applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantReceived, applicant)
     if(ClassicLFG.DB.profile.AutoInvite == true) then
-        self:ApplicantInvited(applicant)
+        --self:ApplicantInvited(applicant)
     end
 end
 

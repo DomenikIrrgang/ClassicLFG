@@ -28,7 +28,7 @@ function ClassicLFGPlayer.new(name, guild, level, class, talents)
 end
 
 function ClassicLFGPlayer:CreateTalents()
-    if(self.Name == UnitName("player")) then
+    if(self.Name == UnitName("player") and ClassicLFG.Store:GetState().Db.profile.ShareTalents == true) then
         local talents = {}
         talents[1] = select(3, GetTalentTabInfo(1))
         talents[2] = select(3, GetTalentTabInfo(2))

@@ -96,9 +96,27 @@ ClassicLFG.Store:AddListener(ClassicLFG.Actions.ToggleShowAllDungeons, ClassicLF
     end
 end)
 
+ClassicLFG.QueueWindow.Settings.ShareTalents = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Share Talents"])
+ClassicLFG.QueueWindow.Settings.ShareTalents.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame, "BOTTOMLEFT", 0, -8)
+ClassicLFG.QueueWindow.Settings.ShareTalents.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame, "BOTTOMRIGHT", 0, -30)
+
+ClassicLFG.QueueWindow.Settings.ShareTalents.OnValueChanged = function(_, value)
+    ClassicLFG.Store:PublishAction(ClassicLFG.Actions.ToggleShareTalents, value)
+end
+
+ClassicLFG.Store:AddListener(ClassicLFG.Actions.ToggleShareTalents, ClassicLFG.QueueWindow.Settings.ShareTalents, function(self, action, state, value)
+    if (state.Db.profile.ShareTalents == true) then
+        self:Select()
+        self.Selected = true
+    else
+        self:Deselect()
+        self.Selected = false
+    end
+end)
+
 ClassicLFG.QueueWindow.Settings.AutoAcceptInvite = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Autoaccept invites of parties you applied to"])
-ClassicLFG.QueueWindow.Settings.AutoAcceptInvite.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame, "BOTTOMLEFT", 0, -8)
-ClassicLFG.QueueWindow.Settings.AutoAcceptInvite.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.Settings.AutoAcceptInvite.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.ShareTalents.Frame, "BOTTOMLEFT", 0, -8)
+ClassicLFG.QueueWindow.Settings.AutoAcceptInvite.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.ShareTalents.Frame, "BOTTOMRIGHT", 0, -30)
 ClassicLFG.QueueWindow.Settings.AutoAcceptInvite.OnValueChanged = function(_, value)
     ClassicLFG.DB.profile.AutoAcceptInvite = value
 end
