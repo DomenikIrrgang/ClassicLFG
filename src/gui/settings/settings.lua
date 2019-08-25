@@ -4,45 +4,25 @@
 ---------------------------------
 
 ClassicLFG.QueueWindow.Settings:SetScript("OnShow", function(self, _, channel)
-    ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetItems(ClassicLFG.ChannelManager:GetChannelNames())
+    ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetItems(ClassicLFG.ChannelManager:GetBroadcastChannelNames())
     ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetValue(ClassicLFG.ChannelManager:GetChannelName((ClassicLFG.DB.profile.BroadcastDungeonGroupChannel)))
     ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame:SetValue(ClassicLFG.DB.profile.BroadcastDungeonGroupInterval)	
-    ClassicLFG.QueueWindow.Settings.Invitemessage.Frame:SetText(ClassicLFG.DB.profile.InviteText)
     ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetText(ClassicLFG.DB.profile.InviteKeyword)
     ClassicLFG.QueueWindow.Settings.AutoAcceptInvite:SetState(ClassicLFG.DB.profile.AutoAcceptInvite)
     ClassicLFG.QueueWindow.Settings.HideMinimapIcon:SetState(ClassicLFG.DB.profile.minimap.hide)
     ClassicLFG.QueueWindow.Settings.EnableToasts:SetState(ClassicLFG.DB.profile.Toast.Enabled)
 end)
 
-ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Broadcast dungeon group in chat"])
-ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings, "TOPLEFT", 0, -10)
-ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings, "TOPRIGHT", 0, -32)
-
-ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup.OnValueChanged = function(_, value)
-    ClassicLFG.Store:PublishAction(ClassicLFG.Actions.ToggleBroadcastDungeonGroup, value)
-end
-
-ClassicLFG.Store:AddListener(ClassicLFG.Actions.ToggleBroadcastDungeonGroup, ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup, function(self, action, state, value)
-    if (state.Db.profile.BroadcastDungeonGroup == true) then
-        self:Select()
-        self.Selected = true
-    else
-        self:Deselect()
-        self.Selected = false
-    end
-end)
-
 ClassicLFG.QueueWindow.Settings.Broadcastchannel = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Broadcastchannel"], ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Broadcastchannel"])
-ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup.Frame, "BOTTOMLEFT", 0, -26)
-ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.BroadcastDungeonGroup.Frame, "BOTTOMRIGHT", 0, -48)
+ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings, "TOPLEFT", 0, -10)
+ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings, "TOPRIGHT", 0, -32)
 ClassicLFG.QueueWindow.Settings.Broadcastchannel.OnValueChanged = function(_, _, channel)
     ClassicLFG.DB.profile.BroadcastDungeonGroupChannel = ClassicLFG.ChannelManager:GetChannelId(channel)
 end
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ChannelListChanged, ClassicLFG.QueueWindow.Settings.Broadcastchannel, function(self, channels)
-    ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetItems(ClassicLFG.ChannelManager:GetChannelNames())
-    self:SetItems(ClassicLFG.ChannelManager:GetChannelNames())
-    ClassicLFG.QueueWindow.Settings.Broadcastchannel:SetValue(ClassicLFG.ChannelManager:GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
+    self:SetItems(ClassicLFG.ChannelManager:GetBroadcastChannelNames())
+    self:SetValue(ClassicLFG.ChannelManager:GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
 end)
 
 ClassicLFG.QueueWindow.Settings.BroadcastSlider = ClassicLFGSlider(ClassicLFG.Locale["Broadcastinterval"], nil, ClassicLFG.QueueWindow.Settings)
@@ -58,19 +38,9 @@ ClassicLFG.QueueWindow.Settings.BroadcastSlider.OnValueChanged = function(_, val
 	ClassicLFG.DB.profile.BroadcastDungeonGroupInterval = value
 end
 
-ClassicLFG.QueueWindow.Settings.Invitemessage = ClassicLFGEditBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Invitemessage"])
-ClassicLFG.QueueWindow.Settings.Invitemessage.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame, "BOTTOMLEFT", 0, -38);
-ClassicLFG.QueueWindow.Settings.Invitemessage.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame, "BOTTOMRIGHT", 0, -60)
-ClassicLFG.QueueWindow.Settings.Invitemessage.Frame:SetMaxLetters(25)
-ClassicLFG.QueueWindow.Settings.Invitemessage:SetPlaceholder(ClassicLFG.Locale["Invitemessage"])
-
-ClassicLFG.QueueWindow.Settings.Invitemessage.OnTextChanged = function(self, _, text)
-	ClassicLFG.DB.profile.InviteText = text
-end
-
 ClassicLFG.QueueWindow.Settings.InviteKeyword = ClassicLFGEditBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Invite Keyword"])
-ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMLEFT", 0, -25);
-ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Invitemessage.Frame, "BOTTOMRIGHT", 0, -47)
+ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame, "BOTTOMLEFT", 0, -40);
+ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.BroadcastSlider.Frame, "BOTTOMRIGHT", 0, -62)
 ClassicLFG.QueueWindow.Settings.InviteKeyword.Frame:SetMaxLetters(25)
 ClassicLFG.QueueWindow.Settings.InviteKeyword:SetPlaceholder(ClassicLFG.Locale["Invite Keyword"])
 

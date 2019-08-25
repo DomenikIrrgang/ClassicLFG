@@ -22,7 +22,7 @@ function ClassicLFGQueueDungeonGroupWindow.new(parent)
     self.QueueButton:SetPoint("BOTTOMRIGHT", self.EditBox.Frame, "BOTTOMRIGHT", 0, -27)
     self.QueueButton.OnClick = function() ClassicLFG.GroupManager:ApplyForGroup(self.DungeonGroup, self.EditBox.Frame:GetText()); self.Frame:Hide() end
     self.Frame:SetTitle(ClassicLFG.Locale["Queue Dungeon"])
-    self.Frame.Frame:SetScript("OnShow", function() self.EditBox.Frame:SetText(ClassicLFG.DB.profile.InviteText) end)
+    self.Frame.Frame:SetScript("OnShow", function() self.EditBox.Frame:SetText("") end)
     table.insert(UISpecialFrames, self.Frame.Frame:GetName())
     return self
 end
