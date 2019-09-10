@@ -17,17 +17,17 @@ function ClassicLFGChatParser.new()
     self.Frame:SetScript("OnEvent", function(_, event, ...)
         if (event == "CHAT_MSG_CHANNEL") then
             local message, player, _, _, _, _, _, _, channelName = ...
-            self:ParseMessage(player, message, channelName)
+            self:ParseMessage(player, string.lower(message), channelName)
         end
 
         if (event == "CHAT_MSG_SAY") then
             local message, player, _, _, _, _, _, _, channelName = ...
-            self:ParseMessage(player, message, "SAY")
+            self:ParseMessage(player, string.lower(message), "SAY")
         end
 
         if (event == "CHAT_MSG_YELL") then
             local message, player, _, _, _, _, _, _, channelName = ...
-            self:ParseMessage(player, message, "YELL")
+            self:ParseMessage(player, string.lower(message), "YELL")
         end
 
         if (event == "CHAT_MSG_WHISPER") then
@@ -69,6 +69,7 @@ function ClassicLFGChatParser:HasLFMTag(text)
         "lf3m",
         "lf2m",
         "lf1m",
+		"lf",
         "looking for more"
     }
     local found = false
@@ -83,7 +84,7 @@ end
 
 function ClassicLFGChatParser:HasDungeonName(message)
     for dungeonName, dungeon in pairs(ClassicLFG.DungeonManager:GetAllDungeons()) do
-        if (string.find(message, ClassicLFG.Locale[dungeonName]:lower())) then
+        if (string.find(string.lower(message), ClassicLFG.Locale[dungeonName]:lower())) then
             return ClassicLFG.DungeonManager.Dungeons[dungeonName]
         end
     end
@@ -93,7 +94,7 @@ end
 function ClassicLFGChatParser:HasDungeonAbbreviation(message)
     for key, dungeon in pairs(ClassicLFG.DungeonManager.Dungeons) do
         for _, abbreviation in pairs(dungeon.Abbreviations) do
-            if (ClassicLFG:ArrayContainsValue(message:SplitString(" "), abbreviation)) then
+            if (ClassicLFG:ArrayContainsValue(string.lower(message):SplitString(" "), abbreviation)) then
                 return dungeon
             end
         end
@@ -102,7 +103,7 @@ function ClassicLFGChatParser:HasDungeonAbbreviation(message)
 end
 
 function ClassicLFGChatParser:HasRoleName(message)
-    local words = message:SplitString(" ")
+    local words = string.lower(message):SplitString(" ")
     return ClassicLFG:ArrayContainsArrayValue(words, ClassicLFG.Locale["RolesArray"])
 end
 
