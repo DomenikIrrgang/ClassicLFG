@@ -24,6 +24,11 @@ function ClassicLFGToast.new(x, y, width, height)
     self.Window.Frame:SetScript("OnHide", function()
         self.OnToastFinished()
     end)
+    self.Window.Frame:SetScript("OnMouseUp", function()
+        if (self.Window.Frame:IsVisible() and self.OnClick and self.OnClick.Callback) then
+            self.OnClick.Callback(self.OnClick.Object)
+        end
+    end)
     self.Text = self.Window.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     self.Text:SetFont(ClassicLFG.Config.Font, 10, "NONE")
     self.Text:SetPoint("LEFT", self.Window.Frame.Content, "LEFT", 8, 0)
@@ -33,10 +38,11 @@ function ClassicLFGToast.new(x, y, width, height)
     return self
 end
 
-function ClassicLFGToast:Show(title, message, duration)
+function ClassicLFGToast:Show(title, message, duration, object, callback)
     if (duration) then
         self.Duration = duration
     end
+    self.OnClick = { Object = object, Callback = callback }
     self.Window:SetTitle(title)
     self.Text:SetText(message)
     self.Window.Frame:SetHeight(self.Window.Frame.TitleBar:GetHeight() + self.Text:GetHeight() + 16)
