@@ -16,7 +16,7 @@ function ClassicLFGToastManager.new()
         if (self.Movable == false) then
             table.remove(self.ToastQueue, 1)
             if (#self.ToastQueue > 0) then
-                self.Toast:Show(self.ToastQueue[1].Title, self.ToastQueue[1].Message, self.ToastQueue[1].Duration)
+                self.Toast:Show(self.ToastQueue[1].Title, self.ToastQueue[1].Message, self.ToastQueue[1].Duration, self.ToastQueue[1].Object, self.ToastQueue[1].Callback)
             end
         else
             self.Toast:Show("MOVE ME", "", 3)
@@ -40,12 +40,12 @@ function ClassicLFGToastManager:OnApplicationDeclined(dungeonGroup)
     self:ShowToast(ClassicLFG.Locale["Application declined"], ClassicLFG.Locale["You have been declined by the group: \""] .. dungeonGroup.Title .. "\" (" .. ClassicLFG.Locale[dungeonGroup.Dungeon.Name] .. ")", 5)
 end
 
-function ClassicLFGToastManager:ShowToast(title, message, duration)
+function ClassicLFGToastManager:ShowToast(title, message, duration, object, callback)
     if (ClassicLFG.Store:GetState().Db.profile.Toast.Enabled == true) then
         if (#self.ToastQueue == 0) then
-            self.Toast:Show(title, message, duration)
+            self.Toast:Show(title, message, duration, object, callback)
         end
-        table.insert(self.ToastQueue, { Title = title, Message = message, Duration = duration })
+        table.insert(self.ToastQueue, { Title = title, Message = message, Duration = duration, Object = object, Callback = callback })
     end
 end
 

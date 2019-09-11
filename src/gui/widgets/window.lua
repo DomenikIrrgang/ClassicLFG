@@ -75,7 +75,10 @@ function ClassicLFGWindow.new(name, parent, width, height)
 end
 
 function ClassicLFGWindow:SetTitle(title)
-    self.Frame.Title:SetText(title);
+    self.Frame.Title:SetText(title)
+    while (self.Frame.Title:GetStringWidth() >= self.Frame:GetWidth() - 10) do
+        self.Frame.Title:SetText(self.Frame.Title:GetText():sub(1, self.Frame.Title:GetText():len() - 4) .. "...")
+    end
 end
 
 function ClassicLFGWindow:Show()

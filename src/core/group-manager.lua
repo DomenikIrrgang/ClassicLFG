@@ -138,7 +138,11 @@ function ClassicLFGGroupManager:ReceiveGroup(dungeonGroup)
             else
                 self.Groups:AddItem(dungeonGroup)
                 if (ClassicLFG.Store:GetState().MainWindowOpen == false and ClassicLFG:ArrayContainsValue(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray(), dungeonGroup.Dungeon.Name)) then
-                    ClassicLFG.ToastManager:ShowToast(dungeonGroup.Title, dungeonGroup.Dungeon.Name, 5)
+                    ClassicLFG.ToastManager:ShowToast(dungeonGroup.Title, dungeonGroup.Dungeon.Name, 5, dungeonGroup, function(self)
+                        ChatFrame1EditBox:Show()
+                        ChatFrame1EditBox:SetText("/w ".. self.Leader.Name .. " ")
+                        ChatFrame1EditBox:SetFocus()
+                    end)
                 end
             end
         end
