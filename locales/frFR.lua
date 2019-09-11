@@ -97,12 +97,12 @@ if (L) then
     L["Custom"] = "Personnalisé"
 
     -- SYSTEM MESSAGES (NEED TO BE ACCURATE!!)
-    L[" declines your group invitation."] = " refuse votre invitation."
+    L[" declines your group invitation."] = " refuse votre invitation à rejoindre le groupe."
     L[" joins the party."] = " rejoint le groupe."
-    L[" leaves the party."] = " quitte le groupe."
+    L[" leaves the party."] = " a quitté le groupe."
     L["Your group has been disbanded."] = "Votre groupe a été dissout."
     L["You leave the group."] = "Vous quittez le groupe."
-    L["You have been removed from the group."] = "Vous avez été supprimé du groupe."
+    L["You have been removed from the group."] = "Vous avez été renvoyé du groupe."
     L[" has invited you to join a group."] = " vous a invité à rejoindre un groupe."
     L[" to join your group."] = " à rejoindre votre groupe."
     L["You have invited "] = "Vous avez invité "
