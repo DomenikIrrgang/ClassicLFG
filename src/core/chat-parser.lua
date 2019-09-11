@@ -49,18 +49,25 @@ function ClassicLFGChatParser:ParseMessage(sender, message, channel)
     self:HasRoleName(lowerMessage)
     local dungeon = self:HasDungeonName(lowerMessage) or self:HasDungeonAbbreviation(lowerMessage)
     if (not self:HasIgnoreMessageTag(lowerMessage)) then
-        if ((self:HasLFMTag(lowerMessage) or self:HasRoleName(lowerMessage)) and dungeon ~= nil) then
+        if ((self:HasLFMTag(lowerMessage) or self:HasRoleName(lowerMessage)) and not self:HasLFGTag(lowerMessage) and dungeon ~= nil) then
             local dungeonGroup = ClassicLFGDungeonGroup(dungeon, ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
             ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. dungeon.Name .. ")")
             ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ChatDungeonGroupFound, dungeonGroup)
         end
 
-        if (self:HasLFMTag(lowerMessage) and dungeon == nil) then
+        if (self:HasLFMTag(lowerMessage) and not self:HasLFGTag(lowerMessage) and dungeon == nil) then
             local dungeonGroup = ClassicLFGDungeonGroup(ClassicLFG.DungeonManager.Dungeons["Custom"], ClassicLFGPlayer(sender), message, "", { Type = "CHAT", Channel = channel})
             ClassicLFG:DebugPrint("Found Dungeongroup in chat: " .. message .. " (" .. ClassicLFG.DungeonManager.Dungeons["Custom"].Name .. ")")
             ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ChatDungeonGroupFound, dungeonGroup)
         end
     end
+end
+
+function ClassicLFGChatParser:HasLFGTag(message)
+    if (string.find(message, "lfg")) then
+        return true
+    end
+    return false
 end
 
 function ClassicLFGChatParser:HasLFMTag(text)
