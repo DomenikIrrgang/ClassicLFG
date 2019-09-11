@@ -20,8 +20,10 @@ ClassicLFG.QueueWindow.Settings.Broadcastchannel.OnValueChanged = function(_, _,
 end
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ChannelListChanged, ClassicLFG.QueueWindow.Settings.Broadcastchannel, function(self, channels)
-    self:SetItems(ClassicLFG.ChannelManager:GetBroadcastChannelNames())
-    self:SetValue(ClassicLFG.ChannelManager:GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
+    if (ClassicLFG.ChannelManager:GetBroadcastChannelNames() and #ClassicLFG.ChannelManager:GetBroadcastChannelNames() > 0) then
+        self:SetItems(ClassicLFG.ChannelManager:GetBroadcastChannelNames())
+        self:SetValue(ClassicLFG.ChannelManager:GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
+    end
 end)
 
 ClassicLFG.QueueWindow.Settings.BroadcastSlider = ClassicLFGSlider(ClassicLFG.Locale["Broadcastinterval"], nil, ClassicLFG.QueueWindow.Settings)
