@@ -8,7 +8,7 @@ ClassicLFG.DungeonManager:DefineDungeon("Gnomeregan", 5, 25, 35, "Dun Morogh", "
 ClassicLFG.DungeonManager:DefineDungeon("Razorfen Kraul", 5, 22, 32, "Barrens", "rfk", {"rfk", "kraul"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-RAZORFENKRAUL")
 ClassicLFG.DungeonManager:DefineDungeon("The Scarlet Monastery: Graveyard", 5, 25, 35, "Tirisfal Glades", "graveyard", {"sm", "gy", "friedhof"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCARLETMONASTERY")
 ClassicLFG.DungeonManager:DefineDungeon("The Scarlet Monastery: Library", 5, 29, 39, "Tirisfal Glades", "library", {"lib", "library", "bücherrei"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCARLETMONASTERY")
-ClassicLFG.DungeonManager:DefineDungeon("The Scarlet Monastery: Armory", 5, 32, 42, "Tirisfal Glades", "armory", {"waffenkammer", "wk"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCARLETMONASTERY")
+ClassicLFG.DungeonManager:DefineDungeon("The Scarlet Monastery: Armory", 5, 32, 42, "Tirisfal Glades", "armory", {"arm", "waffenkammer", "wk"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCARLETMONASTERY")
 ClassicLFG.DungeonManager:DefineDungeon("The Scarlet Monastery: Cathedral", 5, 34, 44, "Tirisfal Glades", "cathedral", {"cath", "kathe", "kathedrale"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCARLETMONASTERY")
 ClassicLFG.DungeonManager:DefineDungeon("Razorfen Downs", 5, 33, 43, "Barrens", "rfd", {"rfd"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-RAZORFENDOWNS")
 ClassicLFG.DungeonManager:DefineDungeon("Uldaman", 5, 35, 45, "Badlands", "ulda", {"ulda"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-ULDAMAN")
