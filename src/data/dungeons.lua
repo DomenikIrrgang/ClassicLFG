@@ -1,4 +1,4 @@
-ClassicLFG.DungeonManager:DefineDungeon("Ragefire Chasm", 5, 12, 21, "Orgrimmar", "rfc", {"rfc", "ragefire", "flammenschlund"}, ClassicLFG.Faction.HORDE, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-RAGEFIRECHASM")
+ClassicLFG.DungeonManager:DefineDungeon("Ragefire Chasm", 5, 12, 21, "Orgrimmar", "rfc", {"rfc", "ragefire", "rf", "flammenschlund"}, ClassicLFG.Faction.HORDE, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-RAGEFIRECHASM")
 ClassicLFG.DungeonManager:DefineDungeon("Wailing Caverns", 5, 15, 25, "Barrens", "wc", {"wc", "hdw"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-WAILINGCAVERNS")
 ClassicLFG.DungeonManager:DefineDungeon("The Deadmines", 5, 14, 24, "Westfall", "DM", {"dm", "vc", "deadmines", "todesminen"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-DEADMINES")
 ClassicLFG.DungeonManager:DefineDungeon("Shadowfang Keep", 5, 16, 27, "Silverpine Forest", "sfk", {"sfk", "shadowfang", "bsf", "burg", "schattenfang"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SHADOWFANGKEEP")
