@@ -13,7 +13,7 @@ ClassicLFG.DungeonManager:DefineDungeon("The Scarlet Monastery: Cathedral", 5, 3
 ClassicLFG.DungeonManager:DefineDungeon("Razorfen Downs", 5, 33, 43, "Barrens", "rfd", {"rfd", "hügel"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-RAZORFENDOWNS")
 ClassicLFG.DungeonManager:DefineDungeon("Uldaman", 5, 35, 45, "Badlands", "ulda", {"ulda", "uld"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-ULDAMAN")
 ClassicLFG.DungeonManager:DefineDungeon("Zul'Farak", 5, 40, 50, "Tanaris", "zf", {"zf"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-ZULFARAK")
-ClassicLFG.DungeonManager:DefineDungeon("Maraudon", 5, 44, 54, "Desolace", "maraudon", {"maraudon", "mara"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-MARAUDON")
+ClassicLFG.DungeonManager:DefineDungeon("Maraudon", 5, 44, 54, "Desolace", "maraudon", {"maraudon", "mara", "princess"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-MARAUDON")
 ClassicLFG.DungeonManager:DefineDungeon("Temple of Atal'Hakkar", 5, 47, 60, "Swamp of Sorrows", "st", {"st", "toa", "atal", "sunken temple"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SUNKENTEMPLE")
 ClassicLFG.DungeonManager:DefineDungeon("Blackrock Depths", 5, 49, 60, "Blackrock Mountain", "brd", {"brd"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKROCKDEPTHS")
 ClassicLFG.DungeonManager:DefineDungeon("Lower Blackrock Spire", 10, 55, 60, "Blackrock Mountain", "lbrs", {"lbrs"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKROCKSPIRE")
