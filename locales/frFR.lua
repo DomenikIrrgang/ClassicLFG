@@ -25,7 +25,8 @@ if (L) then
     L["Deselect all"] = "Tout désélectionner"
     L["Queue Dungeon"] = "Inscription à un donjon"
     L["Note"] = "Note"
-    L["Autoaccept invites of parties you applied to"] = "Accepter automatiquement les invitations aux groupes auxquels vous avez postulé"
+    L["Autoaccept invites of parties you applied to"] =
+        "Accepter automatiquement les invitations aux groupes auxquels vous avez postulé"
     L["New Applicant: "] = "Nouveau candidat: "
     L[" - Level "] = " - Niveau "
     L["Invite Keyword"] = "Mot-clé d'invitation"
@@ -70,31 +71,106 @@ if (L) then
     L["Retribution"] = "Vindicte"
 
     -- Dungeons
-    L["Ragefire Chasm"] = "Gouffre de Ragefeu"
-    L["Wailing Caverns"] = "Cavernes des Lamentations"
-    L["The Deadmines"] = "Les Mortemines"
-    L["Shadowfang Keep"] = "Donjon d'Ombrecroc"
-    L["Blackfathom Deeps"] = "Profondeurs de Brassenoire"
-    L["The Stockades"] = "La Prison"
-    L["Gnomeregan"] = "Gnomeregan"
-    L["Razorfen Kraul"] = "Kraal de Tranchebauge"
-    L["The Scarlet Monastery: Graveyard"] = "Le Monastère Écarlate: Cimetière"
-    L["The Scarlet Monastery: Library"] = "Le Monastère Écarlate: Bibliothèque"
-    L["The Scarlet Monastery: Armory"] = "Le Monastère Écarlate: Armurerie"
-    L["The Scarlet Monastery: Cathedral"] = "Le Monastère Écarlate: Cathédrale"
-    L["Razorfen Downs"] = "Souilles de Tranchebauge"
-    L["Uldaman"] = "Uldaman"
-    L["Zul'Farak"] = "Zul'Farak"
-    L["Maraudon"] = "Maraudon"
-    L["Temple of Atal'Hakkar"] = "Temple d'Atal'Hakkar"
-    L["Blackrock Depths"] = "Profondeurs de Rochenoire"
-    L["Lower Blackrock Spire"] = "Pic Rochenoire inférieur"
-    L["Upper Blackrock Spire"] = "Pic Rochenoire supérieur"
-    L["Stratholme"] = "Stratholme"
-    L["Scholomance"] = "Scholomance"
-    L["Molten Core"] = "Cœur du Magma"
-    L["Onyxia's Lair"] = "Repaire d'Onyxia"
-    L["Custom"] = "Personnalisé"
+    L["Ragefire Chasm"] = {
+        Name = "Gouffre de Ragefeu",
+        AliasTags = {}
+    }
+    L["Wailing Caverns"] = {
+        Name = "Cavernes des Lamentations",
+        AliasTags = {}
+    }
+    L["The Deadmines"] = {
+        Name = "Les Mortemines",
+        AliasTags = {}
+    }
+    L["Shadowfang Keep"] = {
+        Name = "Donjon d'Ombrecroc",
+        AliasTags = {}
+    }
+    L["Blackfathom Deeps"] = {
+        Name = "Profondeurs de Brassenoire",
+        AliasTags = {}
+    }
+    L["The Stockades"] = {
+        Name = "La Prison",
+        AliasTags = {}
+    }
+    L["Gnomeregan"] = {
+        Name = "Gnomeregan",
+        AliasTags = {}
+    }
+    L["Razorfen Kraul"] = {
+        Name = "Kraal de Tranchebauge",
+        AliasTags = {}
+    }
+    L["The Scarlet Monastery: Graveyard"] = {
+        Name = "Le Monastère Écarlate: Cimetière",
+        AliasTags = {}
+    }
+    L["The Scarlet Monastery: Library"] = {
+        Name = "Le Monastère Écarlate: Bibliothèque",
+        AliasTags = {}
+    }
+    L["The Scarlet Monastery: Armory"] = {
+        Name = "Le Monastère Écarlate: Armurerie",
+        AliasTags = {}
+    }
+    L["The Scarlet Monastery: Cathedral"] = {
+        Name = "Le Monastère Écarlate: Cathédrale",
+        AliasTags = {}
+    }
+    L["Razorfen Downs"] = {
+        Name = "Souilles de Tranchebauge",
+        AliasTags = {}
+    }
+    L["Uldaman"] = {
+        Name = "Uldaman",
+        AliasTags = {}
+    }
+    L["Zul'Farak"] = {
+        Name = "Zul'Farak",
+        AliasTags = {}
+    }
+    L["Maraudon"] = {
+        Name = "Maraudon",
+        AliasTags = {}
+    }
+    L["Temple of Atal'Hakkar"] = {
+        Name = "Temple d'Atal'Hakkar",
+        AliasTags = {}
+    }
+    L["Blackrock Depths"] = {
+        Name = "Profondeurs de Rochenoire",
+        AliasTags = {}
+    }
+    L["Lower Blackrock Spire"] = {
+        Name = "Pic Rochenoire inférieur",
+        AliasTags = {}
+    }
+    L["Upper Blackrock Spire"] = {
+        Name = "Pic Rochenoire supérieur",
+        AliasTags = {}
+    }
+    L["Stratholme"] = {
+        Name = "Stratholme",
+        AliasTags = {}
+    }
+    L["Scholomance"] = {
+        Name = "Scholomance",
+        AliasTags = {}
+    }
+    L["Molten Core"] = {
+        Name = "Cœur du Magma",
+        AliasTags = {}
+    }
+    L["Onyxia's Lair"] = {
+        Name = "Repaire d'Onyxia",
+        AliasTags = {}
+    }
+    L["Custom"] = {
+        Name = "Personnalisé",
+        AliasTags = {}
+    }
 
     -- SYSTEM MESSAGES (NEED TO BE ACCURATE!!)
     L[" declines your group invitation."] = " refuse votre invitation à rejoindre le groupe."

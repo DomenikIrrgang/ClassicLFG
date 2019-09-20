@@ -30,6 +30,30 @@ if (L) then
     L[" - Level "] = " - Уровень "
     L["Invite Keyword"] = "Кодовое слово для приглашения"
     L["Autoinvite"] = "Автоприглашение"
+    L["RolesArray"] = {
+        "танк",
+        "дд",
+        "рдд",
+        "хил",
+        "дпс",
+        "рдпс"
+    }
+
+    -- LFM tags
+    L["LFMTags"] = {
+        "лфм",
+        "нид",
+        "нужен",
+        "нужно",
+        "нужны"
+    }
+    -- LFG tags
+    L["LFGTags"] = {
+        "лфг",
+        "ищy",
+        "сходит",
+        "ищют"
+    }
 
     -- Classes
     L["Warlock"] = "Чернокнижник"
@@ -70,31 +94,196 @@ if (L) then
     L["Retribution"] = "Воздаяние"
 
     -- Dungeons
-    L["Ragefire Chasm"] = "Огненная пропасть"
-    L["Wailing Caverns"] = "Пещеры Стенаний"
-    L["The Deadmines"] = "Мертвые копи"
-    L["Shadowfang Keep"] = "Крепость темного клыка"
-    L["Blackfathom Deeps"] = "Непроглядная пучина"
-    L["The Stockades"] = "Тюрьма Штормграда"
-    L["Gnomeregan"] = "Гномерган"
-    L["Razorfen Kraul"] = "Лабиринты иглошкурых"
-    L["The Scarlet Monastery: Graveyard"] = "Монастырь Алого Ордена: Кладбище"
-    L["The Scarlet Monastery: Library"] = "Монастырь Алого Ордена: Библиотека"
-    L["The Scarlet Monastery: Armory"] = "Монастырь Алого Ордена: Оружейная"
-    L["The Scarlet Monastery: Cathedral"] = ":Монастырь Алого Ордена: Собор"
-    L["Razorfen Downs"] = "Курганы иглошкурых"
-    L["Uldaman"] = "Ульдаман"
-    L["Zul'Farak"] = "Зуль'Фарак"
-    L["Maraudon"] = "Мараудон"
-    L["Temple of Atal'Hakkar"] = "Храм Атал'Хаккара"
-    L["Blackrock Depths"] = "Глубины Черной Горы"
-    L["Lower Blackrock Spire"] = "Пик Черной Горы"
-    L["Upper Blackrock Spire"] = "Верхняя часть Пика Черной Горы"
-    L["Stratholme"] = "Стратхольм"
-    L["Scholomance"] = "Шоломанс"
-    L["Molten Core"] = "Огненные недра"
-    L["Onyxia's Lair"] = "Логово Ониксии"
-    L["Custom"] = "разное"
+    L["Ragefire Chasm"] = {
+        Name = "Огненная пропасть",
+        AliasTags = {
+            "оп"
+        }
+    }
+    L["Wailing Caverns"] = {
+        Name = "Пещеры Стенаний",
+        AliasTags = {
+            "пс"
+        }
+    }
+    L["The Deadmines"] = {
+        Name = "Мертвые копи",
+        AliasTags = {
+            "копи",
+            "мк",
+            "дм"
+        }
+    }
+    L["Shadowfang Keep"] = {
+        Name = "Крепость темного клыка",
+        AliasTags = {
+            "ктк"
+        }
+    }
+    L["Blackfathom Deeps"] = {
+        Name = "Непроглядная пучина",
+        AliasTags = {
+            "нп"
+        }
+    }
+    L["The Stockades"] = {
+        Name = "Тюрьма Штормграда",
+        AliasTags = {
+            "тш",
+            "тюрьма",
+            "тюрьму"
+        }
+    }
+    L["Gnomeregan"] = {
+        Name = "Гномерган",
+        AliasTags = {
+            "гномер",
+            "гном"
+        }
+    }
+    L["Razorfen Kraul"] = {
+        Name = "Лабиринты иглошкурых",
+        AliasTags = {
+            "ли",
+            "лабиринты",
+            "лобиринты"
+        }
+    }
+    L["The Scarlet Monastery: Graveyard"] = {
+        Name = "Монастырь Алого Ордена: Кладбище",
+        AliasTags = {
+            "мао",
+            "кладбон",
+            "скарлет",
+            "монастырь",
+            "кладбище"
+        }
+    }
+    L["The Scarlet Monastery: Library"] = {
+        Name = "Монастырь Алого Ордена: Библиотека",
+        AliasTags = {
+            "мао",
+            "скарлет",
+            "монастырь",
+            "библиотека"
+        }
+    }
+    L["The Scarlet Monastery: Armory"] = {
+        Name = "Монастырь Алого Ордена: Оружейная",
+        AliasTags = {
+            "мао",
+            "скарлет",
+            "монастырь",
+            "оружейная",
+            "оружейка"
+        }
+    }
+    L["The Scarlet Monastery: Cathedral"] = {
+        Name = "Монастырь Алого Ордена: Собор",
+        AliasTags = {
+            "мао",
+            "скарлет",
+            "монастырь",
+            "собор"
+        }
+    }
+    L["Razorfen Downs"] = {
+        Name = "Курганы иглошкурых",
+        AliasTags = {
+            "ки",
+            "курганы"
+        }
+    }
+    L["Uldaman"] = {
+        Name = "Ульдаман",
+        AliasTags = {
+            "ульдa",
+            "ульду",
+            "ульдуман"
+        }
+    }
+    L["Zul'Farak"] = {
+        Name = "Зуль'Фарак",
+        AliasTags = {
+            "зф",
+            "фарак",
+            "зул"
+        }
+    }
+    L["Maraudon"] = {
+        Name = "Мараудон",
+        AliasTags = {
+            "марадон",
+            "мара",
+            "мородон",
+            "мародон"
+        }
+    }
+    L["Temple of Atal'Hakkar"] = {
+        Name = "Храм Атал'Хаккара",
+        AliasTags = {
+            "ха",
+            "хах",
+            "атал",
+            "атал'хаккара",
+            "хаккара"
+        }
+    }
+    L["Blackrock Depths"] = {
+        Name = "Глубины Черной Горы",
+        AliasTags = {
+            "брд",
+            "глубины"
+        }
+    }
+    L["Lower Blackrock Spire"] = {
+        Name = "Пик Черной Горы",
+        AliasTags = {
+            "пик",
+            "лбрс"
+        }
+    }
+    L["Upper Blackrock Spire"] = {
+        Name = "Верхняя часть Пика Черной Горы",
+        AliasTags = {
+            "верх",
+            "верхняя",
+            "убрс"
+        }
+    }
+    L["Stratholme"] = {
+        Name = "Стратхольм",
+        AliasTags = {
+            "страт"
+        }
+    }
+    L["Scholomance"] = {
+        Name = "Некроситет",
+        AliasTags = {
+            "шоло",
+            "некроситет",
+            "некраситет"
+        }
+    }
+    L["Molten Core"] = {
+        Name = "Огненные недра",
+        AliasTags = {
+            "недры",
+            "он"
+        }
+    }
+    L["Onyxia's Lair"] = {
+        Name = "Логово Ониксии",
+        AliasTags = {
+            "оникс",
+            "ониксия",
+            "ониксию"
+        }
+    }
+    L["Custom"] = {
+        Name = "разное",
+        AliasTags = {}
+    }
 
     -- SYSTEM MESSAGES (NEED TO BE ACCURATE!!)
     L[" declines your group invitation."] = " отклоняет приглашение в группу."

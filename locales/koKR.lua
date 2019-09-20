@@ -32,11 +32,11 @@ if (L) then
     L["Autoinvite"] = "자동 초대"
     L["Hide Minimap Icon"] = "미니맵 아이콘 숨기기"
     L["RolesArray"] = {
-        "탱커",
-        "딜러",
-        "힐",
-        "힐러",
-        "데미지 딜러"
+            "탱커",
+            "딜러",
+            "힐",
+            "힐러",
+            "데미지 딜러"
     }
     L["looking"] = "찾기"
     L["group"] = "그룹"
@@ -80,31 +80,106 @@ if (L) then
     L["Retribution"] = "징벌"
 
     -- Dungeons
-    L["Ragefire Chasm"] = "성난불길 협곡"
-    L["Wailing Caverns"] = "통곡의 동굴"
-    L["The Deadmines"] = "죽음의 폐광"
-    L["Shadowfang Keep"] = "그림자송곳니 성채"
-    L["Blackfathom Deeps"] = "검은심연의 나락"
-    L["The Stockades"] = "스톰윈드 지하감옥"
-    L["Gnomeregan"] = "놈리건"
-    L["Razorfen Kraul"] = "가시덩굴 우리"
-    L["The Scarlet Monastery: Graveyard"] = "붉은십자군 수도원 - 4번방 묘지"
-    L["The Scarlet Monastery: Library"] = "붉은십자군 수도원 - 1번방 도서관"
-    L["The Scarlet Monastery: Armory"] = "붉은십자군 수도원 - 2번방 무기고"
-    L["The Scarlet Monastery: Cathedral"] = "붉은십자군 수도원 - 3번방 예배당"
-    L["Razorfen Downs"] = "가시덩굴 구릉"
-    L["Uldaman"] = "울다만"
-    L["Zul'Farak"] = "줄파락"
-    L["Maraudon"] = "마라우돈"
-    L["Temple of Atal'Hakkar"] = "아탈학카르 신전"
-    L["Blackrock Depths"] = "검은바위 나락"
-    L["Lower Blackrock Spire"] = "검은바위 첨탑 하층"
-    L["Upper Blackrock Spire"] = "검은바위 첨탑 상층"
-    L["Stratholme"] = "스트라솔름"
-    L["Scholomance"] = "스칼로맨스"
-    L["Molten Core"] = "화산 심장부"
-    L["Onyxia's Lair"] = "오닉시아의 둥지"
-    L["Custom"] = "임의 설정"
+    L["Ragefire Chasm"] = {
+            Name = "성난불길 협곡",
+            AliasTags = {}
+    }
+    L["Wailing Caverns"] = {
+            Name = "통곡의 동굴",
+            AliasTags = {}
+    }
+    L["The Deadmines"] = {
+            Name = "죽음의 폐광",
+            AliasTags = {}
+    }
+    L["Shadowfang Keep"] = {
+            Name = "그림자송곳니 성채",
+            AliasTags = {}
+    }
+    L["Blackfathom Deeps"] = {
+            Name = "검은심연의 나락",
+            AliasTags = {}
+    }
+    L["The Stockades"] = {
+            Name = "스톰윈드 지하감옥",
+            AliasTags = {}
+    }
+    L["Gnomeregan"] = {
+            Name = "놈리건",
+            AliasTags = {}
+    }
+    L["Razorfen Kraul"] = {
+            Name = "가시덩굴 우리",
+            AliasTags = {}
+    }
+    L["The Scarlet Monastery: Graveyard"] = {
+            Name = "붉은십자군 수도원 - 4번방 묘지",
+            AliasTags = {}
+    }
+    L["The Scarlet Monastery: Library"] = {
+            Name = "붉은십자군 수도원 - 1번방 도서관",
+            AliasTags = {}
+    }
+    L["The Scarlet Monastery: Armory"] = {
+            Name = "붉은십자군 수도원 - 2번방 무기고",
+            AliasTags = {}
+    }
+    L["The Scarlet Monastery: Cathedral"] = {
+            Name = "붉은십자군 수도원 - 3번방 예배당",
+            AliasTags = {}
+    }
+    L["Razorfen Downs"] = {
+            Name = "가시덩굴 구릉",
+            AliasTags = {}
+    }
+    L["Uldaman"] = {
+            Name = "울다만",
+            AliasTags = {}
+    }
+    L["Zul'Farak"] = {
+            Name = "줄파락",
+            AliasTags = {}
+    }
+    L["Maraudon"] = {
+            Name = "마라우돈",
+            AliasTags = {}
+    }
+    L["Temple of Atal'Hakkar"] = {
+            Name = "아탈학카르 신전",
+            AliasTags = {}
+    }
+    L["Blackrock Depths"] = {
+            Name = "검은바위 나락",
+            AliasTags = {}
+    }
+    L["Lower Blackrock Spire"] = {
+            Name = "검은바위 첨탑 하층",
+            AliasTags = {}
+    }
+    L["Upper Blackrock Spire"] = {
+            Name = "검은바위 첨탑 상층",
+            AliasTags = {}
+    }
+    L["Stratholme"] = {
+            Name = "스트라솔름",
+            AliasTags = {}
+    }
+    L["Scholomance"] = {
+            Name = "스칼로맨스",
+            AliasTags = {}
+    }
+    L["Molten Core"] = {
+            Name = "화산 심장부",
+            AliasTags = {}
+    }
+    L["Onyxia's Lair"] = {
+            Name = "오닉시아의 둥지",
+            AliasTags = {}
+    }
+    L["Custom"] = {
+            Name = "임의 설정",
+            AliasTags = {}
+    }
 
     -- SYSTEM MESSAGES (NEED TO BE ACCURATE!!)
     L[" declines your group invitation."] = "님이 초대를 사양했습니다."

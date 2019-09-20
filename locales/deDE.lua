@@ -83,31 +83,106 @@ if (L) then
     L["Retribution"] = "Vergeltung"
 
     -- Dungeons
-    L["Ragefire Chasm"] = "Der Flammenschlund"
-    L["Wailing Caverns"] = "Die Höhlen des Wehklagens"
-    L["The Deadmines"] = "Die Todesminen"
-    L["Shadowfang Keep"] = "Burg Schattenfang"
-    L["Blackfathom Deeps"] = "Tiefschwarze Grotte"
-    L["The Stockades"] = "Das Verlies"
-    L["Gnomeregan"] = "Gnomeregan"
-    L["Razorfen Kraul"] = "Kral der Klingenhauer"
-    L["The Scarlet Monastery: Graveyard"] = "Das schwarlachrote Kloster: Friedhof"
-    L["The Scarlet Monastery: Library"] = "Das schwarlachrote Kloster: Bibliothek"
-    L["The Scarlet Monastery: Armory"] = "Das schwarlachrote Kloster: Waffenkammer"
-    L["The Scarlet Monastery: Cathedral"] = "Das schwarlachrote Kloster: Kathedrale"
-    L["Razorfen Downs"] = "Hügel der Klingenhauer"
-    L["Uldaman"] = "Uldaman"
-    L["Zul'Farak"] = "Zul'Farak"
-    L["Maraudon"] = "Maraudon"
-    L["Temple of Atal'Hakkar"] = "Versunkener Tempel"
-    L["Blackrock Depths"] = "Schwarzfelstiefen"
-    L["Lower Blackrock Spire"] = "Obere Schwarzfelsspitze"
-    L["Upper Blackrock Spire"] = "Untere Schwarzfelsspitze"
-    L["Stratholme"] = "Stratholme"
-    L["Scholomance"] = "Scholomance"
-    L["Molten Core"] = "Geschmolzener Kern"
-    L["Onyxia's Lair"] = "Onyxias Hort"
-    L["Custom"] = "Benutzerdefiniert"
+    L["Ragefire Chasm"] = {
+        Name = "Der Flammenschlund",
+        AliasTags = {}
+    }
+    L["Wailing Caverns"] = {
+        Name = "Die Höhlen des Wehklagens",
+        AliasTags = {}
+    }
+    L["The Deadmines"] = {
+        Name = "Die Todesminen",
+        AliasTags = {}
+    }
+    L["Shadowfang Keep"] = {
+        Name = "Burg Schattenfang",
+        AliasTags = {}
+    }
+    L["Blackfathom Deeps"] = {
+        Name = "Tiefschwarze Grotte",
+        AliasTags = {}
+    }
+    L["The Stockades"] = {
+        Name = "Das Verlies",
+        AliasTags = {}
+    }
+    L["Gnomeregan"] = {
+        Name = "Gnomeregan",
+        AliasTags = {}
+    }
+    L["Razorfen Kraul"] = {
+        Name = "Kral der Klingenhauer",
+        AliasTags = {}
+    }
+    L["The Scarlet Monastery: Graveyard"] = {
+        Name = "Das schwarlachrote Kloster: Friedhof",
+        AliasTags = {}
+    }
+    L["The Scarlet Monastery: Library"] = {
+        Name = "Das schwarlachrote Kloster: Bibliothek",
+        AliasTags = {}
+    }
+    L["The Scarlet Monastery: Armory"] = {
+        Name = "Das schwarlachrote Kloster: Waffenkammer",
+        AliasTags = {}
+    }
+    L["The Scarlet Monastery: Cathedral"] = {
+        Name = "Das schwarlachrote Kloster: Kathedrale",
+        AliasTags = {}
+    }
+    L["Razorfen Downs"] = {
+        Name = "Hügel der Klingenhauer",
+        AliasTags = {}
+    }
+    L["Uldaman"] = {
+        Name = "Uldaman",
+        AliasTags = {}
+    }
+    L["Zul'Farak"] = {
+        Name = "Zul'Farak",
+        AliasTags = {}
+    }
+    L["Maraudon"] = {
+        Name = "Maraudon",
+        AliasTags = {}
+    }
+    L["Temple of Atal'Hakkar"] = {
+        Name = "Versunkener Tempel",
+        AliasTags = {}
+    }
+    L["Blackrock Depths"] = {
+        Name = "Schwarzfelstiefen",
+        AliasTags = {}
+    }
+    L["Lower Blackrock Spire"] = {
+        Name = "Obere Schwarzfelsspitze",
+        AliasTags = {}
+    }
+    L["Upper Blackrock Spire"] = {
+        Name = "Untere Schwarzfelsspitze",
+        AliasTags = {}
+    }
+    L["Stratholme"] = {
+        Name = "Stratholme",
+        AliasTags = {}
+    }
+    L["Scholomance"] = {
+        Name = "Scholomance",
+        AliasTags = {}
+    }
+    L["Molten Core"] = {
+        Name = "Geschmolzener Kern",
+        AliasTags = {}
+    }
+    L["Onyxia's Lair"] = {
+        Name = "Onyxias Hort",
+        AliasTags = {}
+    }
+    L["Custom"] = {
+        Name = "Benutzerdefiniert",
+        AliasTags = {}
+    }
 
     -- SYSTEM MESSAGES (NEED TO BE ACCURATE!!)
     L[" declines your group invitation."] = " lehnt Eure Einladung in die Gruppe ab."

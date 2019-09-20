@@ -29,15 +29,15 @@ function ClassicLFGToastManager.new()
 end
 
 function ClassicLFGToastManager:OnDungeonGroupJoined(dungeonGroup)
-    self:ShowToast(ClassicLFG.Locale["Dungeon group joined!"], ClassicLFG.Locale["Joined group for "] .. ClassicLFG.Locale[dungeonGroup.Dungeon.Name], 3)
+    self:ShowToast(ClassicLFG.Locale["Dungeon group joined!"], ClassicLFG.Locale["Joined group for "] .. ClassicLFG.Locale[dungeonGroup.Dungeon.Name].Name, 3)
 end
 
 function ClassicLFGToastManager:OnDungeonGroupLeft(dungeonGroup)
-    self:ShowToast(ClassicLFG.Locale["Dungeon group left!"], ClassicLFG.Locale["Left group for "] .. ClassicLFG.Locale[dungeonGroup.Dungeon.Name], 3)
+    self:ShowToast(ClassicLFG.Locale["Dungeon group left!"], ClassicLFG.Locale["Left group for "] .. ClassicLFG.Locale[dungeonGroup.Dungeon.Name].Name, 3)
 end
 
 function ClassicLFGToastManager:OnApplicationDeclined(dungeonGroup)
-    self:ShowToast(ClassicLFG.Locale["Application declined"], ClassicLFG.Locale["You have been declined by the group: \""] .. dungeonGroup.Title .. "\" (" .. ClassicLFG.Locale[dungeonGroup.Dungeon.Name] .. ")", 5)
+    self:ShowToast(ClassicLFG.Locale["Application declined"], ClassicLFG.Locale["You have been declined by the group: \""] .. dungeonGroup.Title .. "\" (" .. ClassicLFG.Locale[dungeonGroup.Dungeon.Name].Name .. ")", 5)
 end
 
 function ClassicLFGToastManager:ShowToast(title, message, duration, object, callback)
