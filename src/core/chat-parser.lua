@@ -52,13 +52,13 @@ end
 
 function ClassicLFGChatParser:ParseMessage(sender, message, channel)
     local lowerMessage = string.lower(message)
+    local words = lowerMessage:SplitString(" '%[%]/\\<>")
     local dungeon =
-        self:HasFullDungeonName(lowerMessage) or self:HasDungeonAbbreviation(lowerMessage) or
-        self:HasAliasTags(lowerMessage)
+        self:HasFullDungeonName(lowerMessage) or self:HasDungeonAbbreviation(words) or self:HasAliasTags(words)
 
     if (not self:HasIgnoreMessageTag(lowerMessage)) then
         if
-            ((self:HasLFMTag(lowerMessage) or self:HasRoleName(lowerMessage)) and not self:HasLFGTag(lowerMessage) and
+            ((self:HasLFMTag(lowerMessage) or self:HasRoleName(words)) and not self:HasLFGTag(lowerMessage) and
                 dungeon ~= nil)
          then
             local dungeonGroup =
@@ -121,8 +121,7 @@ function ClassicLFGChatParser:HasFullDungeonName(message)
     return nil
 end
 
-function ClassicLFGChatParser:HasDungeonAbbreviation(message)
-    local words = message:SplitString(" ")
+function ClassicLFGChatParser:HasDungeonAbbreviation(words)
     for _, dungeon in pairs(ClassicLFG.DungeonManager.Dungeons) do
         if ClassicLFG:ArrayContainsArrayValue(words, dungeon.Abbreviations) then
             return dungeon
@@ -131,13 +130,11 @@ function ClassicLFGChatParser:HasDungeonAbbreviation(message)
     return nil
 end
 
-function ClassicLFGChatParser:HasRoleName(message)
-    local words = message:SplitString(" ")
+function ClassicLFGChatParser:HasRoleName(words)
     return ClassicLFG:ArrayContainsArrayValue(words, ClassicLFG.Locale["RolesArray"])
 end
 
-function ClassicLFGChatParser:HasAliasTags(message)
-    local words = message:SplitString(" ")
+function ClassicLFGChatParser:HasAliasTags(words)
     for _, dungeon in pairs(ClassicLFG.DungeonManager.Dungeons) do
         local aliasTags = ClassicLFG.Locale[dungeon.Name].AliasTags
         if aliasTags == nil then
