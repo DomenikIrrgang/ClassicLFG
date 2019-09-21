@@ -52,7 +52,7 @@ end
 
 function ClassicLFGChatParser:ParseMessage(sender, message, channel)
     local lowerMessage = string.lower(message)
-    local words = lowerMessage:SplitString(" :'%[%]/\\<>")
+    local words = lowerMessage:SplitString(" -:'%(%)%[%]/\\\\<>{}_=,%.")
     local dungeon =
         self:HasFullDungeonName(lowerMessage) or self:HasDungeonAbbreviation(words) or self:HasAliasTags(words)
 
