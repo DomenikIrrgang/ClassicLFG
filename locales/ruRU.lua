@@ -152,7 +152,6 @@ if (L) then
     L["The Scarlet Monastery: Graveyard"] = {
         Name = "Монастырь Алого Ордена: Кладбище",
         AliasTags = {
-            "мао",
             "кладбон",
             "скарлет",
             "монастырь",
@@ -162,7 +161,6 @@ if (L) then
     L["The Scarlet Monastery: Library"] = {
         Name = "Монастырь Алого Ордена: Библиотека",
         AliasTags = {
-            "мао",
             "скарлет",
             "монастырь",
             "библиотека",
@@ -174,7 +172,6 @@ if (L) then
     L["The Scarlet Monastery: Armory"] = {
         Name = "Монастырь Алого Ордена: Оружейная",
         AliasTags = {
-            "мао",
             "скарлет",
             "монастырь",
             "оружейная",
