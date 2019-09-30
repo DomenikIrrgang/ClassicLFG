@@ -113,4 +113,7 @@ function ClassicLFGChatParser:HasRoleName(message)
     return ClassicLFG:ArrayContainsArrayValue(words, ClassicLFG.Locale["RolesArray"])
 end
 
-ClassicLFG.ChatParser = ClassicLFGChatParser()
+ClassicLFG.ChatFilter = {}
+ClassicLFG.ChatFilter.DungeonFilter = function(message)
+    if ()
+end

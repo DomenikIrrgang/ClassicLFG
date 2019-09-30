@@ -13,6 +13,7 @@ function ChatParserMessage.new(sender, type, typeInformation, message)
     self.type = type
     self.typeInformation = typeInformation
     self.sender = sender
+    self.data = {}
     self.timestamp = GetTime()
     return self
 end
