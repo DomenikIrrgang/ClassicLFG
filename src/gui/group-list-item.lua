@@ -16,7 +16,7 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.BackgroundColor =  self.DefaultBackgroundColor
     self.MouseOverColor =  self.DefaultMouserOverColor
     self.Frame:SetPoint("TOPLEFT", anchor, relativeAnchor, 0, -space);
-    self.Frame:SetSize(ClassicLFG.QueueWindow.SearchGroup:GetWidth(), 50);
+    self.Frame:SetSize(ClassicLFG.QueueWindow.SearchGroup:GetWidth(), 90);
     self.TitleBackground = CreateFrame("Frame", nil, self.Frame, nil)
     self.Frame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8
@@ -54,7 +54,6 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.Timer = self.Frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight");
     self.Timer:SetFont(ClassicLFG.Config.Font, 8, "NONE");
     self.Timer:SetPoint("TOPLEFT", self.DungeonName, "BOTTOMLEFT", 0, -2);
-    self.Timer:Hide()
 
     self.WhisperButton = ClassicLFGButton(ClassicLFG.Locale["Queue"], self.Frame)
     self.WhisperButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -5, 5)
@@ -65,7 +64,6 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     end
     
     self.WhisperButton:SetText(ClassicLFG.Locale["Whisper"])
-    self.WhisperButton:Hide()
 
     self.QueueButton = ClassicLFGButton(ClassicLFG.Locale["Queue"], self.Frame)
     self.QueueButton:SetPoint("BOTTOMRIGHT", self.Frame, "BOTTOMRIGHT", -92, 5)
@@ -84,7 +82,6 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.Description:EnableMouse(false)
     self.Description:SetMultiLine(true)
     self.Description:Disable()
-    self.Description:Hide()
 
     self.RoleIcons = {}
     self.RoleIcons.Dps = ClassicLFGIconWithText(0, ClassicLFG.Role.DPS.Icon, self.Frame, 50, 50)
@@ -143,23 +140,10 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     end)
 
     self.Frame:SetScript("OnMouseDown", function()
-        if (self.IsOpen) then
-            self.Frame:SetHeight(50)
-            self.IsOpen = false
-            self.QueueButton:Hide()
-            self.Description:Hide()
-            self.WhisperButton:Hide()
-            self.Timer:Hide()
-        else
-            self.Frame:SetHeight(95)
-            self.IsOpen = true
-            self.Description:Show()
-            self.WhisperButton:Show()
-            self.Timer:Show()
-            if (self.entry.Source.Type == "ADDON") then
-                self.QueueButton:Show()
-            end
-        end
+        -- Not sure yet
+        --ChatFrame1EditBox:Show()
+        --ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name .. " ")
+        --ChatFrame1EditBox:SetFocus()
     end)
 
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.AppliedForGroup, self, function(self, dungeonGroup)
@@ -257,8 +241,10 @@ function CLassicLFGGroupListItem:SetGroup(entry)
         if (entry.Source.Type == "CHAT") then
             self.EntrySource:SetText(entry.Source.Channel)
             self.EntrySource:Show()
+            self.QueueButton:Hide()
         else
             self.EntrySource:Hide()
+            self.QueueButton:Show()
         end
     end
 end

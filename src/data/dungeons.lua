@@ -1,6 +1,6 @@
 ClassicLFG.DungeonManager:DefineDungeon("Ragefire Chasm", 5, 12, 21, "Orgrimmar", "rfc", {"rfc", "ragefire", "rf", "flammenschlund"}, ClassicLFG.Faction.HORDE, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-RAGEFIRECHASM")
 ClassicLFG.DungeonManager:DefineDungeon("Wailing Caverns", 5, 15, 25, "Barrens", "wc", {"wc", "hdw"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-WAILINGCAVERNS")
-ClassicLFG.DungeonManager:DefineDungeon("The Deadmines", 5, 14, 24, "Westfall", "DM", {"dm", "vc", "deadmines", "todesminen"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-DEADMINES")
+ClassicLFG.DungeonManager:DefineDungeon("The Deadmines", 5, 14, 24, "Westfall", "VC", {"vc", "deadmines", "todesminen"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-DEADMINES")
 ClassicLFG.DungeonManager:DefineDungeon("Shadowfang Keep", 5, 16, 27, "Silverpine Forest", "sfk", {"sfk", "shadowfang", "bsf"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SHADOWFANGKEEP")
 ClassicLFG.DungeonManager:DefineDungeon("Blackfathom Deeps", 5, 20, 30, "Ashenvale", "bfd", {"bfd"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKFATHOMDEEPS")
 ClassicLFG.DungeonManager:DefineDungeon("The Stockades", 5, 21, 30, "Stormwind", "stockades", {"stockades", "stocks", "verlies"}, ClassicLFG.Faction.ALLIANCE, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-STORMWINDSTOCKADES")
@@ -19,7 +19,7 @@ ClassicLFG.DungeonManager:DefineDungeon("Blackrock Depths", 5, 49, 60, "Blackroc
 ClassicLFG.DungeonManager:DefineDungeon("Lower Blackrock Spire", 10, 55, 60, "Blackrock Mountain", "lbrs", {"lbrs"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKROCKSPIRE")
 ClassicLFG.DungeonManager:DefineDungeon("Upper Blackrock Spire", 10, 55, 60, "Blackrock Mountain", "ubrs", {"ubrs"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKROCKSPIRE")
 -- ToDo: Need to add all the Dungeon parts once they are released on Classic Realms
---ClassicLFG:DefineDungeon("Dire Maul", 55, 60, "Feralas", {"dm:"}, ClassicLFG.Faction.BOTH)
+ClassicLFG.DungeonManager:DefineDungeon("Dire Maul", 5, 55, 60, "Feralas", "dm", {"dm", "dm:n", "dm:e", "dm:w"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKROCKSPIRE")
 --
 ClassicLFG.DungeonManager:DefineDungeon("Stratholme", 5, 56, 60, "Eastern Plaguelands", "strat", {"strat"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-STRATHOLME")
 ClassicLFG.DungeonManager:DefineDungeon("Scholomance", 5, 56, 60, "Eastern Plaguelands", "scholo", {"scholo"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCHOLOMANCE")
