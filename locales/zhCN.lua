@@ -1,6 +1,6 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("ClassicLFG", "zhCN", true, true)
 
-L["Select Dungeon"] = ""
+L["Select Dungeon"] = "选择副本"
 L["Title"] = ""
 L["Dungeon"] = ""
 L["Description"] = ""
