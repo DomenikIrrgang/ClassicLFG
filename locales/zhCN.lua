@@ -39,14 +39,14 @@ L["RolesArray"] = {
 }
 L["looking"] = "求组"
 L["group"] = "组"
-L["No groups found!"] = "没有找到队伍"
+L["No groups found!"] = "没有找到队伍"
 L["Application declined"] = "拒绝信息"
-L["Application accepted"] = "接受信息"
-L["Joined group for "] = "加入组 "
-L["You have been declined by the group: \""] = "你被队伍拒绝了: \""
-L["Dungeon group left!"] = "副本队伍离开 !"
-L["Left group for "] = "离开队伍 "
-L["Show Notifications"] = "显示通知"
+L["Application accepted"] = "接受信息"
+L["Joined group for "] = "加入组 "
+L["You have been declined by the group: \""] = "你被队伍拒绝了: \""
+L["Dungeon group left!"] = "副本队伍离开!"
+L["Left group for "] = "离开队伍"
+L["Show Notifications"] = "显示通知"
 L["Toggle Notifications"] = "收起通知"
 
 -- Classes
