@@ -15,3 +15,15 @@ function table.inheritAttributes(target, base)
 	end
 	return target
 end
+
+function table.filter(target, fun)
+	local out = {}
+
+	for _, value in pairs(target) do
+		if fun(value) then
+			table.insert(out, value)
+		end
+	end
+  
+	return out
+end

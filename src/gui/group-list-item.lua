@@ -10,7 +10,6 @@ setmetatable(CLassicLFGGroupListItem, {
 function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     local self = setmetatable({}, CLassicLFGGroupListItem)
     self.Frame = CreateFrame("Frame", nil, anchor, nil)
-    self.IsOpen = false
     self.DefaultBackgroundColor = { Red = 0.3, Green = 0.3, Blue = 0.3, Alpha = 1 }
     self.DefaultMouserOverColor = { Red = 0.4, Green = 0.4, Blue = 0.4, Alpha = 1 }
     self.BackgroundColor =  self.DefaultBackgroundColor
@@ -140,10 +139,13 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     end)
 
     self.Frame:SetScript("OnMouseDown", function()
-        -- Not sure yet
-        --ChatFrame1EditBox:Show()
-        --ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name .. " ")
-        --ChatFrame1EditBox:SetFocus()
+        if IsControlKeyDown() then
+            self.entry.IsHidden = not self.entry.IsHidden
+            ClassicLFG.QueueWindow.SearchGroup.redraw()
+        else
+            self.entry.IsOpen = not self.entry.IsOpen
+            self:SetGroup(self.entry)
+        end
     end)
 
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.AppliedForGroup, self, function(self, dungeonGroup)
@@ -209,6 +211,22 @@ function CLassicLFGGroupListItem:SetGroup(entry)
             self.QueueButton:SetDisabled(true)
         else
             self.QueueButton:SetDisabled(false)
+        end
+
+        if self.entry.IsOpen then
+            self.Frame:SetHeight(95)
+            self.Description:Show()
+            self.WhisperButton:Show()
+            self.Timer:Show()
+            if (self.entry.Source.Type == "ADDON") then
+                self.QueueButton:Show()
+            end
+        else
+            self.Frame:SetHeight(50)
+            self.QueueButton:Hide()
+            self.Description:Hide()
+            self.WhisperButton:Hide()
+            self.Timer:Hide()
         end
 
         if (ClassicLFG:IsInPlayersGuild(entry.Leader.Name) == true) then

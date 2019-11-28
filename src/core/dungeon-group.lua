@@ -22,6 +22,8 @@ function ClassicLFGDungeonGroup.new(dungeon, leader, title, description, source,
     }
     self.Source = source or { Type = "ADDON" }
     self.UpdateTime = GetTime()
+    self.IsHidden = false
+    self.IsOpen = false
     return self
 end
 
