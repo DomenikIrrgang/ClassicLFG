@@ -36,19 +36,19 @@ ClassicLFG.QueueWindow.SearchGroup.Filter.OnValueChanged = function(key, checked
     if (checked == true) then
 		ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:AddItem(value)
 	end
-	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))
+	ClassicLFG.QueueWindow.SearchGroup.redraw()
 end
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdated, ClassicLFG.QueueWindow.SearchGroup, function()
-	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))
+	ClassicLFG.QueueWindow.SearchGroup.redraw()
 end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupDelisted, ClassicLFG.QueueWindow.SearchGroup, function()
-	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))
+	ClassicLFG.QueueWindow.SearchGroup.redraw()
 end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupListed, ClassicLFG.QueueWindow.SearchGroup, function()
-	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))
+	ClassicLFG.QueueWindow.SearchGroup.redraw()
 end)
 
 ---------------------------------
@@ -103,3 +103,7 @@ ClassicLFG.QueueWindow.SearchGroup.ScrollFrame:SetScrollChild(ClassicLFG.QueueWi
 ---------------------------------
 
 ClassicLFG.QueueWindow.SearchGroup.List = CLassicLFGGroupList(ClassicLFG.QueueWindow.SearchGroup.ScrollFrame.Child, ClassicLFG.QueueWindow.SearchGroup:GetWidth(), 500)
+
+function ClassicLFG.QueueWindow.SearchGroup.redraw()
+    ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))
+end
