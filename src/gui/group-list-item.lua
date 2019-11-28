@@ -12,8 +12,10 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     self.Frame = CreateFrame("Frame", nil, anchor, nil)
     self.DefaultBackgroundColor = { Red = 0.3, Green = 0.3, Blue = 0.3, Alpha = 1 }
     self.DefaultMouserOverColor = { Red = 0.4, Green = 0.4, Blue = 0.4, Alpha = 1 }
+    self.DefaultTextColor = { Red = 1.0, Green = 1.0, Blue = 1.0, Alpha = 1.0}
     self.BackgroundColor =  self.DefaultBackgroundColor
     self.MouseOverColor =  self.DefaultMouserOverColor
+    self.TextColor = self.DefaultTextColor
     self.Frame:SetPoint("TOPLEFT", anchor, relativeAnchor, 0, -space);
     self.Frame:SetSize(ClassicLFG.QueueWindow.SearchGroup:GetWidth(), 90);
     self.TitleBackground = CreateFrame("Frame", nil, self.Frame, nil)
@@ -244,8 +246,8 @@ function CLassicLFGGroupListItem:SetGroup(entry)
             self.MouseOverColor.Blue = self.MouseOverColor.Blue + 0.2
             self.MouseOverColor.Red = self.MouseOverColor.Red + 0.2
         else
-            self.BackgroundColor = self.DefaultBackgroundColor
-            self.MouseOverColor = self.DefaultMouserOverColor
+            self.BackgroundColor = ClassicLFG:DeepCopy(self.DefaultBackgroundColor)
+            self.MouseOverColor = ClassicLFG:DeepCopy(self.DefaultMouserOverColor)
             if (entry.Source.Type == "ADDON") then
                 self.BackgroundColor.Blue = 0.6
                 self.MouseOverColor.Blue = 0.7
@@ -254,6 +256,16 @@ function CLassicLFGGroupListItem:SetGroup(entry)
                 self.MouseOverColor.Blue = 0.5
             end
         end
+
+        self.TextColor = ClassicLFG:DeepCopy(self.DefaultTextColor)
+        if self.entry.IsHidden then
+            -- a hidden entry here means show hidden is true
+            self.BackgroundColor.Alpha = 0.5 * self.BackgroundColor.Alpha
+            self.MouseOverColor.Alpha = 0.5 * self.MouseOverColor.Alpha
+            self.TextColor = { Red = 0.8, Green = 0.8, Blue = 0.8, Alpha = 0.8}
+        end
+        self:SetTextColor(self.TextColor)
+
         self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
     
         if (entry.Source.Type == "CHAT") then
@@ -265,4 +277,11 @@ function CLassicLFGGroupListItem:SetGroup(entry)
             self.QueueButton:Show()
         end
     end
+end
+
+function CLassicLFGGroupListItem:SetTextColor(textColor)
+    self.Title:SetTextColor(textColor.Red, textColor.Green, textColor.Blue, textColor.Alpha)
+    self.DungeonName:SetTextColor(textColor.Red, textColor.Green, textColor.Blue, textColor.Alpha)
+    self.EntrySource:SetTextColor(textColor.Red, textColor.Green, textColor.Blue, textColor.Alpha)
+    self.Timer:SetTextColor(textColor.Red, textColor.Green, textColor.Blue, textColor.Alpha)
 end
