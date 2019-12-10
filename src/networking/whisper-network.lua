@@ -24,7 +24,6 @@ end
 function ClassicLFGWhisperNetwork:HandleAddonMessage(sender, message)
     local player, playerRealm = UnitFullName("player")
     local test, test2 = self:SplitNetworkPackage(message)
-    print(test.TotalCount)
 	if (sender ~= player .. "-" .. playerRealm) then
         local headers, content = self:SplitNetworkPackage(message)
         self.MessageBuffer[headers.Hash] = self.MessageBuffer[headers.Hash] or {}
@@ -39,7 +38,6 @@ function ClassicLFGWhisperNetwork:HandleAddonMessage(sender, message)
             local successful, object = self:MessageToObject(self:MergeMessages(headers, self.MessageBuffer[headers.Hash]))
             ClassicLFG:NetworkDebugPrint("[WhisperNetwork] Network Package from " .. sender .. " complete! Event: " .. object.Event)
             self.MessageBuffer[headers.Hash] = nil
-            print("--------------------", object.Payload.DungeonGroup)
             ClassicLFG.EventBus:PublishEvent(object.Event, object.Payload, sender)
         end
     end
