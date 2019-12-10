@@ -50,7 +50,7 @@ function ClassicLFG:RecursivePrint(object, maxDepths, layer)
                 ClassicLFG:DebugPrint("Printing Table " .. key .. object[key])
                 ClassicLFG:RecursivePrint(object[key], maxDepths, layer + 1)
             else
-                ClassicLFG:DebugPrint(key ..  object[key])
+                ClassicLFG:DebugPrint(key ..  tostring(object[key]))
             end
         end
     end

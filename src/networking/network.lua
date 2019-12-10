@@ -74,9 +74,14 @@ function ClassicLFGNetwork:HandleAddonMessage(...)
 end
 
 function ClassicLFGNetwork:SendObject(event, object, channel, target)
-    local messageObject = { message = { Event = event, Payload = object }, channel = channel, target = target }
-    ClassicLFG:NetworkDebugPrint("[Network] SendObject Event: " .. event .. " Channel: " .. channel)
-    self:SendMessage(self:ObjectToMessage(messageObject.message), messageObject.channel, messageObject.target)
+    print(event)
+    if (channel ~= "CHANNEL") then 
+        local messageObject = { message = { Event = event, Payload = object }, channel = channel, target = target }
+        ClassicLFG:NetworkDebugPrint("[Network] SendObject Event: " .. event .. " Channel: " .. channel)
+        self:SendMessage(self:ObjectToMessage(messageObject.message), messageObject.channel, messageObject.target)
+    else
+        ClassicLFG.ChatNetwork:SendObject(event, object, channel, target)
+    end
 end
 
 function ClassicLFGNetwork:QueueMessage(message, channel, target)
