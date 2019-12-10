@@ -52,7 +52,6 @@ function ClassicLFGChatNetwork:HandleAddonMessage(sender, message)
         end
         --ClassicLFG:DebugPrint("Received package " .. headers.Order .. " of " .. headers.TotalCount .. ". Total: " .. self.MessageBuffer[headers.Hash]["count"])
         if (receivedAllMessages and self.MessageBuffer[headers.Hash].Completed ~= true) then
-            print(headers.Hash, sender, "all recieved")
             self.MessageBuffer[headers.Hash].Completed = true
             local successful, object = self:MessageToObject(self:MergeMessages(headers, self.MessageBuffer[headers.Hash]))
             ClassicLFG:NetworkDebugPrint("[ChatNetwork] Network Package from " .. sender .. " complete! Event: " .. object.Event)
