@@ -17,6 +17,10 @@ function ClassicLFGEventBus:RegisterCallback(event, object, callback)
     if (self.Listeners[event] == nil) then
         self.Listeners[event] = {}
     end
+    if( callback == nil)  then
+            ClassicLFG:DebugPrint("Callback is nil event[" ..event.."]")
+        --error("Callback is nil event["..event.."]")
+    end
     table.insert(self.Listeners[event], { Object = object, Callback = callback })
 end
 

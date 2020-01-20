@@ -17,6 +17,7 @@ if (L) then
     L["Queue"] = "Anmelden"
     L["Whisper"] = "Anflüstern"
     L["Search Group"] = "Gruppe suchen"
+    L["Search Players"] = "Find Players"
     L["Create Group"] = "Gruppe erstellen"
     L["Settings"] = "Einstellungen"
     L["Always show all dungeons"] = "Zeige immer alle Dungeons an"
