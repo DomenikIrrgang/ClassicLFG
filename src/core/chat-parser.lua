@@ -113,6 +113,9 @@ function ClassicLFGChatParser:HasDungeonAbbreviation(message)
             if (ClassicLFG:ArrayContainsValue(message:SplitString(" "), abbreviation)) then
                 return dungeon
             end
+            if (string.find(message, abbreviation)) then
+                return dungeon
+            end
         end
     end
     return nil

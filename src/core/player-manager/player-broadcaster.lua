@@ -36,7 +36,7 @@ function ClassicLFGPlayerBroadCaster:Cancel(dungeonGroup)
     if (self.Canceled == false and dungeonGroup.Leader.Name == self.DungeonGroup.Leader.Name) then
         ClassicLFG:DebugPrint("Canceled Broadcast for the LFG of player " .. dungeonGroup.Leader.Name)
         self.Canceled = true
-        --ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonPlayerBroadcasterCanceled, self.DungeonGroup)
+        ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonPlayerBroadcasterCanceled, self.DungeonGroup)
     end 
 end
 

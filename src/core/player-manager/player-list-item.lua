@@ -200,7 +200,8 @@ end
 function CLassicLFGPlayerListItem:SetGroup(entry)
     if (entry) then
         self.entry = entry
-        self.Title:SetText(entry.Title .. " " .. entry.Leader.Name)
+        self.Title:SetText(entry.Leader.Name )
+        self.Description:SetText(entry.Title)
         self.DungeonName:SetText(ClassicLFG.Locale[entry.Dungeon.Name] or entry.Dungeon.Name)
         self.RoleIcons.Dps.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.DPS))
         self.RoleIcons.Tank.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.TANK))
@@ -212,7 +213,7 @@ function CLassicLFGPlayerListItem:SetGroup(entry)
             self.RoleIcons.Healer:Hide()
             self.RoleIcons.Unknown:Hide()
             self.QueueButton:Hide()
-            self.Description:SetText("Leader : " .. entry.Leader.Name)
+            self.Description:SetText(entry.Title)
         else
             self.RoleIcons.Dps:Show()
             self.RoleIcons.Tank:Show()
