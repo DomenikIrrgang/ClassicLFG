@@ -15,6 +15,14 @@ function ClassicLFGPlayer.new(name, guild, level, class, talents)
     else
         self.Name = UnitName("player")
     end
+    ClassicLFG:DebugPrint("Player: ".. self.Name.." XXXXXX ")
+    -- C_FriendList.SendWho(self.Name.."")
+    -- if(GetNumWhoResults() > 0) then
+    --     local p = C_FriendList.GetWhoInfo(0);
+        
+    --    ClassicLFG:DebugPrint("Player: "..p.Class.." (level "..p.Level.." ) ")
+    -- end
+
     self.Guild = guild or GetGuildInfo(self.Name)
     self.Level = level or UnitLevel(self.Name)
     if (UnitClass(self.Name) ~= nil) then
@@ -24,6 +32,8 @@ function ClassicLFGPlayer.new(name, guild, level, class, talents)
         self.Class = class or ClassicLFG.Class.WARRIOR.Name
     end
     self.Talents = talents or self:CreateTalents()
+    
+    ClassicLFG:DebugPrint("Player: "..self.Class.." (level "..self.Level.." ) ")
     return self
 end
 

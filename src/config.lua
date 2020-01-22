@@ -44,13 +44,19 @@ ClassicLFG.Config = {
         -- Args(dungeonGroup)
         GroupListed = "CLASSICLFG_GROUP_LISTED",
         -- Args(dungeonGroup)
+        PlayerListed = "CLASSICLFG_PLAYER_LISTED",
+        -- Args(dungeonGroup)
         GroupDelisted = "CLASSICLFG_GROUP_DELISTED",
+        -- Args(dungeonGroup)
+        PlayerDelisted = "CLASSICLFG_PLAYER_DELISTED",
         -- Args(dungeonGroup)
         DungeonGroupJoined = "CLASSICLFG_DUNGEONGROUP_JOINED",
         -- Args(dungeonGroup)
         DungeonGroupLeft = "CLASSICLFG_DUNGEONGROUP_LEFT",
         -- Args(dungeonGroup)
         DungeonGroupUpdated = "CLASSICLFG_GROUP_UPDATED",
+        -- Args(dungeonGroup)
+        DungeonPlayerUpdated = "CLASSICLFG_PLAYER_UPDATED",
         -- Args(player)
         DungeonGroupMemberLeft = "CLASSICLFG_DUNGEON_GROUP_MEMBER_LEFT",
         -- Args(dungeonGroup)
@@ -64,7 +70,11 @@ ClassicLFG.Config = {
         -- Args(dungeonGroup)
         ChatDungeonGroupFound = "CLASSICLFG_CHAT_DUNGEONGROUP_FOUND",
         -- Args(dungeonGroup)
+        ChatDungeonPlayerFound = "CLASSICLFG_CHAT_DUNGEON_PLAYER_FOUND",
+        -- Args(dungeonGroup)
         DungeonGroupBroadcasterCanceled = "CLASSICLFG_DUNGEONGROUP_BROADCASTER_CANCELED",
+        -- Args(dungeonGroup)
+        DungeonPlayerBroadcasterCanceled = "CLASSICLFG_DUNGEONPLAYER_BROADCASTER_CANCELED",
         -- Args(channels)
         ChannelListChanged = "CLASSICLFG_CHANNEL_LIST_CHANGED",
         -- Args(playerName)

@@ -1,4 +1,7 @@
 <Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+    <Script file="player-list-item.lua"/>
+    <Script file="player-list.lua"/>
     <Script file="player-manager.lua"/>
+    <Script file="player-broadcaster.lua"/>
     <Script file="reducers\change-player-level.reducer.lua"/>
 </Ui>

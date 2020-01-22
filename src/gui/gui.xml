@@ -7,6 +7,7 @@
     <Script file="create-group.lua"/>
     <Include file="settings\settings.xml"/>
     <Include file="find-group\find-group.xml"/>
+    <Include file="find-players\find-players.xml"/>
     <Script file="version-alert.lua"/>
     <Script file="queue-window.lua"/>
 </Ui>

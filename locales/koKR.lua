@@ -17,6 +17,7 @@ if (L) then
     L["Queue"] = "대기열 등록"
     L["Whisper"] = "귓속말"
     L["Search Group"] = "파티 찾기"
+    L["Search Players"] = "Find Players"
     L["Create Group"] = "파티 생성하기"
     L["Settings"] = "설정"
     L["Always show all dungeons"] = "항상 모든 던전 표시"

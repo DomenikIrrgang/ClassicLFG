@@ -2,7 +2,7 @@
 -- Window
 ---------------------------------
 
-ClassicLFG.QueueWindow = ClassicLFGWindow("ClassicLFGQueueWindow", UIParent, 400, 600)
+ClassicLFG.QueueWindow = ClassicLFGWindow("ClassicLFGQueueWindow", UIParent, 450, 600)
 ClassicLFG.QueueWindow:SetTitle("ClassicLFG");
 ClassicLFG.QueueWindow.Padding = 6
 ClassicLFG.QueueWindow.Frame.CloseButton.OnClick = function()
@@ -14,7 +14,7 @@ table.insert(UISpecialFrames, ClassicLFG.QueueWindow.Frame:GetName())
 -- Window - Tabs
 ---------------------------------
 
-ClassicLFG.QueueWindow.SearchGroup, ClassicLFG.QueueWindow.CreateGroup, ClassicLFG.QueueWindow.Settings =  ClassicLFG.QueueWindow:CreateTabs(3, ClassicLFG.Locale["Search Group"], ClassicLFG.Locale["Create Group"], ClassicLFG.Locale["Settings"])
+ClassicLFG.QueueWindow.SearchGroup,ClassicLFG.QueueWindow.SearchPlayers, ClassicLFG.QueueWindow.CreateGroup, ClassicLFG.QueueWindow.Settings =  ClassicLFG.QueueWindow:CreateTabs(4, ClassicLFG.Locale["Search Group"], ClassicLFG.Locale["Search Players"], ClassicLFG.Locale["Create Group"], ClassicLFG.Locale["Settings"])
 
 ---------------------------------
 -- State
