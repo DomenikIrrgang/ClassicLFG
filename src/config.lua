@@ -1,5 +1,5 @@
 ClassicLFG.Config = {
-    Debug = false,
+    Debug = true,
     Version = "1.1.4",
     Font = "Fonts\\FRIZQT__.ttf",
     Network = {
@@ -24,6 +24,7 @@ ClassicLFG.Config = {
     --FriendColor = { Green = 1/255, Red = 255/255, Blue = 1/255, Alpha = 1 },
     FriendColor = { Red = 239/255, Green = 244/255, Blue = 39/255, Alpha = 0.5 },
     Events = {
+        -- Args(Player)
         RequestData = "CLASSICLFG_DATA_REQUEST",
         SendData = "CLASSICLFG_DATA_RESPONSE",
         ApplyForGroup = "CLASSICLFG_GROUP_APPLY",
@@ -99,6 +100,10 @@ ClassicLFG.Config = {
         GroupInviteAlreadyInGroup = "CLASSICLFG_GROUP_INVITE_ALREADY_IN_GROUP",
          -- Args({ player, talents })
         PlayerTalents = "CLASSICLFG_TALENT_SYNC",
+        -- Args({ Object, Event, TimeToLive, Jumps})
+        BroadcastObjectGuild = "CLASSICLFG_BROADCAST_GUILD",
+        --
+        BroadcastObjectFriend = "CLASSICLFG_BROADCAST_FRIEND",
     }
 }
 

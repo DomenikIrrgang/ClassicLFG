@@ -81,6 +81,7 @@ if (L) then
     L["Holy"] = "Heilig"
     L["Protection"] = "Schutz"
     L["Retribution"] = "Vergeltung"
+    L["Advertise Group in Chat"] = "Gruppe im Chat posten"
 
     -- Dungeons
     L["Ragefire Chasm"] = "Der Flammenschlund"

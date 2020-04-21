@@ -21,11 +21,7 @@ function ClassicLFGGroupBroadCaster:Start(time)
     C_Timer.After(time, function()
         if (self.Canceled == false) then
             ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.GroupListed, self.DungeonGroup)
-            ClassicLFG.Network:SendObject(
-                ClassicLFG.Config.Events.GroupListed,
-                self.DungeonGroup,
-                "CHANNEL",
-                ClassicLFG.Config.Network.Channel.Id)
+            ClassicLFG.PeerToPeer:StartBroadcastObject(ClassicLFG.Config.Events.GroupListed, self.DungeonGroup)
         end
     end)
 end

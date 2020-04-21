@@ -13,6 +13,7 @@ locales\locales.xml
 
 src\main.lua
 src\config.lua
+src\event-bus.lua
 
 code.xml
 

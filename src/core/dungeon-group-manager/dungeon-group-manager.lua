@@ -167,16 +167,12 @@ function ClassicLFGDungeonGroupManager:CancelBroadcast()
 end
 
 function ClassicLFGDungeonGroupManager:StartBroadcast()
-    ClassicLFG:DebugPrint("Started broadcasting dungeon group")
-    self.BroadcastTicker = C_Timer.NewTicker(ClassicLFG.DB.profile.BroadcastDungeonGroupInterval + math.random(0, 10), function()
-        ClassicLFG:DebugPrint("Broadcast Ticker tick")
+    ClassicLFG:DebugPrint("[DungeonGroupManager] Started broadcasting dungeon group")
+    self.BroadcastTicker = C_Timer.NewTicker(60, function()
+        ClassicLFG:DebugPrint("[DungeonGroupManager] Broadcast Ticker tick")
         if (self:IsListed()) then
             -- Prevent group from being delisted on other clients
             self:UpdateGroup(self.DungeonGroup)
-            local channel = GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel) or ClassicLFG.ChannelManager:GetBroadcastChannelNames()[1]
-            SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
-            self:CancelBroadcast()
-            self:StartBroadcast()
         end
     end)
 end
@@ -190,7 +186,7 @@ function ClassicLFGDungeonGroupManager:GetBroadcastMessage()
 end
 
 
-function ClassicLFGDungeonGroupManager:HandleDataRequest(object, sender)
+function ClassicLFGDungeonGroupManager:HandleDataRequest(sender)
     if (self.DungeonGroup ~= nil) then
         local characterName = sender:SplitString("-")[1]
         if (self.DungeonGroup.Leader.Name == UnitName("player") or characterName == self.DungeonGroup.Leader.Name) then
@@ -263,15 +259,8 @@ end
 
 function ClassicLFGDungeonGroupManager:ListGroup(dungeonGroup)
     self.DungeonGroup = dungeonGroup
-    if (ClassicLFG.DB.profile.BroadcastDungeonGroup == true) then
-        SendChatMessage(self:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
-    end
     ClassicLFGDungeonGroup.AddMember(self.DungeonGroup, ClassicLFGPlayer(UnitName("player")))
-    ClassicLFG.Network:SendObject(
-        ClassicLFG.Config.Events.GroupListed,
-        dungeonGroup,
-        "CHANNEL",
-        ClassicLFG.Config.Network.Channel.Id)
+    ClassicLFG.PeerToPeer:StartBroadcastObject(ClassicLFG.Config.Events.GroupListed, dungeonGroup)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupJoined, self.DungeonGroup)
 end
 
@@ -281,11 +270,9 @@ end
 
 function ClassicLFGDungeonGroupManager:DequeueGroup()
     if (self:IsListed()) then
-        ClassicLFG.Network:SendObject(
+        ClassicLFG.PeerToPeer:StartBroadcastObject(
             ClassicLFG.Config.Events.GroupDelisted,
-            self.DungeonGroup,
-            "CHANNEL",
-            ClassicLFG.Config.Network.Channel.Id)
+            self.DungeonGroup)
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupLeft, self.DungeonGroup)
     end
 end
@@ -296,11 +283,9 @@ function ClassicLFGDungeonGroupManager:UpdateGroup(dungeonGroup)
         self.DungeonGroup.Description = dungeonGroup.Description
         self.DungeonGroup.Title = dungeonGroup.Title
         self.DungeonGroup.UpdateTime = GetTime()
-        ClassicLFG.Network:SendObject(
+        ClassicLFG.PeerToPeer:StartBroadcastObject(
             ClassicLFG.Config.Events.DungeonGroupUpdated,
-            self.DungeonGroup,
-            "CHANNEL",
-            ClassicLFG.Config.Network.Channel.Id)
+            self.DungeonGroup)
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupUpdated, self.DungeonGroup)
     end
 end

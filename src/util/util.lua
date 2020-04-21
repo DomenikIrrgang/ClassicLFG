@@ -121,6 +121,26 @@ function ClassicLFG:PlayerIsFriend(playerName)
     return false
 end
 
+function ClassicLFG:GetFriends()
+    local friends = {}
+    for i = 1, C_FriendList.GetNumFriends() do
+        local friend = C_FriendList.GetFriendInfoByIndex(i)
+        table.insert(friends, friend)
+    end
+    return friends
+end
+
+function ClassicLFG:GetOnlineFriends()
+    local friends = {}
+    for i = 1, C_FriendList.GetNumFriends() do
+        local friend = C_FriendList.GetFriendInfoByIndex(i)
+        if (friend.connected == true) then
+            table.insert(friends, friend)
+        end
+    end
+    return friends
+end
+
 function ClassicLFG:MergeTables(table1, table2)
     local combinedTable = {}
     for key, value in pairs(table1) do

@@ -48,6 +48,7 @@ L["Dungeon group left!"] = "Dungeon group left!"
 L["Left group for "] = "Left group for "
 L["Show Notifications"] = "Show Notifications"
 L["Toggle Notifications"] = "Toggle Notifications"
+L["Advertise Group in Chat"] = "Advertise Group in Chat"
 
 -- Classes
 L["Warlock"] = "Warlock"

@@ -32,6 +32,14 @@ function ClassicLFG.QueueWindow.CreateGroup:DisableDequeueButton(disable)
 	end
 end
 
+function ClassicLFG.QueueWindow.CreateGroup:DisableAdvertiseGroupButton(disable)
+	if (disable == false and (IsInGroup() == true and UnitIsGroupLeader("player") == true)) then
+		ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup:SetDisabled(false)
+	else
+		ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup:SetDisabled(true)
+	end
+end
+
 ClassicLFG.QueueWindow.CreateGroup.Icon = ClassicLFGIcon("Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BREW", ClassicLFG.QueueWindow.CreateGroup, ClassicLFG.QueueWindow.CreateGroup:GetWidth(), 100)
 ClassicLFG.QueueWindow.CreateGroup.Icon.Texture:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup, "TOPLEFT", 0, 0);
 ClassicLFG.QueueWindow.CreateGroup.Icon.Texture:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup, "TOPRIGHT", 0, -ClassicLFG.QueueWindow.CreateGroup:GetWidth() / 2)
@@ -104,9 +112,17 @@ ClassicLFG.QueueWindow.CreateGroup.Description.Frame:SetMaxLetters(120)
 ClassicLFG.QueueWindow.CreateGroup.Description:SetPlaceholder(ClassicLFG.Locale["Description"])
 ClassicLFG.QueueWindow.CreateGroup.Description.OnTextChanged = ClassicLFG.QueueWindow.CreateGroup.DataEntered
 
+ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup = ClassicLFGButton(ClassicLFG.Locale["Advertise Group in Chat"], ClassicLFG.QueueWindow.CreateGroup)
+ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Description.Frame, "BOTTOMLEFT", 0, -5);
+ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.Frame, "BOTTOMRIGHT", -0, -30)
+ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup.OnClick = function(self)
+	SendChatMessage(ClassicLFG.DungeonGroupManager:GetBroadcastMessage(), "CHANNEL", nil, GetChannelName(ClassicLFG.DB.profile.BroadcastDungeonGroupChannel))
+end
+ClassicLFG.QueueWindow.CreateGroup:DisableAdvertiseGroupButton(true)
+
 ClassicLFG.QueueWindow.CreateGroup.QueueButton = ClassicLFGButton(ClassicLFG.Locale["List Group"], ClassicLFG.QueueWindow.CreateGroup)
-ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Description.Frame, "BOTTOMLEFT", 0, -8);
-ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup.Frame, "BOTTOMLEFT", 0, -8);
+ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup.Frame, "BOTTOMRIGHT", 0, -30)
 ClassicLFG.QueueWindow.CreateGroup.QueueButton.OnClick = function(self)
 	if (ClassicLFG.DungeonGroupManager:IsListed()) then
 		ClassicLFG.DungeonGroupManager:UpdateGroup(ClassicLFGDungeonGroup(
@@ -122,13 +138,14 @@ ClassicLFG.QueueWindow.CreateGroup.QueueButton.OnClick = function(self)
 			ClassicLFG.QueueWindow.CreateGroup.Description.Frame:GetText()
 		))
 	end
-	ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
+    ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
+    ClassicLFG.QueueWindow.CreateGroup:DisableAdvertiseGroupButton(false)
 end
 ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
 
 ClassicLFG.QueueWindow.CreateGroup.DequeueButton = ClassicLFGButton(ClassicLFG.Locale["Delist Group"], ClassicLFG.QueueWindow.CreateGroup)
-ClassicLFG.QueueWindow.CreateGroup.DequeueButton:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.Description.Frame, "BOTTOM", 5, -8);
-ClassicLFG.QueueWindow.CreateGroup.DequeueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.Frame, "BOTTOMRIGHT", -0, -30)
+ClassicLFG.QueueWindow.CreateGroup.DequeueButton:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup.Frame, "BOTTOM", 5, -8);
+ClassicLFG.QueueWindow.CreateGroup.DequeueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup.Frame, "BOTTOMRIGHT", -0, -30)
 ClassicLFG.QueueWindow.CreateGroup.DequeueButton.Frame:Hide()
 ClassicLFG.QueueWindow.CreateGroup.DequeueButton.OnClick = function(self)
 	ClassicLFG.DungeonGroupManager:DequeueGroup()
@@ -191,8 +208,9 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdate
 end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined, ClassicLFG.QueueWindow, function(self, dungeonGroup)
-	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.Frame, "BOTTOM", -5, -30)
-	ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
+	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup.Frame, "BOTTOM", -5, -30)
+    ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
+    ClassicLFG.QueueWindow.CreateGroup:DisableAdvertiseGroupButton(false)
 	ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetText(dungeonGroup.Title)
 	ClassicLFG.QueueWindow.CreateGroup.Description.Frame:SetText(dungeonGroup.Description)
 	ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(ClassicLFG.Locale[dungeonGroup.Dungeon.Name])
@@ -244,9 +262,14 @@ ClassicLFG.QueueWindow.CreateGroup:SetScript("OnEvent", function(_, event)
             ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
             ClassicLFG.QueueWindow.CreateGroup.Title:Disable()
             ClassicLFG.QueueWindow.CreateGroup.Description:Disable()
-			ClassicLFG.QueueWindow.CreateGroup.Dungeon:Disable()
+            ClassicLFG.QueueWindow.CreateGroup.Dungeon:Disable()
 			--ClassicLFG.QueueWindow.CreateGroup.AutoInvite.Frame:Hide()
-		end
+        end
+        if (UnitIsGroupLeader("player") == true) then
+            ClassicLFG.QueueWindow.CreateGroup:DisableAdvertiseGroupButton(false)
+        else
+            ClassicLFG.QueueWindow.CreateGroup:DisableAdvertiseGroupButton(true)
+        end
 	end
 end)
 
@@ -254,9 +277,10 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, 
 	if ((IsInGroup() and UnitIsGroupLeader("player")) or not IsInGroup()) then
 		ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(false)
 	else
-		ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
+        ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
 	end
     ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetText(ClassicLFG.Locale["List Group"])
+    ClassicLFG.QueueWindow.CreateGroup:DisableAdvertiseGroupButton(true)
     ClassicLFG.QueueWindow.CreateGroup.Title:Enable()
     ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetText("")
     ClassicLFG.QueueWindow.CreateGroup.Description:Enable()
@@ -265,7 +289,7 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupLeft, 
 	ClassicLFG.QueueWindow.CreateGroup.Dungeon:Reset()
 	--ClassicLFG.QueueWindow.CreateGroup.AutoInvite.Frame:Show()
     --ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(ClassicLFG.Locale["Select Dungeon"])
-	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.Description.Frame, "BOTTOMRIGHT", 0, -30)
+	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup.Frame, "BOTTOMRIGHT", 0, -30)
 end)
 
 ClassicLFG.Store:AddListener(ClassicLFG.Actions.ChangePlayerLevel, ClassicLFG.QueueWindow.CreateGroup.Dungeon, function(self, action, state)

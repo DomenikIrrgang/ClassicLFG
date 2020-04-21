@@ -1,6 +1,5 @@
 <Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
     <Script file="player.lua"/>
-    <Script file="event-bus.lua"/>
     <Script file="dungeon-group.lua"/>
     <Script file="dungeon-group.lua"/>
     <Script file="dungeon-manager.lua"/>
