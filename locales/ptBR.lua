@@ -1,6 +1,5 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("ClassicLFG", "ptBR")
 
-
 if (L) then
     L["Select Dungeon"] = "Selecione a Masmorra"
     L["Title"] = "Título"
@@ -26,7 +25,8 @@ if (L) then
     L["Deselect all"] = "Desmarcar todos"
     L["Queue Dungeon"] = "Buscar Masmorra"
     L["Note"] = "Nota"
-    L["Autoaccept invites of parties you applied to"] = "Aceitar automaticamente convites de grupos para os quais se candidatou"
+    L["Autoaccept invites of parties you applied to"] =
+            "Aceitar automaticamente convites de grupos para os quais se candidatou"
     L["New Applicant: "] = "Novo Candidato: "
     L[" - Level "] = " - Nível "
     L["Invite Keyword"] = "Palavra-chave de Convite"
@@ -71,31 +71,106 @@ if (L) then
     L["Retribution"] = "Retribuição"
 
     -- Dungeons
-    L["Ragefire Chasm"] = "Cavernas Ígneas"
-    L["Wailing Caverns"] = "Caverna Ululante"
-    L["The Deadmines"] = "Minas Mortas"
-    L["Shadowfang Keep"] = "Bastilha da Presa Negra	"
-    L["Blackfathom Deeps"] = "Profundezas Negras"
-    L["The Stockades"] = "O Cárcere"
-    L["Gnomeregan"] = "Gnomeregan"
-    L["Razorfen Kraul"] = "Urzal dos Tuscos"
-    L["The Scarlet Monastery: Graveyard"] = "Monastério Escarlate: Cemitério"
-    L["The Scarlet Monastery: Library"] = "Monastério Escarlate: Biblioteca"
-    L["The Scarlet Monastery: Armory"] = "Monastério Escarlate: Arsenal"
-    L["The Scarlet Monastery: Cathedral"] = "Monastério Escarlate: Catedral"
-    L["Razorfen Downs"] = "Urzal dos Mortos"
-    L["Uldaman"] = "Uldaman"
-    L["Zul'Farak"] = "Zul'Farak"
-    L["Maraudon"] = "Maraudon"
-    L["Temple of Atal'Hakkar"] = "Templo de Atal'Hakkar"
-    L["Blackrock Depths"] = "Abismo Rocha Negra"
-    L["Lower Blackrock Spire"] = "Pico da Rocha Negra Inferior"
-    L["Upper Blackrock Spire"] = "Pico da Rocha Negra Superior"
-    L["Stratholme"] = "Stratholme"
-    L["Scholomance"] = "Scolomântia"
-    L["Molten Core"] = "Núcleo Derretido"
-    L["Onyxia's Lair"] = "Covil da Onyxia"
-    L["Custom"] = "Personalizado"
+    L["Ragefire Chasm"] = {
+            Name = "Cavernas Ígneas",
+            AliasTags = {}
+    }
+    L["Wailing Caverns"] = {
+            Name = "Caverna Ululante",
+            AliasTags = {}
+    }
+    L["The Deadmines"] = {
+            Name = "Minas Mortas",
+            AliasTags = {}
+    }
+    L["Shadowfang Keep"] = {
+            Name = "Bastilha da Presa Negra	",
+            AliasTags = {}
+    }
+    L["Blackfathom Deeps"] = {
+            Name = "Profundezas Negras",
+            AliasTags = {}
+    }
+    L["The Stockades"] = {
+            Name = "O Cárcere",
+            AliasTags = {}
+    }
+    L["Gnomeregan"] = {
+            Name = "Gnomeregan",
+            AliasTags = {}
+    }
+    L["Razorfen Kraul"] = {
+            Name = "Urzal dos Tuscos",
+            AliasTags = {}
+    }
+    L["The Scarlet Monastery: Graveyard"] = {
+            Name = "Monastério Escarlate: Cemitério",
+            AliasTags = {}
+    }
+    L["The Scarlet Monastery: Library"] = {
+            Name = "Monastério Escarlate: Biblioteca",
+            AliasTags = {}
+    }
+    L["The Scarlet Monastery: Armory"] = {
+            Name = "Monastério Escarlate: Arsenal",
+            AliasTags = {}
+    }
+    L["The Scarlet Monastery: Cathedral"] = {
+            Name = "Monastério Escarlate: Catedral",
+            AliasTags = {}
+    }
+    L["Razorfen Downs"] = {
+            Name = "Urzal dos Mortos",
+            AliasTags = {}
+    }
+    L["Uldaman"] = {
+            Name = "Uldaman",
+            AliasTags = {}
+    }
+    L["Zul'Farak"] = {
+            Name = "Zul'Farak",
+            AliasTags = {}
+    }
+    L["Maraudon"] = {
+            Name = "Maraudon",
+            AliasTags = {}
+    }
+    L["Temple of Atal'Hakkar"] = {
+            Name = "Templo de Atal'Hakkar",
+            AliasTags = {}
+    }
+    L["Blackrock Depths"] = {
+            Name = "Abismo Rocha Negra",
+            AliasTags = {}
+    }
+    L["Lower Blackrock Spire"] = {
+            Name = "Pico da Rocha Negra Inferior",
+            AliasTags = {}
+    }
+    L["Upper Blackrock Spire"] = {
+            Name = "Pico da Rocha Negra Superior",
+            AliasTags = {}
+    }
+    L["Stratholme"] = {
+            Name = "Stratholme",
+            AliasTags = {}
+    }
+    L["Scholomance"] = {
+            Name = "Scolomântia",
+            AliasTags = {}
+    }
+    L["Molten Core"] = {
+            Name = "Núcleo Derretido",
+            AliasTags = {}
+    }
+    L["Onyxia's Lair"] = {
+            Name = "Covil da Onyxia",
+            AliasTags = {}
+    }
+    L["Custom"] = {
+            Name = "Personalizado",
+            AliasTags = {}
+    }
 
     -- SYSTEM MESSAGES (NEED TO BE ACCURATE!!)
     L[" declines your group invitation."] = " rejeitou seu convite de grupo."

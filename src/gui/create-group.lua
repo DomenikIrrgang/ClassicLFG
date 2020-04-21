@@ -197,7 +197,7 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdate
 	if (ClassicLFG.DungeonGroupManager:IsListed() and ClassicLFG.DungeonGroupManager.DungeonGroup.Hash == dungeonGroup.Hash) then
 		ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetText(dungeonGroup.Title)
 		ClassicLFG.QueueWindow.CreateGroup.Description.Frame:SetText(dungeonGroup.Description)
-		ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(ClassicLFG.Locale[dungeonGroup.Dungeon.Name])
+		ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(ClassicLFG.Locale[dungeonGroup.Dungeon.Name].Name)
         ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
 		ClassicLFG.QueueWindow.CreateGroup.Icon.Texture:SetTexture(dungeonGroup.Dungeon.Background)
 		ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Dps.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(dungeonGroup, ClassicLFG.Role.DPS))
@@ -213,7 +213,7 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined
     ClassicLFG.QueueWindow.CreateGroup:DisableAdvertiseGroupButton(false)
 	ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetText(dungeonGroup.Title)
 	ClassicLFG.QueueWindow.CreateGroup.Description.Frame:SetText(dungeonGroup.Description)
-	ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(ClassicLFG.Locale[dungeonGroup.Dungeon.Name])
+	ClassicLFG.QueueWindow.CreateGroup.Dungeon:SetValue(ClassicLFG.Locale[dungeonGroup.Dungeon.Name].Name)
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetText(ClassicLFG.Locale["Update Data"])
 	ClassicLFG.QueueWindow.CreateGroup.DequeueButton:Show()
     ClassicLFG.QueueWindow.CreateGroup:DisableDequeueButton(false)

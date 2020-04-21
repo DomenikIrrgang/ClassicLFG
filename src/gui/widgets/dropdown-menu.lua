@@ -149,8 +149,8 @@ function ClassicLFGDropdownMenue:SetItems(items)
     for key, value in pairs(self.Entries) do
         value.Active = false
     end
-    for key, value in pairs(self.Items) do
-        self.Entries[i].Text:SetText(ClassicLFG.Locale[value] or value)
+    for key, dungeonName in pairs(self.Items) do
+        self.Entries[i].Text:SetText(ClassicLFG.Locale[dungeonName].Name or dungeonName)
         self.Entries[i].Active = true
         self.Entries[i].Selected = false
         self.Entries[i].Key = key
@@ -183,10 +183,11 @@ function ClassicLFGDropdownMenue:UpdateSelectedItems()
 
     if (#self.SelectedItems > 0) then
         for key, value in pairs(self.SelectedItems) do
+            local localDungeonName = ClassicLFG.Locale[self.Items[value]].Name
             if (key == 1) then
-                self.Frame.Text:SetText(ClassicLFG.Locale[self.Items[value]] or self.Items[value])
+                self.Frame.Text:SetText(localDungeonName or self.Items[value])
             else
-                self.Frame.Text:SetText(self.Frame.Text:GetText() .. ", " .. (ClassicLFG.Locale[self.Items[value]] or self.Items[value]))
+                self.Frame.Text:SetText(self.Frame.Text:GetText() .. ", " .. (localDungeonName or self.Items[value]))
             end
         end
         while (self.Frame.Text:GetStringWidth() >= self.Frame:GetWidth() - 5) do

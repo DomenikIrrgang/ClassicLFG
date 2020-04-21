@@ -185,7 +185,7 @@ function CLassicLFGGroupListItem:SetGroup(entry)
     if (entry) then
         self.entry = entry
         self.Title:SetText(entry.Title)
-        self.DungeonName:SetText(ClassicLFG.Locale[entry.Dungeon.Name] or entry.Dungeon.Name)
+        self.DungeonName:SetText(ClassicLFG.Locale[entry.Dungeon.Name].Name or entry.Dungeon.Name)
         self.RoleIcons.Dps.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.DPS))
         self.RoleIcons.Tank.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.TANK))
         self.RoleIcons.Healer.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(entry, ClassicLFG.Role.HEALER))
