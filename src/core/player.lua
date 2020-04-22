@@ -39,7 +39,7 @@ function ClassicLFGPlayer:CreateTalents()
 end
 
 function ClassicLFGPlayer:GetSpecialization()
-    if (self.Talents ~= nil) then
+    if (self.Talents ~= nil and self.Class and self.Class ~= "") then
         local highestTalents = 1
         if (self.Talents[2] > self.Talents[highestTalents]) then
             highestTalents = 2

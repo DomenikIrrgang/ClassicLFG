@@ -37,7 +37,7 @@ local f = CreateFrame('Frame')
 f.joined = false
 f:SetScript('OnUpdate', function(self, elapsed)
 	self.delayed = (self.delayed or 0) + elapsed
-	if self.delayed > 2 then
+    if self.delayed > 2 then
         ClassicLFG.PeerToPeer:StartBroadcastObject(ClassicLFG.Config.Events.RequestData, UnitName("player"))
         ClassicLFG.PeerToPeer:StartBroadcastObject(ClassicLFG.Config.Events.VersionCheck, ClassicLFG.Config.Version)
         self:SetScript('OnUpdate', nil)

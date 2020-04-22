@@ -1,5 +1,5 @@
 ClassicLFG.Config = {
-    Debug = false,
+    Debug = true,
     Version = "1.1.6",
     Font = "Fonts\\FRIZQT__.ttf",
     Network = {
@@ -64,6 +64,8 @@ ClassicLFG.Config = {
         DungeonGroupTalentsResponse = "CLASSICLFG_GROUP_TALENTS_RESPONSE",
         -- Args(dungeonGroup)
         ChatDungeonGroupFound = "CLASSICLFG_CHAT_DUNGEONGROUP_FOUND",
+        -- Args(sender, message, dungeon)
+        ChatLFGFound = "CLASSICLFG_CHAT_LFG_FOUND",
         -- Args(dungeonGroup)
         DungeonGroupBroadcasterCanceled = "CLASSICLFG_DUNGEONGROUP_BROADCASTER_CANCELED",
         -- Args(channels)

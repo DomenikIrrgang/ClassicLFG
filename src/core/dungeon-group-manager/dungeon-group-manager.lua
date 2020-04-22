@@ -43,12 +43,6 @@ function ClassicLFGDungeonGroupManager.new()
             end
         end
 
-        if (event == "CHAT_MSG_CHANNEL_JOIN") then
-            local _, playerName, _, channelId, channelName = ...
-            if (tonumber(channelId:sub(0,1)) == ClassicLFG.Config.Network.Channel.Id) then
-                self:HandleDataRequest(nil, playerName)
-            end
-        end
     end)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupKicked, self, self.OnGroupKicked)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupLeft, self, self.OnGroupLeft)
@@ -70,6 +64,8 @@ function ClassicLFGDungeonGroupManager.new()
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupInviteAlreadyInGroup, self, self.OnGroupInviteAlreadyInGroup)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.SyncApplicantList, self, self.OnSyncApplicantList)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.PlayerTalents, self, self.OnPlayerTalents)
+    ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ChatLFGFound, self, self.OnChatLFGFound)
+
     return self
 end
 
@@ -86,6 +82,15 @@ function ClassicLFGDungeonGroupManager:OnPlayerTalents(object)
     end
 end
 
+function ClassicLFGDungeonGroupManager:OnChatLFGFound(sender, message, dungeon)
+    local playerName = sender:SplitString("-")[1]
+    if (self:IsListed() and playerName ~= UnitName("player") and dungeon.Name == self.DungeonGroup.Dungeon.Name) then
+        local player = ClassicLFGPlayer(playerName, nil, "", "")
+        player.Note = message
+        self:HandleApplications(player)
+    end
+end
+
 function ClassicLFGDungeonGroupManager:OnSyncApplicantList(applicantList)
     self.Applicants:Clear()
     for i = 0, applicantList.Size - 1 do
@@ -99,7 +104,7 @@ end
 
 function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(playerName)
     if (self:IsListed()) then
-        ClassicLFG:WhoQuery(playerName, function(result)
+        --[[ClassicLFG:WhoQuery(playerName, function(result)
             if (result) then
                 if (result.fullGuildName == "") then
                     result.fullGuildName = nil
@@ -108,7 +113,7 @@ function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(playerName)
             else
                 self:HandleApplications(ClassicLFGPlayer(playerName, nil, "", ""))
             end
-        end)
+        end)--]]
     end
 end
 
@@ -327,7 +332,7 @@ function ClassicLFGDungeonGroupManager:AddApplicant(applicant)
     self.Applicants:AddItem(applicant)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantReceived, applicant)
     if(ClassicLFG.DB.profile.AutoInvite == true) then
-        --self:ApplicantInvited(applicant)
+        self:ApplicantInvited(applicant)
     end
 end
 

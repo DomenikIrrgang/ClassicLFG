@@ -53,7 +53,7 @@ end
 function ClassicLFGGroupManager:HandleChatDungeonGroupFound(dungeonGroup)
     if (dungeonGroup.Leader.Name ~= UnitName("player") and self:ContainsGroup(dungeonGroup) == false and self:LeaderHasGroup(self.Groups, dungeonGroup.Leader.Name) == nil) then
         self.BroadcastTimers[dungeonGroup.Hash] = ClassicLFGGroupBroadCaster(dungeonGroup)
-        self.BroadcastTimers[dungeonGroup.Hash]:Start(math.random(1, 60))
+        self.BroadcastTimers[dungeonGroup.Hash]:Start(math.random(1, 15))
     end
 end
 

@@ -19,7 +19,7 @@ ClassicLFG.DungeonManager:DefineDungeon("Blackrock Depths", 5, 49, 60, "Blackroc
 ClassicLFG.DungeonManager:DefineDungeon("Lower Blackrock Spire", 10, 55, 60, "Blackrock Mountain", "lbrs", {"lbrs"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKROCKSPIRE")
 ClassicLFG.DungeonManager:DefineDungeon("Upper Blackrock Spire", 10, 55, 60, "Blackrock Mountain", "ubrs", {"ubrs"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKROCKSPIRE")
 -- ToDo: Need to add all the Dungeon parts once they are released on Classic Realms
-ClassicLFG.DungeonManager:DefineDungeon("Dire Maul", 5, 55, 60, "Feralas", "dm", {"dm", "dm:n", "dm:e", "dm:w", "dmn", "dme", "dmw"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKROCKSPIRE")
+ClassicLFG.DungeonManager:DefineDungeon("Dire Maul", 5, 55, 60, "Feralas", "dm", {"dm", "dm:n", "dm:e", "dm:w", "dmn", "dme", "dmw"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-DIREMAUL")
 --
 ClassicLFG.DungeonManager:DefineDungeon("Stratholme", 5, 56, 60, "Eastern Plaguelands", "strat", {"strat"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-STRATHOLME")
 ClassicLFG.DungeonManager:DefineDungeon("Scholomance", 5, 56, 60, "Eastern Plaguelands", "scholo", {"scholo"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCHOLOMANCE")
