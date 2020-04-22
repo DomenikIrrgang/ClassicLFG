@@ -33,7 +33,7 @@ function ClassicLFG.QueueWindow.CreateGroup:DisableDequeueButton(disable)
 end
 
 function ClassicLFG.QueueWindow.CreateGroup:DisableAdvertiseGroupButton(disable)
-	if (disable == false and (IsInGroup() == true and UnitIsGroupLeader("player") == true)) then
+	if (disable == false and (IsInGroup() == false or UnitIsGroupLeader("player") == true)) then
 		ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup:SetDisabled(false)
 	else
 		ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup:SetDisabled(true)
@@ -209,7 +209,7 @@ end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined, ClassicLFG.QueueWindow, function(self, dungeonGroup)
 	ClassicLFG.QueueWindow.CreateGroup.QueueButton:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.CreateGroup.AdvertiseGroup.Frame, "BOTTOM", -5, -30)
-    ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(true)
+    ClassicLFG.QueueWindow.CreateGroup:DisableQueueButton(false)
     ClassicLFG.QueueWindow.CreateGroup:DisableAdvertiseGroupButton(false)
 	ClassicLFG.QueueWindow.CreateGroup.Title.Frame:SetText(dungeonGroup.Title)
 	ClassicLFG.QueueWindow.CreateGroup.Description.Frame:SetText(dungeonGroup.Description)
@@ -222,6 +222,7 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupJoined
         ClassicLFG.QueueWindow.CreateGroup.Title:Disable()
         ClassicLFG.QueueWindow.CreateGroup.Description:Disable()
         ClassicLFG.QueueWindow.CreateGroup.Dungeon:Disable()
+        ClassicLFG.QueueWindow.CreateGroup:DisableAdvertiseGroupButton(true)
     end
 
     ClassicLFG.QueueWindow.CreateGroup.RoleIcons.Dps.Text:SetText(ClassicLFGDungeonGroup.GetRoleCount(dungeonGroup, ClassicLFG.Role.DPS))
