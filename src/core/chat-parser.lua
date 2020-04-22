@@ -117,4 +117,20 @@ function ClassicLFGChatParser:HasRoleName(message)
     return ClassicLFG:ArrayContainsArrayValue(words, ClassicLFG.Locale["RolesArray"])
 end
 
+function ClassicLFGChatParser:OnChatMessage(onChatMessage)
+    return function(chatFrame, message, ...)
+        if (not self:HasLFMTag(message:lower()) or ClassicLFG.DB.profile.FilterChat == false) then
+            message = message
+            onChatMessage(chatFrame, message, ...)
+        end
+    end
+end
+
 ClassicLFG.ChatParser = ClassicLFGChatParser()
+ChatFrame1.AddMessage = ClassicLFG.ChatParser:OnChatMessage(ChatFrame1.AddMessage)
+if (ChatFrame2) then
+    ChatFrame2.AddMessage = ClassicLFG.ChatParser:OnChatMessage(ChatFrame2.AddMessage)
+end
+if (ChatFrame3) then
+    ChatFrame3.AddMessage = ClassicLFG.ChatParser:OnChatMessage(ChatFrame3.AddMessage)
+end

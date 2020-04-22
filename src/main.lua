@@ -21,6 +21,7 @@ ClassicLFG.DefaultProfile ={
         AutoInvite = false,
         ShowMinimapIcon = true,
         BroadcastDungeonGroup = true,
+        FilterChat = false,
         Toast = {
             Enabled = true,
             X = GetScreenWidth() / 2 - 260 / 2,

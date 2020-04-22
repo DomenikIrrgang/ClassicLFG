@@ -9,6 +9,7 @@ ClassicLFG.QueueWindow.Settings:SetScript("OnShow", function(self, _, channel)
     ClassicLFG.QueueWindow.Settings.AutoAcceptInvite:SetState(ClassicLFG.DB.profile.AutoAcceptInvite)
     ClassicLFG.QueueWindow.Settings.HideMinimapIcon:SetState(ClassicLFG.DB.profile.minimap.hide)
     ClassicLFG.QueueWindow.Settings.EnableToasts:SetState(ClassicLFG.DB.profile.Toast.Enabled)
+    ClassicLFG.QueueWindow.Settings.FilterChat:SetState(ClassicLFG.DB.profile.FilterChat)
 end)
 
 ClassicLFG.QueueWindow.Settings.Broadcastchannel = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Broadcastchannel"], ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Broadcastchannel"])
@@ -76,9 +77,16 @@ ClassicLFG.QueueWindow.Settings.HideMinimapIcon.OnValueChanged = function(_, val
     ClassicLFG:InitMInimapIcon()
 end
 
+ClassicLFG.QueueWindow.Settings.FilterChat = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Remove LFM Messages from Chat"])
+ClassicLFG.QueueWindow.Settings.FilterChat.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.HideMinimapIcon.Frame, "BOTTOMLEFT", 0, -8)
+ClassicLFG.QueueWindow.Settings.FilterChat.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.HideMinimapIcon.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.Settings.FilterChat.OnValueChanged = function(_, value)
+    ClassicLFG.DB.profile.FilterChat = value
+end
+
 ClassicLFG.QueueWindow.Settings.EnableToasts = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Show Notifications"])
-ClassicLFG.QueueWindow.Settings.EnableToasts.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.HideMinimapIcon.Frame, "BOTTOMLEFT", 0, -8)
-ClassicLFG.QueueWindow.Settings.EnableToasts.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.HideMinimapIcon.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.Settings.EnableToasts.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.FilterChat.Frame, "BOTTOMLEFT", 0, -8)
+ClassicLFG.QueueWindow.Settings.EnableToasts.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.FilterChat.Frame, "BOTTOMRIGHT", 0, -30)
 ClassicLFG.QueueWindow.Settings.EnableToasts.OnValueChanged = function(_, value)
     ClassicLFG.DB.profile.Toast.Enabled = value
 end
