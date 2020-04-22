@@ -1,7 +1,7 @@
 ## Interface: 11302
 ## Title: ClassicLFG
 ## Author: Suu
-## Version: 1.1.4
+## Version: 1.1.6
 ## Notes: Tool to form groups for any activity in Classic!
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
