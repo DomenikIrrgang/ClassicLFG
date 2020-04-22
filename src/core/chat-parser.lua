@@ -119,7 +119,7 @@ end
 
 function ClassicLFGChatParser:OnChatMessage(onChatMessage)
     return function(chatFrame, message, ...)
-        if (not self:HasLFMTag(message:lower()) or ClassicLFG.DB.profile.FilterChat == false) then
+        if (not self:HasLFMTag(message:lower()) or not self:HasDungeonName(message:lower()) or ClassicLFG.DB.profile.FilterChat == false) then
             message = message
             onChatMessage(chatFrame, message, ...)
         end

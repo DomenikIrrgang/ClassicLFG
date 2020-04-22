@@ -39,8 +39,24 @@ f.joined = false
 f:SetScript('OnUpdate', function(self, elapsed)
 	self.delayed = (self.delayed or 0) + elapsed
     if self.delayed > 2 then
-        ClassicLFG.PeerToPeer:StartBroadcastObject(ClassicLFG.Config.Events.RequestData, UnitName("player"))
-        ClassicLFG.PeerToPeer:StartBroadcastObject(ClassicLFG.Config.Events.VersionCheck, ClassicLFG.Config.Version)
+        local numActiveChannels = C_ChatInfo.GetNumActiveChannels()
+		if numActiveChannels and (numActiveChannels >= 1) and self.joined == false then
+			if numActiveChannels < MAX_WOW_CHAT_CHANNELS then
+                JoinChannelByName(ClassicLFG.Config.Network.Channel.Name, nil, nil, true)
+                self.joined = true
+                local channels = { GetChannelList() }
+                local i = 2
+                while i < #channels do
+                    if (channels[i] == ClassicLFG.Config.Network.Channel.Name) then
+                        ClassicLFG.Config.Network.Channel.Id = channels[i - 1]
+                    end
+                    i = i + 3
+                end
+                ClassicLFG.PeerToPeer:StartBroadcastObject(ClassicLFG.Config.Events.RequestData, UnitName("player"))
+                ClassicLFG.PeerToPeer:StartBroadcastObject(ClassicLFG.Config.Events.VersionCheck, ClassicLFG.Config.Version)
+				self:SetScript('OnUpdate', nil)
+			end
+		end
         self:SetScript('OnUpdate', nil)
 	elseif self.delayed > 45 then
 		self:SetScript('OnUpdate', nil)
