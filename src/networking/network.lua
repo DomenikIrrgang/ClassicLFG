@@ -79,7 +79,7 @@ function ClassicLFGNetwork:SendObject(event, object, channel, target)
         ClassicLFG:NetworkDebugPrint("[Network] SendObject Event: " .. event .. " Channel: " .. channel)
         self:SendMessage(self:ObjectToMessage(messageObject.message), messageObject.channel, messageObject.target)
     else
-        ClassicLFG.ChatNetwork:SendObject(event, object, channel, target)
+        --ClassicLFG.ChatNetwork:SendObject(event, object, channel, target)
     end
 end
 

@@ -66,6 +66,15 @@ function CLassicLFGGroupList:SortGroupByFriendsAndGuild(dungeonGroups)
         if (ClassicLFG:PlayerIsFriend(item1.Leader.Name) == true and not ClassicLFG:PlayerIsFriend(item2.Leader.Name) == true) then
             return true
         end
+        if (ClassicLFG:IsInPlayersGuild(item1.Leader.Name) == false and ClassicLFG:IsInPlayersGuild(item2.Leader.Name) ) then
+            return false
+        end
+        if (ClassicLFG:PlayerIsFriend(item1.Leader.Name) == false and ClassicLFG:PlayerIsFriend(item2.Leader.Name) == true) then
+            return false
+        end
+        if (item1.UpdateTime and item2.UpdateTime and item1.UpdateTime > item2.UpdateTime) then
+            return true
+        end
         return false
     end)
 end
