@@ -10,7 +10,8 @@ setmetatable(ClassicLFGPeerToPeer, {
 function ClassicLFGPeerToPeer.new()
     local self = setmetatable({}, ClassicLFGPeerToPeer)
     self.TimeToLive = 5
-    self.SpreadingFactor = 2
+    self.FriendSpreadingFactor = 2
+    self.ChannelSpreadingFactor = 2
     self.HashSeen = {}
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.BroadcastObjectGuild, self, self.OnBroadcastObjectGuildReceived)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.BroadcastObjectFriend, self, self.OnBroadcastObjectFriendReceived)
@@ -28,13 +29,34 @@ end
 
 function ClassicLFGPeerToPeer:BroadCastObjectToFriends(broadcastObject)
     local friends = ClassicLFG:GetOnlineFriends()
-    local broadcastsSend = 0
+    local friendBroadcastsSend = 0
+    local channelBroadcastsSend = 0
     local i = 1
-    while (broadcastsSend < self.SpreadingFactor and i <= #friends) do
-        if ClassicLFG:IsInPlayersGuild(friends[i].name) == false then
-            ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.BroadcastObjectFriend, broadcastObject, "WHISPER", friends[i].name)
+    local numberOfChannelMembers = ClassicLFG:GetNumberOfChannelMembers(ClassicLFG.Config.Network.Channel.Name)
+    print("number", numberOfChannelMembers)
+    if numberOfChannelMembers < 1 then
+        i = 1
+    else
+        i = math.random(1, numberOfChannelMembers - self.ChannelSpreadingFactor)
+    end
+    while (channelBroadcastsSend < self.ChannelSpreadingFactor and i <= numberOfChannelMembers) do
+        local name = ClassicLFG:GetChannelMemberByIndex(ClassicLFG.Config.Network.Channel.Name, i)
+        if ClassicLFG:IsInPlayersGuild(name) == false then
+            print(name)
+            ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.BroadcastObjectFriend, broadcastObject, "WHISPER", name)
+            channelBroadcastsSend = channelBroadcastsSend + 1
         end
         i = i + 1
+    end
+    i = 1
+    if (numberOfChannelMembers == 0) then
+        while (friendBroadcastsSend < self.FriendSpreadingFactor and i <= #friends) do
+            if ClassicLFG:IsInPlayersGuild(friends[i].name) == false then
+                ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.BroadcastObjectFriend, broadcastObject, "WHISPER", friends[i].name)
+                friendBroadcastsSend = friendBroadcastsSend + 1
+            end
+            i = i + 1
+        end
     end
 end
 

@@ -121,6 +121,23 @@ function ClassicLFG:PlayerIsFriend(playerName)
     return false
 end
 
+function ClassicLFG:GetNumberOfChannelMembers(channelName)
+    SetSelectedDisplayChannel(self:GetChannelIdByName(channelName))
+    return GetNumChannelMembers(self:GetChannelIdByName(channelName)) or 0
+end
+
+function ClassicLFG:GetChannelIdByName(channelName)
+    local id = GetChannelName(channelName)
+    return id
+end
+
+function ClassicLFG:GetChannelMemberByIndex(channelName, index)
+    if (GetSelectedDisplayChannel() ~= self:GetChannelIdByName(channelName)) then
+        SetSelectedDisplayChannel(self:GetChannelIdByName(channelName))
+    end
+    return C_ChatInfo.GetChannelRosterInfo(self:GetChannelIdByName(channelName), index)
+end
+
 function ClassicLFG:GetFriends()
     local friends = {}
     for i = 1, C_FriendList.GetNumFriends() do
@@ -128,6 +145,10 @@ function ClassicLFG:GetFriends()
         table.insert(friends, friend)
     end
     return friends
+end
+
+function ClassicLFG:InlineIf(condition, a, b)
+    if condition == true then return a else return b end
 end
 
 function ClassicLFG:GetOnlineFriends()
