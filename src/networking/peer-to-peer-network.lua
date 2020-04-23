@@ -32,7 +32,8 @@ function ClassicLFGPeerToPeer:BroadCastObjectToFriends(broadcastObject)
     local friendBroadcastsSend = 0
     local channelBroadcastsSend = 0
     local i = 1
-    local numberOfChannelMembers = ClassicLFG:GetNumberOfChannelMembers(ClassicLFG.Config.Network.Channel.Name)
+    local numberOfChannelMembers = 0
+    --[[local numberOfChannelMembers = ClassicLFG:GetNumberOfChannelMembers(ClassicLFG.Config.Network.Channel.Name)
     if numberOfChannelMembers < 1 then
         i = 1
     else
@@ -45,7 +46,7 @@ function ClassicLFGPeerToPeer:BroadCastObjectToFriends(broadcastObject)
             channelBroadcastsSend = channelBroadcastsSend + 1
         end
         i = i + 1
-    end
+    end--]]
     i = 1
     if (numberOfChannelMembers == 0) then
         while (friendBroadcastsSend < self.FriendSpreadingFactor and i <= #friends) do
