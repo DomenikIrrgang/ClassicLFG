@@ -1,5 +1,5 @@
 ClassicLFG.Config = {
-    Debug = false,
+    Debug = true,
     Version = "1.2.1",
     Font = "Fonts\\FRIZQT__.ttf",
     Network = {
@@ -96,7 +96,7 @@ ClassicLFG.Config = {
         VersionCheck = "CLASSICLFG_VERSION_CHECK",
         -- Args(version)
         NewVersionAvailable = "CLASSICLFG_NEW_VERSION_AVAILABLE",
-        -- Args(player)
+        -- Args(player, message)
         InviteWhisperReceived = "CLASSICLFG_INVITE_WHISPER_RECEIVED",
         -- Args(player)
         GroupInviteAlreadyInGroup = "CLASSICLFG_GROUP_INVITE_ALREADY_IN_GROUP",

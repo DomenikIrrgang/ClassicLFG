@@ -32,8 +32,8 @@ function ClassicLFGChatParser.new()
 
         if (event == "CHAT_MSG_WHISPER") then
             local message, player = ...
-            if (message == "test") then
-                ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.InviteWhisperReceived, player)
+            if (self:HasInviteKeyword(message)) then
+                ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.InviteWhisperReceived, player, message)
             end
         end
     end)
@@ -92,6 +92,17 @@ function ClassicLFGChatParser:HasLFMTag(text)
     return found
 end
 
+function ClassicLFGChatParser:HasInviteKeyword(text)
+    local found = false
+    for _, tag in pairs(ClassicLFG.Locale["InviteKeywords"]) do
+        if (string.find(text, tag)) then
+            found = true
+            break
+        end
+    end
+    return found
+end
+
 function ClassicLFGChatParser:HasDungeonName(message)
     for dungeonName, dungeon in pairs(ClassicLFG.DungeonManager:GetAllDungeons()) do
         if (string.find(message, ClassicLFG.Locale[dungeonName]:lower())) then
@@ -119,8 +130,9 @@ end
 
 function ClassicLFGChatParser:OnChatMessage(onChatMessage)
     return function(chatFrame, message, ...)
-        if (not self:HasLFMTag(message:lower()) or not self:HasDungeonName(message:lower()) or ClassicLFG.DB.profile.FilterChat == false) then
-            message = message
+        local containsDungeon = self:HasDungeonName(message:lower()) or self:HasDungeonAbbreviation(message:lower())
+        if (not self:HasLFMTag(message:lower()) or not containsDungeon or ClassicLFG.DB.profile.FilterChat == false) then
+            --message = message .. " " .. tostring(not self:HasLFMTag(message:lower())) .. " "  .. tostring(not containsDungeon) .. " " .. tostring(ClassicLFG.DB.profile.FilterChat == false)
             onChatMessage(chatFrame, message, ...)
         end
     end

@@ -102,8 +102,11 @@ function ClassicLFGDungeonGroupManager:OnGroupInviteAlreadyInGroup(playerName)
     ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.ApplicantInviteDeclined, ClassicLFGPlayer(playerName, "", "", "", ""))
 end
 
-function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(playerName)
+function ClassicLFGDungeonGroupManager:HandleInviteWhisperReceived(playerName, message)
     if (self:IsListed()) then
+        local player = ClassicLFGPlayer(playerName, nil, "", "")
+        player.Note = message
+        self:HandleApplications(player)
         --[[ClassicLFG:WhoQuery(playerName, function(result)
             if (result) then
                 if (result.fullGuildName == "") then
