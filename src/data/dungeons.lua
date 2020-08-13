@@ -21,10 +21,12 @@ ClassicLFG.DungeonManager:DefineDungeon("Upper Blackrock Spire", 10, 55, 60, "Bl
 -- ToDo: Need to add all the Dungeon parts once they are released on Classic Realms
 ClassicLFG.DungeonManager:DefineDungeon("Dire Maul", 5, 55, 60, "Feralas", "dm", {"dm", "dm:n", "dm:e", "dm:w", "dmn", "dme", "dmw"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-DIREMAUL")
 --
-ClassicLFG.DungeonManager:DefineDungeon("Stratholme", 5, 56, 60, "Eastern Plaguelands", "strat", {"strat"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-STRATHOLME")
+ClassicLFG.DungeonManager:DefineDungeon("Stratholme", 5, 56, 60, "Eastern Plaguelands", "strat", {"strat", "strath"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-STRATHOLME")
 ClassicLFG.DungeonManager:DefineDungeon("Scholomance", 5, 56, 60, "Eastern Plaguelands", "scholo", {"scholo"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-SCHOLOMANCE")
 ClassicLFG.DungeonManager:DefineDungeon("Molten Core", 40, 60, 60, "Blackrock Depths", "mc", {"mc"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-MOLTENCORE")
 ClassicLFG.DungeonManager:DefineDungeon("Onyxia's Lair", 40, 60, 60, "Dustwallow Marsh", "ony", {"ony", "onyxia"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\LFGIcon-OnyxiaEncounter")
 ClassicLFG.DungeonManager:DefineDungeon("Blackwing Lair", 40, 60, 60, "Blackrock Mountain", "bwl", {"bwl"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BLACKWINGLAIR")
 ClassicLFG.DungeonManager:DefineDungeon("Zul'Gurub", 40, 60, 60, "Stranglethorn Vale", "zg", {"zg", "zulgurub"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-ZULGURUB")
+ClassicLFG.DungeonManager:DefineDungeon("Ruins of Ahn'Qiraj", 40, 60, 60, "Silithus", "aq20", {"aq20"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-AQRUINS")
+ClassicLFG.DungeonManager:DefineDungeon("Temple of Ahn'Qiraj", 40, 60, 60, "Silithus", "aq40", {"aq40"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-AQTEMPLE")
 ClassicLFG.DungeonManager:DefineDungeon("Custom", 40, 1, 120, "Everywhere", "", {}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-BREW")
