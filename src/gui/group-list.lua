@@ -42,6 +42,10 @@ end
 
 function CLassicLFGGroupList:SetDungeonGroups(dungeonGroups)
     self:SortGroupByFriendsAndGuild(dungeonGroups)
+    if not ClassicLFG.QueueWindow.SearchGroup.ShowHidden.Selected then
+        dungeonGroups = table.filter(dungeonGroups, function(entry) return not entry.IsHidden end )
+    end
+
     for i=1, #dungeonGroups do
         self.Entries[i]:SetGroup(dungeonGroups[i])
         self.Entries[i].Frame:Show()

@@ -10,11 +10,12 @@ setmetatable(CLassicLFGGroupListItem, {
 function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     local self = setmetatable({}, CLassicLFGGroupListItem)
     self.Frame = CreateFrame("Frame", nil, anchor, nil)
-    self.IsOpen = false
     self.DefaultBackgroundColor = { Red = 0.3, Green = 0.3, Blue = 0.3, Alpha = 1 }
     self.DefaultMouserOverColor = { Red = 0.4, Green = 0.4, Blue = 0.4, Alpha = 1 }
+    self.DefaultTextColor = { Red = 1.0, Green = 1.0, Blue = 1.0, Alpha = 1.0}
     self.BackgroundColor =  self.DefaultBackgroundColor
     self.MouseOverColor =  self.DefaultMouserOverColor
+    self.TextColor = self.DefaultTextColor
     self.Frame:SetPoint("TOPLEFT", anchor, relativeAnchor, 0, -space);
     self.Frame:SetSize(ClassicLFG.QueueWindow.SearchGroup:GetWidth(), 90);
     self.TitleBackground = CreateFrame("Frame", nil, self.Frame, nil)
@@ -140,10 +141,13 @@ function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     end)
 
     self.Frame:SetScript("OnMouseDown", function()
-        -- Not sure yet
-        --ChatFrame1EditBox:Show()
-        --ChatFrame1EditBox:SetText("/w ".. self.entry.Leader.Name .. " ")
-        --ChatFrame1EditBox:SetFocus()
+        if IsControlKeyDown() then
+            self.entry.IsHidden = not self.entry.IsHidden
+            ClassicLFG.QueueWindow.SearchGroup.redraw()
+        else
+            self.entry.IsOpen = not self.entry.IsOpen
+            self:SetGroup(self.entry)
+        end
     end)
 
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.AppliedForGroup, self, function(self, dungeonGroup)
@@ -211,6 +215,22 @@ function CLassicLFGGroupListItem:SetGroup(entry)
             self.QueueButton:SetDisabled(false)
         end
 
+        if self.entry.IsOpen then
+            self.Frame:SetHeight(95)
+            self.Description:Show()
+            self.WhisperButton:Show()
+            self.Timer:Show()
+            if (self.entry.Source.Type == "ADDON") then
+                self.QueueButton:Show()
+            end
+        else
+            self.Frame:SetHeight(50)
+            self.QueueButton:Hide()
+            self.Description:Hide()
+            self.WhisperButton:Hide()
+            self.Timer:Hide()
+        end
+
         if (ClassicLFG:IsInPlayersGuild(entry.Leader.Name) == true) then
             self.BackgroundColor = ClassicLFG:DeepCopy(ClassicLFG.Config.GuildColor)
             self.MouseOverColor = ClassicLFG:DeepCopy(ClassicLFG.Config.GuildColor)
@@ -226,8 +246,8 @@ function CLassicLFGGroupListItem:SetGroup(entry)
             self.MouseOverColor.Blue = self.MouseOverColor.Blue + 0.2
             self.MouseOverColor.Red = self.MouseOverColor.Red + 0.2
         else
-            self.BackgroundColor = self.DefaultBackgroundColor
-            self.MouseOverColor = self.DefaultMouserOverColor
+            self.BackgroundColor = ClassicLFG:DeepCopy(self.DefaultBackgroundColor)
+            self.MouseOverColor = ClassicLFG:DeepCopy(self.DefaultMouserOverColor)
             if (entry.Source.Type == "ADDON") then
                 self.BackgroundColor.Blue = 0.6
                 self.MouseOverColor.Blue = 0.7
@@ -236,6 +256,16 @@ function CLassicLFGGroupListItem:SetGroup(entry)
                 self.MouseOverColor.Blue = 0.5
             end
         end
+
+        self.TextColor = ClassicLFG:DeepCopy(self.DefaultTextColor)
+        if self.entry.IsHidden then
+            -- a hidden entry here means show hidden is true
+            self.BackgroundColor.Alpha = 0.5 * self.BackgroundColor.Alpha
+            self.MouseOverColor.Alpha = 0.5 * self.MouseOverColor.Alpha
+            self.TextColor = { Red = 0.8, Green = 0.8, Blue = 0.8, Alpha = 0.8}
+        end
+        self:SetTextColor(self.TextColor)
+
         self.Frame:SetBackdropColor(self.BackgroundColor.Red, self.BackgroundColor.Green, self.BackgroundColor.Blue, self.BackgroundColor.Alpha)
     
         if (entry.Source.Type == "CHAT") then
@@ -247,4 +277,11 @@ function CLassicLFGGroupListItem:SetGroup(entry)
             self.QueueButton:Show()
         end
     end
+end
+
+function CLassicLFGGroupListItem:SetTextColor(textColor)
+    self.Title:SetTextColor(textColor.Red, textColor.Green, textColor.Blue, textColor.Alpha)
+    self.DungeonName:SetTextColor(textColor.Red, textColor.Green, textColor.Blue, textColor.Alpha)
+    self.EntrySource:SetTextColor(textColor.Red, textColor.Green, textColor.Blue, textColor.Alpha)
+    self.Timer:SetTextColor(textColor.Red, textColor.Green, textColor.Blue, textColor.Alpha)
 end

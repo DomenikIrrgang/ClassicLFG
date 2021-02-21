@@ -36,20 +36,33 @@ ClassicLFG.QueueWindow.SearchGroup.Filter.OnValueChanged = function(key, checked
     if (checked == true) then
 		ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:AddItem(value)
 	end
-	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))
+	ClassicLFG.QueueWindow.SearchGroup.redraw()
 end
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.DungeonGroupUpdated, ClassicLFG.QueueWindow.SearchGroup, function()
-	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))
+	ClassicLFG.QueueWindow.SearchGroup.redraw()
 end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupDelisted, ClassicLFG.QueueWindow.SearchGroup, function()
-	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))
+	ClassicLFG.QueueWindow.SearchGroup.redraw()
 end)
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.GroupListed, ClassicLFG.QueueWindow.SearchGroup, function()
-	ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))
+	ClassicLFG.QueueWindow.SearchGroup.redraw()
 end)
+
+-------------------------------------
+-- Search Group - ShowHiddenGroups --
+-------------------------------------
+
+ClassicLFG.QueueWindow.SearchGroup.ShowHidden = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.SearchGroup, "show hidden")
+ClassicLFG.QueueWindow.SearchGroup.ShowHidden.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.SearchGroup.Filter.Frame, "BOTTOMLEFT", 0, -5)
+ClassicLFG.QueueWindow.SearchGroup.ShowHidden.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.SearchGroup.Filter.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.SearchGroup.ShowHidden:SetState(false)
+
+ClassicLFG.QueueWindow.SearchGroup.ShowHidden.OnValueChanged = function(_, value)
+    ClassicLFG.QueueWindow.SearchGroup.redraw()
+end
 
 ---------------------------------
 -- Search Group - ScrollFrame
@@ -74,7 +87,7 @@ local function ScrollFrame_OnMouseWheel(self, delta)
 end
 
 ClassicLFG.QueueWindow.SearchGroup.ScrollFrame = CreateFrame("ScrollFrame", nil, ClassicLFG.QueueWindow.SearchGroup, "UIPanelScrollFrameTemplate");
-ClassicLFG.QueueWindow.SearchGroup.ScrollFrame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.SearchGroup.Filter.Frame, "BOTTOMLEFT", 0, -3);
+ClassicLFG.QueueWindow.SearchGroup.ScrollFrame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.SearchGroup.ShowHidden.Frame, "BOTTOMLEFT", 0, -5);
 ClassicLFG.QueueWindow.SearchGroup.ScrollFrame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.SearchGroup, "BOTTOMRIGHT", 0, 0);
 ClassicLFG.QueueWindow.SearchGroup.ScrollFrame:SetClipsChildren(true);
 ClassicLFG.QueueWindow.SearchGroup.ScrollFrame:SetScript("OnMouseWheel", ScrollFrame_OnMouseWheel);
@@ -103,3 +116,7 @@ ClassicLFG.QueueWindow.SearchGroup.ScrollFrame:SetScrollChild(ClassicLFG.QueueWi
 ---------------------------------
 
 ClassicLFG.QueueWindow.SearchGroup.List = CLassicLFGGroupList(ClassicLFG.QueueWindow.SearchGroup.ScrollFrame.Child, ClassicLFG.QueueWindow.SearchGroup:GetWidth(), 500)
+
+function ClassicLFG.QueueWindow.SearchGroup.redraw()
+    ClassicLFG.QueueWindow.SearchGroup.List:SetDungeonGroups(ClassicLFG.GroupManager:FilterGroupsByDungeon(ClassicLFG.QueueWindow.SearchGroup.Filter.SelectedDungeons:ToArray()))
+end
