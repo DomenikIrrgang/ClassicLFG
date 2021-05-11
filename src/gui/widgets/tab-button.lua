@@ -11,7 +11,7 @@ function ClassicLFGTabButton.new(text, name, parent, width, height, padding)
     local self = setmetatable({}, ClassicLFGTabButton)
     self.Disabled = false
     self.Padding = padding
-    self.Frame = CreateFrame("Frame", name, parent, nil)
+    self.Frame = CreateFrame("Frame", name, parent, "BackdropTemplate")
     self.Frame:SetSize(width or 80, height or 30);
     self.Frame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8

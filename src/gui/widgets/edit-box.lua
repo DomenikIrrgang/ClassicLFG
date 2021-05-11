@@ -10,7 +10,7 @@ setmetatable(ClassicLFGEditBox, {
 function ClassicLFGEditBox.new(name, parent, title)
     local self = setmetatable({}, ClassicLFGEditBox)
     self.Disabled = false
-    self.Frame = CreateFrame("EditBox", name, parent, "InputBoxTemplate")
+    self.Frame = CreateFrame("EditBox", name, parent, "InputBoxTemplate,BackdropTemplate")
     self.Frame:SetParent(parent)
     self.Frame:SetFont(ClassicLFG.Config.Font, 12, "NONE")
     self.Frame:SetBackdrop({

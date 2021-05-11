@@ -17,7 +17,7 @@ function ClassicLFGDropdownMenue.new(text, parent, title)
     self.OnValueChanged = function(key, selected, value) end
     self.MultiSelect = false
     self.Open = false
-    self.Frame = CreateFrame("Frame", nil, parent, nil)
+    self.Frame = CreateFrame("Frame", nil, parent, "BackdropTemplate")
     self.Frame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8
     })
@@ -201,7 +201,7 @@ function ClassicLFGDropdownMenue:CreateEntry(id)
     local entry = {}
     entry.Id = id
     entry.Selected = false
-    entry.Frame = CreateFrame("Frame", nil, self.Frame, nil)
+    entry.Frame = CreateFrame("Frame", nil, self.Frame, "BackdropTemplate")
     entry.Frame:SetFrameStrata("TOOLTIP")
     entry.Frame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8

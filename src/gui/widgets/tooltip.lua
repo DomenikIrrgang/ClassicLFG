@@ -9,7 +9,7 @@ setmetatable(ClassicLFGTooltip, {
 
 function ClassicLFGTooltip.new(parent)
     local self = setmetatable({}, ClassicLFGTooltip)
-    self.Frame = CreateFrame("Frame", nil, UIParent, nil)
+    self.Frame = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
     self.Frame:SetSize(150, 30)
     self.Frame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 16, edgeSize = 16, tileEdge = true

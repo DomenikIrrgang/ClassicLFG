@@ -9,7 +9,7 @@ setmetatable(CLassicLFGGroupListItem, {
 
 function CLassicLFGGroupListItem.new(entry, anchor, relativeAnchor, space)
     local self = setmetatable({}, CLassicLFGGroupListItem)
-    self.Frame = CreateFrame("Frame", nil, anchor, nil)
+    self.Frame = CreateFrame("Frame", nil, anchor, "BackdropTemplate")
     self.IsOpen = false
     self.DefaultBackgroundColor = { Red = 0.3, Green = 0.3, Blue = 0.3, Alpha = 1 }
     self.DefaultMouserOverColor = { Red = 0.4, Green = 0.4, Blue = 0.4, Alpha = 1 }

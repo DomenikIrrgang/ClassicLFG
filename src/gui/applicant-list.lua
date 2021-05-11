@@ -9,7 +9,7 @@ setmetatable(ClassicLFGApplicantList, {
 
 function ClassicLFGApplicantList.new(parent)
     local self = setmetatable({}, ClassicLFGApplicantList)
-    self.Frame = CreateFrame("Frame", nil, parent, nil);
+    self.Frame = CreateFrame("Frame", nil, parent, "BackdropTemplate");
     self.ListItems = {}
     self:InitListItems(50)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ApplicantReceived, self, self.UpdateList)
@@ -59,7 +59,7 @@ setmetatable(ClassicLFGApplicantListItem, {
 function ClassicLFGApplicantListItem.new(list, player, parent)
     local self = setmetatable({}, ClassicLFGApplicantListItem)
     self.List = list
-    self.Frame = CreateFrame("Frame", nil, parent, nil);
+    self.Frame = CreateFrame("Frame", nil, parent, "BackdropTemplate");
     self.BackgroundColor =  { Red = 0.3, Green = 0.3, Blue = 0.6, Alpha = 1 }
     self.TextColor = { Red = 0, Green = 0, Blue = 0, Alpha = 1 }
     self.Frame:SetBackdrop({
@@ -85,7 +85,7 @@ function ClassicLFGApplicantListItem.new(list, player, parent)
         ClassicLFG.DungeonGroupManager:ApplicantInvited(self.Player)
     end
     self:SetPlayer(player)
-    self.Tooltip = CreateFrame("Frame", nil, UIParent, nil)
+    self.Tooltip = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
     self.Tooltip:SetSize(150, 30)
     self.Tooltip:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 16, edgeSize = 16, tileEdge = true

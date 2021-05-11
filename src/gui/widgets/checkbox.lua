@@ -9,7 +9,7 @@ setmetatable(ClassicLFGCheckBox, {
 
 function ClassicLFGCheckBox.new(text, parent, text)
     local self = setmetatable({}, ClassicLFGCheckBox)
-    self.Frame = CreateFrame("Frame", nil, parent, nil)
+    self.Frame = CreateFrame("Frame", nil, parent, "BackdropTemplate")
     self.Selected = false
     self.Frame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8

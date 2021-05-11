@@ -9,7 +9,7 @@ setmetatable(ClassicLFGWindow, {
 
 function ClassicLFGWindow.new(name, parent, width, height)
     local self = setmetatable({}, ClassicLFGWindow)
-    self.Frame = CreateFrame("Frame", name, parent, nil)
+    self.Frame = CreateFrame("Frame", name, parent, "BackdropTemplate")
     self.ShowAnimationGroup = self.Frame:CreateAnimationGroup()
     self.ShowAnimation = self.ShowAnimationGroup:CreateAnimation("Alpha")
     self.Movable = true

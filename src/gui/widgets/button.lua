@@ -9,7 +9,7 @@ setmetatable(ClassicLFGButton, {
 
 function ClassicLFGButton.new(text, parent, width, height)
   local self = setmetatable({}, ClassicLFGButton)
-  self.Frame = CreateFrame("Frame", nil, parent, nil)
+  self.Frame = CreateFrame("Frame", nil, parent, "BackdropTemplate")
   self.Position = {}
   self.OnClick = function() end
   self.Disabled = false
