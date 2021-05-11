@@ -11,7 +11,8 @@ setmetatable(ClassicLFGNetwork, {
 
 function ClassicLFGNetwork.new()
     local self = setmetatable({}, ClassicLFGNetwork)
-    C_ChatInfo.RegisterAddonMessagePrefix(ClassicLFG.Config.Network.Prefix)
+    ClassicLFG:RegisterComm(ClassicLFG.Config.Network.Prefix, self.HandleAddonMessage)
+    --C_ChatInfo.RegisterAddonMessagePrefix(ClassicLFG.Config.Network.Prefix)
     self.NetworkThread = CreateFrame("frame")
     self.MessageBuffer = {}
 	self.SendingInterval = 20000
@@ -99,7 +100,8 @@ function ClassicLFGNetwork:SendMessage(message, channel, target, split)
     for key in pairs(messages) do
         if (self.MessagesSend < self.MessageCap) then
             ClassicLFG:NetworkDebugPrint("[Network] Send Message. MessagesSend: " .. self.MessagesSend .. " MessageCap: " .. self.MessageCap)
-            C_ChatInfo.SendAddonMessage(ClassicLFG.Config.Network.Prefix, messages[key], channel, target)
+            --C_ChatInfo.SendAddonMessage(ClassicLFG.Config.Network.Prefix, messages[key], channel, target)
+            ClassicLFG:SendCommMessage(ClassicLFG.Config.Network.Prefix, messages[key], channel, target)
             self.MessagesSend = self.MessagesSend + 1
         else
             self:QueueMessage(messages[key], channel, target)

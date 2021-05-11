@@ -26,7 +26,7 @@ ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ChannelListChanged
     end
 end)
 
-ClassicLFG.QueueWindow.Settings.ShowAllDungeons = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Always show all dungeons"])
+--[[ClassicLFG.QueueWindow.Settings.ShowAllDungeons = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Always show all dungeons"])
 ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame, "BOTTOMLEFT", 0, -8)
 ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame, "BOTTOMRIGHT", 0, -30)
 
@@ -42,11 +42,11 @@ ClassicLFG.Store:AddListener(ClassicLFG.Actions.ToggleShowAllDungeons, ClassicLF
         self:Deselect()
         self.Selected = false
     end
-end)
+end)--]]
 
 ClassicLFG.QueueWindow.Settings.ShareTalents = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Share Talents"])
-ClassicLFG.QueueWindow.Settings.ShareTalents.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame, "BOTTOMLEFT", 0, -8)
-ClassicLFG.QueueWindow.Settings.ShareTalents.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.ShowAllDungeons.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.Settings.ShareTalents.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame, "BOTTOMLEFT", 0, -8)
+ClassicLFG.QueueWindow.Settings.ShareTalents.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame, "BOTTOMRIGHT", 0, -30)
 
 ClassicLFG.QueueWindow.Settings.ShareTalents.OnValueChanged = function(_, value)
     ClassicLFG.Store:PublishAction(ClassicLFG.Actions.ToggleShareTalents, value)

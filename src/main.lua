@@ -1,4 +1,4 @@
-﻿ClassicLFG = LibStub("AceAddon-3.0"):NewAddon("ClassicLFG", "AceConsole-3.0")
+﻿ClassicLFG = LibStub("AceAddon-3.0"):NewAddon("ClassicLFG", "AceConsole-3.0","AceComm-3.0")
 ClassicLFG.AceGUI = LibStub("AceGUI-3.0")
 ClassicLFG.Locale = LibStub("AceLocale-3.0"):GetLocale("ClassicLFG")
 ClassicLFG.MinimapIcon = LibStub("LibDBIcon-1.0")
@@ -22,6 +22,7 @@ ClassicLFG.DefaultProfile ={
         ShowMinimapIcon = true,
         BroadcastDungeonGroup = true,
         FilterChat = false,
+        ShareTalents = true,
         Toast = {
             Enabled = true,
             X = GetScreenWidth() / 2 - 260 / 2,
@@ -96,7 +97,6 @@ function ClassicLFG:GetInitialState()
         Player = {
             Level = UnitLevel("player")
         },
-        ShareTalents = true
     }
 end
 

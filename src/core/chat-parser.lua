@@ -115,7 +115,7 @@ end
 function ClassicLFGChatParser:HasDungeonAbbreviation(message)
     for key, dungeon in pairs(ClassicLFG.DungeonManager.Dungeons) do
         for _, abbreviation in pairs(dungeon.Abbreviations) do
-            if (ClassicLFG:ArrayContainsValue(message:SplitString(" "), abbreviation)) then
+            if (ClassicLFG:ArrayContainsValue(message:gsub(",+", ""):SplitString(" "), abbreviation)) then
                 return dungeon
             end
         end

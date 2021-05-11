@@ -10,8 +10,8 @@ setmetatable(ClassicLFGPeerToPeer, {
 function ClassicLFGPeerToPeer.new()
     local self = setmetatable({}, ClassicLFGPeerToPeer)
     self.TimeToLive = 5
-    self.FriendSpreadingFactor = 2
-    self.ChannelSpreadingFactor = 2
+    self.FriendSpreadingFactor = 3
+    self.ChannelSpreadingFactor = 1
     self.HashSeen = {}
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.BroadcastObjectGuild, self, self.OnBroadcastObjectGuildReceived)
     ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.BroadcastObjectFriend, self, self.OnBroadcastObjectFriendReceived)
@@ -25,36 +25,49 @@ end
 function ClassicLFGPeerToPeer:BroadCastObject(broadcastObject)
     self:BroadCastObjectToGuild(broadcastObject)
     self:BroadCastObjectToFriends(broadcastObject)
+    self:BroadCastObjectToBattleNet(broadcastObject)
+    -- self:BroadCastObjectToChannel(broadcastObject)
 end
 
 function ClassicLFGPeerToPeer:BroadCastObjectToFriends(broadcastObject)
     local friends = ClassicLFG:GetOnlineFriends()
     local friendBroadcastsSend = 0
-    local channelBroadcastsSend = 0
     local i = 1
-    local numberOfChannelMembers = 0
-    --[[local numberOfChannelMembers = ClassicLFG:GetNumberOfChannelMembers(ClassicLFG.Config.Network.Channel.Name)
-    if numberOfChannelMembers < 1 then
-        i = 1
-    else
-        i = math.random(1, numberOfChannelMembers - self.ChannelSpreadingFactor)
+    while (friendBroadcastsSend < self.FriendSpreadingFactor and i < #friends) do
+        if ClassicLFG:IsInPlayersGuild(friends[i].name) == false then
+            ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.BroadcastObjectFriend, broadcastObject, "WHISPER", friends[i].name)
+            friendBroadcastsSend = friendBroadcastsSend + 1
+        end
+        i = i + 1
     end
-    while (channelBroadcastsSend < self.ChannelSpreadingFactor and i <= numberOfChannelMembers) do
+end
+
+function ClassicLFGPeerToPeer:BroadCastObjectToChannel(broadcastObject)
+    local numberOfChannelMembers = ClassicLFG:GetNumberOfChannelMembers(ClassicLFG.Config.Network.Channel.Name)
+    local channelBroadcastsSend = 0
+    local channelBroadcastsAttempts = 0
+    while (channelBroadcastsSend < self.ChannelSpreadingFactor and channelBroadcastsSend < numberOfChannelMembers and self.ChannelSpreadingFactor < numberOfChannelMembers and channelBroadcastsAttempts < self.ChannelSpreadingFactor * 3) do
+        local i = fastrandom(1, numberOfChannelMembers)
         local name = ClassicLFG:GetChannelMemberByIndex(ClassicLFG.Config.Network.Channel.Name, i)
-        if ClassicLFG:IsInPlayersGuild(name) == false then
+        print("sending to", name, ClassicLFG.Config.Network.Channel.Name, numberOfChannelMembers, i)
+        if (name and ClassicLFG:IsInPlayersGuild(name) == false and ClassicLFG:PlayerIsFriend(name) == false) then
             ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.BroadcastObjectFriend, broadcastObject, "WHISPER", name)
             channelBroadcastsSend = channelBroadcastsSend + 1
         end
-        i = i + 1
-    end--]]
-    i = 1
-    if (numberOfChannelMembers == 0) then
-        while (friendBroadcastsSend < self.FriendSpreadingFactor and i <= #friends) do
-            if ClassicLFG:IsInPlayersGuild(friends[i].name) == false then
-                ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.BroadcastObjectFriend, broadcastObject, "WHISPER", friends[i].name)
-                friendBroadcastsSend = friendBroadcastsSend + 1
+        channelBroadcastsAttempts = channelBroadcastsAttempts + 1
+    end
+end
+
+function ClassicLFGPeerToPeer:BroadCastObjectToBattleNet(broadcastObject)
+    local numberOfBroadcastsSend = 0
+    for i = 1, BNGetNumFriends() do
+        local _, characterName, _, realm, _, faction = BNGetFriendGameAccountInfo(i, 1)
+        if (characterName ~= nil and characterName ~= "" and realm == GetRealmName():gsub("%s+", "") and faction == UnitFactionGroup("player") and ClassicLFG:IsInPlayersGuild(characterName) == false and ClassicLFG:PlayerIsFriend(characterName) == false) then
+            ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.BroadcastObjectFriend, broadcastObject, "WHISPER", characterName)
+            numberOfBroadcastsSend = numberOfBroadcastsSend + 1
+            if (numberOfBroadcastsSend >= self.FriendSpreadingFactor) then
+                break
             end
-            i = i + 1
         end
     end
 end
@@ -105,8 +118,7 @@ function ClassicLFGPeerToPeer:OnBroadcastObjectFriendReceived(broadcastObject)
     end
     self:ObjectReceived(broadcastObject)
     if (self:ShouldForwardObject(broadcastObject)) then
-        self:BroadCastObjectToFriends(broadcastObject)
-        self:BroadCastObjectToGuild(broadcastObject)
+        self:BroadCastObject(broadcastObject)
     end
 end
 

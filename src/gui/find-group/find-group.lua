@@ -20,11 +20,11 @@ ClassicLFG.Store:AddListener(ClassicLFG.Actions.ChangePlayerLevel, ClassicLFG.Qu
 end)
 
 function ClassicLFG.QueueWindow.SearchGroup.Filter:UpdateDungeons()
-    if (ClassicLFG.Store:GetState().Db.profile.ShowAllDungeons) then
-        self:SetItems(ClassicLFG.DungeonManager:GetAllDungeonNames())
-    else
-        self:SetItems(ClassicLFG.DungeonManager:GetDungeonsByLevel((ClassicLFG.Store:GetState().Player.Level)))
-    end
+    --if (ClassicLFG.Store:GetState().Db.profile.ShowAllDungeons) then
+    --    self:SetItems(ClassicLFG.DungeonManager:GetAllDungeonNames())
+    --else
+     self:SetItems(ClassicLFG.DungeonManager:GetDungeonsByLevel((ClassicLFG.Store:GetState().Player.Level)))
+   -- end
 end
 
 ClassicLFG.QueueWindow.SearchGroup.Filter.OnValueChanged = function(key, checked, value)
