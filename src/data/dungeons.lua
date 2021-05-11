@@ -36,8 +36,8 @@ ClassicLFG.DungeonManager:DefineDungeon("The Slave Pens", 5, 61, 70, "Zangarmars
 ClassicLFG.DungeonManager:DefineDungeon("The Underbog", 5, 61, 70, "Zangarmarsh", "", {"ub", "underbog"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-COILFANG")
 ClassicLFG.DungeonManager:DefineDungeon("Mana-Tombs", 5, 63, 70, "Terokkar Forest", "", {"mt", "tombs", "mana tombs"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-AUCHINDOUN")
 ClassicLFG.DungeonManager:DefineDungeon("Auchenai Crypts", 5, 63, 70, "Terokkar Forest", "", {"crypt", "ac", "crypts"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-AUCHINDOUN")
-ClassicLFG.DungeonManager:DefineDungeon("Sethekk Halls", 5, 65, 70, "Terokkar Forest", "", {"sh"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-AUCHINDOUN")
-ClassicLFG.DungeonManager:DefineDungeon("Escape from Durnholde", 5, 65, 70, "Caverns of Time", "", {"cot1", "cot 1", "durholde", "efd"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-CAVERNSOFTIME")
+ClassicLFG.DungeonManager:DefineDungeon("Sethekk Halls", 5, 65, 70, "Terokkar Forest", "", {"sh", "sethek"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-AUCHINDOUN")
+ClassicLFG.DungeonManager:DefineDungeon("Escape from Durnholde", 5, 65, 70, "Caverns of Time", "", {"cot1", "cot 1", "durholde", "efd", "hilsbrad"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-CAVERNSOFTIME")
 ClassicLFG.DungeonManager:DefineDungeon("The Mechanar", 5, 68, 70, "Netherstorm", "", {"mechanar", "mecha", "mech"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-TEMPESTKEEP")
 ClassicLFG.DungeonManager:DefineDungeon("Black Morass", 5, 68, 70, "Caverns of Time", "", {"bm", "cot2", "cot 2", "morass"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-CAVERNSOFTIME")
 ClassicLFG.DungeonManager:DefineDungeon("The Shattered Halls", 5, 68, 70, "Hellfire Peninsula", "", {"shh", "shattered halls"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-HELLFIRECITADEL")
@@ -48,7 +48,7 @@ ClassicLFG.DungeonManager:DefineDungeon("The Arcatraz", 5, 68, 70, "Netherstorm"
 
 
 -- TBC Raids
-ClassicLFG.DungeonManager:DefineDungeon("Karazhan", 10, 70, 70, "Deadwind Pass", "", {"kara"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-KARAZHAN")
+ClassicLFG.DungeonManager:DefineDungeon("Karazhan", 10, 70, 70, "Deadwind Pass", "", {"kara", "kz"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-KARAZHAN")
 ClassicLFG.DungeonManager:DefineDungeon("Gruul's Lair", 25, 70, 70, "Blade's Edge Mountains", "", {"gruul", "gruuls", "gruul's"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-GRUULSLAIR")
 ClassicLFG.DungeonManager:DefineDungeon("Magtheridon's Lair", 25, 70, 70, "Hellfire Peninsula", "", {"magtheridon", "mag", "mags"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-HELLFIRECITADELRAID")
 
