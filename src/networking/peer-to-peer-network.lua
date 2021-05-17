@@ -33,7 +33,7 @@ function ClassicLFGPeerToPeer:BroadCastObjectToFriends(broadcastObject)
     local friends = ClassicLFG:GetOnlineFriends()
     local friendBroadcastsSend = 0
     local i = 1
-    while (friendBroadcastsSend < self.FriendSpreadingFactor and i < #friends) do
+    while (friendBroadcastsSend < self.FriendSpreadingFactor and i <= #friends) do
         if ClassicLFG:IsInPlayersGuild(friends[i].name) == false then
             ClassicLFG.Network:SendObject(ClassicLFG.Config.Events.BroadcastObjectFriend, broadcastObject, "WHISPER", friends[i].name)
             friendBroadcastsSend = friendBroadcastsSend + 1
