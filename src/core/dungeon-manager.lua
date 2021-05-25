@@ -23,9 +23,10 @@ function ClassicLFGDungeonManager:GetAvailableDungeons()
     return self:GetDungeonsByLevel(UnitLevel("player"))
 end
 
-function ClassicLFGDungeonManager:DefineDungeon(name, size, minLevel, maxLevel, location, abbreviation, abbreviations, faction, background)
+function ClassicLFGDungeonManager:DefineDungeon(name, expansion, size, minLevel, maxLevel, location, abbreviation, abbreviations, faction, background)
     self.Dungeons[name] = {
         Name = name,
+        Expansion = expansion,
         MinLevel = minLevel,
         MaxLevel = maxLevel,
         Location = location,
@@ -43,6 +44,17 @@ function ClassicLFGDungeonManager:GetDungeonsByLevel(level)
     for key in pairs(self.Dungeons) do
         local dungeon = self.Dungeons[key]
         if (dungeon.MinLevel <= level and dungeon.MaxLevel >= level) then
+            dungeonsForLevel[dungeon.Name] = dungeon.Name
+        end
+    end
+    return dungeonsForLevel
+end
+
+function ClassicLFGDungeonManager:GetDungeonsByExpansion(expansion)
+    local dungeonsForLevel = {}
+    for key in pairs(self.Dungeons) do
+        local dungeon = self.Dungeons[key]
+        if (dungeon.Expansion == expansion or dungeon.Expansion == "All") then
             dungeonsForLevel[dungeon.Name] = dungeon.Name
         end
     end

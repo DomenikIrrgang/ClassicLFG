@@ -23,6 +23,7 @@ ClassicLFG.DefaultProfile ={
         BroadcastDungeonGroup = true,
         FilterChat = false,
         ShareTalents = true,
+        DungeonSelection = "Character Level",
         Toast = {
             Enabled = true,
             X = GetScreenWidth() / 2 - 260 / 2,

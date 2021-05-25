@@ -10,6 +10,8 @@ ClassicLFG.QueueWindow.Settings:SetScript("OnShow", function(self, _, channel)
     ClassicLFG.QueueWindow.Settings.HideMinimapIcon:SetState(ClassicLFG.DB.profile.minimap.hide)
     ClassicLFG.QueueWindow.Settings.EnableToasts:SetState(ClassicLFG.DB.profile.Toast.Enabled)
     ClassicLFG.QueueWindow.Settings.FilterChat:SetState(ClassicLFG.DB.profile.FilterChat)
+    ClassicLFG.QueueWindow.Settings.DungeonSelection:SetItems({ "Character Level", "All Classic Dungeons", "All TBC Dungeons"})
+    ClassicLFG.QueueWindow.Settings.DungeonSelection:SetValue(ClassicLFG.DB.profile.DungeonSelection)
 end)
 
 ClassicLFG.QueueWindow.Settings.Broadcastchannel = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Broadcastchannel"], ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Broadcastchannel"])
@@ -17,6 +19,14 @@ ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame:SetPoint("TOPLEFT", Class
 ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings, "TOPRIGHT", 0, -32)
 ClassicLFG.QueueWindow.Settings.Broadcastchannel.OnValueChanged = function(_, _, channel)
     ClassicLFG.DB.profile.BroadcastDungeonGroupChannel = ClassicLFG.ChannelManager:GetChannelId(channel)
+end
+
+ClassicLFG.QueueWindow.Settings.DungeonSelection = ClassicLFGDropdownMenue(ClassicLFG.Locale["Select Visible Dungeons"], ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Dungeon Selection"])
+ClassicLFG.QueueWindow.Settings.DungeonSelection.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame, "TOPLEFT", 0, -46)
+ClassicLFG.QueueWindow.Settings.DungeonSelection.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame, "TOPRIGHT", 0, -68)
+ClassicLFG.QueueWindow.Settings.DungeonSelection.OnValueChanged = function(_, _, selection)
+    ClassicLFG.DB.profile.DungeonSelection = selection
+    ClassicLFG.Store:PublishAction(ClassicLFG.Actions.ToggleShowAllDungeons, selection)
 end
 
 ClassicLFG.EventBus:RegisterCallback(ClassicLFG.Config.Events.ChannelListChanged, ClassicLFG.QueueWindow.Settings.Broadcastchannel, function(self, channels)
@@ -45,8 +55,8 @@ ClassicLFG.Store:AddListener(ClassicLFG.Actions.ToggleShowAllDungeons, ClassicLF
 end)--]]
 
 ClassicLFG.QueueWindow.Settings.ShareTalents = ClassicLFGCheckBox(nil, ClassicLFG.QueueWindow.Settings, ClassicLFG.Locale["Share Talents"])
-ClassicLFG.QueueWindow.Settings.ShareTalents.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame, "BOTTOMLEFT", 0, -8)
-ClassicLFG.QueueWindow.Settings.ShareTalents.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.Broadcastchannel.Frame, "BOTTOMRIGHT", 0, -30)
+ClassicLFG.QueueWindow.Settings.ShareTalents.Frame:SetPoint("TOPLEFT", ClassicLFG.QueueWindow.Settings.DungeonSelection.Frame, "BOTTOMLEFT", 0, -8)
+ClassicLFG.QueueWindow.Settings.ShareTalents.Frame:SetPoint("BOTTOMRIGHT", ClassicLFG.QueueWindow.Settings.DungeonSelection.Frame, "BOTTOMRIGHT", 0, -30)
 
 ClassicLFG.QueueWindow.Settings.ShareTalents.OnValueChanged = function(_, value)
     ClassicLFG.Store:PublishAction(ClassicLFG.Actions.ToggleShareTalents, value)
