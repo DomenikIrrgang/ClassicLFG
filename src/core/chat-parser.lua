@@ -80,7 +80,10 @@ function ClassicLFGChatParser:HasLFMTag(text)
         "lf3m",
         "lf2m",
         "lf1m",
-        "looking for more"
+        "looking for more",
+        "lf3d",
+        "lf2d",
+        "lf1d"
     }
     local found = false
     for _, tag in pairs(lfmTags) do
