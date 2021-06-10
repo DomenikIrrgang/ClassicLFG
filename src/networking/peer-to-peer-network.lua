@@ -24,7 +24,7 @@ end
 
 function ClassicLFGPeerToPeer:BroadCastObject(broadcastObject)
     self:BroadCastObjectToGuild(broadcastObject)
-    self:BroadCastObjectToFriends(broadcastObject)
+    -- self:BroadCastObjectToFriends(broadcastObject)
     -- self:BroadCastObjectToBattleNet(broadcastObject)
     -- self:BroadCastObjectToChannel(broadcastObject)
 end
