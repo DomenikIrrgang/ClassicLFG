@@ -44,7 +44,7 @@ ClassicLFG.DungeonManager:DefineDungeon("The Shattered Halls", "TBC", 5, 68, 70,
 ClassicLFG.DungeonManager:DefineDungeon("The Botanica", "TBC", 5, 68, 70, "Netherstorm", "", {"botanica", "bota"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-TEMPESTKEEP")
 ClassicLFG.DungeonManager:DefineDungeon("Shadow Labyrinth", "TBC", 5, 68, 70, "Terokkar Forest", "", {"sl", "shadow labs", "labs"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-AUCHINDOUN")
 ClassicLFG.DungeonManager:DefineDungeon("The Steamvaults", "TBC", 5, 68, 70, "Zangarmarsh", "", {"sv", "vaults", "steamvault", "steamvaults"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-COILFANG")
-ClassicLFG.DungeonManager:DefineDungeon("The Arcatraz", "TBC", 5, 68, 70, "Netherstorm", "", {"arca", "arcaztaz"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-TEMPESTKEEP")
+ClassicLFG.DungeonManager:DefineDungeon("The Arcatraz", "TBC", 5, 68, 70, "Netherstorm", "", {"arca", "arcatraz", "arc"}, ClassicLFG.Faction.BOTH, "Interface\\LFGFRAME\\UI-LFG-BACKGROUND-TEMPESTKEEP")
 
 
 -- TBC Raids
