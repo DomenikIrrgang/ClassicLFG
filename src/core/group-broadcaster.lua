@@ -31,6 +31,6 @@ function ClassicLFGGroupBroadCaster:Cancel(dungeonGroup)
         ClassicLFG:DebugPrint("Canceled Broadcast for the group of player " .. dungeonGroup.Leader.Name)
         self.Canceled = true
         ClassicLFG.EventBus:PublishEvent(ClassicLFG.Config.Events.DungeonGroupBroadcasterCanceled, self.DungeonGroup)
-    end 
+    end
 end
 
